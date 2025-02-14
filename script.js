@@ -31,7 +31,7 @@ async function updateGitHubFile() {
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
-            headers: { "Authorization": "Bearer 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", "X-GitHub-Api-Version: 2022-11-28" }
+            headers: { "Authorization": "Bearer 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", "Version": "X-GitHub-Api-Version: 2022-11-28" }
         });
 
         if (!response.ok) {
@@ -58,7 +58,7 @@ async function updateGitHubFile() {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer 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",
-                "X-GitHub-Api-Version: 2022-11-28"
+                "Version": "X-GitHub-Api-Version: 2022-11-28"
             },
             body: JSON.stringify({
                 message: `New post by ${nickname}`,
