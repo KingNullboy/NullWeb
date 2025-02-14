@@ -8,6 +8,10 @@ nav {
     height: 50px;
 }
 
+a[id=logo] {
+    vertical-align: middle;
+}
+
 div[id=form] {
     border-width: 2px;
     border-color: #000000;
