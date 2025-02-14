@@ -9,7 +9,7 @@ div[id=form] {
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
-    width: 425px;
+    width: 405px;
 }
 
 a {
@@ -36,10 +36,11 @@ input {
     border-radius: 5px;
     border-color: #000000;
     font-family: Lato;
+    width: 400px;
 }
 
 input[id=title] {
-    width: 300px;
+    width: 400px;
 }
 
 textarea {
