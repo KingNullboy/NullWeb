@@ -7,7 +7,7 @@ const VALID_USERS = {
     "bry2012": { password: "password", nickname: "Bryleigh" }
 };
 
-// Function to handle Base64 encoding properly
+// Function to handle Base64 encoding properly (though not needed for this use case)
 function encodeBase64(str) {
     return btoa(unescape(encodeURIComponent(str)));
 }
@@ -26,67 +26,45 @@ async function updateGitHubFile() {
 
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
-
+    
     // Get the current page content
     const currentContent = document.body.innerHTML;
 
     // 1. Append new post with new format using <article> tags
-    const updatedContent = currentContent + "\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>";
+    const updatedContent = currentContent + \n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>;
     
     // 2. Update the page with the new content
     document.body.innerHTML = updatedContent;
 
-    // 3. Now, fetch the current file content and SHA from GitHub
+    // 3. Optionally, if you want to update GitHub as well, uncomment the following:
     const url = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
+    const GITHUB_TOKEN = 'your_github_token_here';
 
-    try {
-        const response = await fetch(url, {
-            headers: {
-                "Authorization": "Bearer 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"
-            }
-        });
+    const encodedContent = encodeBase64(updatedContent);
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch file data from GitHub. Status: ${response.status}");
-        }
+    // Push updated content to GitHub (optional)
+    const updateResponse = await fetch(url, {
+        method: "PUT",
+        headers: {
+            "Authorization": Bearer ${GITHUB_TOKEN},
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            message: New post by ${nickname},
+            content: encodedContent,
+            sha: data.sha
+        })
+    });
 
-        const data = await response.json();
-
-        if (!data.content || !data.sha) {
-            throw new Error("Invalid file data received from GitHub.");
-        }
-
-        // 4. Encode the updated content to Base64
-        const encodedContent = encodeBase64(updatedContent);
-
-        // 5. Push the updated content back to GitHub
-        const updateResponse = await fetch(url, {
-            method: "PUT",
-            headers: {
-                "Authorization": "Bearer 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",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: "New post by ${nickname}",
-                content: encodedContent,
-                sha: data.sha
-            })
-        });
-
-        if (!updateResponse.ok) {
-            throw new Error("Failed to update file on GitHub. Status: ${updateResponse.status}");
-        }
-
-        alert("Post added successfully!");
-
-    } catch (error) {
-        console.error(error);
-        alert("Error: " + error.message);
+    if (!updateResponse.ok) {
+        throw new Error(Failed to update file. Status: ${updateResponse.status});
     }
+
+    alert("Post added successfully!");
 }
 
 function password(pswd) {
-    let password = prompt("This is a password-protected site. Please enter the password.");
+    let password = prompt("This is a password-protected site. Please enter the password.")
     if (password !== pswd) {
         alert("Incorrect password.");
         window.location = "about:blank";
