@@ -1,13 +1,10 @@
 // Allowed users and their nicknames
 const VALID_USERS = {
-    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" }
+    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
+    "td2011": { password: "mypasswordispassword", nickname: "TD" } // Example additional user
 };
-// Example user:
-// "user1234": { password: "password", nickname: "nickname" }
 
-async function updateGitHubFile(event) {
-    event.preventDefault(); // Prevents the form from reloading the page
-
+async function updateGitHubFile() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
