@@ -1,10 +1,13 @@
 // Allowed users and their nicknames
 const VALID_USERS = {
-    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
-    "td2011": { password: "mypasswordispassword", nickname: "TD" } // Example additional user
+    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" }
 };
+// Example user:
+// "user1234": { password: "password", nickname: "nickname" }
 
-async function updateGitHubFile() {
+async function updateGitHubFile(event) {
+    event.preventDefault(); // Prevents the form from reloading the page
+
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
@@ -22,8 +25,7 @@ async function updateGitHubFile() {
     const GITHUB_USERNAME = "nullmedia-social"; // Change to your GitHub username
     const REPO_NAME = "KingNullboys-MiniSocialMedia"; // Change to your repository name
     const FILE_PATH = "blob/main/index.html"; // Path of the file in the repo
-    const TOKEN = "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
-"; // Replace with your GitHub personal access token
+    const TOKEN = "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"; // Replace with your GitHub personal access token
 
     const url = `https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}`;
 
@@ -46,8 +48,8 @@ async function updateGitHubFile() {
         // Decode base64 content
         let currentContent = atob(data.content);
 
-        // 2. Append new post with new format
-        let updatedContent = currentContent + `\n<h1>${nickname} posting</h1>\n<h2>${title}</h2>\n<p>${postContent}</p>`;
+        // 2. Append new post with new format using <article> tags
+        let updatedContent = currentContent + `\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>`;
 
         // 3. Convert back to base64
         const encodedContent = btoa(updatedContent);
