@@ -68,7 +68,7 @@ async function updateGitHubFile() {
         });
 
         if (!updateResponse.ok) {
-            throw new Error("Failed to update file. Status: ${updateResponse.status}");
+            throw new Error("Failed to update file. Status: " + updateResponse.status);
         }
 
         alert("Post added successfully!");
