@@ -57,9 +57,7 @@ async function updateGitHubFile() {
         const updateResponse = await fetch(url, {
             method: "PUT",
             headers: {
-                "Authorization": "Bearer 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",
-                "Version": "X-GitHub-Api-Version: 2022-11-28"
-            },
+                "Authorization": "Bearer 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" },
             body: JSON.stringify({
                 message: `New post by ${nickname}`,
                 content: encodedContent,
