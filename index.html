@@ -7,10 +7,12 @@
 		<script src="script.js"></script>
 	</head>
 	<body>
-		<input type="text" id="username" name="username" placeholder="Username*" required><br>
-		<input type="password" id="password" name="password" placeholder="Password*" required><br>
-		<input type="text" id="title" name="title" placeholder="Title*"><br>
-		<textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
-		<button id="submit" onclick="updateGitHubFile()">Submit</button>
+		<div id="form" name="form">
+			<input type="text" id="username" name="username" placeholder="Username*" required><br>
+			<input type="password" id="password" name="password" placeholder="Password*" required><br>
+			<input type="text" id="title" name="title" placeholder="Title*"><br>
+			<textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
+			<button id="submit" onclick="updateGitHubFile()">Submit</button>
+		</div>
 	</body>
 </html>
