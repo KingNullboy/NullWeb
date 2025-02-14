@@ -31,7 +31,7 @@ async function updateGitHubFile() {
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
-            headers: { "Authorization": "Bearer YOUR_GITHUB_PAT" }
+            headers: { "Authorization": "Bearer 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" }
         });
 
         if (!response.ok) {
@@ -57,7 +57,7 @@ async function updateGitHubFile() {
         const updateResponse = await fetch(url, {
             method: "PUT",
             headers: {
-                "Authorization": "Bearer YOUR_GITHUB_PAT",
+                "Authorization": "Bearer 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",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
