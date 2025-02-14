@@ -17,14 +17,9 @@ async function updateGitHubFile() {
 
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
-
-    const GITHUB_USERNAME = "nullmedia-social"; // Change to your GitHub username
-    const REPO_NAME = "KingNullboys-MiniSocialMedia"; // Change to your repository name
-    const FILE_PATH = "blob/main/index.html"; // Path of the file in the repo
     const TOKEN = "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"; // Replace with your GitHub personal access token
-
-    const url = "https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}";
-
+    const url = "https://api.github.com/nullmedia-social/KingNullboys-MiniSocialMedia/blob/main/index.html/";
+    
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
