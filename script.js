@@ -5,7 +5,7 @@ const VALID_USERS = {
 // Valid user template:
 // "user1234": { password: "password!", nickname: "nickname" }
 
-async function updateGitHubFile() {
+async function updateGithubFile() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
@@ -23,9 +23,7 @@ async function updateGitHubFile() {
     const GITHUB_USERNAME = "nullmedia-social"; // Change to your GitHub username
     const REPO_NAME = "KingNullboys-MiniSocialMedia"; // Change to your repository name
     const FILE_PATH = "blob/main/index.html"; // Path of the file in the repo
-    const TOKEN = "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
-"; // Replace with your GitHub personal access token
-
+    const TOKEN = "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";
     const url = `https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}`;
 
     try {
