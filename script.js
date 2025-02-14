@@ -3,7 +3,8 @@ const VALID_USERS = {
     "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
     "dwd2012": { password: "tyrone123", nickname: "Dawson" },
     "seth2011": { password: "110311Seth", nickname: "Quantompower" },
-    "td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" }
+    "td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" },
+    "bry2012": { password: "password", nickname: "Bryleigh" }
 };
 
 // Function to handle Base64 encoding properly
