@@ -1,11 +1,10 @@
 // Allowed users and their nicknames
 const VALID_USERS = {
     "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
+    "td2011": { password: "mypasswordispassword", nickname: "TD" } // Example additional user
 };
-// Valid user template:
-// "user1234": { password: "password!", nickname: "nickname" }
 
-async function updateGithubFile() {
+async function updateGitHubFile() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
@@ -20,11 +19,12 @@ async function updateGithubFile() {
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
 
-    const GITHUB_USERNAME = "nullmedia-social"; // Change to your GitHub username
-    const REPO_NAME = "KingNullboys-MiniSocialMedia"; // Change to your repository name
-    const FILE_PATH = "blob/main/index.html"; // Path of the file in the repo
-    const TOKEN = "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";
-    const url = `https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}`;
+    const GITHUB_USERNAME = "your-username"; // Change to your GitHub username
+    const REPO_NAME = "your-repo"; // Change to your repository name
+    const FILE_PATH = "index.html"; // Path of the file in the repo
+    const TOKEN = "your-github-token"; // Replace with your GitHub personal access token
+
+    const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
 
     try {
         // 1. Get the current file content and SHA
@@ -45,8 +45,8 @@ async function updateGithubFile() {
         // Decode base64 content
         let currentContent = atob(data.content);
 
-        // 2. Append new post with nickname
-        let updatedContent = currentContent + `\n<h2>${title}</h2>\n<p><strong>Posted by: ${nickname}</strong></p>\n<p>${postContent}</p>`;
+        // 2. Append new post with new format
+        let updatedContent = currentContent + `\n<h1>${nickname} posting</h1>\n<h2>${title}</h2>\n<p>${postContent}</p>`;
 
         // 3. Convert back to base64
         const encodedContent = btoa(updatedContent);
