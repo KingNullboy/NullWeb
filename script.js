@@ -1,7 +1,6 @@
 // Allowed users and their nicknames
 const VALID_USERS = {
-    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
-    "td2011": { password: "mypasswordispassword", nickname: "TD" } // Example additional user
+    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" }
 };
 
 async function updateGitHubFile() {
@@ -24,7 +23,7 @@ async function updateGitHubFile() {
     const FILE_PATH = "blob/main/index.html"; // Path of the file in the repo
     const TOKEN = "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"; // Replace with your GitHub personal access token
 
-    const url = `https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}`;
+    const url = "https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}";
 
     try {
         // 1. Get the current file content and SHA
