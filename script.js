@@ -8,6 +8,11 @@ function encodeBase64(str) {
     return btoa(unescape(encodeURIComponent(str)));
 }
 
+// Function to handle Base64 decoding properly
+function decodeBase64(str) {
+    return decodeURIComponent(escape(atob(str)));
+}
+
 async function updateGitHubFile() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -22,16 +27,23 @@ async function updateGitHubFile() {
 
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
-    const url = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
+    const repoOwner = "nullmedia-social"; // GitHub username/organization
+    const repoName = "KingNullboys-MiniSocialMedia"; // Repository name
+    const filePath = "index.html"; // File path
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+    const token = "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";
 
     try {
-        // 1. Get the current file content and SHA
-        const response = await fetch(url, {
-            headers: { "Authorization": "Bearer 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" }
+        // Step 2: Fetch the current file data
+        const response = await fetch(apiUrl, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/vnd.github.v3+json"
+            }
         });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch file data");
+            throw new Error(`Failed to fetch file data. Status: ${response.status}`);
         }
 
         const data = await response.json();
@@ -40,22 +52,25 @@ async function updateGitHubFile() {
             throw new Error("Invalid file data received");
         }
 
-        // Decode base64 content
-        let currentContent = atob(data.content);
-        console.log("Current Content (Decoded):", currentContent);  // Log the current content
+        // Decode the current file content
+        let currentContent = decodeBase64(data.content);
 
-        // 2. Append new post with new format using <article> tags
-        let updatedContent = currentContent + `\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>`;
+        // Step 3 & 5: Append new post and update file
+        let updatedContent = currentContent + `
+<article>
+    <h1>${nickname}</h1><br>
+    <h2>${title}</h2><br>
+    <p>${postContent}</p>
+</article>`;
 
-        // 3. Convert updated content back to Base64
         const encodedContent = encodeBase64(updatedContent);
-        console.log("Updated Content (Base64 Encoded):", encodedContent);  // Log the encoded content
 
-        // 4. Push updated content to GitHub
-        const updateResponse = await fetch(url, {
+        // Step 4: Update the file in the GitHub repository
+        const updateResponse = await fetch(apiUrl, {
             method: "PUT",
             headers: {
-                "Authorization": "Bearer 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",
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/vnd.github.v3+json",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -65,16 +80,13 @@ async function updateGitHubFile() {
             })
         });
 
-        const updateResponseJson = await updateResponse.json();
-        console.log("GitHub Response (Update):", updateResponseJson);  // Log the response from the GitHub API
-
         if (!updateResponse.ok) {
-            throw new Error("Failed to update file");
+            throw new Error(`Failed to update file. Status: ${updateResponse.status}`);
         }
 
         alert("Post added successfully!");
     } catch (error) {
-        console.error(error);
+        console.error("Error:", error.message);
         alert("Error: " + error.message);
     }
 }
