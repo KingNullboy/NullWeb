@@ -32,7 +32,7 @@ async function updateGitHubFile() {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
             method: "GET",
-            headers: { "Authorization": "token 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" }
+            headers: { "Authorization": "Token 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" }
         });
 
         if (!response.ok) {
