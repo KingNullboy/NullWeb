@@ -1,8 +1,9 @@
 // Allowed users and their nicknames
 const VALID_USERS = {
     "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
-    "td2011": { password: "mypasswordispassword", nickname: "TD" } // Example additional user
 };
+// Valid user template:
+// "user1234": { password: "password!", nickname: "nickname" }
 
 async function updateGitHubFile() {
     const username = document.getElementById("username").value;
@@ -19,12 +20,13 @@ async function updateGitHubFile() {
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
 
-    const GITHUB_USERNAME = "your-username"; // Change to your GitHub username
-    const REPO_NAME = "your-repo"; // Change to your repository name
-    const FILE_PATH = "index.html"; // Path of the file in the repo
-    const TOKEN = "your-github-token"; // Replace with your GitHub personal access token
+    const GITHUB_USERNAME = "nullmedia-social"; // Change to your GitHub username
+    const REPO_NAME = "KingNullboys-MiniSocialMedia"; // Change to your repository name
+    const FILE_PATH = "blob/main/index.html"; // Path of the file in the repo
+    const TOKEN = "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
+"; // Replace with your GitHub personal access token
 
-    const url = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/${FILE_PATH}`;
+    const url = `https://api.github.com/${GITHUB_USERNAME}/${REPO_NAME}/${FILE_PATH}`;
 
     try {
         // 1. Get the current file content and SHA
