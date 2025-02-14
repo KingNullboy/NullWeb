@@ -1,5 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+div[id=form] {
+    border-width: 2px;
+    border-color: #000000;
+    background-color: rgb(169, 169, 169);
+}
+
+a {
+    font-family: Lato;
+}
+
+html {
+    font-family: Lato;
+}
+
+body {
+    font-family: Lato;
+}
+
+h1 {
+    font-family: Lato;
+}
+
+h2 {
+    font-family: Lato;
+}
+
 input {
     border-radius: 5px;
     border-color: #000000;
