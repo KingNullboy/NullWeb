@@ -27,7 +27,7 @@ async function updateGitHubFile() {
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
-            headers: { "Authorization": "token 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" }
+            headers: { "Authorization": "Bearer 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" }
         });
 
         if (!response.ok) {
@@ -42,18 +42,20 @@ async function updateGitHubFile() {
 
         // Decode base64 content
         let currentContent = atob(data.content);
+        console.log("Current Content (Decoded):", currentContent);  // Log the current content
 
         // 2. Append new post with new format using <article> tags
         let updatedContent = currentContent + `\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>`;
 
-        // 3. Convert back to Base64
+        // 3. Convert updated content back to Base64
         const encodedContent = encodeBase64(updatedContent);
+        console.log("Updated Content (Base64 Encoded):", encodedContent);  // Log the encoded content
 
         // 4. Push updated content to GitHub
         const updateResponse = await fetch(url, {
             method: "PUT",
             headers: {
-                "Authorization": "token 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",
+                "Authorization": "Bearer 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",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -62,6 +64,9 @@ async function updateGitHubFile() {
                 sha: data.sha
             })
         });
+
+        const updateResponseJson = await updateResponse.json();
+        console.log("GitHub Response (Update):", updateResponseJson);  // Log the response from the GitHub API
 
         if (!updateResponse.ok) {
             throw new Error("Failed to update file");
