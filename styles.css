@@ -1,23 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 input {
     border-radius: 5px;
     border-color: #000000;
     font-family: Lato;
 }
+
 input[id=title] {
     width: 300px;
 }
-textarea{
+
+textarea {
     border-radius: 5px;
     border-width: 2px;
     border-color: #000000;
     font-family: Lato;
 }
+
 textarea[id=postContent] {
     width: 400px;
     height: 45px;
     resize: both;
 }
+
 button {
     font-family: Lato;
     border-radius: 5px;
