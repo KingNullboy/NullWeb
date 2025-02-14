@@ -31,11 +31,11 @@ async function updateGitHubFile() {
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
-            headers: { "Authorization": `Bearer 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` }
+            headers: { "Authorization": "Bearer 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" }
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch file data. Status: ${response.status}`);
+            throw new Error("Failed to fetch file data. Status: ${response.status}");
         }
 
         const data = await response.json();
@@ -48,7 +48,7 @@ async function updateGitHubFile() {
         let currentContent = atob(data.content);
 
         // 2. Append new post with new format using <article> tags
-        let updatedContent = currentContent + `\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>`;
+        let updatedContent = currentContent + "\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>";
 
         // 3. Convert back to Base64
         const encodedContent = encodeBase64(updatedContent);
@@ -57,18 +57,18 @@ async function updateGitHubFile() {
         const updateResponse = await fetch(url, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer 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`,
+                "Authorization": "Bearer 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",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                message: `New post by ${nickname}`,
+                message: "New post by ${nickname}",
                 content: encodedContent,
                 sha: data.sha
             })
         });
 
         if (!updateResponse.ok) {
-            throw new Error(`Failed to update file. Status: ${updateResponse.status}`);
+            throw new Error("Failed to update file. Status: ${updateResponse.status}");
         }
 
         alert("Post added successfully!");
