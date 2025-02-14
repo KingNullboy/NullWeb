@@ -3,6 +3,11 @@ const VALID_USERS = {
     "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" }
 };
 
+// Function to handle Base64 encoding properly
+function encodeBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
+
 async function updateGitHubFile() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -18,12 +23,12 @@ async function updateGitHubFile() {
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
     const TOKEN = "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"; // Replace with your GitHub personal access token
-    const url = "https://api.github.com/nullmedia-social/KingNullboys-MiniSocialMedia/blob/main/index.html/";
-    
+    const url = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
+
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
-            headers: { "Authorization": `token ${TOKEN}` }
+            headers: { "Authorization": `Bearer ${TOKEN}` }
         });
 
         if (!response.ok) {
@@ -42,14 +47,14 @@ async function updateGitHubFile() {
         // 2. Append new post with new format using <article> tags
         let updatedContent = currentContent + `\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>`;
 
-        // 3. Convert back to base64
-        const encodedContent = btoa(updatedContent);
+        // 3. Convert back to Base64
+        const encodedContent = encodeBase64(updatedContent);
 
         // 4. Push updated content to GitHub
         const updateResponse = await fetch(url, {
             method: "PUT",
             headers: {
-                "Authorization": `token ${TOKEN}`,
+                "Authorization": `Bearer ${TOKEN}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
