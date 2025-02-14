@@ -31,7 +31,7 @@ async function updateGitHubFile() {
     const currentContent = document.body.innerHTML;
 
     // 1. Append new post with new format using <article> tags
-    const updatedContent = currentContent + \n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>;
+    const updatedContent = currentContent + "<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>";
     
     // 2. Update the page with the new content
     document.body.innerHTML = updatedContent;
@@ -46,18 +46,18 @@ async function updateGitHubFile() {
     const updateResponse = await fetch(url, {
         method: "PUT",
         headers: {
-            "Authorization": Bearer ${GITHUB_TOKEN},
+            "Authorization": "Bearer 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",
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            message: New post by ${nickname},
+            message: "New post by ${nickname}",
             content: encodedContent,
             sha: data.sha
         })
     });
 
     if (!updateResponse.ok) {
-        throw new Error(Failed to update file. Status: ${updateResponse.status});
+        throw new Error("Failed to update file. Status: ${updateResponse.status}");
     }
 
     alert("Post added successfully!");
