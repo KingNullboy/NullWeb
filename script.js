@@ -77,3 +77,12 @@ async function updateGitHubFile() {
         alert("Error: " + error.message);
     }
 }
+
+function password(pswd) {
+    let password = prompt("This is a password-protected website. Please enter the password. While doing so, cover the text box with your hand."   
+    if(password != pswd) {
+        alert("Incorrect password. Please try again. Or don't!")
+        window.location = 'about:blank';
+    }
+    }
+password("NullMediaCrew-000");
