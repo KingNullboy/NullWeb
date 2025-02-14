@@ -7,9 +7,6 @@ const VALID_USERS = {
     "bry2012": { password: "password", nickname: "Bryleigh" }
 };
 
-// GitHub Token (Your provided token)
-const GITHUB_TOKEN = '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';
-
 // Function to handle Base64 encoding properly
 function encodeBase64(str) {
     return btoa(unescape(encodeURIComponent(str)));
@@ -34,7 +31,7 @@ async function updateGitHubFile() {
     try {
         // 1. Get the current file content and SHA
         const response = await fetch(url, {
-            headers: { "Authorization": `Bearer ${GITHUB_TOKEN}` }
+            headers: { "Authorization": `Bearer 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` }
         });
 
         if (!response.ok) {
@@ -60,7 +57,7 @@ async function updateGitHubFile() {
         const updateResponse = await fetch(url, {
             method: "PUT",
             headers: {
-                "Authorization": `Bearer ${GITHUB_TOKEN}`,
+                "Authorization": `Bearer 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`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
