@@ -14,7 +14,7 @@ a[id=logo] {
 }
 
 img[id=logo] {
-    justify-content: middle;
+    vertical-align: middle;
 }
 
 div[id=form] {
