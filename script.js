@@ -35,7 +35,7 @@ async function updateGitHubFile() {
         });
 
         if (!response.ok) {
-            throw new Error("Failed to fetch file data. Status: ${response.status}");
+            throw new Error("Failed to fetch file data. Status: " + response.status);
         }
 
         const data = await response.json();
