@@ -4,6 +4,11 @@ div[id=form] {
     border-width: 2px;
     border-color: #000000;
     background-color: rgb(169, 169, 169);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
 }
 
 a {
