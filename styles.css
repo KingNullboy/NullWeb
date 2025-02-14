@@ -10,11 +10,11 @@ nav {
 }
 
 a[id=logo] {
-    vertical-align: middle;
+    justify-content: middle;
 }
 
 img[id=logo] {
-    vertical-align: middle;
+    justify-content: middle;
 }
 
 div[id=form] {
