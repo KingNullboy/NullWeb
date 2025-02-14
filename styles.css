@@ -16,7 +16,6 @@ textarea{
 textarea[id=postContent] {
     width: 400px;
     height: 45px;
-    vertical-center: none;
     resize: both;
 }
 button {
