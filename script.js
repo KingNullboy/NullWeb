@@ -30,7 +30,7 @@ const VALID_USERS = {
   
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
-    const url = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
+    const url = "https://cors-anywhere.herokuapp.com/https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
 
     try {
       // 1. Get the current file content and SHA
