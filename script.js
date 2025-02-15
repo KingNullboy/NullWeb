@@ -31,15 +31,13 @@ const VALID_USERS = {
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
     const url = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
-    const token = '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';
-  
-  
+
     try {
       // 1. Get the current file content and SHA
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer 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`,
           "Accept": "application/vnd.github+json"
         }
       });
@@ -74,7 +72,7 @@ const VALID_USERS = {
       const updateResponse = await fetch(url, {
         method: "PUT",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          "Authorization": `Bearer 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`,
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/json"
         },
