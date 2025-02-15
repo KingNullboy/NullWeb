@@ -37,7 +37,7 @@ const VALID_USERS = {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer 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`,
+          "Authorization": `token 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`,
           "Accept": "application/vnd.github+json"
         }
       });
@@ -72,7 +72,7 @@ const VALID_USERS = {
       const updateResponse = await fetch(url, {
         method: "PUT",
         headers: {
-          "Authorization": `Bearer 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`,
+          "Authorization": `token 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`,
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/json"
         },
