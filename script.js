@@ -27,7 +27,7 @@ async function updateGitHubFile() {
   const whole = pone + ptwo;
 
   // Fetch the current index.html content
-  const response = await fetch("index.html", { mode: "no-cors" });
+  const response = await fetch("index.html");
   if (!response.ok) {
       alert("Failed to fetch the page content.");
       return;
@@ -70,8 +70,7 @@ async function updateGitHubFile() {
           message: "New post by " + nickname,
           content: encodedContent,
           sha: fileJson.sha
-      }),
-      mode: "no-cors"
+      })
   });
 
   if (!updateResponse.ok) {
@@ -83,7 +82,7 @@ async function updateGitHubFile() {
 }
 
 async function password() {
-  const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt", { mode: "no-cors" });
+  const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
   const Password = await resp.text();
   console.log("Fetched Password:", Password);
   console.log("Fetched Password without .text():", resp);
