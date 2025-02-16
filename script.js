@@ -97,14 +97,14 @@ const VALID_USERS = {
     }
   }
   
-  function password(pswd) {
+  async function password() {
+    const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
+    const Password = await resp.text();
     let password = prompt("This is a password-protected site. Please enter the password.");
-    if (password !== pswd) {
+    if (password !== Password) {
       alert("Incorrect password.");
       window.location = "about:blank";
     }
   }
   
-  const Password = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
-  
-  password(Password);
+  password();
