@@ -19,7 +19,7 @@ const VALID_USERS = {
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
     const postContent = document.getElementById("postContent").value;
-    const tkn = await fetch("https://nullmedia.infinityfreeapp.com/cdn/file.txt")
+    const tkn = await fetch("https://nullmedia.infinityfreeapp.com/file.txt")
   
   
     // Validate user credentials
