@@ -19,7 +19,7 @@ const VALID_USERS = {
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
     const postContent = document.getElementById("postContent").value;
-    const tkn = await fetch("https://nullmedia.infinityfreeapp.com/file.txt")
+    const tkn = await fetch("https://nullmedia.infinityfreeapp.com/token.txt")
   
   
     // Validate user credentials
@@ -97,7 +97,6 @@ const VALID_USERS = {
     }
   }
   
-  
   function password(pswd) {
     let password = prompt("This is a password-protected site. Please enter the password.");
     if (password !== pswd) {
@@ -106,5 +105,6 @@ const VALID_USERS = {
     }
   }
   
+  const Password = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
   
-  password("NullMediaCrew-000");
+  password(Password);
