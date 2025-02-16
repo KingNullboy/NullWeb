@@ -19,7 +19,7 @@ const VALID_USERS = {
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
     const postContent = document.getElementById("postContent").value;
-    const tkn = await fetch("https://nullmedia.infinityfreeapp.com/cdn/file.txt")
+    const tkn = await fetch("https://cors-anywhere.herokuapp.com/https://nullmedia.infinityfreeapp.com/cdn/file.txt")
   
   
     // Validate user credentials
