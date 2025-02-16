@@ -7,10 +7,20 @@ nav {
     border-color: #470000;
     height: 50px;
     justify-content: middle;
+    color: #FFFFFF;
 }
 
 a[id=logo] {
     justify-content: middle;
+    color: #FFFFFF;
+}
+
+a[id=homebutton] {
+    margin-left: 10px;
+}
+
+a[id=infobutton] {
+    margin-left: 10px;
 }
 
 img[id=logo] {
@@ -21,33 +31,39 @@ img[id=logo] {
 div[id=form] {
     border-width: 2px;
     border-color: #000000;
-    background-color: rgb(169, 169, 169);
+    background-color: #363636;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
     width: 405px;
+    color: #FFFFFF;
 }
 
 a {
     font-family: Lato;
+    color: #FFFFFF;
 }
 
 html {
     font-family: Lato;
+    color: #FFFFFF;
 }
 
 body {
     font-family: Lato;
+    color: #FFFFFF;
 }
 
 h1 {
     font-family: Lato;
+    color: #FFFFFF;
 }
 
 h2 {
     font-family: Lato;
+    color: #FFFFFF;
 }
 
 input {
@@ -55,10 +71,14 @@ input {
     border-color: #000000;
     font-family: Lato;
     width: 400px;
+    color: #FFFFFF;
+    background-color: #363636;
 }
 
 input[id=title] {
     width: 400px;
+    color: #FFFFFF;
+    background-color: #363636;
 }
 
 textarea {
@@ -66,12 +86,15 @@ textarea {
     border-width: 2px;
     border-color: #000000;
     font-family: Lato;
+    color: #FFFFFF;
 }
 
 textarea[id=postContent] {
     width: 400px;
     height: 45px;
     resize: both;
+    color: #FFFFFF;
+    background-color: #363636;
 }
 
 button {
@@ -80,4 +103,17 @@ button {
     border-width: 2px;
     border-color: #000000;
     background-color: #FF0000;
+    color: #FFFFFF;
+}
+
+article {
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #000000;
+    background-color: #363636;
+    color: #FFFFFF;
+}
+
+body {
+    background-color: #000000;
 }
