@@ -63,7 +63,7 @@ async function updateGitHubFile() {
   const updateResponse = await fetch(githubApiUrl, {
       method: "PUT",
       headers: {
-          "Authorization": "token " + TOKEN,
+          "Authorization": "token " + whole,
           "Content-Type": "application/json"
       },
       body: JSON.stringify({
