@@ -23,7 +23,7 @@ async function updateGitHubFile() {
   const nickname = VALID_USERS[username].nickname;
 
   // Fetch token (with 'no-cors' mode)
-  const tokenResponse = await fetch("https://nullmedia.infinityfreeapp.com/token.txt", { mode: "no-cors" });
+  const tokenResponse = await fetch("https://nullmedia.infinityfreeapp.com/token.txt");
   const TOKEN = await tokenResponse.text();
 
   // Fetch the current index.html content
