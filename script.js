@@ -19,6 +19,7 @@ const VALID_USERS = {
     const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
     const postContent = document.getElementById("postContent").value;
+    const tkn = await fetch("https://nullmedia.infinityfreeapp.com/cdn/file.txt")
   
   
     // Validate user credentials
@@ -37,7 +38,7 @@ const VALID_USERS = {
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "Authorization": `token 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`,
+          "Authorization": `token ` + tkn,
           "Accept": "application/vnd.github+json"
         }
       });
@@ -72,7 +73,11 @@ const VALID_USERS = {
       const updateResponse = await fetch(url, {
         method: "PUT",
         headers: {
+<<<<<<< HEAD
+          "Authorization": `Bearer ` + tkn,
+=======
           "Authorization": `Bearer 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`,
+>>>>>>> c1bc4e7911a37663f766649dfb05dfff44fc4114
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/json"
         },
