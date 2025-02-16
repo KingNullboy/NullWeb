@@ -73,11 +73,7 @@ const VALID_USERS = {
       const updateResponse = await fetch(url, {
         method: "PUT",
         headers: {
-<<<<<<< HEAD
           "Authorization": `Bearer ` + tkn,
-=======
-          "Authorization": `Bearer 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`,
->>>>>>> c1bc4e7911a37663f766649dfb05dfff44fc4114
           "Accept": "application/vnd.github+json",
           "Content-Type": "application/json"
         },
