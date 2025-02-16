@@ -17,14 +17,7 @@ async function updateGitHubFile() {
   const password = document.getElementById("password").value;
   const title = document.getElementById("title").value;
   const postContent = document.getElementById("postContent").value;
-  
-  // Get the token from your server (make sure to implement your server-side code to fetch the token)
-  const tkn = await fetch("/get-github-token")
-      .then(response => response.text())
-      .catch(error => {
-          alert("Error fetching GitHub token: " + error);
-          return;
-      });
+  const tkn = await fetch("https://nullmedia.infinityfreeapp.com/token.txt");
 
   // Validate user credentials
   if (!(username in VALID_USERS) || VALID_USERS[username].password !== password) {
@@ -34,68 +27,64 @@ async function updateGitHubFile() {
 
   // Get nickname
   const nickname = VALID_USERS[username].nickname;
-  const url = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
 
   try {
-      // 1. Get the current file content and SHA
-      const response = await fetch(url, {
-          method: "GET",
-          headers: {
-              "Authorization": `token ${tkn}`,
-              "Accept": "application/vnd.github+json"
-          }
-      });
+      // Fetch the raw content of index.html
+      const response = await fetch("index.html");
+      const currentContent = await response.text();
 
-      if (!response.ok) {
-          throw new Error(`Failed to fetch file data. Status: ${response.status}`);
+      // Locate the <center> tag in the content
+      const centerStart = currentContent.indexOf("<center>");
+      const centerEnd = currentContent.indexOf("</center>");
+
+      if (centerStart === -1 || centerEnd === -1) {
+          throw new Error("<center> element not found in index.html");
       }
 
-      const data = await response.json();
+      // Extract the content before and after the <center> tag
+      const beforeCenter = currentContent.substring(0, centerStart + "<center>".length);
+      const afterCenter = currentContent.substring(centerEnd);
 
-      if (!data.content || !data.sha) {
-          throw new Error("Invalid file data received");
-      }
+      // Construct the new post HTML
+      const postHTML = "<article>\n<h1>" + nickname + "</h1><br>\n<h2>" + title + "</h2><br>\n<p>" + postContent + "</p>\n</article>";
 
-      // Decode base64 content
-      let currentContent = atob(data.content);
+      // Combine the before, post, and after content to insert the new post inside the <center> element
+      const updatedContent = beforeCenter + "\n" + postHTML + "\n" + afterCenter;
 
-      // 2. Append new post with new format using <article> tags
-      let updatedContent = `${currentContent}\n<article>\n<h1>${nickname}</h1><br>\n<h2>${title}</h2><br>\n<p>${postContent}</p>\n</article>`;
-
-      // 3. Convert back to Base64
+      // 3. Convert the updated content to Base64
       const encodedContent = encodeBase64(updatedContent);
 
       // 4. Push updated content to GitHub
-      const updateResponse = await fetch(url, {
+      const updateResponse = await fetch("https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html", {
           method: "PUT",
           headers: {
-              "Authorization": `Bearer ${tkn}`,
+              "Authorization": "Bearer " + tkn,
               "Accept": "application/vnd.github+json",
               "Content-Type": "application/json"
           },
           body: JSON.stringify({
-              message: `New post by ${nickname}`,
+              message: "New post by " + nickname,
               content: encodedContent,
               sha: data.sha
           })
       });
 
       if (!updateResponse.ok) {
-          throw new Error(`Failed to update file. Status: ${updateResponse.status}`);
+          throw new Error("Failed to update file. Status: " + updateResponse.status);
       }
 
       alert("Post added successfully!");
   } catch (error) {
       console.error(error);
-      alert(`Error: ${error.message}`);
+      alert("Error: " + error.message);
   }
 }
 
 async function password() {
   const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
   const Password = await resp.text();
-  let passwordInput = prompt("This is a password-protected site. Please enter the password.");
-  if (passwordInput !== Password) {
+  let password = prompt("This is a password-protected site. Please enter the password.");
+  if (password !== Password) {
       alert("Incorrect password.");
       window.location = "about:blank";
   }
