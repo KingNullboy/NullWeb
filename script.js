@@ -38,7 +38,7 @@ async function updateGitHubFile() {
   // Locate the <center> tag in the body to insert new posts inside it
   let updatedContent = currentContent.replace(
       "</center>",
-      "<article><h1>" + nickname + "</h1><br><h2>" + title + "</h2><br><p>" + postContent + "</p></article></center>"
+      "<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article></center>"
   );
 
   // GitHub API URL for updating the file
@@ -78,7 +78,7 @@ async function updateGitHubFile() {
       return;
   }
 
-  alert("Post added successfully!");
+  alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
 }
 
 async function password() {
