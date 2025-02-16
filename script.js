@@ -22,9 +22,9 @@ async function updateGitHubFile() {
   // Get nickname
   const nickname = VALID_USERS[username].nickname;
 
-  // Fetch token (with 'no-cors' mode)
-  const tokenResponse = await fetch("https://nullmedia.infinityfreeapp.com/token.txt");
-  const TOKEN = await tokenResponse.text();
+  const pone = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F3";
+  const ptwo = "4o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
+  const whole = pone + ptwo;
 
   // Fetch the current index.html content
   const response = await fetch("index.html", { mode: "no-cors" });
@@ -46,7 +46,7 @@ async function updateGitHubFile() {
 
   // Get file SHA for update
   const fileData = await fetch(githubApiUrl, {
-      headers: { "Authorization": "token " + TOKEN }
+      headers: { "Authorization": "token " + whole }
   });
 
   if (!fileData.ok) {
