@@ -27,7 +27,7 @@ async function updateGitHubFile() {
   const TOKEN = await tokenResponse.text();
 
   // Fetch the current index.html content
-  const response = await fetch("index.html");
+  const response = await fetch("index.html", { mode: "no-cors" });
   if (!response.ok) {
       alert("Failed to fetch the page content.");
       return;
@@ -70,7 +70,8 @@ async function updateGitHubFile() {
           message: "New post by " + nickname,
           content: encodedContent,
           sha: fileJson.sha
-      })
+      }),
+      mode: "no-cors"
   });
 
   if (!updateResponse.ok) {
@@ -82,7 +83,7 @@ async function updateGitHubFile() {
 }
 
 async function password() {
-  const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
+  const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt", { mode: "no-cors" });
   const Password = await resp.text();
   let password = prompt("This is a password-protected site. Please enter the password.");
   if (password !== Password) {
