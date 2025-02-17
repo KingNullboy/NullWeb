@@ -23,3 +23,7 @@ h1 {
 	font-family: Lato;
 	color: #FFFFFF;
 }
+
+a[id=openBlankLink]:hover {
+	cursor: pointer;
+}
