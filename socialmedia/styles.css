@@ -112,6 +112,10 @@ article {
     border-color: #000000;
     background-color: #363636;
     color: #FFFFFF;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 body {
