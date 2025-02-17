@@ -81,16 +81,12 @@ async function updateGitHubFile() {
   alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
 }
 
-async function password() {
-  const resp = await fetch("https://nullmedia.infinityfreeapp.com/password.txt");
-  const Password = await resp.text();
-  console.log("Fetched Password:", Password);
-  console.log("Fetched Password without .text():", resp);
+async function password(pswd) {
   let password = prompt("This is a password-protected site. Please enter the password.");
-  if (password !== Password) {
+  if (password !== pswd) {
       alert("Incorrect password.");
       window.location = "about:blank";
   }
 }
 
-password();
+password("NullMediaCrew-000");
