@@ -10,4 +10,6 @@ button[id=navbtn] {
 	background-color: #000000;
 	font-family: Lato;
 	color: #FFFFFF;
+	padding-left: 10px;
+	padding-right: 10px;
 }
