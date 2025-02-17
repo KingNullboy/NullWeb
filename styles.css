@@ -15,4 +15,6 @@ button[id=navbtn] {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-color: #FFFFFF;
+	font-size: 20px;
+	border-radius: 20px;
 }
