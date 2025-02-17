@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             iframe.style.border = 'hidden';
 
             iframe.onload = function() {
-                var links = iframe.contentDocument.querySelectorAll('a[target="_blank"]');
+                var links = iframe.contentDocument.querySelectorAll('button[target="_blank"]');
                 links.forEach(function(link) {
                     link.addEventListener('click', function(event) {
                         event.preventDefault();
