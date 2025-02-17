@@ -22,7 +22,7 @@ button[id=navbtn] {
 	padding-left: 20px;
 	padding-right: 20px;
 	transition: background-color 0.15s ease-in-out;
-	border: 3px solid var(--border-color2);
+	border: 3px solid #FFFFFF;
 	border-radius: 16px;
 	position: relative;
 }
