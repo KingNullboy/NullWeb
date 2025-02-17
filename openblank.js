@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var openBlankLink = document.getElementById('openBlankLink');
-
+    
     openBlankLink.addEventListener('click', function(event) {
         event.preventDefault();
 
