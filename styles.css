@@ -1,7 +1,27 @@
 body {
-	background: #000000;
+	background-color: #000000;
 }
 
 button[id=navbtn] {
 	background-color: #000000;
+}
+.navbtn {
+	background-color: #000000;
+	color: #FFFFFF;
+	width: 50%;
+	max-width: 100px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	height: 85px;
+	margin: 0 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	transition: background-color 0.15s ease-in-out;
+	border: 3px solid var(--border-color2);
+	border-radius: 16px;
+	position: relative;
 }
