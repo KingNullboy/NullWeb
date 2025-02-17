@@ -24,6 +24,6 @@ h1 {
 	color: #FFFFFF;
 }
 
-a[id=openBlankLink]:hover {
+button[id=openBlankLink]:hover {
 	cursor: pointer;
 }
