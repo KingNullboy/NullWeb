@@ -42,7 +42,7 @@ async function updateGitHubFile() {
   );
 
   // GitHub API URL for updating the file
-  const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/index.html";
+  const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/index.html";
 
   // Get file SHA for update
   const fileData = await fetch(githubApiUrl, {
