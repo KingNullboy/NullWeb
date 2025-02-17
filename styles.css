@@ -26,6 +26,9 @@ h1 {
 
 button[id=openBlankLink]:hover {
 	cursor: pointer;
+}
+
+button[id=openBlankLink] {
 	background-color: #000000;
 	border-radius: 5px;
 	border-color: #FFFFFF;
