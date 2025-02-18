@@ -35,7 +35,7 @@ button:hover {
 
 button[id=openBlankLink] {
 	background-color: #000000;
-	border-radius: 5px;
+	border-radius: 15px;
 	border-color: #FFFFFF;
 	padding-left: 5px;
 	padding-right: 5px;
