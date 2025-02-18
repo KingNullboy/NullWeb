@@ -11,11 +11,29 @@ const VALID_USERS = {
   "mj1970": { password: "redwolf", nickname: "Disco Fox" }
 };
 
+// List of filtered words (Add words manually)
+const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi"];
+
+function containsFilteredWords(text) {
+    for (let i = 0; i < FILTERED_WORDS.length; i++) {
+        if (text.toLowerCase().includes(FILTERED_WORDS[i].toLowerCase())) {
+            return true;
+        }
+    }
+    return false;
+}
+
 async function updateGitHubFile() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const title = document.getElementById("title").value;
   const postContent = document.getElementById("postContent").value;
+
+  // Check for filtered words
+if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
+    alert("Your post contains words that are not allowed. Remove them or replace them to post this.\nThe words that are not allowed could include brainrot words.");
+    return;
+}
 
   // Validate user credentials
   if (!(username in VALID_USERS) || VALID_USERS[username].password !== password) {
