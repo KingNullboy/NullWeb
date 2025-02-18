@@ -8,6 +8,8 @@ nav {
     height: 50px;
     justify-content: middle;
     color: #FFFFFF;
+    outline-width: 4px;
+    outline-color: #FFFFFF;
 }
 
 a[id=logo] {
