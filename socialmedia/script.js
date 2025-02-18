@@ -6,7 +6,8 @@ const VALID_USERS = {
   "td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" },
   "brybry2012": { password: "billcipheriscousinswithhitler", nickname: "Bry" },
   "mlj2016": { password: "marci6266", nickname: "Marci" },
-  "mk2014": { password: "Jayn-2007", nickname: "Marleigh Kate" }
+  "mk2014": { password: "Jayn-2007", nickname: "Marleigh Kate" },
+  "lj1981": { password: "Marleigh-14", nickname: "Leighan" }
 };
 
 async function updateGitHubFile() {
