@@ -23,8 +23,9 @@ button[id=navbtn] {
 .autisticbutton {
 	position: relative;
 	top: -7px;
-	/* Let me explain: this button's image didn't have the same height as the others, so the button didn't either. To fix it, I added "height: 91px;" in the other button thing. However, the button decided it did not like me and to spite me it moved down 7 pixels, so I made its class "autisticbutton" and added this css to make it go to the correct position. So the button's punishment was being class="autisticbutton". */
 }
+
+/* Let me explain that: this button's image didn't have the same height as the others, so the button didn't either. To fix it, I added "height: 91px;" in the other button thing. However, the button decided it did not like me and to spite me it moved down 7 pixels, so I made its class "autisticbutton" and added this css to make it go to the correct position. So the button's punishment was being class="autisticbutton". */
 
 h1 {
 	font-family: Lato;
