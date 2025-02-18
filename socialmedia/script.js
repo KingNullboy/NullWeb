@@ -101,6 +101,7 @@ if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
   }
 
   alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
+  location.reload();
 }
 
 function password(pswd) {
