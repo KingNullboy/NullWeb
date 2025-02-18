@@ -20,6 +20,11 @@ button[id=navbtn] {
 	height: 91px;
 }
 
+.autisticbutton {
+	position: relative;
+	top: -7px;
+}
+
 h1 {
 	font-family: Lato;
 	color: #FFFFFF;
