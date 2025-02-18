@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 nav {
-    background-color: #b00000;
+    background-color: #000000;
     border-radius: 25px;
     border-width: 15px;
-    border-color: #470000;
+    border-color: #FFFFFF;
     height: 50px;
     justify-content: middle;
     color: #FFFFFF;
