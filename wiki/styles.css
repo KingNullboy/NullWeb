@@ -1,0 +1,20 @@
+body {
+	background-color: #000000;
+	font-family: Lato;
+	color: #FFFFFF;
+}
+
+h1 {
+	font-family: Lato;
+	color: #FFFFFF;
+}
+
+a[id=link] {
+	color: #0000FF;
+	text-decoration: underline;
+	text-decoration-color: #0000FF;
+}
+
+a[id=link]:hover {
+	cursor: pointer;
+}
