@@ -128,3 +128,31 @@ body {
 button:hover {
     cursor: pointer;
 }
+
+.logo {
+    cursor: pointer;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: #000000;
+    border-radius:100px;
+    border: #FFFFFF;
+    border: 10px solid #FFFFFF;
+}
+
+.nav__links {
+    list-style: none;
+}
+
+.nav__links button {
+    display: inline-block;
+    padding: 10px 10px;
+    border: 0px solid #FFFFFF;
+    background-color: #000000;
+    font-size: 20px;
+    color: #FFFFFF;
+}
