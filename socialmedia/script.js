@@ -4,7 +4,9 @@ const VALID_USERS = {
   "dwd2012": { password: "tyrone123", nickname: "Dawson" },
   "seth2012": { password: "110311Seth", nickname: "Quantompower" },
   "td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" },
-  "brybry2012": { password: "billcipheriscousinswithhitler", nickname: "Bry" }
+  "brybry2012": { password: "billcipheriscousinswithhitler", nickname: "Bry" },
+  "mlj2016": { password: "marci6266", nickname: "Marci" },
+  "mk2014": { password: "Jayn-2007", nickname: "Marleigh Kate" }
 };
 
 async function updateGitHubFile() {
