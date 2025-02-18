@@ -6,7 +6,7 @@ body {
 	color: #FFFFFF;
 }
 
-button[id=navbtn] {
+button {
 	background-color: #000000;
 	font-family: Lato;
 	color: #FFFFFF;
@@ -17,6 +17,9 @@ button[id=navbtn] {
 	border-color: #FFFFFF;
 	font-size: 20px;
 	border-radius: 20px;
+}
+
+button[id=navbtn] {
 	height: 91px;
 	vertical-align: middle;
 }
