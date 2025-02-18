@@ -56,11 +56,14 @@ html {
 body {
     font-family: Lato;
     color: #FFFFFF;
+    background-color: #000000;
 }
 
 h1 {
     font-family: Lato;
     color: #FFFFFF;
+    position: relative;
+    left: 80px;
 }
 
 h2 {
@@ -119,10 +122,6 @@ article {
     padding-bottom: 10px;
     padding-left: 10px;
     width: 800px;
-}
-
-body {
-    background-color: #000000;
 }
 
 button:hover {
