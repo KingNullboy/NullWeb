@@ -63,6 +63,9 @@ h1 {
     font-family: Lato;
     color: #FFFFFF;
     position: relative;
+}
+
+h1[id=pagetitle] {
     left: 80px;
 }
 
