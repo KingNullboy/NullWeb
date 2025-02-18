@@ -60,7 +60,7 @@ if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
   // Locate the <center> tag in the body to insert new posts inside it
   let updatedContent = currentContent.replace(
       "</center>",
-      "<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article></center>"
+      "<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n</center>"
   );
 
   // GitHub API URL for updating the file
