@@ -1,0 +1,95 @@
+# Flappy Bread
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bread</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #87CEEB;
+            margin: 0;
+        }
+        canvas {
+            border: 2px solid #000;
+        }
+        .pipe {
+            background-color: green;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let bread = new Image();
+        bread.src = 'bread.png'; // Replace with your bread image path
+        bread.alt = 'bread loaf'; // I hope I don't need this
+
+        let gravity = 0.6;
+        let lift = -15; // Adjusted lift to half of the previous value
+        let velocity = 0;
+        let position = 200;
+        let isGameOver = false;
+        let pipes = [];
+        let frame = 0;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(bread, 50, position, 50, 50);
+            position += velocity;
+            velocity += gravity;
+
+            if (position + 50 >= canvas.height || position < 0) {
+                isGameOver = true;
+            }
+
+            if (frame % 90 === 0) {
+                let pipeHeight = Math.random() * (canvas.height / 2);
+                pipes.push({
+                    x: canvas.width,
+                    y: pipeHeight,
+                    width: 50,
+                    height: canvas.height - pipeHeight - 150
+                });
+            }
+
+            for (let i = 0; i < pipes.length; i++) {
+                ctx.fillStyle = 'green';
+                ctx.fillRect(pipes[i].x, 0, pipes[i].width, pipes[i].y);
+                ctx.fillRect(pipes[i].x, pipes[i].y + pipes[i].height, pipes[i].width, canvas.height - pipes[i].y - pipes[i].height);
+                pipes[i].x -= 0.75; // Updated speed to 0.75 pixels per frame
+
+                if (pipes[i].x < 50 && pipes[i].x + pipes[i].width > 50 && (position < pipes[i].y || position + 50 > pipes[i].y + pipes[i].height)) {
+                    isGameOver = true;
+                }
+            }
+
+            if (!isGameOver) {
+                frame++;
+                requestAnimationFrame(draw);
+            } else {
+                ctx.font = '30px Arial';
+                ctx.fillText('Game Over', 100, 300);
+            }
+        }
+
+        function flap() {
+            if (!isGameOver) {
+                velocity = lift;
+            }
+        }
+
+        document.addEventListener('keydown', flap);
+        draw();
+    </script>
+</body>
+</html>
