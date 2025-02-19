@@ -33,7 +33,7 @@ button:hover {
 	cursor: pointer;
 }
 
-button[id=openBlankLink] {
+.botbtn button {
 	background-color: #000000;
 	border-radius: 15px;
 	border-color: #FFFFFF;
