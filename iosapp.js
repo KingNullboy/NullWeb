@@ -46,7 +46,7 @@ function generateProfile() {
             <key>PayloadOrganization</key>
             <string>NullMedia</string>
             <key>PayloadUUID</key>
-            <string>87654321-4321-4321-4321-210987654321</string>
+            <string>` + generateUUID() + `</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadType</key>
