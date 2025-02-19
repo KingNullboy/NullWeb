@@ -5,7 +5,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredPrompt = e;
 
     // Show the Android button when the event fires
-    document.getElementById('add-button').style.display = 'block';
+    document.getElementById('installButtonAndroid').style.display = 'block';
 });
 
 function installPWA() {
