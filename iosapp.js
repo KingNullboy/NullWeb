@@ -10,58 +10,59 @@ const profileData = {
 
 // Function to create and download the mobileconfig file
 function generateProfile() {
-    const mobileConfigContent = createMobileConfig(profileData);
+    const mobileConfig = `<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+        <dict>
+            <key>PayloadContent</key>
+            <array>
+                <dict>
+                    <key>FullScreen</key>
+                    <true/>
+                    <key>IsRemovable</key>
+                    <true/>
+                    <key>Label</key>
+                    <string>NullMedia</string>
+                    <key>PayloadIdentifier</key>
+                    <string>com.nullmedia.webclip</string>
+                    <key>PayloadType</key>
+                    <string>com.apple.webClip.managed</string>
+                    <key>PayloadUUID</key>
+                    <string>12345678-1234-1234-1234-123456789012</string>
+                    <key>PayloadVersion</key>
+                    <integer>1</integer>
+                    <key>Precomposed</key>
+                    <true/>
+                    <key>URL</key>
+                    <string>https://www.nullmedia.infinityfreeapp.com/</string>
+                    <key>Icon</key>
+                    <data></data> <!-- Optional, you can add a base64 PNG here -->
+                </dict>
+            </array>
+            <key>PayloadDisplayName</key>
+            <string>NullMedia Web App</string>
+            <key>PayloadIdentifier</key>
+            <string>com.nullmedia.profile</string>
+            <key>PayloadOrganization</key>
+            <string>NullMedia</string>
+            <key>PayloadUUID</key>
+            <string>87654321-4321-4321-4321-210987654321</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadType</key>
+            <string>Configuration</string>
+        </dict>
+    </plist>`;
 
-    // Create a downloadable link for the .mobileconfig file
-    const downloadLink = document.createElement("a");
-    const blob = new Blob([mobileConfigContent], { type: "application/x-apple-aspen-config" });
-    const url = URL.createObjectURL(blob);
+    const blob = new Blob([mobileConfig], { type: "application/x-apple-aspen-config" });
 
-    downloadLink.href = url;
-    downloadLink.download = "mywebsite.mobileconfig";
-    downloadLink.textContent = "Click here to download and install the configuration profile";
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "NullMedia.mobileconfig";
 
-    // Append the link to the body so the user can click it
-    document.body.appendChild(downloadLink);
-}
-
-// Create the XML content for the .mobileconfig file
-function createMobileConfig(profile) {
-    const xmlContent = `
-        <?xml version="1.0" encoding="UTF-8"?>
-        <plist version="1.0">
-            <dict>
-                <key>PayloadContent</key>
-                <array>
-                    <dict>
-                        <key>PayloadDisplayName</key>
-                        <string>${profile.displayName}</string>
-                        <key>PayloadIdentifier</key>
-                        <string>${profile.payloadIdentifier}</string>
-                        <key>PayloadType</key>
-                        <string>com.apple.webClip.managed</string>
-                        <key>PayloadUUID</key>
-                        <string>${generateUUID()}</string>
-                        <key>PayloadVersion</key>
-                        <integer>1</integer>
-                        <key>URL</key>
-                        <string>${profile.url}</string>
-                        <key>Icon</key>
-                        <string>${profile.icon}</string>
-                    </dict>
-                </array>
-                <key>PayloadIdentifier</key>
-                <string>${profile.profileIdentifier}</string>
-                <key>PayloadOrganization</key>
-                <string>${profile.organization}</string>
-                <key>PayloadDisplayName</key>
-                <string>${profile.displayName}</string>
-                <key>PayloadVersion</key>
-                <integer>1</integer>
-            </dict>
-        </plist>
-    `;
-    return xmlContent;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 // Helper function to generate a UUID (needed for the Profile)
