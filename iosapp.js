@@ -28,7 +28,7 @@ function generateProfile() {
                     <key>PayloadType</key>
                     <string>com.apple.webClip.managed</string>
                     <key>PayloadUUID</key>
-                    <string>12345678-1234-1234-1234-123456789012</string>
+                    <string>` + generateUUID() + `</string>
                     <key>PayloadVersion</key>
                     <integer>1</integer>
                     <key>Precomposed</key>
@@ -36,7 +36,7 @@ function generateProfile() {
                     <key>URL</key>
                     <string>https://www.nullmedia.infinityfreeapp.com/</string>
                     <key>Icon</key>
-                    <data></data> <!-- Optional, you can add a base64 PNG here -->
+                    <data>iVBORw0KGgoAAAANSUhEUgAAAHIAAAByCAMAAAC4A3VPAAAANlBMVEUAAAD////8/PwWFhZdXV2cnJzT09NCQkILCwvHx8fy8vJycnLj4+O5ubkjIyOLi4svLy+rq6t1zrR1AAADbklEQVRo3u2a2XbjIBBEEQixC/H/PxvLSwwNYrFBZzJH/ZAHJ+a64nZ1NQlC08mF0IW8kBdyBBIvhlKj8XlIMa8cIb7O4iQkpgQ9i1B8BhJbjn6LW3wC0hDkFTHjkZKhoJgcjhQ8RBIxHGkRKDscqSBSjUbiGSLn/1DlRCHSDUfqNSSuerwVhL9Zrk5wHx14AdMnIKdl84jLOcNLvz4ofNbTOcjJPE2Pm+kk5NsOZnwS0vDPR9eHqcDzvPmbVIAlbhbZIPN9/BMpjZoZU043iqyUqZ1ibFZGvpGCPV44Zw43ibw9pTyhsXsdf0+Ed6RbG+ITnF5FmX48W90DGeYn2pS2KoKIHwjRanZk6JloXVpHdF7msoJ0tstqGrlQZEkmBiOd7zgQEtGmm0QWZOoN/PSO4y2vOhZZeIKIjo8PyHp1SmRepuGoXDlkSmRWJk4i4SlkaRSZlbmQBA4ek1kyBEkjj2ViuMLccY7XBv4jkVmZYKEg5vZFhgdl8tORyOy7CZxm3q1gWoIHFW4XmZMZesFN0N3WAyZXsllkRqZU/vu2B8LH8NJ2875xENtyIg9lau9JfLPaSwXaWGVfYploFXkkU/weeTve6Dj7WH+stYlMy3wPYnoQt7zkFk/qvMiUTGxJytECpLdURU1UEhm3ut84/noWIAOnAE1UEgmNEvuNEzhamGPDj5DITNqiTMGOxn6IDAPC5lpEhjJdGD/oIRLM0/cNXY1IT6Z3yxcnzxAJl/LfJqoR+ZYZOg7MNiEymjTPJqoT+ZKpo+Zm+HgNio++N1GdyKdMEb3u8D4BIF18zC3s1oq8d6ZZ44ddBpmSQ2ityN2CKCl9YgEySp2PCYCqa0ulq01mkGVb+6RCx4dbtB2BtNnF3Q0gcpdFLqQ/EgRjiJRbfyQIxhA5on/mwiWMHd09MbJqU2rrHlNALmtvJLwjjpDxMOncPTGy3sIbrL5wh0d7I2kJiUXn/omuv2KVeh3bPQlk5/7h0VKeuI9VY7snhezcP64CKboOk3g7SiB112ESX88lkH2HSbx2ppCWdCxb9RcEuXQs+Yf/R+RCXsh/B4kN7Vimxn36Dsz4DvtCXsg/j+ycCqrchw4NeEmkZiN/r2mPFd12hFXU2vrrj/5fLweifpJIp+avSznZOLzwt3WN6At5IS9kBvkDaf82WU3WxFIAAAAASUVORK5CYII=</data>
                 </dict>
             </array>
             <key>PayloadDisplayName</key>
