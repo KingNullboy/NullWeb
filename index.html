@@ -29,14 +29,18 @@
 				<img src="gxmes/logo.png" width="40px" /><br>
 				NullG*mes
 			</button>
+			<!-- NullAppify button will only show on iOS -->
 			<button id="mobileOnly" class="navbtn" onclick="window.location = 'iosappifier';" style="position: relative; bottom: -24px;">
 				<img src="iosappifier/logo.png" width="30px" /><br>
-				iOS Appifier
+				NullAppify
 			</button>
 			<br><p id="mobilePortraitText">It is recommended that you use this website in landscape mode.</p><br>
-			<button id="openBlankLink" class="botbtn">Hide URL</button>
+			<!-- Install buttons -->
 			<button id="installButton" class="botbtn" onclick="generateProfile();">Download iOS App</button>
-			<button id="mobileOnly" class="botbtn" onclick="window.open('wiki/num2', '_blank')">Download Android App</button>
+			<!-- Android app download button will only show on Android -->
+			<button id="androidDownloadButton" class="botbtn" onclick="window.open('wiki/num2', '_blank')">Download Android App</button>
+			<!-- Other buttons -->
+			<button id="openBlankLink" class="botbtn">Hide URL</button>
 		</center>
 	</body>
 </html>
