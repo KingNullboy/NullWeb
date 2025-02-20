@@ -20,3 +20,33 @@ a[id=link] {
 a[id=link]:hover {
 	cursor: pointer;
 }
+
+nav {
+    background-color: #000000;
+    border-radius: 25px;
+    border-width: 4px;
+    border-color: #FFFFFF;
+    height: 50px;
+    justify-content: middle;
+    color: #FFFFFF;
+    outline-width: 4px;
+    outline-color: #FFFFFF;
+}
+
+a[id=logo] {
+    justify-content: middle;
+    color: #FFFFFF;
+}
+
+a[id=homebutton] {
+    margin-left: 10px;
+}
+
+a[id=infobutton] {
+    margin-left: 10px;
+}
+
+img[id=logo] {
+    vertical-align: middle;
+    margin-top: 5px;
+}
