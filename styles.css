@@ -73,3 +73,12 @@ img[id=logo] {
     vertical-align: middle;
     margin-top: 5px;
 }
+
+h1[id=pagetitle] {
+    left: 70px;
+}
+
+.nav__links {
+    position: relative;
+    top: -8px;
+}
