@@ -22,9 +22,9 @@ function generateProfile() {
                     <key>IsRemovable</key>
                     <true/>
                     <key>Label</key>
-                    <string>NullMedia</string>
+                    <string>NullWeb</string>
                     <key>PayloadIdentifier</key>
-                    <string>com.nullmedia.webclip</string>
+                    <string>com.nullweb.webclip</string>
                     <key>PayloadType</key>
                     <string>com.apple.webClip.managed</string>
                     <key>PayloadUUID</key>
