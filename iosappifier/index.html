@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <title>iOS Appifier - NullWeb</title>
+    <link rel="stylesheet" href="../socialmedia/styles.css">
+    <script src="iosapp.js"></script>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  </head>
+  <body>
+    <header>
+			<a href = "https://www.nullmedia.infinityfreeapp.com/"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
+   	  <h1 id="pagetitle">NullMedia</h1>
+      <nav>
+          <ul class="nav__links">
+						<button style="margin-right: 20px;" onclick="window.location.href='index.html'";">Home</button>
+            <button onclick="window.location.href='info.html'";>Info</button>
+          </nav>
+    </header><br>
+    <center>
+      <div id="form" name="form">
+        <input type="text" id="dispName" name="dispName" placeholder="Display Name*" required><br>
+        <input type="text" id="payId" name="payId" placeholder="Payload Identifier*" required><br>
+        <input type="text" id="url" name="url" placeholder="URL*"></textarea><br>
+        <input type="text" id="icon" name="icon" placeholder="Base64 Icon*"><br>
+        <input type="text" id="organ" name="organ" placeholder="Organization*"></textarea><br>
+        <input type="text" id="profId" name="profId" placeholder="Profile Identifier*"></textarea><br>
+        <button id="submit" onclick="generateProfile();">Submit</button>
+      </div><br>
+      <p>Display Name: what you want it to say on the home screen</p><br>
+      <p>Payload Identifier: unique ID for your app (template: com.yourapp.webclip (probably needs to have 2 periods and com at the beginning and webclip at the end))</p><br>
+      <p>Display Name: what website you want to appify (template: google.com (don't use google for this just get the actual app))</p><br>
+      <p>Icon: what you want to see it as on the home screen (needs to be a base64 value. look up png to base64 converter and upload your png file)</p><br>
+      <p>Organization: who is this by (template: [your name], appified by KingNullboy</p><br>
+      <p>Profile Identifier: another unique ID for your app (template: com.yourapp.config (probably needs to have 2 periods and com at the beginning and config at the end))</p><br>
+    </center>
+  </body>
+</html>
