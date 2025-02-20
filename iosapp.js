@@ -30,7 +30,7 @@ function generateProfile() {
                     <key>PayloadUUID</key>
                     <string>` + generateUUID() + `</string>
                     <key>PayloadVersion</key>
-                    <integer>1</integer>
+                    <integer>2</integer>
                     <key>Precomposed</key>
                     <true/>
                     <key>URL</key>
