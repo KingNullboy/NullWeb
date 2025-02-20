@@ -2,7 +2,7 @@
 const profileData = {
     displayName: "NullWeb",
     payloadIdentifier: "com.nullweb.pwa",
-    url: "https://www.nullmedia.infinityfreeapp.com/iosappfix.html/", // Your website URL
+    url: "https://www.nullmedia.infinityfreeapp.com/iosappfix.html", // Your website URL
     icon: "iosapplogo.png", // Custom icon for the web clip
     organization: "KingNullboy",
     profileIdentifier: "com.nullweb.config",
