@@ -1,22 +1,23 @@
-const dispName = document.getElementById("dispName").value;
-const payId = document.getElementById("payId").value;
-const url = document.getElementById("url").value;
-const icon = document.getElementById("icon").value;
-const organ = document.getElementById("organ").value;
-const profId = document.getElementById("profId").value;
 
-// Sample data for the configuration profile
-const profileData = {
-    displayName: "${dispName}",
-    payloadIdentifier: "${payId}",
-    url: "${url}", // Your website URL
-    icon: "data:image/png;base64,${icon}", // Custom icon for the web clip
-    organization: "${organ}",
-    profileIdentifier: "${profId}",
-};
 
 // Function to create and download the mobileconfig file
 function generateProfile() {
+    const dispName = document.getElementById("dispName").value;
+    const payId = document.getElementById("payId").value;
+    const url = document.getElementById("url").value;
+    const icon = document.getElementById("icon").value;
+    const organ = document.getElementById("organ").value;
+    const profId = document.getElementById("profId").value;
+
+    // Sample data for the configuration profile
+    const profileData = {
+        displayName: "${dispName}",
+        payloadIdentifier: "${payId}",
+        url: "${url}", // Your website URL
+        icon: "data:image/png;base64,${icon}", // Custom icon for the web clip
+        organization: "${organ}",
+        profileIdentifier: "${profId}",
+    };
     const mobileConfig = `<?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
     <plist version="1.0">
