@@ -66,7 +66,7 @@ function generateProfile() {
 
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "${dispName}.mobileconfig";
+    link.download = dispName + ".mobileconfig";
 
     document.body.appendChild(link);
     link.click();
