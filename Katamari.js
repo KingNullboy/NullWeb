@@ -775,6 +775,7 @@ padding:20px;\
 font-size:13px;\
 text-align:left;\
 z-index:501;';
+    d.innerHTML.button.style = 'padding: 5px; border-radius: 10px; background-color: #FF0000; color: #FFFFFF;';
     d.innerHTML = '<h1 style="font-size:16pt">\
 <a href="http://kathack.com/" style="color:blue;text-decoration:none;">\
 Katamari!</a></h1>\
