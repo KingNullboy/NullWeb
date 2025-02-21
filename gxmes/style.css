@@ -9,7 +9,7 @@ body {
 	background: #000000;
 }
 
-h1 {
+h1#thing {
 	position:relative;
 	left:80px;
 }
