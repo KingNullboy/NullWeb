@@ -1,0 +1,186 @@
+<html class=" desktop landscape" style="overflow: hidden;"><head>
+    <title>Free Tetris Style Classic Arcade Game Online</title>
+    
+    <meta name="description" content="Simply the best free Tetris style game on the web. Enjoy a classic retro block game where the goal is to fit falling Tetrominoes into complete lines. No download required, just pure fun! Mobile friendly and optimised for touch screens and keyboards (iPads, iPhones, Kindles, Android and any HTML5 enabled browser). This game is not an official Tetris product.">
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true">
+    <meta name="keywords" content="eChalk,  free, interactive, education, resources, whiteboard, data, projector, whole, class, GCSE, science, maths, A level, Keystage, 1, 2, 3, 4, KS, Primary, Secondary, education, flash, shockwave, teachers, teaching, england, scotland, wales, ireland, UK, U.K., whiteboard, training, games, puzzles, quizes, lessons, activities, whole-class, HTML5, apps, iOS, Android, Kindle">
+    <meta name="author" content="Dr Iestyn B Jones, eChalk Ltd">
+    <meta name="owner" content="Dr Iestyn B Jones, eChalk Ltd">
+    <meta name="rating" content="general">
+    <meta name="language" content="en">
+    <meta name="copyright" content="eChalk Ltd - www.echalk.co.uk">
+    <meta name="robots" content="All">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    
+    <!-- OpenGraph for sharing -->
+    <meta property="og:title" content="Free Tetris Style Classic Arcade Game Online">
+    <meta property="og:description" content="Simply the best free Tetris style game on the web. Enjoy a classic retro block game where the goal is to fit falling Tetrominoes into complete lines. No download required, just pure fun!">
+    <meta property="og:site_name" content="eChalk Ltd">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://Lumpty.com/amusements/Games/Tetris/shareIcons/shareIcon.jpg">
+    <meta property="og:url" content="https://www.nullmedia.infinityfreeapp.com/gxmes/tetrisagain.html">
+    
+    <!-- Web app icons for iOS -->
+    <link rel="apple-touch-icon" href="shareIcons/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="shareIcons/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="shareIcons/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="shareIcons/touch-icon-ipad-retina.png">
+    
+    <!-- Web app icons for Android -->
+    <link rel="icon" sizes="128x128" href="https://www.lumpty.com/amusements/games/tetris/tetris.html/shareIcons/web-app-icon-android.png">
+    <link rel="icon" sizes="192x192" href="https://www.lumpty.com/amusements/games/tetris/tetris.html/shareIcons/web-app-icon-android-high-res.png">
+    
+    
+    <script type="text/javascript" src="https://www.lumpty.com/amusements/games/tetris/tetris.html/JavaScript/DeviceJS/device.min.js"></script>
+    
+    <script type="text/javascript" src="https://www.lumpty.com/amusements/games/tetris/tetris.html/JavaScript/ResourcePage/FlashAndHTML5ResourceV2.js"></script>
+
+    <script type="text/javascript" src="https://www.lumpty.com/amusements/games/tetris/tetris.html/JavaScript/swfobject2-2/swfobject.js"></script>
+    <script type="text/javascript" src="https://www.lumpty.com/amusements/games/tetris/tetris.html/JavaScript/jQuery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://www.lumpty.com/amusements/games/tetris/tetris.html/JavaScript/eChalkUtils.js"></script><script src="https://www.googletagmanager.com/gtag/js?id=G-8DQN9S1NMX"></script>
+    
+    <link rel="stylesheet" type="text/css" href="/css/Resource/ResourcePage.css">
+    
+    <script type="text/javascript">
+
+        $(function()
+        {
+            pageInit();
+        });
+        
+        /**
+         * OVERRIDE the FlashAndHTML5ResourceV2.js runHTML5CompatibilityTests funciton
+         * in order to remove the small screen warning for phones, as the resources
+         * has been designed for phones from the off.
+         *
+         * Run a series of compatibility checks, in order or importance, and return false
+         * indicating a fail (i.e. canvas shouldn't be loaded immediately).
+         */
+        function runHTML5CompatibilityTests()
+        {
+            /*
+             * Check if the device supports canvas. If this fails at this point
+             * we know that the device supports neither Flash nor HTML5, so display
+             * an end-of error message.
+             */
+            if (!HTML5Utils.supportsCanvas())
+            {
+                // at this point, we know the device does not support flash or html5 canvas
+                $("#noCanvasNoFlash").css('display', 'inline');
+                return HTML5Utils.NO_COMPATIBILITY;
+            }
+            
+            /*
+             * Check if the user is running an old version of Android (< v3)
+             */
+            if (!HTML5Utils.isCompatibleAndroidVersion())
+            {
+                $("#badAndroidVersion").css('display', 'inline');
+                
+                if (HTML5Utils.isScreenTooSmall())
+                {
+                    upScaleForSmallScreens();
+                }
+                return HTML5Utils.NO_COMPATIBILITY;
+            }
+            
+            /*
+             * Check if the user is running an old version of iOS (< v6)
+             */
+            if (!HTML5Utils.isCompatibleIOSVersion())
+            {
+                $("#badIOSVersion").css('display', 'inline');
+                
+                if (HTML5Utils.isScreenTooSmall())
+                {
+                    upScaleForSmallScreens();
+                }
+                return HTML5Utils.NO_COMPATIBILITY;
+            }
+            
+            /*
+             * Check if the device is a playbook
+             */
+            if (HTML5Utils.isPlaybook())
+            {
+                $("#isPlaybook").css('display', 'inline');
+                
+                return HTML5Utils.PARTIAL_COMPATIBILITY;
+            }
+            
+            /*
+             * Check if the device is a Windows phone
+             */
+            if (HTML5Utils.isWindowsPhone())
+            {
+                upScaleForSmallScreens();
+                $("#isWindowsPhone").css('display', 'inline');
+                
+                return HTML5Utils.PARTIAL_COMPATIBILITY;
+            }
+            
+            /*
+             * Check screen dimensions are large enough for our resources
+             * REMOVED:
+            if (HTML5Utils.isScreenTooSmall())
+            {
+                recordSmallScreenStat();
+                
+                upScaleForSmallScreens();
+                
+                $("#smallScreen").css('display', 'inline');
+                
+                return HTML5Utils.PARTIAL_COMPATIBILITY;
+            }
+             */
+            
+            // It has passed all the tests. Return true
+            return HTML5Utils.FULLY_COMPATIBLE;
+        }
+        
+        function pageInit()
+        {
+            window.flashvars = {};
+            window.params = {};
+            swfobject.embedSWF("streamer_11.4.swf", "flashcontent", "100%", "100%", "11.4", "", flashvars , params, null, swfobject_loadComplete);
+        }
+        
+    </script>
+
+    <style type="text/css">
+        
+        body {
+            background-color: #DDEEFF;
+        }
+        
+        a.homepageLink
+        {
+            color: #000000;
+            text-decoration: none;
+        }
+        
+        a#mainLink:hover
+        {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+<body style="overflow: hidden;">
+    
+    <div id="flashcontent" style="visibility: visible; background-color: rgb(2, 51, 63); overflow: hidden;">
+        <iframe src="HTML5/resource.html" id="canvasFrame"></iframe>
+    </div>
+
+
+
+<div style="background-color: rgb(255, 143, 0); display: none; color: white; text-align: center; position: fixed; top: 0px; left: 0px; width: 100%; height: auto; min-width: 100%; min-height: auto; max-width: 100%; font: 12px &quot;Helvetica Neue&quot;, Helvetica, Arial, Geneva, sans-serif; cursor: pointer; padding: 5px;"><span style="color: white; font: 12px &quot;Helvetica Neue&quot;, Helvetica, Arial, Geneva, sans-serif;">You have turned off the paragraph player. You can turn it on again from the options page.</span><img src="chrome-extension://gfjopfpjmkcfgjpogepmdjmcnihfpokn/img/icons/icon-close_16.png" style="width: 20px; height: auto; min-width: 20px; min-height: auto; max-width: 20px; float: right; margin-right: 10px;"></div>
+
+</body></html>
