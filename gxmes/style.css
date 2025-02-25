@@ -19,8 +19,13 @@ button {
     color: #FFFFFF;
     border: 2.5px solid #FFFFFF;
     border-radius: 10px;
-	padding: 5px 13px;
     margin-bottom: 6px;
+	font-size: 20px;
+	border-radius: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 button:hover {
