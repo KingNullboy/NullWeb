@@ -2,9 +2,9 @@ var postmode;
 
 document.querySelectorAll('.reply-button').forEach(button => {
     button.addEventListener('click', function() {
-        const originalPostTitle = this.closest('article').querySelector('h2').innerHTML;
-
+        postmode = this.closest('article').querySelector('h2').innerHTML;
         postmode = originalPostTitle;
+        window.scrollTo(0, 0);
     });
 });
 
