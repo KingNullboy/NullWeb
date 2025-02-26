@@ -1,13 +1,14 @@
 var postmode;
 
-document.querySelectorAll('.reply-button').forEach(button => {
-    button.addEventListener('click', function() {
-        postmode = this.closest('article').querySelector('h2').innerHTML;
-        postmode = originalPostTitle;
-        window.scrollTo(0, 0);
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.reply-button').forEach(button => {
+        button.addEventListener('click', function() {
+            postmode = this.closest('article').querySelector('h2').innerHTML;
+            postmode = originalPostTitle;
+            window.scrollTo(0, 0);
+        });
     });
 });
-
 
 // Allowed users and their nicknames
 const VALID_USERS = {
@@ -72,12 +73,12 @@ const VALID_USERS = {
     if (postmode === undefined) {
     let updatedContent = currentContent.replace(
         "</center>",
-        "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t</center>"
+        "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
     );
     } else {
         let updatedContent = currentContent.replace(
             "</center>",
-            "\t<br><article><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article><br>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button></center>"
+            "\t<br><article><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article><br>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
         );
     }
   
