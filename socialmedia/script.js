@@ -3,7 +3,7 @@ var postmode;
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
-            postmode = this.closest('article').querySelector('h2').innerHTML;
+            postmode = "Reply to <a href='" + document.window + "/socialmedia#" + this.closest('article').querySelector('h2').innerHTML + "' id='link'>" + this.closest('article').querySelector('h2').innerHTML + "</a>";
             window.scrollTo(0, 0);
         });
     });
