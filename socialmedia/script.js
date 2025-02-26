@@ -1,3 +1,19 @@
+// Allowed users and their nicknames
+const VALID_USERS = {
+  "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
+  "dwd2012": { password: "tyrone123", nickname: "Dawson" },
+  "seth2012": { password: "110311Seth", nickname: "Quantompower" },
+  "td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" },
+  "brybry2012": { password: "billcipheriscousinswithhitler", nickname: "Bry" },
+  "mlj2016": { password: "marci6266", nickname: "Marci" },
+  "mk2014": { password: "Jayn-2007", nickname: "Marleigh Kate" },
+  "lj1981": { password: "Marleigh-14", nickname: "Leighan" },
+  "mj1970": { password: "redwolf", nickname: "Disco Fox" }
+};
+
+                                                                                                        // List of filtered words (Add words manually)
+                                                                                                        const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn"];
+
 // Declare postmode globally
 var postmode;
 
@@ -28,6 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
         updateGitHubFile(postmode);
     });
 });
+
+function containsFilteredWords(text) {
+    for (let i = 0; i < FILTERED_WORDS.length; i++) {
+        if (text.toLowerCase().includes(FILTERED_WORDS[i].toLowerCase())) {
+            return true;
 
 // Your existing function to update the GitHub file
 async function updateGitHubFile(post) {
