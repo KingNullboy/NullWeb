@@ -34,11 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Attach the event listener for the submit button
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', function() {
-        // Check if postmode has been set before submitting
-        if (postmode === undefined) {
-            alert("Please select a post to reply to.");
-            return;
-        }
 
         // Call updateGitHubFile() with the postmode
         updateGitHubFile(postmode);
