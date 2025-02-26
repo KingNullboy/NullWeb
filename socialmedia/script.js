@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
             postmode = this.closest('article').querySelector('h2').innerHTML;
-            postmode = originalPostTitle;
             window.scrollTo(0, 0);
         });
     });
