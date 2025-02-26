@@ -140,6 +140,8 @@ if (title.trim() === "" && postmode === undefined) {
       })
   });
 
+  console.log(updatedContent);
+
   if (!updateResponse.ok) {
       alert("Failed to update the file.");
       return;
