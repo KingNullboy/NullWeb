@@ -196,3 +196,8 @@ article + #reply {
 #reply + #reply {
     margin-top: 0;                   /* No gap between replies */
 }
+
+.reply-button {
+    background-color: transparent;
+    border-color: transparent;
+}
