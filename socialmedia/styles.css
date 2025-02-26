@@ -119,19 +119,6 @@ button {
     color: #FFFFFF;
 }
 
-article {
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: #000000;
-    background-color: #363636;
-    color: #FFFFFF;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    width: 800px;
-}
-
 button:hover {
     cursor: pointer;
 }
@@ -165,11 +152,47 @@ header {
 }
 
 a[id=link] {
-	color: #0000FF;
-	text-decoration: underline;
-	text-decoration-color: #0000FF;
+    color: #0000FF;
+    text-decoration: underline;
+    text-decoration-color: #0000FF;
 }
 
 a[id=link]:hover {
-	cursor: pointer;
+    cursor: pointer;
+}
+
+/* Styling for the original post */
+article {
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: #000000;
+    background-color: #363636;
+    color: #FFFFFF;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 800px;
+    margin-bottom: 20px; /* Space between posts */
+}
+
+/* Styling for the replies */
+#reply {
+    border-left: 2px solid #888888; /* Lighter left border */
+    margin-left: 20px;               /* Indent the reply 20px to the right */
+    padding-left: 10px;              /* Add padding to the left of the reply */
+    margin-top: 0;                   /* No space above the reply */
+    margin-bottom: 0;                /* No space below the reply */
+    padding-top: 0;                  /* No top padding */
+    padding-bottom: 0;               /* No bottom padding */
+}
+
+/* Remove any space between the original post and the first reply */
+article + #reply {
+    margin-top: 0;                   /* No gap between the post and the first reply */
+}
+
+/* Remove any space between consecutive replies */
+#reply + #reply {
+    margin-top: 0;                   /* No gap between replies */
 }
