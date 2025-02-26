@@ -77,7 +77,7 @@ const VALID_USERS = {
     } else {
         let updatedContent = currentContent.replace(
             "</center>",
-            "\t<br><article><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article>\n\t\t</center>"
+            "\t<br><article><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article><br>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to bottom</button></center>"
         );
     }
   
