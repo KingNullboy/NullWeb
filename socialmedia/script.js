@@ -55,6 +55,22 @@ async function updateGitHubFile(post) {
   const password = document.getElementById("password").value;
   const title = document.getElementById("title").value;
   const postContent = document.getElementById("postContent").value;
+  
+  // Check if any of the fields are empty
+if (username.trim() === "") {
+    alert("Username cannot be empty!");
+    return;  // Prevent further execution if username is empty
+}
+
+if (password.trim() === "") {
+    alert("Password cannot be empty!");
+    return;  // Prevent further execution if password is empty
+}
+
+if (title.trim() === "") {
+    alert("Title cannot be empty!");
+    return;  // Prevent further execution if title is empty
+}
 
   // Check for filtered words
   if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
