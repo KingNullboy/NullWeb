@@ -61,12 +61,12 @@ if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
 
     if (post === undefined) {
         // Locate the <center> tag in the body to insert new posts inside it
-        let updatedContent = currentContent.replace(
+        var updatedContent = currentContent.replace(
               "</center>",
             "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>\n\t\t</center>"
         );
     } else {
-        let updatedContent = currentContent.replace(
+        var updatedContent = currentContent.replace(
                 post,
                 post + "\t<br><article id='reply'><h1>" + nickname + "</h1><p>" + postContent + "</p></article>\n\t\t</center>"
         );
