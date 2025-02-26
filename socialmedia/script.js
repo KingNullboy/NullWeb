@@ -67,7 +67,7 @@ if (password.trim() === "") {
     return;  // Prevent further execution if password is empty
 }
 
-if (title.trim() === "" && postmode !== undefined) {
+if (title.trim() === "" && postmode === undefined) {
     alert("Title cannot be empty!");
     return;  // Prevent further execution if title is empty
 }
