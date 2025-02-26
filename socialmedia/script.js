@@ -49,6 +49,9 @@ function containsFilteredWords(text) {
     for (let i = 0; i < FILTERED_WORDS.length; i++) {
         if (text.toLowerCase().includes(FILTERED_WORDS[i].toLowerCase())) {
             return true;
+        }
+    }
+}
 
 // Your existing function to update the GitHub file
 async function updateGitHubFile(post) {
