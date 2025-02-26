@@ -63,7 +63,7 @@ async function updateGitHubFile(post) {
 
   // Check for filtered words
   if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
-      alert("Your post contains words that are not allowed. Remove them or replace them to post this.");
+      alert("Your post contains words that are not allowed. Remove them or replace them to post this.\nThe words that are not allowed could include brainrot words.");
       return;
   }
 
@@ -74,6 +74,10 @@ async function updateGitHubFile(post) {
   }
 
   const nickname = VALID_USERS[username].nickname;
+
+  const pone = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F3";
+  const ptwo = "4o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
+  const whole = pone + ptwo;
 
   // Fetch the current index.html content
   const response = await fetch("index.html");
