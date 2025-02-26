@@ -70,12 +70,12 @@ const VALID_USERS = {
   
     // Locate the <center> tag in the body to insert new posts inside it
     if (postmode === undefined) {
-    let updatedContent = currentContent.replace(
-        "</center>",
-        "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+        var updatedContent = currentContent.replace(
+            "</center>",
+            "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
     );
     } else {
-        let updatedContent = currentContent.replace(
+        var updatedContent = currentContent.replace(
             "</center>",
             "\t<br><article><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article><br>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
         );
