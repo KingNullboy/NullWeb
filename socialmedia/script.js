@@ -11,8 +11,10 @@ const VALID_USERS = {
   "mj1970": { password: "redwolf", nickname: "Disco Fox" }
 };
 
-// List of filtered words (Add words manually)
-const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn"];
+                                                                                                        // List of filtered words (Add words manually)
+                                                                                                        const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn"];
+
+var postmode;
 
 function containsFilteredWords(text) {
     for (let i = 0; i < FILTERED_WORDS.length; i++) {
@@ -23,7 +25,7 @@ function containsFilteredWords(text) {
     return false;
 }
 
-async function updateGitHubFile() {
+async function updateGitHubFile(post) {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
   const title = document.getElementById("title").value;
@@ -57,11 +59,31 @@ if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
 
   let currentContent = await response.text();
 
-  // Locate the <center> tag in the body to insert new posts inside it
-  let updatedContent = currentContent.replace(
-      "</center>",
-      "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t</center>"
-  );
+    if (post === undefined) {
+        // Locate the <center> tag in the body to insert new posts inside it
+        let updatedContent = currentContent.replace(
+              "</center>",
+            "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>\n\t\t</center>"
+        );
+    } else {
+        let updatedContent = currentContent.replace(
+                post,
+                post + "\t<br><article id='reply'><h1>" + nickname + "</h1><p>" + postContent + "</p></article>\n\t\t</center>"
+        );
+    }
+
+    // After updating the content, we attach event listeners to all reply buttons
+    document.querySelectorAll('.reply-button').forEach(button => {
+    button.addEventListener('click', function() {
+        // Access the parent <article> element of the clicked button
+        let postElement = this.closest('article');  // Finds the closest <article> element that is the parent of the button
+
+        // Set the postmode based on this post's content or any identifier (for example, using postTitle or postContent)
+        postmode = postElement;  // You can change this to `postContent` or any other value as needed
+
+        console.log("Replying to post: " + postTitle);  // Debugging: outputs the post title
+    });
+});
 
   // GitHub API URL for updating the file
   const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/index.html";
