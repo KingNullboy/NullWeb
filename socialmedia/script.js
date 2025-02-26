@@ -148,7 +148,7 @@ if (title.trim() === "" && postmode === undefined) {
   }
 
   alert("Post added successfully!");
-  if (window.location.search.includes('reload=true') {
+  if (window.location.search.includes('reload=true')) {
   location.reload();
   }
 
