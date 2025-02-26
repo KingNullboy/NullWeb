@@ -72,16 +72,20 @@ if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
         );
     }
 
-    // After updating the content, we attach event listeners to all reply buttons
+// Inside the script.js file
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach event listeners to all the reply buttons
     document.querySelectorAll('.reply-button').forEach(button => {
-    button.addEventListener('click', function() {
-        // Access the parent <article> element of the clicked button
-        let postElement = this.closest('article');  // Finds the closest <article> element that is the parent of the button
+        button.addEventListener('click', function() {
+            // Access the parent <article> element of the clicked button
+            let postElement = this.closest('article');  // Finds the closest <article> element
 
-        // Set the postmode based on this post's content or any identifier (for example, using postTitle or postContent)
-        postmode = postElement;  // You can change this to `postContent` or any other value as needed
+            // Set the postmode based on this post's content or any identifier
+            postmode = postElement;  // Save the entire <article> element as the postmode
 
-        console.log("Replying to post: " + postTitle);  // Debugging: outputs the post title
+            // Optionally log the parent post to check if it's working
+            console.log("Replying to post: ", postElement);
+        });
     });
 });
 
