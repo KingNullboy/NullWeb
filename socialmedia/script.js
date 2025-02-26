@@ -111,7 +111,6 @@ if (title.trim() === "" && postmode === undefined) {
               post + "\t<br><article id='reply'><h1>" + nickname + "</h1><p>" + postContent + "</p></article>\n\t\t</center>"
       );
   }
-  alert(updatedContent);
 
   // Fetch GitHub file to get SHA and update
   const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/index.html";
@@ -147,5 +146,9 @@ if (title.trim() === "" && postmode === undefined) {
   }
 
   alert("Post added successfully!");
+  if (window.location.search.includes('reload=true') {
   location.reload();
+  }
+
+  
 }
