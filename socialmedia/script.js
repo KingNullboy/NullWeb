@@ -3,7 +3,7 @@ var postmode;
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
-            postmode = "Reply to <a href='" + document.window + "/socialmedia#" + this.closest('article').querySelector('h2').innerHTML + "' id='link'>" + this.closest('article').querySelector('h2').innerHTML + "</a>";
+            postmode = "Reply to <a href='" + document.domain + "/socialmedia#" + this.closest('article').querySelector('h2').innerHTML + "' id='link'>" + this.closest('article').querySelector('h2').innerHTML + "</a>";
             window.scrollTo(0, 0);
         });
     });
@@ -71,13 +71,13 @@ const VALID_USERS = {
     // Locate the <center> tag in the body to insert new posts inside it
     if (postmode === undefined) {
         var updatedContent = currentContent.replace(
-            "</center>",
-            "\t<br><article><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+            "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
+            "\t<br><article id='" + title + "'><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p></article>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
     );
     } else {
         var updatedContent = currentContent.replace(
-            "</center>",
-            "\t<br><article><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article><br>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+            "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
+            "\t<br><article id='" + title + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p></article><br>\n\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
         );
     }
   
