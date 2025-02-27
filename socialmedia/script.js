@@ -29,7 +29,7 @@ var postmode;
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
-            let originalpost = this.closest('article').innerHTML;
+            let originalpost = this.closest('article');
             postmode = getReplyTitle(originalpost);
             window.scrollTo(0, 0);
         });
