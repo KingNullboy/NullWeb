@@ -1,9 +1,36 @@
+function getReplyCountForPost(postTitle) {
+    // Find all posts (replies and original posts)
+    const allPosts = document.querySelectorAll('article');
+  
+    let count = 0;
+  
+    allPosts.forEach(post => {
+        const postTitleElement = post.querySelector('h2');
+        if (postTitleElement) {
+            const link = postTitleElement.querySelector('a'); // Find <a> element inside the h2
+            if (link && link.href.includes(postTitle)) {  // Check if the link points to the original post
+                count++;
+            }
+        }
+    });
+  
+    return count; // Return the count of replies to the original post
+}
+
+// Function to generate the title for a reply based on how many replies exist
+function getReplyTitle(originalPost) {
+    // Get the number of replies for this post
+    const replyCount = getReplyCountForPost(originalPost);  // You'll need to create this helper function to count replies
+    return `Reply ${replyCount + 1} to <a href="` + document.domain + `/socialmedia#` + originlPost + `" id='link'>` + originalPost + `</a>`;
+  }  
+
 var postmode;
 
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
-            postmode = "Reply to <a href='" + document.domain + "/socialmedia#" + this.closest('article').querySelector('h2').innerHTML + "' id='link'>" + this.closest('article').querySelector('h2').innerHTML + "</a>";
+            let originalpost = this.closest('article').querySelector('h2').innerText;
+            postmode = getReplyTitle(originalpost);
             window.scrollTo(0, 0);
         });
     });
