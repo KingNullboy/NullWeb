@@ -96,18 +96,6 @@ const VALID_USERS = {
   };
   
   // List of filtered words (Add words manually)
-    "knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
-    "dwd2012": { password: "tyrone123", nickname: "Dawson" },
-    "seth2012": { password: "110311Seth", nickname: "Quantompower" },
-    "td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" },
-    "brybry2012": { password: "billcipheriscousinswithhitler", nickname: "Bry" },
-    "mlj2016": { password: "marci6266", nickname: "Marci" },
-    "mk2014": { password: "Jayn-2007", nickname: "Marleigh Kate" },
-    "lj1981": { password: "Marleigh-14", nickname: "Leighan" },
-    "mj1970": { password: "redwolf", nickname: "Disco Fox" }
-  };
-  
-  // List of filtered words (Add words manually)
                                                                                                         const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn"];
   
   function containsFilteredWords(text) {
@@ -165,13 +153,6 @@ const VALID_USERS = {
     }
   
     let currentContent = await response.text();
-  
-    // Locate the <center> tag in the body to insert new posts inside it
-    if (postmode === undefined) {
-        var updatedContent = currentContent.replace(
-            "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
-            "<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
-  
   function containsFilteredWords(text) {
       for (let i = 0; i < FILTERED_WORDS.length; i++) {
           if (text.toLowerCase().includes(FILTERED_WORDS[i].toLowerCase())) {
@@ -286,7 +267,7 @@ const VALID_USERS = {
             "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
             "<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
         );
-    }
+    
   
     // GitHub API URL for updating the file
     const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/index.html";
@@ -327,7 +308,7 @@ const VALID_USERS = {
   
     alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
     location.reload();
-  }
+}
   
   function password(pswd) {
       let password = prompt("This is a password-protected site. Please enter the password.");
