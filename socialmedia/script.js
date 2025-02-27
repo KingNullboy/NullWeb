@@ -11,7 +11,7 @@ function getReplyCountForPost(postTitle) {
             console.log(link);
             console.log(link.href);
             if (link && link.href.includes(postTitle)) {  // Check if the link points to the original post
-                count++;
+                count += 1;
             }
         }
     });
