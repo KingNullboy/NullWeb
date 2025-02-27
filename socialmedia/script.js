@@ -9,7 +9,7 @@ function getReplyCountForPost(postTitle) {
         if (postTitleElement) {
             const link = postTitleElement.querySelector('a'); // Find <a> element inside the h2
             console.log(link);
-            if (link && link.href.includes(postTitle)) {  // Check if the link points to the original post
+            if (link && link.getAttribute('href').includes(postTitle)) {  // Check if the link points to the original post
                 count += 1;
             }
         }
