@@ -8,7 +8,7 @@ function getReplyCountForPost(postTitle) {
         const postTitleElement = post.querySelector('h2');
         if (postTitleElement) {
             const link = postTitleElement.querySelector('a'); // Find <a> element inside the h2
-            if (link && link.href.includes(postTitle.replace(/&#36;/g, '$').replace(/&#123;/g, '{').replace(/&#125;/g, '}'))) {  // Check if the link points to the original post
+            if (link && link.href.includes(postTitle)) {  // Check if the link points to the original post
                 count++;
             }
         }
@@ -29,7 +29,7 @@ var postmode;
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
-            let originalpost = this.closest('article').querySelector('h2').innerText;
+            let originalpost = this.closest('article').innerText;
             postmode = getReplyTitle(originalpost);
             window.scrollTo(0, 0);
         });
