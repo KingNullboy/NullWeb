@@ -19,7 +19,10 @@ app.get('/getSecret', (req, res) => {
   }
 
   // Send the secret in the response
-  res.json({ TOKEN: TOKEN });
+  res.json({
+    TOKEN: TOKEN,
+    SITE_PASSWORD: SITE_PASSWORD
+   });
 });
 
 app.listen(port, () => {
