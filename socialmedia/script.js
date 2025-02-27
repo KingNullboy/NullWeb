@@ -26,11 +26,12 @@ function getReplyTitle(originalPost) {
   }  
 
 var postmode;
+var originalpost;
 
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.reply-button').forEach(button => {
         button.addEventListener('click', function() {
-            let originalpost = this.closest('article').querySelector('h2').innerText;
+            originalpost = this.closest('article').querySelector('h2').innerText;
             postmode = getReplyTitle(originalpost);
             console.log(originalpost);
             window.scrollTo(0, 0);
@@ -101,12 +102,12 @@ const VALID_USERS = {
     if (postmode === undefined) {
         var updatedContent = currentContent.replace(
             "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
-            "<br><article id='" + title + "'><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+            "<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
         );
     } else {
         var updatedContent = currentContent.replace(
             "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
-            "<br><article id='" + title + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+            "<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
         );
     }
   
