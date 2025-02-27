@@ -250,19 +250,6 @@ const VALID_USERS = {
     location.reload();
   }
   
-  function password(pswd) {
-      let password = prompt("This is a password-protected site. Please enter the password.");
-      if (password !== pswd) {
-         alert("Incorrect password.");
-          window.location = "about:blank";
-      } else {
-          localStorage.setItem("auth", "true");
-      }
-  }
-  
-  if (localStorage.getItem("auth") !== "true") {
-      password("NullMediaCrew-000");
-  }
         var updatedContent = currentContent.replace(
             "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
             "<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
@@ -321,5 +308,5 @@ const VALID_USERS = {
   }
   
   if (localStorage.getItem("auth") !== "true") {
-      password("NullMediaCrew-000");
+      password(SITE_PASSWORD);
   }
