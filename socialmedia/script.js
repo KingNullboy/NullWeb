@@ -131,7 +131,7 @@ const VALID_USERS = {
     var TOKEN;
 
     try {
-        const response = await fetch('https://glorious-spork-975r74r744rp3xrwx-3000.app.github.dev');
+        const response = await fetch('/');
         
         if (!response.ok) {
             throw new Error('Failed to fetch the secret');
