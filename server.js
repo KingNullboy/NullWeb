@@ -10,7 +10,7 @@ const app = express();
 const port = 3000;
 
 // Serve the secret from environment variables
-app.get('/getSecret', (req, res) => {
+app.get('/', (req, res) => {
   const TOKEN = process.env.TOKEN;
   const SITE_PASSWORD = process.env.SITE_PASSWORD;
 
