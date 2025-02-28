@@ -159,7 +159,7 @@ const VALID_USERS = {
           localStorage.setItem("auth", "true");
       }
   }
-  
+   
   if (localStorage.getItem("auth") !== "true") {
       password(process.env.PASSWORD);
   }
