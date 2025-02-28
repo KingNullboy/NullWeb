@@ -160,6 +160,6 @@ const VALID_USERS = {
       }
   }
    
-  if (localStorage.getItem("auth") !== "true") {
-      password(process.env.PASSWORD);
-  }
+if (localStorage.getItem("auth") !== "true") {
+      	password(process.env.PASSWORD);
+}
