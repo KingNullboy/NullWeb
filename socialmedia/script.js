@@ -112,7 +112,7 @@ const VALID_USERS = {
   
     // Get file SHA for update
     const fileData = await fetch(githubApiUrl, {
-        headers: { "Authorization": "token " + localStorage.getItem("token"); }
+        headers: { "Authorization": "token " + localStorage.getItem("token") }
     });
   
     if (!fileData.ok) {
@@ -129,7 +129,7 @@ const VALID_USERS = {
     const updateResponse = await fetch(githubApiUrl, {
         method: "PUT",
         headers: {
-            "Authorization": "token " + localStorage.getItem("token");,
+            "Authorization": "token " + localStorage.getItem("token"),
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
