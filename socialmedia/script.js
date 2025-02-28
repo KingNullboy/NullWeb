@@ -84,10 +84,8 @@ const VALID_USERS = {
   
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
-  
-    const pone = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F3";
-    const ptwo = "4o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
-    const whole = pone + ptwo;
+
+    const TOKEN = "{{TOKEN}}";
   
     // Fetch the current index.html content
     const response = await fetch("index.html");
@@ -116,7 +114,7 @@ const VALID_USERS = {
   
     // Get file SHA for update
     const fileData = await fetch(githubApiUrl, {
-        headers: { "Authorization": "token " + whole }
+        headers: { "Authorization": "token " + TOKEN }
     });
   
     if (!fileData.ok) {
@@ -133,7 +131,7 @@ const VALID_USERS = {
     const updateResponse = await fetch(githubApiUrl, {
         method: "PUT",
         headers: {
-            "Authorization": "token " + whole,
+            "Authorization": "token " + TOKEN,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -163,5 +161,5 @@ const VALID_USERS = {
   }
   
   if (localStorage.getItem("auth") !== "true") {
-      password("NullMediaCrew-000");
+      password("{{PASSWORD}}");
   }
