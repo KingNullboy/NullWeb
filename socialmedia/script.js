@@ -164,5 +164,9 @@ const VALID_USERS = {
 
   function token() {
     var TOKEN = prompt("What is the token?");
-    localStorage.setItem("token", TOKEN)
+    localStorage.setItem("token", TOKEN);
+  }
+  
+  if(localStorage.getItem("token")) {
+    token();
   }
