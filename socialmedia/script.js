@@ -1,46 +1,3 @@
-var SITE_PASSWORD;
-
-function getReplyCountForPost(postTitle) {
-    // Find all posts (replies and original posts)
-    const allPosts = document.querySelectorAll('article');
-  
-    let count = 0;
-  
-    allPosts.forEach(post => {
-        const postTitleElement = post.querySelector('h2');
-        if (postTitleElement) {
-            const link = postTitleElement.querySelector('a'); // Find <a> element inside the h2
-            console.log(link);
-            if (link && link.getAttribute('href').includes(postTitle)) {  // Check if the link points to the original post
-                count += 1;
-            }
-        }
-    });
-  
-    return count; // Return the count of replies to the original post
-}
-
-// Function to generate the title for a reply based on how many replies exist
-function getReplyTitle(originalPost) {
-    // Get the number of replies for this post
-    const replyCount = getReplyCountForPost(originalPost);  // You'll need to create this helper function to count replies
-    return `Reply number ${replyCount + 1} in response to <a href='\\${document.domain}/socialmedia#` + originalPost + `' id='link'>` + originalPost + `</a>`;
-  }  
-
-var postmode;
-var originalpost;
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.reply-button').forEach(button => {
-        button.addEventListener('click', function() {
-            originalpost = this.closest('article').querySelector('h2').innerText;
-            postmode = getReplyTitle(originalpost);
-            console.log(originalpost);
-            window.scrollTo(0, 0);
-        });
-    });
-});
-
 function getReplyCountForPost(postTitle) {
     // Find all posts (replies and original posts)
     const allPosts = document.querySelectorAll('article');
@@ -128,61 +85,6 @@ const VALID_USERS = {
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
   
-    var TOKEN;
-
-    try {
-        const response = await fetch('/');
-        
-        if (!response.ok) {
-            throw new Error('Failed to fetch the secret');
-        }
-        
-        const data = await response.json();
-        TOKEN = data.TOKEN; // Assuming the server returns the secret in { secret: 'your-token' }
-        SITE_PASSWORD = data.SITE_PASSWORD;
-    } catch (error) {
-        alert("Failed to fetch the secret: " + error.message);
-        return;  // Exit if we can't fetch the secret
-    }
-  
-    // Fetch the current index.html content
-    const response = await fetch("index.html");
-    if (!response.ok) {
-        alert("Failed to fetch the page content.");
-        return;
-    }
-  
-    let currentContent = await response.text();
-  function containsFilteredWords(text) {
-      for (let i = 0; i < FILTERED_WORDS.length; i++) {
-          if (text.toLowerCase().includes(FILTERED_WORDS[i].toLowerCase())) {
-              return true;
-          }
-      }
-      return false;
-  }
-  
-  async function updateGitHubFile() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    const title = document.getElementById("title").value;
-    const postContent = document.getElementById("postContent").value;
-  
-    // Check for filtered words
-  if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
-      alert("Your post contains words that are not allowed. Remove them or replace them to post this.\nThe words that are not allowed could include brainrot words.");
-      return;
-  }
-  
-    // Validate user credentials
-    if (!(username in VALID_USERS) || VALID_USERS[username].password !== password) {
-        alert("Invalid username or password.");
-        return;
-    }
-  
-    // Get nickname
-    const nickname = VALID_USERS[username].nickname;
-  
     // Fetch the current index.html content
     const response = await fetch("index.html");
     if (!response.ok) {
@@ -210,7 +112,7 @@ const VALID_USERS = {
   
     // Get file SHA for update
     const fileData = await fetch(githubApiUrl, {
-        headers: { "Authorization": "token " + TOKEN }
+        headers: { "Authorization": "token " + localStorage.getItem("token"); }
     });
   
     if (!fileData.ok) {
@@ -227,7 +129,7 @@ const VALID_USERS = {
     const updateResponse = await fetch(githubApiUrl, {
         method: "PUT",
         headers: {
-            "Authorization": "token " + TOKEN,
+            "Authorization": "token " + localStorage.getItem("token");,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -245,53 +147,6 @@ const VALID_USERS = {
     alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
     location.reload();
   }
-  
-        var updatedContent = currentContent.replace(
-            "<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
-            "<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
-        );
-    
-  
-    // GitHub API URL for updating the file
-    const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/index.html";
-  
-    // Get file SHA for update
-    const fileData = await fetch(githubApiUrl, {
-        headers: { "Authorization": "token " + TOKEN }
-    });
-  
-    if (!fileData.ok) {
-        alert("Failed to retrieve file data.");
-        return;
-    }
-  
-    const fileJson = await fileData.json();
-  
-    // Encode updated content in base64
-    const encodedContent = btoa(updatedContent);
-  
-    // Push the updated content to GitHub
-    const updateResponse = await fetch(githubApiUrl, {
-        method: "PUT",
-        headers: {
-            "Authorization": "token " + TOKEN,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            message: "New post by " + nickname,
-            content: encodedContent,
-            sha: fileJson.sha
-        })
-    });
-  
-    if (!updateResponse.ok) {
-        alert("Failed to update the file.");
-        return;
-    }
-  
-    alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
-    location.reload();
-}
   
   function password(pswd) {
       let password = prompt("This is a password-protected site. Please enter the password.");
@@ -304,5 +159,10 @@ const VALID_USERS = {
   }
   
   if (localStorage.getItem("auth") !== "true") {
-      password(SITE_PASSWORD);
+      password("NullMediaCrew-000");
+  }
+
+  function token() {
+    var TOKEN = prompt("What is the token?");
+    localStorage.setItem("token", TOKEN)
   }
