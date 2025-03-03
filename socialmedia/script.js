@@ -163,5 +163,5 @@ const VALID_USERS = {
   }
     
 if (localStorage.getItem("auth") !== "true") {
-      	password(process.env.PASSWORD);
+      	password("NullMediaCrew-000");
 }
