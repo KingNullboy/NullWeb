@@ -85,8 +85,8 @@ const VALID_USERS = {
     // Get nickname
     const nickname = VALID_USERS[username].nickname;
 
-    var p1 = github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34;
-    var p2 = o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z;
+    var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
+    var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
     const TOKEN = p1 + p2;
   
     // Fetch the current index.html content
