@@ -22,7 +22,7 @@ function getReplyCountForPost(postTitle) {
 function getReplyTitle(originalPost) {
 	// Get the number of replies for this post
 	const replyCount = getReplyCountForPost(originalPost);  // You'll need to create this helper function to count replies
-	return `Reply number ${replyCount + 1} in response to <a href='\\${document.domain}/socialmedia#` + originalPost + `' id='link'>` + originalPost + `</a>`;
+	return `Reply number ${replyCount + 1} in response to <a href='\\${window.location.href}#` + originalPost + `' id='link'>` + originalPost + `</a>`;
   }  
 
 var postmode;
@@ -88,7 +88,7 @@ const VALID_USERS = {
 	const TOKEN = p1 + p2;
   
 	// Fetch the current index.html content
-	const response = await fetch("index.html");
+	const response = await fetch(replace(window.location.href));
 	if (!response.ok) {
 		alert("Failed to fetch the page content.");
 		return;
@@ -110,7 +110,8 @@ const VALID_USERS = {
 	}
   
 	// GitHub API URL for updating the file
-	const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/index.html";
+	if (window.location)
+	const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/" + window.location.href.replace(window.location.protocol + "//" + document.domain + "/socialmedia/", "");
   
 	// Get file SHA for update
 	const fileData = await fetch(githubApiUrl, {
@@ -177,8 +178,7 @@ function login(username, password) {
 
 document.addEventListener("DOMContentLoaded", function() {
 	const baseUrl = window.location.protocol + "//" + document.domain + "/socialmedia/";
-
-	if ((localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href === baseUrl || window.location.href === baseUrl + "index.html")) {
+	if ((localStorage.getItem("user") === null || localStorage.getItem("password") === null) && !window.location.href.includes("login.html")) {
 		alert("To post, you need to log in.");
 		document.getElementById("login").innerHTML = "Login";
 		document.getElementById("login").onclick = function() {
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		};
 	}
 
-	if (!(localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href === baseUrl || window.location.href === baseUrl + "index.html")) {
+	if (!(localStorage.getItem("user") === null || localStorage.getItem("password") === null) && !window.location.href.includes("login.html")) {
 	document.getElementById("login").innerHTML = "Log Out";
 	document.getElementById("login").onclick = function() {
 		localStorage.setItem("user", null);
