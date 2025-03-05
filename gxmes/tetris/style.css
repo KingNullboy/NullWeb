@@ -37,7 +37,7 @@ body {
 
 @keyframes blink {
   to {
-    outline: #e1ff5f solid 1px;
+	e: #e1ff5f solid 1px;
   }
 }
 

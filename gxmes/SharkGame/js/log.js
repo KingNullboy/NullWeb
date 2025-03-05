@@ -1,188 +1,188 @@
 "use strict";
 SharkGame.Log = {
-    initialised: false,
-    messages: [],
-    totalCount: 0,
+	ed: false,
+	 [],
+	t: 0,
 
-    init() {
-        this.moveLog();
-        log.initialised = true;
+	
+		
+		true;
 
-        $(window).on("resize", _.debounce(this.changeHeight, 300));
-        this.changeHeight();
-    },
+		ze", _.debounce(this.changeHeight, 300));
+		);
+	
 
-    moveLog() {
-        $("#log").remove();
-        const logDiv = $("<div id='log'></div>");
+	 {
+		;
+		<div id='log'></div>");
 
-        switch (SharkGame.Settings.current.logLocation) {
-            case "left":
-                $("#sidebar").append(logDiv.append("<h3>Log<h3/>").append($("<ul id='messageList'></ul>").addClass("forLeftSide")));
-                $("#wrapper").removeClass("topLogActive");
-                $("#titlebackground").removeClass("topLogActive");
-                $("#tabList").css("margin-right", 0);
-                break;
-            case "top":
-                $("#titlebar").append(logDiv);
-                logDiv
-                    .append($("<button id='extendLog' class='min close-button'>⯆</button>").on("click", log.toggleExtendedLog))
-                    .append("<ul id='messageList'></ul>");
-                $("#wrapper").addClass("topLogActive");
-                $("#titlebackground").addClass("topLogActive");
-                $("#tabList").css("margin-right", 0);
-                break;
-            default:
-                $("#rightLogContainer").append(logDiv.append("<h3>Log<h3/>").append($("<ul id='messageList'></ul>").addClass("forRightSide")));
-                $("#wrapper").removeClass("topLogActive");
-                $("#titlebackground").removeClass("topLogActive");
-                $("#rightLogContainer").css("position", "static").css("top", $("#rightLogContainer").offset().top).css("position", "sticky");
-                SharkGame.TabHandler.validateTabWidth();
-                this.changeHeight();
-        }
+		Settings.current.logLocation) {
+			
+				<h3>Log<h3/>").append($("<ul id='messageList'></ul>").addClass("forLeftSide")));
+				ive");
+				opLogActive");
+				;
+				
+			
+				
+				
+					close-button'>⯆</button>").on("click", log.toggleExtendedLog))
+					
+				");
+				ogActive");
+				;
+				
+			
+				v.append("<h3>Log<h3/>").append($("<ul id='messageList'></ul>").addClass("forRightSide")));
+				ive");
+				opLogActive");
+				n", "static").css("top", $("#rightLogContainer").offset().top).css("position", "sticky");
+				h();
+				
+		
 
-        const prevMessages = _.cloneDeep(log.messages);
-        log.messages = [];
-        _.each(prevMessages, (message) => {
-            if (message.hasClass("discovery")) {
-                log.addDiscovery(message.html());
-            } else if (message.hasClass("error")) {
-                log.addError(message.html());
-            } else {
-                log.addMessage(message.html());
-            }
-        });
-    },
+		 = _.cloneDeep(log.messages);
+		
+		s, (message) => {
+			very")) {
+				
+			("error")) {
+				
+			
+				
+			
+		
+	
 
-    changeHeight() {
-        if (SharkGame.Settings.current.logLocation !== "left" && SharkGame.Settings.current.logLocation !== "top") {
-            const maxHeight =
-                $(window).outerHeight(true) - document.getElementById("messageList").getBoundingClientRect().top - $("#copyright").height() - 10;
-            $("#messageList").css("max-height", maxHeight + "px");
-        }
-    },
+	ght() {
+		ings.current.logLocation !== "left" && SharkGame.Settings.current.logLocation !== "top") {
+			
+				nt.getElementById("messageList").getBoundingClientRect().top - $("#copyright").height() - 10;
+			height", maxHeight + "px");
+		
+	
 
-    isNextMessageEven() {
-        return this.totalCount % 2 === 1;
-    },
+	sageEven() {
+		ount % 2 === 1;
+	
 
-    addMessage(message, sanitizeHtml = false) {
-        const showAnims = SharkGame.Settings.current.showAnimations;
+	e(message, sanitizeHtml = false) {
+		SharkGame.Settings.current.showAnimations;
 
-        if (!log.initialised) {
-            log.init();
-        }
-        const messageItem = $("<li>");
-        if (sanitizeHtml) {
-            messageItem.text(message);
-        } else {
-            messageItem.html(message);
-        }
+		ed) {
+			
+		
+		= $("<li>");
+		{
+			
+		
+			
+		
 
-        if (log.isNextMessageEven()) {
-            messageItem.addClass("evenMessage");
-        }
+		ageEven()) {
+			essage");
+		
 
-        function height(elt, position) {
-            return (
-                elt.getBoundingClientRect().top +
-                (position === "bottom" ? elt.getBoundingClientRect().y : 0) -
-                messageList.getBoundingClientRect().top
-            );
-        }
+		t, position) {
+			
+				
+				dingClientRect().y : 0) -
+				top
+			
+		
 
-        const messageList = document.querySelector("#messageList");
-        log.messages.push(messageItem);
+		= document.querySelector("#messageList");
+		messageItem);
 
-        if (messageList.scrollTop !== 0) {
-            messageItem.prependTo("#messageList");
-            let highestVisible = null;
-            for (let i = log.messages.length - 1; i > 0; i--) {
-                if (height(log.messages[i][0], "bottom") > 0) {
-                    highestVisible = i;
-                    break;
-                }
-            }
+		rollTop !== 0) {
+			sageList");
+			
+			ength - 1; i > 0; i--) {
+				om") > 0) {
+					
+					
+				
+			
 
-            const desiredTopElt = log.messages[_.clamp(highestVisible + 1, log.messages.length - 1)][0];
-            const desiredTop = messageList.scrollTop + height(desiredTopElt, "top");
-            $(messageList).animate({ scrollTop: desiredTop + "px" }, 50, "linear");
-        } else if (showAnims) {
-            messageItem.hide().css("opacity", 0).prependTo("#messageList").slideDown(50).animate({ opacity: 1.0 }, 100);
-        } else {
-            messageItem.prependTo("#messageList");
-        }
+			essages[_.clamp(highestVisible + 1, log.messages.length - 1)][0];
+			ist.scrollTop + height(desiredTopElt, "top");
+			rollTop: desiredTop + "px" }, 50, "linear");
+		ms) {
+			city", 0).prependTo("#messageList").slideDown(50).animate({ opacity: 1.0 }, 100);
+		
+			sageList");
+		
 
-        log.correctLogLength();
+		th();
 
-        this.totalCount += 1;
+		 1;
 
-        return messageItem;
-    },
+		;
+	
 
-    addError(message) {
-        if (message instanceof Error) {
-            console.error(message);
-            message = message.message;
-        }
-        const messageItem = log.addMessage("Error: " + message, true);
-        messageItem.addClass("error");
-        return messageItem;
-    },
+	message) {
+		ceof Error) {
+			
+			
+		
+		= log.addMessage("Error: " + message, true);
+		ss("error");
+		;
+	
 
-    addDiscovery(message) {
-        const messageItem = log.addMessage(message);
-        messageItem.addClass("discovery");
-        return messageItem;
-    },
+	ery(message) {
+		= log.addMessage(message);
+		ss("discovery");
+		;
+	
 
-    correctLogLength() {
-        const showAnims = SharkGame.Settings.current.showAnimations;
-        const logMax = SharkGame.Settings.current.logMessageMax;
+	gLength() {
+		SharkGame.Settings.current.showAnimations;
+		rkGame.Settings.current.logMessageMax;
 
-        if (log.messages.length >= logMax) {
-            while (log.messages.length > logMax) {
-                const oldestMessage = log.messages[0];
-                // remove oldest message
-                if (showAnims) {
-                    log.messages[0].animate({ opacity: 0 }, 100, "swing", () => {
-                        $(oldestMessage).remove();
-                    });
-                } else {
-                    oldestMessage.remove();
-                }
+		ength >= logMax) {
+			> logMax) {
+				];
+				
+				
+					"swing", () => {
+						
+					
+				
+					
+				
 
-                // shift array (remove first item)
-                log.messages.shift();
-            }
-        }
-    },
+				
+				
+			
+		
+	
 
-    clearMessages(logThing = true) {
-        // remove each element from page
-        _.each(log.messages, (message) => {
-            message.remove();
-        });
-        // wipe array
-        log.messages = [];
-        if (logThing) log.addMessage("Log cleared.");
-    },
+	ages(logThing = true) {
+		ment from page
+		s, (message) => {
+			
+		
+		
+		
+		addMessage("Log cleared.");
+	
 
-    toggleExtendedLog() {
-        const title = $("#title");
-        const messageList = $("#messageList");
-        if (messageList.hasClass("scrollable")) {
-            title.removeClass("biggerTitleDiv");
-            messageList.removeClass("scrollable");
-            $("#extendLog").html("⯆");
-        } else {
-            title.addClass("biggerTitleDiv");
-            messageList.addClass("scrollable");
-            $("#extendLog").html("⯅");
-        }
-    },
+	endedLog() {
+		title");
+		= $("#messageList");
+		sClass("scrollable")) {
+			tleDiv");
+			rollable");
+			
+		
+			Div");
+			lable");
+			
+		
+	
 
-    haveAnyMessages() {
-        return log.messages.length > 0;
-    },
+	ssages() {
+		s.length > 0;
+	
 };
