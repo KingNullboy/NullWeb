@@ -9,7 +9,7 @@ let timerId = null;
 
 function randomSquare() {
   squares.forEach((square) => {
-    square.classList.remove("emoji");
+	square.classList.remove("emoji");
   });
 
   let randomSqaure = squares[Math.floor(Math.random() * 9) + 1];
@@ -19,11 +19,11 @@ function randomSquare() {
 
 squares.forEach((square) => {
   square.addEventListener("mousedown", () => {
-    if (square.id == hitPosition) {
-      result++;
-      score.textContent = result;
-      hitPosition = null;
-    }
+	if (square.id == hitPosition) {
+	  result++;
+	  score.textContent = result;
+	  hitPosition = null;
+	}
   });
 });
 
@@ -38,9 +38,9 @@ function countDown() {
   timeLeft.textContent = currentTime;
 
   if (currentTime == 0) {
-    clearInterval(countDownTimerId);
-    clearInterval(timerId);
-    alert(`Game Over! Your final Score Is ${result}`);
+	clearInterval(countDownTimerId);
+	clearInterval(timerId);
+	alert(`Game Over! Your final Score Is ${result}`);
   }
 }
 
