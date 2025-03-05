@@ -110,7 +110,6 @@ const VALID_USERS = {
 	}
   
 	// GitHub API URL for updating the file
-	if (window.location)
 	const githubApiUrl = "https://api.github.com/repos/nullmedia-social/KingNullboys-MiniSocialMedia/contents/socialmedia/" + window.location.href.replace(window.location.protocol + "//" + document.domain + "/socialmedia/", "");
   
 	// Get file SHA for update
