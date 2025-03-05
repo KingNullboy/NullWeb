@@ -2,1250 +2,1250 @@
 window.SharkGame = window.SharkGame || {};
 
 window.onmousemove = (event) => {
-    SharkGame.lastActivity = _.now();
+	ame.lastActivity = _.now();
 
-    const tooltip = document.getElementById("tooltipbox");
-    const posX = event.clientX;
-    const posY = event.clientY;
+	tooltip = document.getElementById("tooltipbox");
+	posX = event.clientX;
+	posY = event.clientY;
 
-    tooltip.style.top = Math.max(Math.min(posY - 20, window.innerHeight - tooltip.offsetHeight - 10), 20) + "px";
-    // Would clip over right screen edge
-    if (tooltip.offsetWidth + posX + 35 > window.innerWidth) {
-        tooltip.style.left = posX - 10 - tooltip.offsetWidth + "px";
-    } else {
-        tooltip.style.left = posX + 15 + "px";
-    }
+	p.style.top = Math.max(Math.min(posY - 20, window.innerHeight - tooltip.offsetHeight - 10), 20) + "px";
+	ld clip over right screen edge
+	oltip.offsetWidth + posX + 35 > window.innerWidth) {
+		e.left = posX - 10 - tooltip.offsetWidth + "px";
+	 {
+		e.left = posX + 15 + "px";
+	
 };
 
 $(document).on("keyup", (event) => {
-    SharkGame.lastActivity = _.now();
+	ame.lastActivity = _.now();
 
-    const mkey = SharkGame.Keybinds.modifierKeys;
-    if ((mkey.ShiftLeft || mkey.ShiftRight) && !event.shiftKey) {
-        mkey.ShiftLeft = 0;
-        mkey.ShiftRight = 0;
-    } else if ((mkey.AltLeft || mkey.AltRight) && !event.altKey) {
-        mkey.AltLeft = 0;
-        mkey.AltRight = 0;
-    } else if ((mkey.ControlLeft || mkey.ControlRight) && !event.ctrlKey) {
-        mkey.ControlLeft = 0;
-        mkey.ControlRight = 0;
-    }
+	mkey = SharkGame.Keybinds.modifierKeys;
+	key.ShiftLeft || mkey.ShiftRight) && !event.shiftKey) {
+		ft = 0;
+		ght = 0;
+	 if ((mkey.AltLeft || mkey.AltRight) && !event.altKey) {
+		 = 0;
+		t = 0;
+	 if ((mkey.ControlLeft || mkey.ControlRight) && !event.ctrlKey) {
+		Left = 0;
+		Right = 0;
+	
 
-    if (SharkGame.Keybinds.handleKeyUp(event.code)) {
-        event.preventDefault();
-    }
+	arkGame.Keybinds.handleKeyUp(event.code)) {
+		tDefault();
+	
 });
 
 $(document).on("keydown", (event) => {
-    SharkGame.lastActivity = _.now();
-    if (SharkGame.Keybinds.handleKeyDown(event.code)) {
-        event.preventDefault();
-    }
+	ame.lastActivity = _.now();
+	arkGame.Keybinds.handleKeyDown(event.code)) {
+		tDefault();
+	
 });
 
 // CORE VARIABLES AND HELPER FUNCTIONS
 $.extend(SharkGame, {
-    GAME_NAMES: [
-        "Five Seconds A Shark",
-        "Next Shark Game",
-        "Next Shark Game: Barkfest",
-        "Sharky Clicker",
-        "Weird Oceans",
-        "You Have To Name The Shark Game",
-        "Shark A Lark",
-        "Bark Shark",
-        "Fin Idle",
-        "Ray of Dreams",
-        "Shark Saver",
-        "Shoal Sharker",
-        "Shark Souls",
-        "Saucy Sharks",
-        "Sharkfall",
-        "Heart of Sharkness",
-        "Sharks and Recreation",
-        "Alone in the Shark",
-        "Sharkpocalypse",
-        "Shark of Darkness",
-        "Strange Oceans",
-        "A New Frontier",
-        "Lobster's Paradise",
-        "Revenge of the Crabs",
-        "Shark Box",
-        "Dolphin Heroes",
-        "MAWS",
-        "Part 6, Stone Ocean",
-        "Sailor Crab",
-        "League of Lobsters",
-        "Eel Team Six",
-        "Dungeons And Dolphins",
-        "Gameshark",
-        "Five Nights in Frigid",
-        "The Shark of Wall Street",
-        ":the shark game:",
-        "Sharkware Edition",
-        "Help Wanted",
-        "NOT FINISHED",
-        "Deluxe",
-        "doo doo do-do do-do",
-        "DUNGEONS",
-        "The Adventure Continues",
-        "To Be Continued",
-        "Sharks of Rage",
-        "Bedrock? Edition",
-        "Java(script) Edition",
-        "You are a Shark",
-        "Mystery of Shark City",
-        "Seas of Loathing",
-        "Raiders of the Lost Shark",
-    ],
-    GAME_NAME: null,
-    ACTUAL_GAME_NAME: "Shark Game",
-    VERSION: "20250127a",
-    ORIGINAL_VERSION: 0.71,
-    VERSION_NAME: "The Tempetuous Update",
-    EPSILON: 1e-6, // floating point comparison is a joy
-    BIGGEST_SAFE_NUMBER: 1000000000000,
-    MAX: 1e300,
+	AMES: [
+		s A Shark",
+		Game",
+		Game: Barkfest",
+		ker",
+		s",
+		 Name The Shark Game",
+		k",
+		,
+		
+		ms",
+		",
+		er",
+		",
+		s",
+		
+		arkness",
+		Recreation",
+		e Shark",
+		pse",
+		rkness",
+		ans",
+		ier",
+		aradise",
+		the Crabs",
+		
+		oes",
+		
+		ne Ocean",
+		",
+		obsters",
+		x",
+		d Dolphins",
+		
+		 in Frigid",
+		f Wall Street",
+		game:",
+		dition",
+		",
+		D",
+		
+		do do-do",
+		
+		re Continues",
+		nued",
+		age",
+		ition",
+		) Edition",
+		hark",
+		Shark City",
+		thing",
+		the Lost Shark",
+	
+	AME: null,
+	_GAME_NAME: "Shark Game",
+	N: "20250127a",
+	AL_VERSION: 0.71,
+	N_NAME: "The Tempetuous Update",
+	N: 1e-6, // floating point comparison is a joy
+	T_SAFE_NUMBER: 1000000000000,
+	e300,
 
-    IDLE_THRESHOLD: 120000,
-    IDLE_FADE_TIME: 5000,
+	HRESHOLD: 120000,
+	ADE_TIME: 5000,
 
-    INTERVAL: 1000 / 10, // 20 FPS // I'm pretty sure 1000 / 10 comes out to 10 FPS
-    dt: 1 / 10,
-    before: _.now(),
-    lastMouseActivity: _.now(),
-    savedMouseActivity: _.now(),
+	AL: 1000 / 10, // 20 FPS // I'm pretty sure 1000 / 10 comes out to 10 FPS
+	/ 10,
+	: _.now(),
+	useActivity: _.now(),
+	ouseActivity: _.now(),
 
-    timestampLastSave: false,
-    timestampGameStart: false,
-    timestampRunStart: false,
-    timestampRunEnd: false,
-    timestampSimulated: false,
+	ampLastSave: false,
+	ampGameStart: false,
+	ampRunStart: false,
+	ampRunEnd: false,
+	ampSimulated: false,
 
-    sidebarHidden: true,
-    paneGenerated: false,
+	rHidden: true,
+	nerated: false,
 
-    gameOver: false,
-    wonGame: false,
+	er: false,
+	e: false,
 
-    flags: {},
-    persistentFlags: {},
+	 {},
+	tentFlags: {},
 
-    spriteIconPath: "https://github.com/Toby222/SharkGame/blob/alpha/img/sprites.png?raw=true",
-    spriteHomeEventPath: "https://github.com/Toby222/SharkGame/blob/alpha/img/homemessagesprites.png?raw=true",
+	IconPath: "https://github.com/Toby222/SharkGame/blob/alpha/img/sprites.png?raw=true",
+	HomeEventPath: "https://github.com/Toby222/SharkGame/blob/alpha/img/homemessagesprites.png?raw=true",
 
-    /**
-     *
-     * @param {any[]} choices
-     * @returns {any} A random element of choices
-     */
-    choose(choices) {
-        return choices[Math.floor(Math.random() * choices.length)];
-    },
-    getImageIconHTML(imagePath, width, height) {
-        if (!imagePath) {
-            imagePath = "http://placekitten.com/g/" + Math.floor(width) + "/" + Math.floor(height);
-        }
-        let imageHtml = "";
-        if (SharkGame.Settings.current.iconPositions !== "off") {
-            imageHtml += "<img width=" + width + " height=" + height + " src='" + imagePath + "' class='button-icon'>";
-        }
-        return imageHtml;
-    },
-    changeSprite(spritePath, imageName, imageDiv, backupImageName) {
-        let spritesData;
+	
+	
+	ram {any[]} choices
+	turns {any} A random element of choices
+	
+	(choices) {
+		es[Math.floor(Math.random() * choices.length)];
+	
+	geIconHTML(imagePath, width, height) {
+		th) {
+			//placekitten.com/g/" + Math.floor(width) + "/" + Math.floor(height);
+		
+		l = "";
+		e.Settings.current.iconPositions !== "off") {
+			 width=" + width + " height=" + height + " src='" + imagePath + "' class='button-icon'>";
+		
+		Html;
+	
+	Sprite(spritePath, imageName, imageDiv, backupImageName) {
+		ata;
 
-        if (spritePath === SharkGame.spriteIconPath) {
-            spritesData = SharkGame.Sprites;
-        } else if (spritePath === SharkGame.spriteHomeEventPath) {
-            spritesData = SharkGame.HomeMessageSprites;
-        }
+		th === SharkGame.spriteIconPath) {
+			kGame.Sprites;
+		pritePath === SharkGame.spriteHomeEventPath) {
+			kGame.HomeMessageSprites;
+		
 
-        let spriteData = spritesData[imageName];
-        if (!imageDiv) {
-            imageDiv = $("<div>");
-        }
+		ta = spritesData[imageName];
+		v) {
+			>");
+		
 
-        // if the original sprite data is undefined, try loading the backup
-        if (!spriteData) {
-            spriteData = spritesData[backupImageName];
-        }
+		iginal sprite data is undefined, try loading the backup
+		ata) {
+			esData[backupImageName];
+		
 
-        if (spriteData) {
-            imageDiv.css("background-image", "url(" + spritePath + ")");
-            imageDiv.css("background-position", "-" + spriteData.frame.x + "px -" + spriteData.frame.y + "px");
-            imageDiv.width(spriteData.frame.w);
-            imageDiv.height(spriteData.frame.h);
-        } else {
-            imageDiv.css("background-image", 'url("//placehold.it/50x50")');
-            imageDiv.width(50);
-            imageDiv.height(50);
-        }
-        return imageDiv;
-    },
+		ta) {
+			ground-image", "url(" + spritePath + ")");
+			ground-position", "-" + spriteData.frame.x + "px -" + spriteData.frame.y + "px");
+			iteData.frame.w);
+			riteData.frame.h);
+		
+			ground-image", 'url("//placehold.it/50x50")');
+			;
+			);
+		
+		Div;
+	
 });
 
 SharkGame.Main = {
-    tickHandler: -1,
-    autosaveHandler: -1,
+	ndler: -1,
+	veHandler: -1,
 
-    applyFramerate() {
-        SharkGame.INTERVAL = 1000 / SharkGame.Settings.current.framerate;
-        SharkGame.dt = 1 / SharkGame.Settings.current.framerate;
-        if (main.tickHandler) {
-            clearInterval(main.tickHandler);
-        }
-        main.tickHandler = setInterval(main.tick, SharkGame.INTERVAL);
-    },
+	ramerate() {
+		TERVAL = 1000 / SharkGame.Settings.current.framerate;
+		 = 1 / SharkGame.Settings.current.framerate;
+		kHandler) {
+			.tickHandler);
+		
+		dler = setInterval(main.tick, SharkGame.INTERVAL);
+	
 
-    // specifically wipe all progress
-    resetGame() {
-        SharkGame.Save.wipeSave();
-        main.wipeGame();
-        main.setUpGame();
-    },
+	cifically wipe all progress
+	ame() {
+		ve.wipeSave();
+		e();
+		me();
+	
 
-    // start the game
-    init() {
-        // check to see if i forgot to categorize something
-        main.checkForCategorizationOversights();
+	rt the game
+	 {
+		see if i forgot to categorize something
+		rCategorizationOversights();
 
-        // wipe it
-        main.wipeGame();
-        // load a save if needed
-        main.restoreGame("load");
-        // then set up the game according to this data
-        main.setUpGame();
+		
+		e();
+		ve if needed
+		Game("load");
+		up the game according to this data
+		me();
 
-        const isSafari =
-            /constructor/i.test(window.HTMLElement) ||
-            (!window.safari || (typeof safari !== "undefined" && window.safari.pushNotification)).toString() === "[object SafariRemoteNotification]";
-        if (isSafari) {
-            console.info("Detected Safari browser!");
-            SharkGame.PaneHandler.addPaneToStack("Safari Notice", SharkGame.Panes.safariNotice);
-        }
-    },
+		ri =
+			t(window.HTMLElement) ||
+			 (typeof safari !== "undefined" && window.safari.pushNotification)).toString() === "[object SafariRemoteNotification]";
+		) {
+			cted Safari browser!");
+			ler.addPaneToStack("Safari Notice", SharkGame.Panes.safariNotice);
+		
+	
 
-    // reset all game variables to their defaults
-    // leaves a blank slate
-    wipeGame() {
-        const now = _.now();
-        SharkGame.before = now;
-        SharkGame.timestampSimulated = now;
-        SharkGame.lastActivity = now;
-        if (SharkGame.GAME_NAME === null) {
-            SharkGame.GAME_NAME = SharkGame.choose(SharkGame.GAME_NAMES);
-            document.title = SharkGame.ACTUAL_GAME_NAME + ": " + SharkGame.GAME_NAME;
-        }
+	et all game variables to their defaults
+	ves a blank slate
+	me() {
+		_.now();
+		fore = now;
+		mestampSimulated = now;
+		stActivity = now;
+		e.GAME_NAME === null) {
+			E = SharkGame.choose(SharkGame.GAME_NAMES);
+			harkGame.ACTUAL_GAME_NAME + ": " + SharkGame.GAME_NAME;
+		
 
-        SharkGame.timestampLastSave = now;
-        SharkGame.timestampGameStart = now;
-        SharkGame.timestampRunStart = now;
+		mestampLastSave = now;
+		mestampGameStart = now;
+		mestampRunStart = now;
 
-        $("#game").removeClass("inGateway");
-        $("#sidebar").hide();
-        $("#overlay").hide();
-        $("#idle-overlay").hide();
-        SharkGame.sidebarHidden = true;
-        // remove any errant classes
-        $("#pane").removeClass("gateway");
+		emoveClass("inGateway");
+		).hide();
+		).hide();
+		rlay").hide();
+		debarHidden = true;
+		y errant classes
+		emoveClass("gateway");
 
-        // clear any html and remove errant classes from tooltip
-        $("#tooltipbox")
-            .removeClass("forHomeButtonOrGrotto")
-            .removeClass("forIncomeTable")
-            .removeClass("forAspectTree")
-            .removeClass("forAspectTreeUnpurchased")
-            .removeClass("forAspectTreeAffordable")
-            .html("");
+		 html and remove errant classes from tooltip
+		ox")
+			omeButtonOrGrotto")
+			ncomeTable")
+			spectTree")
+			spectTreeUnpurchased")
+			spectTreeAffordable")
+			
 
-        $("#gameName").html("- " + SharkGame.GAME_NAME + " -");
-        $("#versionNumber").html(
-            `New Frontiers v ${SharkGame.VERSION} - ${SharkGame.VERSION_NAME}<br/>\
+		").html("- " + SharkGame.GAME_NAME + " -");
+		umber").html(
+			{SharkGame.VERSION} - ${SharkGame.VERSION_NAME}<br/>\
 Mod of v ${SharkGame.ORIGINAL_VERSION}`,
-        );
-        $.getJSON("https://api.github.com/repos/Toby222/SharkGame/commits/alpha", (data) => {
-            SharkGame.COMMIT_SHA = data.sha;
-        });
-        log.clearMessages(false);
-        SharkGame.Settings.current.buyAmount = 1;
-
-        // here to stop timer from saying NaN
-        SharkGame.persistentFlags.totalPausedTime = 0;
-        SharkGame.persistentFlags.currentPausedTime = 0;
-
-        // wipe all resource tables
-        SharkGame.Resources.init();
-
-        // initialise world
-        // MAKE SURE GATE IS INITIALISED AFTER WORLD!!
-        SharkGame.World.init();
-
-        // reset planetpool and completed worlds and gameover and wongame
-        SharkGame.Gateway.init();
-
-        // create homeEvent lookup
-        SharkGame.Memories.init();
-
-        // generate requiredBy entries
-        SharkGame.AspectTree.init();
-
-        // initialise tabs
-        SharkGame.Home.init();
-        SharkGame.Lab.init();
-        SharkGame.Stats.init();
-        SharkGame.Recycler.init();
-        SharkGame.Gate.init();
-        SharkGame.Reflection.init();
-        SharkGame.CheatsAndDebug.init();
-
-        // clear flags
-        SharkGame.flags = {};
-        SharkGame.persistentFlags = {};
-
-        SharkGame.EventHandler.init();
-
-        SharkGame.TitleBarHandler.init();
-        SharkGame.TabHandler.init();
-        SharkGame.PaneHandler.init();
-        SharkGame.OverlayHandler.init();
-
-        SharkGame.Keybinds.init();
-
-        SharkGame.Resources.minuteHand.init();
-        SharkGame.Resources.pause.init();
-        SharkGame.Resources.dial.init();
-    },
-
-    // load stored game data, if there is anything to load
-    restoreGame(goal) {
-        switch (goal) {
-            case "load":
-                if (SharkGame.Save.savedGameExists()) {
-                    try {
-                        SharkGame.Save.loadGame();
-                        log.addMessage("Loaded game.");
-                    } catch (err) {
-                        log.addError(err);
-                    }
-                }
-                break;
-            case "loop":
-                // idk yet
-                break;
-            default:
-            // nothing to restore
-        }
-    },
-
-    // interpret and use the data from the previous steps
-    setUpGame() {
-        const now = _.now();
-        SharkGame.timestampLastSave = SharkGame.timestampLastSave || now;
-        SharkGame.timestampGameStart = SharkGame.timestampGameStart || now;
-        SharkGame.timestampRunStart = SharkGame.timestampRunStart || now;
-
-        // first set up the world because it adds the world resource
-        SharkGame.World.setup();
-
-        // refund aspects if necessary
-        // create restrictions
-        SharkGame.AspectTree.setup();
-
-        SharkGame.Memories.setup();
-
-        // now set up resources because a lot depends on it
-        SharkGame.Resources.setup();
-
-        // initialise tabs
-        // always set up lab first
-        SharkGame.Lab.setup();
-        SharkGame.Home.setup();
-        SharkGame.Stats.setup();
-        SharkGame.Recycler.setup();
-        SharkGame.Gate.setup();
-        SharkGame.Reflection.setup();
-        SharkGame.CheatsAndDebug.setup();
-
-        SharkGame.Resources.minuteHand.setup();
-        SharkGame.Resources.tokens.setup();
-
-        SharkGame.EventHandler.setup();
-
-        // end game if necessary
-        SharkGame.Gateway.setup();
-
-        // rename a game option if this is a first time run
-        SharkGame.TitleBarHandler.correctTitleBar();
-
-        // apply tick settings
-        main.applyFramerate();
-
-        // apply settings
-        $.each(SharkGame.Settings, (settingId, settingData) => {
-            if (_.isUndefined(SharkGame.Settings.current[settingId])) {
-                SharkGame.Settings.current[settingId] = settingData.defaultSetting;
-                if (typeof settingData.onChange === "function") {
-                    settingData.onChange();
-                }
-            }
-        });
-
-        SharkGame.TitleBarHandler.updateTopBar();
-
-        if (main.autosaveHandler === -1) {
-            main.autosaveHandler = setInterval(main.autosave, SharkGame.Settings.current.autosaveFrequency * 60000);
-        }
-
-        // window.addEventListener("beforeunload", main.autosave);
-
-        if (SharkGame.Settings.current.updateCheck) {
-            main.checkForUpdateHandler = setInterval(main.checkForUpdate, 300000);
-        }
-
-        $("#title").on("click", (event) => {
-            if (event.clientX < 100 && event.clientY > 150 && event.clientY < 200) {
-                event.currentTarget.classList.add("radical");
-            }
-        });
-
-        if (!SharkGame.persistentFlags.dialSetting) SharkGame.persistentFlags.dialSetting = 1;
-
-        if (SharkGame.persistentFlags.pause) {
-            if (!cad.pause) {
-                res.pause.togglePause();
-            }
-            main.showSidebarIfNeeded();
-            if (SharkGame.flags.needOfflineProgress && SharkGame.Settings.current.truePause) {
-                SharkGame.persistentFlags.currentPausedTime += SharkGame.flags.needOfflineProgress * 1000;
-                SharkGame.flags.needOfflineProgress = 0;
-            }
-        }
-
-        if (SharkGame.flags.needOfflineProgress && SharkGame.Settings.current.offlineModeActive && !SharkGame.gameOver) {
-            const secondsElapsed = SharkGame.flags.needOfflineProgress;
-
-            if (SharkGame.Settings.current.idleEnabled) {
-                res.minuteHand.allowMinuteHand();
-                res.minuteHand.updateMinuteHand(secondsElapsed * 1000);
-                if (SharkGame.Aspects.overtime.level) {
-                    res.minuteHand.updateMinuteHand(secondsElapsed * 200 * SharkGame.Aspects.overtime.level);
-                    res.minuteHand.addBonusTime(secondsElapsed * 200 * SharkGame.Aspects.overtime.level);
-                }
-            } else {
-                main.processSimTime(secondsElapsed / SharkGame.persistentFlags.dialSetting, true);
-            }
-
-            // acknowledge long time gaps
-            // (update these messages some time later)
-            if (secondsElapsed > 3600) {
-                let notification = "Welcome back! It's been ";
-                const numHours = Math.floor(secondsElapsed / 3600);
-                if (numHours > 24) {
-                    const numDays = Math.floor(numHours / 24);
-                    if (numDays > 7) {
-                        const numWeeks = Math.floor(numDays / 7);
-                        if (numWeeks > 4) {
-                            const numMonths = Math.floor(numWeeks / 4);
-                            if (numMonths > 12) {
-                                const numYears = Math.floor(numMonths / 12);
-                                notification +=
-                                    "almost " +
-                                    (numYears === 1 ? "a" : numYears) +
-                                    " year" +
-                                    sharktext.plural(numYears) +
-                                    ", thanks for remembering this exists!";
-                            } else {
-                                notification +=
-                                    "like " +
-                                    (numMonths === 1 ? "a" : numMonths) +
-                                    " month" +
-                                    sharktext.plural(numMonths) +
-                                    ", it's getting kinda crowded.";
-                            }
-                        } else {
-                            notification +=
-                                "about " + (numWeeks === 1 ? "a" : numWeeks) + " week" + sharktext.plural(numWeeks) + ", you were gone a while!";
-                        }
-                    } else {
-                        notification +=
-                            (numDays === 1 ? "a" : numDays) + " day" + sharktext.plural(numDays) + ", and look at all the stuff you have now!";
-                    }
-                } else {
-                    notification += (numHours === 1 ? "an" : numHours) + " hour" + sharktext.plural(numHours) + " since you were seen around here!";
-                }
-                log.addMessage(notification);
-            }
-            SharkGame.flags.needOfflineProgress = 0;
-        }
-
-        // set up tab after load
-        SharkGame.TabHandler.setUpTab();
-    },
-
-    purgeGame() {
-        // empty out all the containers!
-        $("#status").empty();
-        log.clearMessages();
-        $("#content").empty();
-    },
-
-    loopGame() {
-        $("body").css("overscroll-behavior-x", "unset");
-        if (SharkGame.gameOver) {
-            SharkGame.persistentFlags.totalPausedTime = 0;
-            SharkGame.persistentFlags.currentPausedTime = 0;
-
-            // populate save data object
-            let saveString = "";
-            const saveData = {
-                version: SharkGame.VERSION,
-                resources: {},
-                world: { type: world.worldType },
-                aspects: {},
-            };
-
-            _.each(SharkGame.ResourceCategories.special.resources, (resourceName) => {
-                saveData.resources[resourceName] = {
-                    amount: res.getResource(resourceName),
-                    totalAmount: res.getTotalResource(resourceName),
-                };
-            });
-
-            _.each(SharkGame.Aspects, ({ level }, aspectId) => {
-                if (level) saveData.aspects[aspectId] = level;
-            });
-
-            saveData.settings = _.cloneDeep(SharkGame.Settings.current);
-
-            saveData.completedWorlds = _.cloneDeep(SharkGame.Gateway.completedWorlds);
-            saveData.persistentFlags = _.cloneDeep(SharkGame.persistentFlags);
-            saveData.planetPool = _.cloneDeep(gateway.planetPool);
-
-            // add timestamp
-            saveData.timestampLastSave = _.now();
-            saveData.timestampGameStart = SharkGame.timestampGameStart;
-            saveData.timestampRunStart = _.now();
-            saveData.timestampRunEnd = SharkGame.timestampRunEnd;
-
-            saveData.keybinds = _.cloneDeep(SharkGame.Keybinds.keybinds);
-
-            saveData.saveVersion = SharkGame.Save.saveUpdaters.length - 1;
-            saveString = ascii85.encode(pako.deflate(JSON.stringify(saveData), { to: "string" }));
-
-            SharkGame.Save.importData(saveString);
-
-            res.minuteHand.applyHourHand();
-            res.minuteHand.giveRequestedTime();
-
-            try {
-                SharkGame.Save.saveGame();
-                log.addMessage("Game saved.");
-            } catch (err) {
-                log.addError(err);
-            }
-        }
-    },
-
-    tick() {
-        if (cad.stop) {
-            return;
-        }
-
-        const now = _.now();
-        const elapsedTime = now - SharkGame.before;
-
-        if (cad.pause) {
-            if (SharkGame.Settings.current.truePause) {
-                SharkGame.persistentFlags.currentPausedTime += elapsedTime;
-            } else {
-                if (!SharkGame.persistentFlags.everIdled) {
-                    res.minuteHand.allowMinuteHand();
-                }
-                res.minuteHand.updateMinuteHand(elapsedTime * (1 + SharkGame.Aspects.overtime.level * 0.2));
-                res.minuteHand.addBonusTime(elapsedTime * SharkGame.Aspects.overtime.level * 0.2);
-            }
-            SharkGame.before = now;
-            SharkGame.lastActivity = now;
-            switch (SharkGame.Tabs.current) {
-                case "home":
-                    $.each($("#buttonList").children(), (_index, button) => {
-                        $(button).addClass("disabled");
-                    });
-                    break;
-                case "lab":
-                    $.each($("#buttonList").children(), (_index, button) => {
-                        $(button).addClass("disabled");
-                    });
-                    break;
-                case "recycler":
-                    $.each($("#inputButtons").children(), (_index, button) => {
-                        $(button).addClass("disabled");
-                    });
-                    $.each($("#outputButtons").children(), (_index, button) => {
-                        $(button).addClass("disabled");
-                    });
-                    break;
-                default:
-                    SharkGame.Tabs[SharkGame.Tabs.current].code.update();
-            }
-            res.updateResourcesTable();
-            return;
-        }
-
-        if (!SharkGame.gameOver) {
-            SharkGame.EventHandler.handleEventTick("beforeTick");
-
-            if (SharkGame.persistentFlags.currentPausedTime) {
-                SharkGame.persistentFlags.totalPausedTime += SharkGame.persistentFlags.currentPausedTime;
-                SharkGame.persistentFlags.currentPausedTime = 0;
-            }
-
-            if (res.idleMultiplier < 1) {
-                main.continueIdle(now, elapsedTime);
-            }
-
-            // tick main game stuff
-            if (now - SharkGame.lastActivity > SharkGame.IDLE_THRESHOLD && res.idleMultiplier === 1 && SharkGame.Settings.current.idleEnabled) {
-                main.startIdle(now, elapsedTime);
-            }
-
-            if (res.minuteHand.active) {
-                res.minuteHand.updateMinuteHand(elapsedTime);
-            } else if (SharkGame.Aspects.overtime.level) {
-                res.minuteHand.updateMinuteHand(elapsedTime * 0.2 * SharkGame.Aspects.overtime.level);
-                res.minuteHand.addBonusTime(elapsedTime * 0.2 * SharkGame.Aspects.overtime.level);
-            }
-
-            // check if the sidebar needs to come back
-            if (SharkGame.sidebarHidden) {
-                main.showSidebarIfNeeded();
-            }
-
-            if (elapsedTime > SharkGame.INTERVAL) {
-                // Compensate for lost time.
-                main.processSimTime(SharkGame.dt * (elapsedTime / SharkGame.INTERVAL));
-            } else {
-                main.processSimTime(SharkGame.dt);
-            }
-
-            res.updateResourcesTable();
-
-            const tabCode = SharkGame.Tabs[SharkGame.Tabs.current].code;
-            tabCode.update();
-
-            SharkGame.TabHandler.checkTabUnlocks();
-
-            SharkGame.before = now;
-
-            SharkGame.EventHandler.handleEventTick("afterTick");
-        } else {
-            SharkGame.lastActivity = _.now();
-        }
-
-        // see if resource table tooltip needs updating
-        if (document.getElementById("tooltipbox").className.split(" ").includes("forIncomeTable")) {
-            if (document.getElementById("tooltipbox").attributes.current) {
-                res.tableTextEnter(null, document.getElementById("tooltipbox").attributes.current.value);
-            }
-        }
-    },
-
-    startIdle(now, elapsedTime) {
-        const idleOverlay = $("#idle-overlay");
-        idleOverlay.addClass("pointy").removeClass("click-passthrough");
-        idleOverlay.on("click", main.endIdle);
-        if (idleOverlay.is(":hidden")) {
-            $("#minute-hand-div").addClass("front");
-            idleOverlay.show().css("opacity", 0).animate({ opacity: 0.8 }, SharkGame.IDLE_FADE_TIME);
-        }
-        res.minuteHand.toggleOff();
-        SharkGame.savedMouseActivity = SharkGame.lastActivity;
-        main.continueIdle(now, elapsedTime);
-    },
-
-    continueIdle(now, elapsedTime) {
-        const speedRatio = Math.min((now - SharkGame.savedMouseActivity - SharkGame.IDLE_THRESHOLD) / SharkGame.IDLE_FADE_TIME, 1);
-        res.idleMultiplier = 1 - speedRatio;
-
-        if (speedRatio > 0.8 && !SharkGame.persistentFlags.everIdled) {
-            res.minuteHand.allowMinuteHand();
-        }
-        res.minuteHand.updateMinuteHand(elapsedTime * speedRatio);
-    },
-
-    endIdle() {
-        const idleOverlay = $("#idle-overlay");
-        if (!idleOverlay.is(":hidden")) {
-            idleOverlay.stop(true).animate({ opacity: 0 }, 800, () => {
-                $("#minute-hand-div").removeClass("front");
-                idleOverlay.hide().stop(true);
-            });
-        }
-        idleOverlay.removeClass("pointy").addClass("click-passthrough");
-        SharkGame.lastActivity = _.now();
-        res.idleMultiplier = 1;
-    },
-
-    processSimTime(numberOfSeconds, load = false) {
-        // income calculation
-        res.processIncomes(numberOfSeconds, false, load);
-    },
-
-    autosave() {
-        try {
-            SharkGame.Save.saveGame();
-            log.addMessage("Autosaved.");
-        } catch (err) {
-            log.addError(err);
-        }
-    },
-
-    checkForUpdate() {
-        $.getJSON("https://api.github.com/repos/Toby222/SharkGame/commits/alpha", (data) => {
-            if (data.sha !== SharkGame.COMMIT_SHA) {
-                $("#updateGameBox")
-                    .html(
-                        `You see a new update swimming towards you.<br> On it you can just make out the words <br>"${
-                            data.commit.message.split("\n")[0]
-                        }". <br>Click to update.`,
-                    )
-                    .on("click", () => {
-                        try {
-                            SharkGame.Save.saveGame();
-                            history.go(0);
-                        } catch (err) {
-                            log.addError(err);
-                            console.error(err);
-                            log.addMessage("Something went wrong while saving.");
-                        }
-                    });
-            }
-        });
-    },
-
-    createBuyButtons(customLabel, addToWhere, appendOrPrepend, absoluteOnly) {
-        if (!addToWhere) {
-            log.addError("Attempted to create buy buttons without specifying what to do with them.");
-            return;
-        }
-
-        // add buy buttons
-        const buttonList = $("<ul>").attr("id", "buyButtons");
-        switch (appendOrPrepend) {
-            case "append":
-                addToWhere.append(buttonList);
-                break;
-            case "prepend":
-                addToWhere.prepend(buttonList);
-                break;
-            default:
-                log.addError("Attempted to create buy buttons without specifying whether to append or prepend.");
-                return;
-        }
-        _.each(SharkGame.Settings.buyAmount.options, (amount) => {
-            if (amount < 0 && absoluteOnly) {
-                return true;
-            }
-
-            const disableButton = amount === SharkGame.Settings.current.buyAmount;
-            buttonList.append(
-                $("<li>").append(
-                    $("<button>")
-                        .addClass("min" + (disableButton ? " disabled" : ""))
-                        .attr("id", "buy-" + amount),
-                ),
-            );
-            let label = customLabel ? customLabel + " " : "buy ";
-            if (amount < 0) {
-                if (amount < -2) {
-                    label += "1/3 max";
-                } else if (amount < -1) {
-                    label += "1/2 max";
-                } else {
-                    label += "max";
-                }
-            } else if (amount === "custom") {
-                label += "custom";
-            } else {
-                label += sharktext.beautify(amount);
-            }
-            $("#buy-" + amount)
-                .html(label)
-                .on("click", function callback() {
-                    const thisButton = $(this);
-                    if (thisButton.hasClass("disabled")) return;
-                    if (thisButton[0].id === "buy-custom") {
-                        $("#custom-input").attr("disabled", false);
-                    } else {
-                        $("#custom-input").attr("disabled", true);
-                    }
-                    SharkGame.Settings.current.buyAmount = amount === "custom" ? "custom" : parseInt(thisButton.attr("id").slice(4));
-                    $("button[id^='buy-']").removeClass("disabled");
-                    thisButton.addClass("disabled");
-                })
-                .on("mouseenter", () => {
-                    $("#tooltipbox").html(`${label} amount of things`);
-                })
-                .on("mouseleave", () => {
-                    $("#tooltipbox").html("");
-                });
-        });
-        buttonList.append(
-            $("<li>").append(
-                $("<input>")
-                    .prop("type", "number")
-                    .attr("id", "custom-input")
-                    .attr("value", 1)
-                    .attr("min", "1")
-                    .attr("disabled", SharkGame.Settings.current.buyAmount !== "custom"),
-            ),
-        );
-        document.getElementById("custom-input").addEventListener("input", main.onCustomChange);
-        if (SharkGame.Settings.current.customSetting) {
-            $("#custom-input")[0].value = SharkGame.Settings.current.customSetting;
-        }
-    },
-
-    onCustomChange() {
-        SharkGame.Settings.current.customSetting = $("#custom-input")[0].value;
-    },
-
-    showSidebarIfNeeded() {
-        // if we have any non-zero resources, show sidebar
-        // if we have any log entries, show sidebar
-        if (res.haveAnyResources()) {
-            // show sidebar
-            if (SharkGame.Settings.current.showAnimations) {
-                $("#sidebar").show("500");
-            } else {
-                $("#sidebar").show();
-            }
-            res.rebuildTable = true;
-            // flag sidebar as shown
-            SharkGame.sidebarHidden = false;
-        }
-    },
-
-    endGame(loadingFromSave) {
-        // stop autosaving
-        clearInterval(main.autosaveHandler);
-        main.autosaveHandler = -1;
-
-        // flag game as over
-        SharkGame.gameOver = true;
-
-        // grab end game timestamp
-        if (!loadingFromSave) {
-            SharkGame.timestampRunEnd = _.now();
-        }
-
-        // kick over to passage
-        gateway.enterGate(loadingFromSave);
-    },
-
-    isFirstTime() {
-        return world.worldType === "start" && res.getTotalResource("essence") <= 0;
-    },
-
-    resetTimers() {
-        SharkGame.timestampLastSave = _.now();
-        SharkGame.timestampGameStart = _.now();
-        SharkGame.timestampRunStart = _.now();
-    },
-
-    shouldShowTooltips() {
-        if (!(main.isFirstTime() && res.getResource("shark") < 5)) {
-            SharkGame.persistentFlags.tooltipUnlocked = true;
-        }
-        return SharkGame.persistentFlags.tooltipUnlocked;
-    },
-
-    checkForCategorizationOversights() {
-        $.each(SharkGame.ResourceTable, (resourceName, resourceObj) => {
-            if (!res.getCategoryOfResource(resourceName)) {
-                log.addError(new Error(`${resourceName} does not have a category.`));
-            }
-
-            if (!resourceObj.desc) {
-                log.addError(new Error(`${resourceName} does not have a description.`));
-            }
-
-            if (!resourceObj.name || !resourceObj.singleName) {
-                log.addError(new Error(`${resourceName} does not have a name.`));
-            }
-        });
-        _.each(SharkGame.Gateway.allowedWorlds, (worldName) => {
-            $.each(SharkGame.HomeActions[worldName], (actionName) => {
-                if (!home.getActionCategory(actionName)) {
-                    log.addError(new Error(`${actionName} does not have a category.`));
-                }
-            });
-        });
-    },
+		
+		ttps://api.github.com/repos/Toby222/SharkGame/commits/alpha", (data) => {
+			HA = data.sha;
+		
+		sages(false);
+		ttings.current.buyAmount = 1;
+
+		top timer from saying NaN
+		rsistentFlags.totalPausedTime = 0;
+		rsistentFlags.currentPausedTime = 0;
+
+		resource tables
+		sources.init();
+
+		e world
+		 GATE IS INITIALISED AFTER WORLD!!
+		rld.init();
+
+		netpool and completed worlds and gameover and wongame
+		teway.init();
+
+		meEvent lookup
+		mories.init();
+
+		requiredBy entries
+		pectTree.init();
+
+		e tabs
+		me.init();
+		b.init();
+		ats.init();
+		cycler.init();
+		te.init();
+		flection.init();
+		eatsAndDebug.init();
+
+		gs
+		ags = {};
+		rsistentFlags = {};
+
+		entHandler.init();
+
+		tleBarHandler.init();
+		bHandler.init();
+		neHandler.init();
+		erlayHandler.init();
+
+		ybinds.init();
+
+		sources.minuteHand.init();
+		sources.pause.init();
+		sources.dial.init();
+	
+
+	d stored game data, if there is anything to load
+	eGame(goal) {
+		) {
+			
+				GameExists()) {
+					
+						
+						
+					
+						
+					
+				
+				
+			
+				
+				
+			
+			ore
+		
+	
+
+	erpret and use the data from the previous steps
+	ame() {
+		_.now();
+		mestampLastSave = SharkGame.timestampLastSave || now;
+		mestampGameStart = SharkGame.timestampGameStart || now;
+		mestampRunStart = SharkGame.timestampRunStart || now;
+
+		 up the world because it adds the world resource
+		rld.setup();
+
+		pects if necessary
+		strictions
+		pectTree.setup();
+
+		mories.setup();
+
+		p resources because a lot depends on it
+		sources.setup();
+
+		e tabs
+		t up lab first
+		b.setup();
+		me.setup();
+		ats.setup();
+		cycler.setup();
+		te.setup();
+		flection.setup();
+		eatsAndDebug.setup();
+
+		sources.minuteHand.setup();
+		sources.tokens.setup();
+
+		entHandler.setup();
+
+		if necessary
+		teway.setup();
+
+		game option if this is a first time run
+		tleBarHandler.correctTitleBar();
+
+		k settings
+		amerate();
+
+		tings
+		Game.Settings, (settingId, settingData) => {
+			SharkGame.Settings.current[settingId])) {
+				nt[settingId] = settingData.defaultSetting;
+				nChange === "function") {
+					
+				
+			
+		
+
+		tleBarHandler.updateTopBar();
+
+		osaveHandler === -1) {
+			er = setInterval(main.autosave, SharkGame.Settings.current.autosaveFrequency * 60000);
+		
+
+		dEventListener("beforeunload", main.autosave);
+
+		e.Settings.current.updateCheck) {
+			eHandler = setInterval(main.checkForUpdate, 300000);
+		
+
+		on("click", (event) => {
+			< 100 && event.clientY > 150 && event.clientY < 200) {
+				sList.add("radical");
+			
+		
+
+		me.persistentFlags.dialSetting) SharkGame.persistentFlags.dialSetting = 1;
+
+		e.persistentFlags.pause) {
+			
+				
+			
+			Needed();
+			s.needOfflineProgress && SharkGame.Settings.current.truePause) {
+				s.currentPausedTime += SharkGame.flags.needOfflineProgress * 1000;
+				ineProgress = 0;
+			
+		
+
+		e.flags.needOfflineProgress && SharkGame.Settings.current.offlineModeActive && !SharkGame.gameOver) {
+			ed = SharkGame.flags.needOfflineProgress;
+
+			ings.current.idleEnabled) {
+				teHand();
+				uteHand(secondsElapsed * 1000);
+				ertime.level) {
+					d(secondsElapsed * 200 * SharkGame.Aspects.overtime.level);
+					condsElapsed * 200 * SharkGame.Aspects.overtime.level);
+				
+			
+				ndsElapsed / SharkGame.persistentFlags.dialSetting, true);
+			
+
+			g time gaps
+			essages some time later)
+			 > 3600) {
+				ome back! It's been ";
+				oor(secondsElapsed / 3600);
+				
+					Hours / 24);
+					
+						/ 7);
+						
+							;
+							
+								
+								
+									
+									
+									
+									
+									
+							
+								
+									
+									
+									
+									
+									
+							
+						
+							
+								 week" + sharktext.plural(numWeeks) + ", you were gone a while!";
+						
+					
+						
+							 sharktext.plural(numDays) + ", and look at all the stuff you have now!";
+					
+				
+					1 ? "an" : numHours) + " hour" + sharktext.plural(numHours) + " since you were seen around here!";
+				
+				ion);
+			
+			edOfflineProgress = 0;
+		
+
+		b after load
+		bHandler.setUpTab();
+	
+
+	ame() {
+		 all the containers!
+		.empty();
+		sages();
+		).empty();
+	
+
+	me() {
+		s("overscroll-behavior-x", "unset");
+		e.gameOver) {
+			ntFlags.totalPausedTime = 0;
+			ntFlags.currentPausedTime = 0;
+
+			ata object
+			";
+			
+				ON,
+				
+				ldType },
+				
+			
+
+			esourceCategories.special.resources, (resourceName) => {
+				rceName] = {
+					ceName),
+					rce(resourceName),
+				
+			
+
+			spects, ({ level }, aspectId) => {
+				cts[aspectId] = level;
+			
+
+			= _.cloneDeep(SharkGame.Settings.current);
+
+			Worlds = _.cloneDeep(SharkGame.Gateway.completedWorlds);
+			tFlags = _.cloneDeep(SharkGame.persistentFlags);
+			l = _.cloneDeep(gateway.planetPool);
+
+			
+			LastSave = _.now();
+			GameStart = SharkGame.timestampGameStart;
+			RunStart = _.now();
+			RunEnd = SharkGame.timestampRunEnd;
+
+			= _.cloneDeep(SharkGame.Keybinds.keybinds);
+
+			on = SharkGame.Save.saveUpdaters.length - 1;
+			85.encode(pako.deflate(JSON.stringify(saveData), { to: "string" }));
+
+			ortData(saveString);
+
+			lyHourHand();
+			eRequestedTime();
+
+			
+				);
+				ed.");
+			
+				
+			
+		
+	
+
+	 {
+		) {
+			
+		
+
+		_.now();
+		dTime = now - SharkGame.before;
+
+		e) {
+			ings.current.truePause) {
+				s.currentPausedTime += elapsedTime;
+			
+				tFlags.everIdled) {
+					();
+				
+				uteHand(elapsedTime * (1 + SharkGame.Aspects.overtime.level * 0.2));
+				ime(elapsedTime * SharkGame.Aspects.overtime.level * 0.2);
+			
+			 now;
+			vity = now;
+			Tabs.current) {
+				
+					en(), (_index, button) => {
+						
+					
+					
+				
+					en(), (_index, button) => {
+						
+					
+					
+				
+					dren(), (_index, button) => {
+						
+					
+					ldren(), (_index, button) => {
+						
+					
+					
+				
+					current].code.update();
+			
+			sTable();
+			
+		
+
+		me.gameOver) {
+			dler.handleEventTick("beforeTick");
+
+			istentFlags.currentPausedTime) {
+				s.totalPausedTime += SharkGame.persistentFlags.currentPausedTime;
+				s.currentPausedTime = 0;
+			
+
+			lier < 1) {
+				lapsedTime);
+			
+
+			stuff
+			e.lastActivity > SharkGame.IDLE_THRESHOLD && res.idleMultiplier === 1 && SharkGame.Settings.current.idleEnabled) {
+				sedTime);
+			
+
+			.active) {
+				uteHand(elapsedTime);
+			me.Aspects.overtime.level) {
+				uteHand(elapsedTime * 0.2 * SharkGame.Aspects.overtime.level);
+				ime(elapsedTime * 0.2 * SharkGame.Aspects.overtime.level);
+			
+
+			debar needs to come back
+			barHidden) {
+				();
+			
+
+			SharkGame.INTERVAL) {
+				ime.
+				kGame.dt * (elapsedTime / SharkGame.INTERVAL));
+			
+				kGame.dt);
+			
+
+			sTable();
+
+			arkGame.Tabs[SharkGame.Tabs.current].code;
+			
+
+			er.checkTabUnlocks();
+
+			 now;
+
+			dler.handleEventTick("afterTick");
+		
+			vity = _.now();
+		
+
+		source table tooltip needs updating
+		.getElementById("tooltipbox").className.split(" ").includes("forIncomeTable")) {
+			ementById("tooltipbox").attributes.current) {
+				 document.getElementById("tooltipbox").attributes.current.value);
+			
+		
+	
+
+	dle(now, elapsedTime) {
+		erlay = $("#idle-overlay");
+		addClass("pointy").removeClass("click-passthrough");
+		on("click", main.endIdle);
+		lay.is(":hidden")) {
+			v").addClass("front");
+			.css("opacity", 0).animate({ opacity: 0.8 }, SharkGame.IDLE_FADE_TIME);
+		
+		nd.toggleOff();
+		vedMouseActivity = SharkGame.lastActivity;
+		eIdle(now, elapsedTime);
+	
+
+	ueIdle(now, elapsedTime) {
+		atio = Math.min((now - SharkGame.savedMouseActivity - SharkGame.IDLE_THRESHOLD) / SharkGame.IDLE_FADE_TIME, 1);
+		iplier = 1 - speedRatio;
+
+		io > 0.8 && !SharkGame.persistentFlags.everIdled) {
+			owMinuteHand();
+		
+		nd.updateMinuteHand(elapsedTime * speedRatio);
+	
+
+	e() {
+		erlay = $("#idle-overlay");
+		rlay.is(":hidden")) {
+			rue).animate({ opacity: 0 }, 800, () => {
+				moveClass("front");
+				true);
+			
+		
+		removeClass("pointy").addClass("click-passthrough");
+		stActivity = _.now();
+		iplier = 1;
+	
+
+	sSimTime(numberOfSeconds, load = false) {
+		lculation
+		ncomes(numberOfSeconds, false, load);
+	
+
+	ve() {
+		
+			eGame();
+			tosaved.");
+		) {
+			
+		
+	
+
+	orUpdate() {
+		ttps://api.github.com/repos/Toby222/SharkGame/commits/alpha", (data) => {
+			harkGame.COMMIT_SHA) {
+				
+					
+						ds you.<br> On it you can just make out the words <br>"${
+							
+						
+					
+					
+						
+							
+							
+						
+							
+							
+							 saving.");
+						
+					
+			
+		
+	
+
+	BuyButtons(customLabel, addToWhere, appendOrPrepend, absoluteOnly) {
+		ere) {
+			mpted to create buy buttons without specifying what to do with them.");
+			
+		
+
+		uttons
+		List = $("<ul>").attr("id", "buyButtons");
+		ndOrPrepend) {
+			
+				List);
+				
+			
+				nList);
+				
+			
+				to create buy buttons without specifying whether to append or prepend.");
+				
+		
+		Game.Settings.buyAmount.options, (amount) => {
+			absoluteOnly) {
+				
+			
+
+			n = amount === SharkGame.Settings.current.buyAmount;
+			
+				
+					
+						 disabled" : ""))
+						
+				
+			
+			Label ? customLabel + " " : "buy ";
+			
+				
+					
+				{
+					
+				
+					
+				
+			=== "custom") {
+				
+			
+				ify(amount);
+			
+			)
+				
+				llback() {
+					
+					led")) return;
+					custom") {
+						false);
+					
+						true);
+					
+					Amount = amount === "custom" ? "custom" : parseInt(thisButton.attr("id").slice(4));
+					Class("disabled");
+					);
+				
+				{
+					} amount of things`);
+				
+				{
+					
+				
+		
+		ppend(
+			
+				
+					
+					
+					
+					
+					ttings.current.buyAmount !== "custom"),
+			
+		
+		ElementById("custom-input").addEventListener("input", main.onCustomChange);
+		e.Settings.current.customSetting) {
+			[0].value = SharkGame.Settings.current.customSetting;
+		
+	
+
+	omChange() {
+		ttings.current.customSetting = $("#custom-input")[0].value;
+	
+
+	debarIfNeeded() {
+		e any non-zero resources, show sidebar
+		e any log entries, show sidebar
+		AnyResources()) {
+			
+			ings.current.showAnimations) {
+				);
+			
+				
+			
+			 true;
+			 shown
+			idden = false;
+		
+	
+
+	e(loadingFromSave) {
+		saving
+		l(main.autosaveHandler);
+		eHandler = -1;
+
+		 as over
+		meOver = true;
+
+		game timestamp
+		FromSave) {
+			pRunEnd = _.now();
+		
+
+		 to passage
+		rGate(loadingFromSave);
+	
+
+	tTime() {
+		.worldType === "start" && res.getTotalResource("essence") <= 0;
+	
+
+	imers() {
+		mestampLastSave = _.now();
+		mestampGameStart = _.now();
+		mestampRunStart = _.now();
+	
+
+	ShowTooltips() {
+		sFirstTime() && res.getResource("shark") < 5)) {
+			ntFlags.tooltipUnlocked = true;
+		
+		Game.persistentFlags.tooltipUnlocked;
+	
+
+	orCategorizationOversights() {
+		Game.ResourceTable, (resourceName, resourceObj) => {
+			ryOfResource(resourceName)) {
+				${resourceName} does not have a category.`));
+			
+
+			esc) {
+				${resourceName} does not have a description.`));
+			
+
+			ame || !resourceObj.singleName) {
+				${resourceName} does not have a name.`));
+			
+		
+		Game.Gateway.allowedWorlds, (worldName) => {
+			omeActions[worldName], (actionName) => {
+				ory(actionName)) {
+					onName} does not have a category.`));
+				
+			
+		
+	
 };
 
 SharkGame.Button = {
-    makeHoverscriptButton(id, name, div, handler, hhandler, huhandler) {
-        return $("<button>")
-            .html(name)
-            .attr("id", id)
-            .addClass("hoverbutton")
-            .appendTo(div)
-            .on("click", handler)
-            .on("mouseenter", hhandler)
-            .on("mouseleave", huhandler);
-    },
+	verscriptButton(id, name, div, handler, hhandler, huhandler) {
+		utton>")
+			
+			
+			tton")
+			
+			er)
+			hhandler)
+			huhandler);
+	
 
-    makeButton(id, name, div, handler) {
-        return $("<button>").html(name).attr("id", id).appendTo(div).on("click", handler);
-    },
+	tton(id, name, div, handler) {
+		utton>").html(name).attr("id", id).appendTo(div).on("click", handler);
+	
 };
 
 SharkGame.Changelog = {
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20250127a": [
-        "Added a new home message sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241214a": [
-        "Added another 2 new sprites courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241128a": [
-        "Added another another new sprite courtesy of <a href='https://www.youtube.com/@WorkerDroneMainBattleTrain'>Main Battle Train</a>.",
-        "Added another 2 new sprites courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241119a": [
-        "Added another new sprite courtesy of <a href='https://www.youtube.com/@WorkerDroneMainBattleTrain'>Main Battle Train</a>.",
-        "Added another new sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241106a": [
-        "Added a new sprite courtesy of <a href='https://www.youtube.com/@WorkerDroneMainBattleTrain'>Main Battle Train</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240909a": [
-        "Added another one new sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>!",
-        "Added a heap of new fun facts.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240906a": [
-        "Added another 4 new sprites courtesy of <a href='https://github.com/glowkate'>Glowkate</a>!",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240819a": [
-        "Added another new sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240818a": [
-        "Added another new home message image, courtesy of <a href='https://x.com/stormwalker124'>stormwalker</a>.",
-        "Added a sprite for billfish pairs courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240805a": [
-        "Added a new home message image, courtesy of <a href='https://x.com/stormwalker124'>stormwalker</a>.",
-        "Fixed a bug where a home message image in Haven wasn't appearing.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240803a": [
-        "Added a new upgrade to the starter world: Crystal Scoops, to increase the speed of that world dramatically and make for slightly more interesting crab-to-laser-ray competition.",
-        "Added 4 new home message images, courtesy of <a href='https://x.com/stormwalker124'>stormwalker</a>.",
-        "This happened silently in January, but: fixed the negative world time bug.",
-        "Made a few changes to older ones.",
-        "Fixed the shrimp home message image not appearing.",
-        "Fixed the lobster home message image not appearing.",
-        "Fixed the sponge filter sprite not appearing.",
-        "Fixed the pry sponge sprite disappearing in Volcanic.",
-        "Edited some home message requirements.",
-        "Edited the home message text at the end of Shrouded and Abandoned.",
-        "Edited some of the random game tab names.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20230618a": [
-        "Added Tempestuous worldtype.",
-        "Added home message history. You may now freely scroll back and forth between previously seen home messages while in a world.",
-        "For the millionth time, attempted to fix negative world time bugs (and failed).",
-        "Many new sprites.",
-        "New fun facts.",
-        "Fixed issues with uncategorized home actions.",
-        "Fixed issue with verbose token displaying internal names.",
-        "Fixed a bug where disabling offline progress did absolutely nothing.",
-        "Fixed bugs related to pausing and the recycler UI.",
-        "Edited a bunch of text.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220712a": [
-        "Time in the minute hand can now persist between worlds, with a few caveats.",
-        "Added 3 new aspects that complement the changes to minute hand time.",
-        "Changed the pricing and location of aspects on the tree.",
-        "Disabling idle time accruing in the minute hand no longer completely removes it from the UI.",
-        "Added a choice to use SI units.",
-        "Fixed a bug where tooltips would persist when changing tabs via hotkey.",
-        "Fixed a bug where the game throws errors when trying to disable buttons while paused.",
-        "Greatly improved aspect tree on touchscreen devices.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220630a": [
-        "Added a setting to disable idle time from the pause button.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220629a": [
-        "Fixed a bug with a certain sponge button not appearing.",
-        "Fixed a bug with pressing buttons that don't exist anymore.",
-        "Updated the pause button, which now activates idle mode at will.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220625a": [
-        "Added Volcanic worldtype.",
-        "Added FUN FACTS! Press to receive a random fun fact! You get different ones based on where you are and what you own!",
-        "World-time doesn't increase when you are offline or idle. That time is added only if you use it through the minute hand (time from the hour hand aspect is excluded).",
-        "Stuff table tooltips now show how a resource slows or speeds up others.",
-        "Began adding placeholder art to temporarily supplement actually completed art.",
-        "Removed alpha notice.",
-        "Added a link to the hub on the titlebar.",
-        "New credits (see bottom of page).",
-        "Fixed a bunch of miscellaneous bugs.",
-        "Did other assorted tasks.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220603a": [
-        "Added Marine worldtype.",
-        "Planet descriptions are now much more vague until you've visited them.",
-        "Distant Foresight greatly decreases vagueness of planet descriptions now.",
-        "Swapped the order of some aspects on the tree.",
-        "Revised the ending of the Abandoned world.",
-        "Revised bits of the Shrouded world's story.",
-        "Abandoned world gives one bonus essence, bumping its scouting reward to 5 and non-scouting reward to 3.",
-        "By popular demand, added auto-transmuter to Shrouded.",
-        "Fixed some miscellaneous bugs.",
-        "Ixbix - tweaked text visibility system",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20220125a": [
-        "Added keybinds. You can now bind a large array of actions to different key combinations.",
-        "Added backup saves. You can now back up your saves as you wish, with three slots!",
-        "Added real species/family names when recruiting urchins and squid, instead of weird placeholder messages.",
-        "When first unlocking cheats at 1000 lifetime essence, a special backup is automatically created.",
-        "Added toggle for cheats; you don't have to see them if you don't want to.",
-        "Made some more UI changes.",
-        "Removed aspect: Anything and Everything",
-        "Ixbix - fixed issues with gateway time spent in last world",
-        "Ixbix - stopped minute hand slider from flopping around",
-        "Ixbix - added touchscreen support for the aspect tree",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20211201a": [
-        "Added something special at 1000 total essence.",
-        "Changed the aspect tree UI to remove unnecessary buttons from below the tree.",
-        "Fixed some bugs related to the patience and gumption aspects.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20211109a": [
-        "Final revamp of the aspect tree. Not the final addition to it, though.",
-        "Added idle mode. The game will pause and accumulate idle time after 2 minutes of inactivity.",
-        "The minute hand now stores offline progress and idle time. You can use your stored time in the form of a multiplier.",
-        "Removed the playstyle choice because the new idle system does its job better.",
-        "Implemented scouting. You get more essence when you first play a world, but SOME aspects can't be used.",
-        "Implemented par times. If you beat a world faster than par, you get extra essence. Go even faster for even more.",
-        "Added and changed sprites.",
-        "Updated UI.",
-        "Fixed some out-of-place flavor text.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210814a": [
-        "Added Shrouded worldtype.",
-        "Retooled Haven worldtype.",
-        "Changed the aspect tree and its aspects significantly. All aspects must be refunded because of this. Sorry!",
-        "Implemented a basic 'playstyle' choice. The game will adjust pacing to suit your choice.",
-        "Improved resource table tooltips.",
-        "You can now access the options menu in the gateway. (this took a surprising amount of work)",
-        "'Wipe Save' now doesn't reset any settings. Added a separate button to reset settings.",
-        "Added sprites.",
-        "Greatly improved game stability when dealing with large numbers (above a quadrillion).",
-        "Fixed bugs with save wiping and resetting.",
-        "Fixed bugs with grotto.",
-        "Fixed bugs with tooltips in the aspect tree.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210728a": [
-        "The log can now be in one of 3 spots. Change which one in options. Default is now right side.",
-        "Added Resource Affect tooltips; mouse over the multipliers in the R column in the advanced grotto table and you can see what is causing them.",
-        "Added work-in-progress (but functional) aspect table as an alternative to the tree, specifically for accessibility.",
-        "Added extraction team sprite.",
-        "Added historian sprite; decided to repurpose the old philosopher sprite from OG shark game.",
-        "Updated tooltip formatting.",
-        "Updated Recycler UI to eliminate quirkiness.",
-        "Fixed a bug where costs disappear in no-icons mode.",
-        "Fixed incorrect description of an aspect.",
-        "Fixed bugs with importing saves.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210713a": [
-        "Tooltips show you how much you already own of what you're buying. Can be turned off in options.",
-        "Tooltips have their numbers scale based on how much of something you're buying. Can be turned off in options.",
-        "The key for advanced mode grotto has been enhanced.",
-        "Tabs you haven't visited yet will glow. This is on a per-world basis.",
-        "Gave scroll bars to some stuff.",
-        "Changed the order of categories in the resource table to make more sense.",
-        "You can close windows by clicking outside of them.",
-        "Options menu is less wordy.",
-        "Corrected a bunch of upgrade effect descriptions.",
-        "Minor bugfixes.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210709a": [
-        "Added the Frigid worldtype.",
-        "Replaced the Artifacts system with the Aspects system.",
-        "Tweaked Haven.",
-        "Tweaked UI colors.",
-        "Grotto now shows how the world affects resources.",
-        "Moved UI elements around to make the game not freak out on smaller screens.",
-        "Moved buy amount buttons closer to the places you'll need them, they're not in the tab list anymore!",
-        "Added 'bright' text color mode, screws up some colors but makes colored text easier to read.",
-        "Added auto color-visibility adjuster. Tries to change the color of text if it would be hard to read on a certain background.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210610a": [
-        "Fixed bug where haven had no essence. Oops.",
-        "Changed home messages a little.",
-        "Retconned some previous patch notes.",
-        "Added sprite for octopus investigator.",
-        "Internal stuff.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210515a": ["Added missing flavor text.", "Internal stuff."],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210422a": [
-        "Implemented reworked gameplay for the Haven worldtype.",
-        "Made sweeping changes to the UI.",
-        "Improved grotto formatting.",
-        "Changed the colors for Haven worlds.",
-        "In the grotto, amounts for each producer now update live.",
-        "Both kinds of tooltips update live.",
-        "Tooltips can tell you more things: for example, it now says how much science you get from sea apples.",
-        "Added minimized titlebar. You can switch it back to the old one in the options menu.",
-        "Added categories to options menu. Now it's readable!",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210314a": [
-        "Fixed bug related to how artifacts display in the grotto.",
-        "Fixed bug related to artifact affects not applying properly.",
-        "Fixed bug where the grotto would show an upgrade multiplier for everything, even if it was x1.",
-        "Fixed bug where artifact effects would not reset when importing.",
-        "Added 'INCOME PER' statistic to Simple grotto. Shows absolutely how much of a resource you get per generator.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210312a": [
-        "Added simplified grotto.",
-        "Made grotto way easier to understand.",
-        "Added tooltips to income table.",
-        "Did internal rework of the multiplier system, created the modifier system.",
-    ],
-    "<a href='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 - New Perspectives (2021/??/??)": [
-        "Scrapped Chaotic worldtype. Completely.",
-        "Implemented gameplay for 1 out of 7 necessary planet reworks.",
-        "Implemented new assets.",
-    ],
-    "<a href='https://github.com/spencers145/SharkGame'>New Frontiers</a> 0.11 - New Foundations (2021/1/27)": [
-        "New, greatly improved UI for everything.",
-        "Rebalanced stuff.",
-        "Added world themes, so the page now changes color depending on what world you're in.",
-        "Added a TPS/FPS setting, to make the game smoother and nicer to look at, or chunkier and easier on performance.",
-        "Custom purchase amounts.",
-        "Added a 'grace period'. Ice doesn't build up if you have no income for anything.",
-        "Artifact descriptions and distant foresight planet properties are useful.",
-        "See 5 artifact choices instead of 3. On that note, buffed base essence to 4 per world.",
-    ],
-    "<a href='https://github.com/spencers145/SharkGame'>New Frontiers</a> 0.1 - New is Old (2021/1/7)": [
-        "22 NEW SPRITES! More are coming but we couldn't finish all the sprites in time!",
-        "TRUE OFFLINE PROGRESS! Days are compressed to mere seconds with RK4 calculation.",
-        "Attempted to rebalance worlds, especially frigid and abandoned, by making hazardous materials more threatening and meaningful.",
-        "Halved the effectiveness of the 3 basic shark machines (except sand digger, which is 2/3 as productive), but added a new upgrade to counterbalance it.",
-        "Added recycler efficiency system. The more you recycle at once, the more you lose in the process. Added an upgrade which makes the mechanic less harsh.",
-        "Added new UI elements to the Recycler to make it less of a guessing game and more of a cost-benefit analysis.",
-        "Increased the effectiveness of many machines.",
-        "Greatly improved number formatting.",
-        "World shaper has been disabled because it will probably break plans for future game balance.",
-        "Distant foresight now has a max level of 5, and reveals 20% of world properties per level, up to 100% at level 5.",
-        "Fixed exploits, bugs, and buggy exploits and exploitable bugs. No more crystals -> clams & sponges -> science & clams -> crystals loop.",
-        "No more science from sponges.",
-        "Removed jellyfish from a bunch of worlds where the resource was a dead end.",
-    ],
-    "0.71 (2014/12/20)": [
-        "Fixed and introduced and fixed a whole bunch of horrible game breaking bugs. If your save was lost, I'm sorry.",
-        "Made the recycler stop lying about what could be made.",
-        "Made the recycler not pay out so much for animals.",
-        "Options are no longer reset after completing a run for real this time.",
-        "Bunch of tweaked gate costs.",
-        "One new machine, and one new job.",
-        "Ten new post-chasm-exploration technologies to invest copious amounts of science into.",
-    ],
-    "0.7 - Stranger Oceans (2014/12/19)": [
-        "WHOLE BUNCH OF NEW STUFF ADDED.",
-        "Resource system slightly restructured for something in the future.",
-        "New worlds with some slight changes to availabilities, gate demands, and some other stuff.",
-        "Categories added to Home Sea tab for the benefit of trying to make sense of all the buttons.",
-        "Newly added actions show up in highlights for your convenience.",
-        "The way progress continues beyond the gate is now... a little tweaked.",
-        "Options are no longer reset after completing a run.",
-        "Artifacts exist.",
-        "Images are a work in progress. Apologies for the placeholder graphics in these trying times.",
-        "Partial production when there's insufficient resources for things that take costs. Enjoy watching your incomes slow to a trickle!",
-    ],
-    "0.62 (2014/12/12)": [
-        "Fixed infinity resource requirement for gate.",
-        "Attempted to fix resource table breaking in some browsers for some sidebar widths.",
-    ],
-    "0.61 (2014/12/12)": [
-        "Added categories for buttons in the home sea, because there are going to be so many buttons.",
-        "Miscellaneous shuffling of files.",
-        "Some groundwork laid for v0.7, which will be the actual official release.",
-    ],
-    "0.6 - Return of Shark (2014/12/8)": [
-        "Major graphical update!",
-        "Now features graphics sort of!",
-        "Some UI rearrangements:" +
-            "<ul><li>Researched techs now show in lab instead of grotto.</li>" +
-            "<li>General stats now on right of grotto instead of left.</li>" +
-            "<li>Large empty space in grotto right column reserved for future use!</li></ul>",
-        "Pointless version subtitle!",
-        "<span class='medDesc'>Added a donate link. Hey, sharks gotta eat.</span>",
-    ],
-    "0.59 (2014/09/30)": [
-        "Bunch of small fixes and tweaks!",
-        "End of run time now shown at the end of a run.",
-        "A couple of fixes for issues only found in IE11.",
-        "Fixed a bug that could let people buy hundreds of things for cheap by overwhelming the game's capacity for input. Hopefully fixed, anyway.",
-        "Gaudy social media share menu shoehorned in below the game title. Enjoy!",
-    ],
-    "0.531 (2014/08/20)": [
-        "Banned sea apples from the recycler because the feedback loop is actually far more crazy powerful than I was expecting. Whoops!",
-    ],
-    "0.53 (2014/08/18)": ["Changed Recycler so that residue into new machines is linear, but into new resources is constant."],
-    "0.52 (2014/08/18)": [
-        "Emergency bug-fixes.",
-        "Cost to assemble residue into new things is now LINEAR (gets more expensive as you have more things) instead of CONSTANT.",
-    ],
-    "0.51 (2014/08/18)": [
-        "Edited the wording of import/export saving.",
-        "Made machine recycling less HORRIBLY BROKEN in terms of how much a machine is worth.",
-    ],
-    "0.5 (2014/08/18)": [
-        "Added the Grotto - a way to better understand what you've accomplished so far.",
-        "Added the Recycler. Enjoy discovering its function!",
-        "Added sand machines for more machine sand goodness.",
-        "Fixed oscillation/flickering of resources when at zero with anything providing a negative income.",
-        "Added 'support' for people stumbling across the page with scripts turned off.",
-        "Upped the gate kelp requirement by 10x, due to request.",
-        "Added time tracking. Enjoy seeing how much of your life you've invested in this game.",
-        "Added grouping for displaying resources on the left.",
-        "Added some help and action descriptions.",
-        "Added some text to the home tab to let people have an idea of where they should be heading in the very early game.",
-        "Thanks to assistance from others, the saves are now much, much smaller than before.",
-        "Made crab broods less ridiculously explosive.",
-        "Adjusted some resource colours.",
-        "Added a favicon, probably.",
-        "<span class='medDesc'>Added an overdue copyright notice I guess.</span>",
-    ],
-    "0.48 (2014/08-ish)": [
-        "Saves are now compressed both in local storage and in exported strings.",
-        "Big costs significantly reduced.",
-        "Buy 10, Buy 1/3 max and Buy 1/2 max buttons added.",
-        "Research impact now displayed on research buttons.",
-        "Resource effectiveness multipliers now displayed in table." +
-            "<ul><li>These are not multipliers for how much of that resource you are getting.</li></ul>",
-        "Some dumb behind the scenes things to make the code look nicer.",
-        "Added this changelog!",
-        "Removed upgrades list on the left. It'll come back in a future version.",
-        "Added ray and crab generating resources, and unlocking techs.",
-    ],
-    "0.47 (2014/08-ish)": ["Bulk of game content added.", "Last update for Seamergency 2014!"],
-    "0.4 (2014/08-ish)": ["Added Laboratory tab.", "Added the end of the game tab."],
-    "0.3 (2014/08-ish)": ["Added description to options.", "Added save import/export.", "Added the ending panel."],
-    "0.23 (2014/08-ish)": ["Added autosave.", "Income system overhauled.", "Added options panel."],
-    "0.22 (2014/08-ish)": [
-        "Offline mode added. Resources will increase even with the game off!",
-        "(Resource income not guaranteed to be 100% accurate.)",
-    ],
-    "0.21 (2014/08-ish)": ["Save and load added."],
-    "<0.21 (2014/08-ish)": ["A whole bunch of stuff.", "Resource table, log, initial buttons, the works."],
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20250127a": [
+		 home message sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241214a": [
+		er 2 new sprites courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241128a": [
+		er another new sprite courtesy of <a href='https://www.youtube.com/@WorkerDroneMainBattleTrain'>Main Battle Train</a>.",
+		er 2 new sprites courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241119a": [
+		er new sprite courtesy of <a href='https://www.youtube.com/@WorkerDroneMainBattleTrain'>Main Battle Train</a>.",
+		er new sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20241106a": [
+		 sprite courtesy of <a href='https://www.youtube.com/@WorkerDroneMainBattleTrain'>Main Battle Train</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240909a": [
+		er one new sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>!",
+		p of new fun facts.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240906a": [
+		er 4 new sprites courtesy of <a href='https://github.com/glowkate'>Glowkate</a>!",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240819a": [
+		er new sprite courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240818a": [
+		er new home message image, courtesy of <a href='https://x.com/stormwalker124'>stormwalker</a>.",
+		ite for billfish pairs courtesy of <a href='https://github.com/glowkate'>Glowkate</a>.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240805a": [
+		 home message image, courtesy of <a href='https://x.com/stormwalker124'>stormwalker</a>.",
+		 where a home message image in Haven wasn't appearing.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20240803a": [
+		 upgrade to the starter world: Crystal Scoops, to increase the speed of that world dramatically and make for slightly more interesting crab-to-laser-ray competition.",
+		 home message images, courtesy of <a href='https://x.com/stormwalker124'>stormwalker</a>.",
+		ed silently in January, but: fixed the negative world time bug.",
+		changes to older ones.",
+		hrimp home message image not appearing.",
+		obster home message image not appearing.",
+		ponge filter sprite not appearing.",
+		ry sponge sprite disappearing in Volcanic.",
+		 home message requirements.",
+		home message text at the end of Shrouded and Abandoned.",
+		 of the random game tab names.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20230618a": [
+		stuous worldtype.",
+		message history. You may now freely scroll back and forth between previously seen home messages while in a world.",
+		lionth time, attempted to fix negative world time bugs (and failed).",
+		rites.",
+		ts.",
+		s with uncategorized home actions.",
+		 with verbose token displaying internal names.",
+		 where disabling offline progress did absolutely nothing.",
+		related to pausing and the recycler UI.",
+		nch of text.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220712a": [
+		 minute hand can now persist between worlds, with a few caveats.",
+		 aspects that complement the changes to minute hand time.",
+		 pricing and location of aspects on the tree.",
+		dle time accruing in the minute hand no longer completely removes it from the UI.",
+		ice to use SI units.",
+		 where tooltips would persist when changing tabs via hotkey.",
+		 where the game throws errors when trying to disable buttons while paused.",
+		roved aspect tree on touchscreen devices.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220630a": [
+		ting to disable idle time from the pause button.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220629a": [
+		 with a certain sponge button not appearing.",
+		 with pressing buttons that don't exist anymore.",
+		 pause button, which now activates idle mode at will.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220625a": [
+		nic worldtype.",
+		ACTS! Press to receive a random fun fact! You get different ones based on where you are and what you own!",
+		doesn't increase when you are offline or idle. That time is added only if you use it through the minute hand (time from the hour hand aspect is excluded).",
+		 tooltips now show how a resource slows or speeds up others.",
+		g placeholder art to temporarily supplement actually completed art.",
+		ha notice.",
+		k to the hub on the titlebar.",
+		 (see bottom of page).",
+		ch of miscellaneous bugs.",
+		ssorted tasks.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> patch 20220603a": [
+		e worldtype.",
+		riptions are now much more vague until you've visited them.",
+		esight greatly decreases vagueness of planet descriptions now.",
+		 order of some aspects on the tree.",
+		 ending of the Abandoned world.",
+		s of the Shrouded world's story.",
+		orld gives one bonus essence, bumping its scouting reward to 5 and non-scouting reward to 3.",
+		demand, added auto-transmuter to Shrouded.",
+		miscellaneous bugs.",
+		aked text visibility system",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20220125a": [
+		nds. You can now bind a large array of actions to different key combinations.",
+		p saves. You can now back up your saves as you wish, with three slots!",
+		species/family names when recruiting urchins and squid, instead of weird placeholder messages.",
+		unlocking cheats at 1000 lifetime essence, a special backup is automatically created.",
+		e for cheats; you don't have to see them if you don't want to.",
+		ore UI changes.",
+		ect: Anything and Everything",
+		ed issues with gateway time spent in last world",
+		pped minute hand slider from flopping around",
+		ed touchscreen support for the aspect tree",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20211201a": [
+		hing special at 1000 total essence.",
+		 aspect tree UI to remove unnecessary buttons from below the tree.",
+		bugs related to the patience and gumption aspects.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20211109a": [
+		p of the aspect tree. Not the final addition to it, though.",
+		mode. The game will pause and accumulate idle time after 2 minutes of inactivity.",
+		hand now stores offline progress and idle time. You can use your stored time in the form of a multiplier.",
+		 playstyle choice because the new idle system does its job better.",
+		 scouting. You get more essence when you first play a world, but SOME aspects can't be used.",
+		 par times. If you beat a world faster than par, you get extra essence. Go even faster for even more.",
+		hanged sprites.",
+		",
+		out-of-place flavor text.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210814a": [
+		ded worldtype.",
+		ven worldtype.",
+		 aspect tree and its aspects significantly. All aspects must be refunded because of this. Sorry!",
+		 a basic 'playstyle' choice. The game will adjust pacing to suit your choice.",
+		source table tooltips.",
+		 access the options menu in the gateway. (this took a surprising amount of work)",
+		 now doesn't reset any settings. Added a separate button to reset settings.",
+		es.",
+		roved game stability when dealing with large numbers (above a quadrillion).",
+		with save wiping and resetting.",
+		with grotto.",
+		with tooltips in the aspect tree.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210728a": [
+		 now be in one of 3 spots. Change which one in options. Default is now right side.",
+		rce Affect tooltips; mouse over the multipliers in the R column in the advanced grotto table and you can see what is causing them.",
+		in-progress (but functional) aspect table as an alternative to the tree, specifically for accessibility.",
+		ction team sprite.",
+		rian sprite; decided to repurpose the old philosopher sprite from OG shark game.",
+		ltip formatting.",
+		ycler UI to eliminate quirkiness.",
+		 where costs disappear in no-icons mode.",
+		rect description of an aspect.",
+		with importing saves.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210713a": [
+		ow you how much you already own of what you're buying. Can be turned off in options.",
+		ve their numbers scale based on how much of something you're buying. Can be turned off in options.",
+		 advanced mode grotto has been enhanced.",
+		ven't visited yet will glow. This is on a per-world basis.",
+		 bars to some stuff.",
+		 order of categories in the resource table to make more sense.",
+		se windows by clicking outside of them.",
+		u is less wordy.",
+		 bunch of upgrade effect descriptions.",
+		xes.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210709a": [
+		rigid worldtype.",
+		e Artifacts system with the Aspects system.",
+		en.",
+		colors.",
+		shows how the world affects resources.",
+		ements around to make the game not freak out on smaller screens.",
+		mount buttons closer to the places you'll need them, they're not in the tab list anymore!",
+		ht' text color mode, screws up some colors but makes colored text easier to read.",
+		color-visibility adjuster. Tries to change the color of text if it would be hard to read on a certain background.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210610a": [
+		here haven had no essence. Oops.",
+		e messages a little.",
+		ome previous patch notes.",
+		e for octopus investigator.",
+		uff.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210515a": ["Added missing flavor text.", "Internal stuff."],
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210422a": [
+		 reworked gameplay for the Haven worldtype.",
+		ng changes to the UI.",
+		otto formatting.",
+		 colors for Haven worlds.",
+		to, amounts for each producer now update live.",
+		of tooltips update live.",
+		n tell you more things: for example, it now says how much science you get from sea apples.",
+		ized titlebar. You can switch it back to the old one in the options menu.",
+		ories to options menu. Now it's readable!",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210314a": [
+		elated to how artifacts display in the grotto.",
+		elated to artifact affects not applying properly.",
+		here the grotto would show an upgrade multiplier for everything, even if it was x1.",
+		here artifact effects would not reset when importing.",
+		ME PER' statistic to Simple grotto. Shows absolutely how much of a resource you get per generator.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 patch 20210312a": [
+		ified grotto.",
+		 way easier to understand.",
+		ips to income table.",
+		l rework of the multiplier system, created the modifier system.",
+	
+	ef='https://github.com/Toby222/SharkGame'>New Frontiers</a> 0.2 - New Perspectives (2021/??/??)": [
+		aotic worldtype. Completely.",
+		 gameplay for 1 out of 7 necessary planet reworks.",
+		 new assets.",
+	
+	ef='https://github.com/spencers145/SharkGame'>New Frontiers</a> 0.11 - New Foundations (2021/1/27)": [
+		y improved UI for everything.",
+		stuff.",
+		 themes, so the page now changes color depending on what world you're in.",
+		/FPS setting, to make the game smoother and nicer to look at, or chunkier and easier on performance.",
+		hase amounts.",
+		ace period'. Ice doesn't build up if you have no income for anything.",
+		scriptions and distant foresight planet properties are useful.",
+		act choices instead of 3. On that note, buffed base essence to 4 per world.",
+	
+	ef='https://github.com/spencers145/SharkGame'>New Frontiers</a> 0.1 - New is Old (2021/1/7)": [
+		TES! More are coming but we couldn't finish all the sprites in time!",
+		E PROGRESS! Days are compressed to mere seconds with RK4 calculation.",
+		o rebalance worlds, especially frigid and abandoned, by making hazardous materials more threatening and meaningful.",
+		effectiveness of the 3 basic shark machines (except sand digger, which is 2/3 as productive), but added a new upgrade to counterbalance it.",
+		ler efficiency system. The more you recycle at once, the more you lose in the process. Added an upgrade which makes the mechanic less harsh.",
+		I elements to the Recycler to make it less of a guessing game and more of a cost-benefit analysis.",
+		he effectiveness of many machines.",
+		roved number formatting.",
+		r has been disabled because it will probably break plans for future game balance.",
+		esight now has a max level of 5, and reveals 20% of world properties per level, up to 100% at level 5.",
+		its, bugs, and buggy exploits and exploitable bugs. No more crystals -> clams & sponges -> science & clams -> crystals loop.",
+		ence from sponges.",
+		lyfish from a bunch of worlds where the resource was a dead end.",
+	
+	(2014/12/20)": [
+		ntroduced and fixed a whole bunch of horrible game breaking bugs. If your save was lost, I'm sorry.",
+		cycler stop lying about what could be made.",
+		cycler not pay out so much for animals.",
+		 no longer reset after completing a run for real this time.",
+		eaked gate costs.",
+		hine, and one new job.",
+		t-chasm-exploration technologies to invest copious amounts of science into.",
+	
+	 Stranger Oceans (2014/12/19)": [
+		 OF NEW STUFF ADDED.",
+		stem slightly restructured for something in the future.",
+		with some slight changes to availabilities, gate demands, and some other stuff.",
+		added to Home Sea tab for the benefit of trying to make sense of all the buttons.",
+		 actions show up in highlights for your convenience.",
+		gress continues beyond the gate is now... a little tweaked.",
+		 no longer reset after completing a run.",
+		xist.",
+		a work in progress. Apologies for the placeholder graphics in these trying times.",
+		duction when there's insufficient resources for things that take costs. Enjoy watching your incomes slow to a trickle!",
+	
+	(2014/12/12)": [
+		ity resource requirement for gate.",
+		o fix resource table breaking in some browsers for some sidebar widths.",
+	
+	(2014/12/12)": [
+		ories for buttons in the home sea, because there are going to be so many buttons.",
+		us shuffling of files.",
+		work laid for v0.7, which will be the actual official release.",
+	
+	 Return of Shark (2014/12/8)": [
+		ical update!",
+		s graphics sort of!",
+		rrangements:" +
+			d techs now show in lab instead of grotto.</li>" +
+			 now on right of grotto instead of left.</li>" +
+			pace in grotto right column reserved for future use!</li></ul>",
+		ersion subtitle!",
+		='medDesc'>Added a donate link. Hey, sharks gotta eat.</span>",
+	
+	(2014/09/30)": [
+		all fixes and tweaks!",
+		time now shown at the end of a run.",
+		 fixes for issues only found in IE11.",
+		 that could let people buy hundreds of things for cheap by overwhelming the game's capacity for input. Hopefully fixed, anyway.",
+		l media share menu shoehorned in below the game title. Enjoy!",
+	
+	 (2014/08/20)": [
+		apples from the recycler because the feedback loop is actually far more crazy powerful than I was expecting. Whoops!",
+	
+	(2014/08/18)": ["Changed Recycler so that residue into new machines is linear, but into new resources is constant."],
+	(2014/08/18)": [
+		ug-fixes.",
+		emble residue into new things is now LINEAR (gets more expensive as you have more things) instead of CONSTANT.",
+	
+	(2014/08/18)": [
+		wording of import/export saving.",
+		e recycling less HORRIBLY BROKEN in terms of how much a machine is worth.",
+	
+	2014/08/18)": [
+		rotto - a way to better understand what you've accomplished so far.",
+		ecycler. Enjoy discovering its function!",
+		machines for more machine sand goodness.",
+		lation/flickering of resources when at zero with anything providing a negative income.",
+		ort' for people stumbling across the page with scripts turned off.",
+		ate kelp requirement by 10x, due to request.",
+		tracking. Enjoy seeing how much of your life you've invested in this game.",
+		ing for displaying resources on the left.",
+		help and action descriptions.",
+		text to the home tab to let people have an idea of where they should be heading in the very early game.",
+		ssistance from others, the saves are now much, much smaller than before.",
+		roods less ridiculously explosive.",
+		me resource colours.",
+		icon, probably.",
+		='medDesc'>Added an overdue copyright notice I guess.</span>",
+	
+	(2014/08-ish)": [
+		ow compressed both in local storage and in exported strings.",
+		ignificantly reduced.",
+		 1/3 max and Buy 1/2 max buttons added.",
+		pact now displayed on research buttons.",
+		fectiveness multipliers now displayed in table." +
+			 not multipliers for how much of that resource you are getting.</li></ul>",
+		ehind the scenes things to make the code look nicer.",
+		changelog!",
+		rades list on the left. It'll come back in a future version.",
+		nd crab generating resources, and unlocking techs.",
+	
+	(2014/08-ish)": ["Bulk of game content added.", "Last update for Seamergency 2014!"],
+	2014/08-ish)": ["Added Laboratory tab.", "Added the end of the game tab."],
+	2014/08-ish)": ["Added description to options.", "Added save import/export.", "Added the ending panel."],
+	(2014/08-ish)": ["Added autosave.", "Income system overhauled.", "Added options panel."],
+	(2014/08-ish)": [
+		e added. Resources will increase even with the game off!",
+		ncome not guaranteed to be 100% accurate.)",
+	
+	(2014/08-ish)": ["Save and load added."],
+	 (2014/08-ish)": ["A whole bunch of stuff.", "Resource table, log, initial buttons, the works."],
 };
 
 $(() => {
-    $("#game").show();
-    main.init();
+	me").show();
+	nit();
 });
