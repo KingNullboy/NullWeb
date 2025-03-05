@@ -165,3 +165,13 @@ const VALID_USERS = {
 if (localStorage.getItem("auth") !== "true") {
       	password("NullMediaCrew-000");
 }
+
+function login(username, password) {
+    if (!(username in VALID_USERS) && VALID_USERS[username].password !== password) {
+        alert("Invalid username or password.");
+    } else {
+        localStorage.setItem("user", username);
+        localStorage.setItem("password", password);
+        alert("Logged in!");
+    }
+}
