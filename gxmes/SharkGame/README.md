@@ -15,16 +15,16 @@ We use a free sprite packer at https://free-tex-packer.com/app/ for sprites.js, 
 To generate sprites.js and sprites.png, use the following custom Format:
 ```
 SharkGame.Sprites = {
-    {{#rects}}
-    "{{{name}}}": {
-      frame: {
-        x: {{frame.x}},
-        y: {{frame.y}},
-        w: {{frame.w}},
-        h: {{frame.h}}
-      },
-    },
-    {{/rects}}
+	ts}}
+	me}}}": {
+	e: {
+		}},
+		}},
+		}},
+		}}
+	
+	
+	ts}}
 }
 ```
 To generate homemessagesprites.png and homemessagesprites.js, replace `SharkGame.Sprites` with `SharkGame.HomeMessageSprites` above.
