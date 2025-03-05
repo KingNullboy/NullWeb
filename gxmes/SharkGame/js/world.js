@@ -1,110 +1,110 @@
 "use strict";
 SharkGame.World = {
-    _worldType: "start",
-    get worldType() {
-        return this._worldType;
-    },
-    set worldType(worldType) {
-        const body = document.querySelector("body");
-        body.classList.remove(this._worldType);
-        body.classList.add(worldType);
-        this._worldType = worldType;
-    },
-    worldResources: new Map(),
-    worldRestrictedCombinations: new Map(),
+	Type: "start",
+	rldType() {
+		_worldType;
+	
+	rldType(worldType) {
+		 document.querySelector("body");
+		st.remove(this._worldType);
+		st.add(worldType);
+		ype = worldType;
+	
+	esources: new Map(),
+	estrictedCombinations: new Map(),
 
-    init() {
-        world.resetWorldProperties();
-        world.worldType = "start";
-    },
+	 {
+		orldProperties();
+		ype = "start";
+	
 
-    setup() {
-        res.setResource("world", 1);
-        res.setTotalResource("world", 1);
-        world.apply();
-        res.setResource("specialResourceOne", 1);
-        res.setTotalResource("specialResourceOne", 1);
-        res.setResource("specialResourceTwo", 1);
-        res.setTotalResource("specialResourceTwo", 1);
-    },
+	) {
+		rce("world", 1);
+		Resource("world", 1);
+		);
+		rce("specialResourceOne", 1);
+		Resource("specialResourceOne", 1);
+		rce("specialResourceTwo", 1);
+		Resource("specialResourceTwo", 1);
+	
 
-    apply() {
-        world.applyWorldProperties();
-        world.applyGateCosts();
-    },
+	) {
+		orldProperties();
+		ateCosts();
+	
 
-    resetWorldProperties() {
-        const worldResources = world.worldResources;
-        world.worldRestrictedCombinations.clear();
+	orldProperties() {
+		esources = world.worldResources;
+		estrictedCombinations.clear();
 
-        // set up defaults
-        SharkGame.ResourceMap.forEach((_resourceData, resourceName) => {
-            worldResources.set(resourceName, {});
-            worldResources.get(resourceName).exists = true;
-        });
-    },
+		faults
+		sourceMap.forEach((_resourceData, resourceName) => {
+			(resourceName, {});
+			(resourceName).exists = true;
+		
+	
 
-    applyWorldProperties() {
-        const worldResources = world.worldResources;
-        const worldInfo = SharkGame.WorldTypes[world.worldType];
+	orldProperties() {
+		esources = world.worldResources;
+		nfo = SharkGame.WorldTypes[world.worldType];
 
-        // enable resources allowed on the planet
-        if (worldInfo.includedResources) {
-            SharkGame.ResourceMap.forEach((_resourceData, resourceName) => {
-                worldResources.get(resourceName).exists = false;
-            });
-            _.each(worldInfo.includedResources, (group) => {
-                if (_.has(SharkGame.InternalCategories, group)) {
-                    _.each(SharkGame.InternalCategories[group].resources, (resource) => {
-                        worldResources.get(resource).exists = true;
-                    });
-                } else {
-                    worldResources.get(group).exists = true;
-                }
-            });
-        }
+		sources allowed on the planet
+		o.includedResources) {
+			Map.forEach((_resourceData, resourceName) => {
+				rceName).exists = false;
+			
+			ncludedResources, (group) => {
+				rnalCategories, group)) {
+					ories[group].resources, (resource) => {
+						= true;
+					
+				
+					ts = true;
+				
+			
+		
 
-        // disable resources not allowed on planet
-        _.each(worldInfo.absentResources, (absentResource) => {
-            worldResources.get(absentResource).exists = false;
-        });
+		esources not allowed on planet
+		Info.absentResources, (absentResource) => {
+			(absentResource).exists = false;
+		
 
-        // apply world modifiers
-        _.each(worldInfo.modifiers, (modifierData) => {
-            res.applyModifier(modifierData.modifier, modifierData.resource, modifierData.amount);
-        });
-        res.buildIncomeNetwork();
-    },
+		ld modifiers
+		Info.modifiers, (modifierData) => {
+			modifierData.modifier, modifierData.resource, modifierData.amount);
+		
+		omeNetwork();
+	
 
-    applyGateCosts() {
-        const worldInfo = SharkGame.WorldTypes[world.worldType];
+	ateCosts() {
+		nfo = SharkGame.WorldTypes[world.worldType];
 
-        SharkGame.Gate.createSlots(worldInfo.gateRequirements);
-    },
+		te.createSlots(worldInfo.gateRequirements);
+	
 
-    getWorldEntryMessage() {
-        return SharkGame.WorldTypes[world.worldType].entry;
-    },
+	ldEntryMessage() {
+		Game.WorldTypes[world.worldType].entry;
+	
 
-    doesResourceExist(resourceName) {
-        return world.worldResources.get(resourceName).exists;
-    },
+	sourceExist(resourceName) {
+		.worldResources.get(resourceName).exists;
+	
 
-    forceExistence(resourceName) {
-        world.worldResources.get(resourceName).exists = true;
-    },
+	xistence(resourceName) {
+		esources.get(resourceName).exists = true;
+	
 
-    isScoutingMission() {
-        if (SharkGame.flags.scouting) {
-            return true;
-        }
+	tingMission() {
+		e.flags.scouting) {
+			
+		
 
-        // if this is NOT marked as a scouting mission, make sure that's accurate
-        // (but if it IS marked as a scouting mission, we don't care if that's accurate, just blindly accept)
-        if (!gateway.completedWorlds.includes(world.worldType)) {
-            // this should be a scouting mission
-            SharkGame.flags.scouting = true;
-        }
-        return SharkGame.flags.scouting;
-    },
+		s NOT marked as a scouting mission, make sure that's accurate
+		t IS marked as a scouting mission, we don't care if that's accurate, just blindly accept)
+		.completedWorlds.includes(world.worldType)) {
+			a scouting mission
+			outing = true;
+		
+		Game.flags.scouting;
+	
 };
