@@ -81,7 +81,7 @@ const VALID_USERS = {
 	}
   
 	// Get nickname
-	const nickname = VALID_USERS[username].nickname;
+	const nickname = VALID_USERS[localStorage.getItem("user")].nickname;
 
 	var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
 	var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
