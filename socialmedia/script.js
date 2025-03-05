@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		};
 	}
 
-	if ((localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href === baseUrl || window.location.href === baseUrl + "index.html")) {
+	if (!(localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href === baseUrl || window.location.href === baseUrl + "index.html")) {
 	document.getElementById("login").innerHTML = "Log Out";
 	document.getElementById("login").onclick = function() {
 		localStorage.setItem("user", null);
