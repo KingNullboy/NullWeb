@@ -17,10 +17,10 @@
 body {
   background-color: var(--background-color);
   background: linear-gradient(
-    to right,
-    var(--background-color),
-    var(--button-color),
-    var(--background-secondary-color)
+	to right,
+	var(--background-color),
+	var(--button-color),
+	var(--background-secondary-color)
   );
   font-family: "Balsamiq Sans", cursive;
   display: flex;
