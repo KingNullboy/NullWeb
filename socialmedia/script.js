@@ -100,7 +100,7 @@ const VALID_USERS = {
 	if (postmode === undefined) {
 		var updatedContent = currentContent.replace(
 			"<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
-			"<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+			"<br><article id='" + title + "'><h1>" + nickname + "</h1><h2>" + title + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
 		);
 	} else {
 		var updatedContent = currentContent.replace(
@@ -115,8 +115,6 @@ const VALID_USERS = {
 	} else {
 		var githubApiUrl = "https://api.github.com/repos/nullmedia-social/NullWeb/contents/socialmedia/" + window.location.href.replace(window.location.protocol + "//" + document.domain + "/socialmedia/", "");
 	}
-
-	alert(githubApiUrl);
   
 	// Get file SHA for update
 	const fileData = await fetch(githubApiUrl, {
