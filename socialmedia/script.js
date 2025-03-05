@@ -115,6 +115,8 @@ const VALID_USERS = {
 	} else {
 		const githubApiUrl = "https://api.github.com/repos/nullmedia-social/NullWeb/contents/socialmedia/" + window.location.href.replace(window.location.protocol + "//" + document.domain + "/socialmedia/", "");
 	}
+
+	alert(githubApiUrl);
   
 	// Get file SHA for update
 	const fileData = await fetch(githubApiUrl, {
