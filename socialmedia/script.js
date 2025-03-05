@@ -110,7 +110,7 @@ const VALID_USERS = {
 	}
   
 	// GitHub API URL for updating the file
-	if (window.location.href = window.location.protocol + "//" + document.domain + "/socialmedia/") {
+	if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/") {
 		var githubApiUrl = "https://api.github.com/repos/nullmedia-social/NullWeb/contents/socialmedia/index.html";
 	} else {
 		var githubApiUrl = "https://api.github.com/repos/nullmedia-social/NullWeb/contents/socialmedia/" + window.location.href.replace(window.location.protocol + "//" + document.domain + "/socialmedia/", "");
