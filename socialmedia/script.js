@@ -175,11 +175,20 @@ function login(username, password) {
     }
 }
 
-if ((localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href = "https://" + document.domain + "/socialmedia/" || window.location.href = "http://" + document.domain + "/socialmedia/" || window.location.href = "https://" + document.domain + "/socialmedia/index.html" || window.location.href = "http://" + document.domain + "/socialmedia/index.html") {
+document.addEventListener("DOMContentLoaded", function() {
+const baseUrl = window.location.protocol + "//" + document.domain + "/socialmedia/";
+
+if ((localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href === baseUrl || window.location.href === baseUrl + "index.html")) {
     alert("To post, you need to log in.");
-    getElementById("login").innerHTML = "Login";
-    getElementById("login").onclick = "window.location.href = 'login.html';";
-} else {
-    getElementById("login").innerHTML = "Log Out";
-    getElementById("login").onclick = "localStorage.setItem('user') = null; localStorage.setItem('password') = null;";
+    document.getElementById("login").innerHTML = "Login";
+    document.getElementById("login").onclick = function() {
+        window.location.href = "login.html";
+    };
 }
+
+document.getElementById("login").innerHTML = "Log Out";
+document.getElementById("login").onclick = function() {
+    localStorage.setItem("user", null);
+    localStorage.setItem("password", null);
+};
+});
