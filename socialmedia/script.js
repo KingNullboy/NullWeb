@@ -186,9 +186,11 @@ if ((localStorage.getItem("user") === null || localStorage.getItem("password") =
     };
 }
 
+if (window.location.href === baseUrl || window.location.href === baseUrl + "index.html") {
 document.getElementById("login").innerHTML = "Log Out";
 document.getElementById("login").onclick = function() {
     localStorage.setItem("user", null);
     localStorage.setItem("password", null);
+}
 };
 });
