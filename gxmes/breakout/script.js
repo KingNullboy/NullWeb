@@ -52,9 +52,9 @@ const bricks = [];
 for (let i = 0; i < brickRowCount; i++) {
   bricks[i] = [];
   for (let j = 0; j < brickColumnCount; j++) {
-    const x = i * (brickInfo.w + brickInfo.padding) + brickInfo.offsetX;
-    const y = j * (brickInfo.h + brickInfo.padding) + brickInfo.offsetY;
-    bricks[i][j] = { x, y, ...brickInfo };
+	const x = i * (brickInfo.w + brickInfo.padding) + brickInfo.offsetX;
+	const y = j * (brickInfo.h + brickInfo.padding) + brickInfo.offsetY;
+	bricks[i][j] = { x, y, ...brickInfo };
   }
 }
 
@@ -82,13 +82,13 @@ function drawScore() {
 
 function drawBricks() {
   bricks.forEach((column) => {
-    column.forEach((brick) => {
-      ctx.beginPath();
-      ctx.rect(brick.x, brick.y, brick.w, brick.h);
-      ctx.fillStyle = brick.visible ? color : "transparent";
-      ctx.fill();
-      ctx.closePath();
-    });
+	column.forEach((brick) => {
+	  ctx.beginPath();
+	  ctx.rect(brick.x, brick.y, brick.w, brick.h);
+	  ctx.fillStyle = brick.visible ? color : "transparent";
+	  ctx.fill();
+	  ctx.closePath();
+	});
   });
 }
 
@@ -114,56 +114,56 @@ function moveBall() {
   ball.y += ball.dy;
   // wall collision
   if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0) {
-    // right and left
-    ball.dx *= -1;
+	// right and left
+	ball.dx *= -1;
   }
   if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0) {
-    // top and bottom
-    ball.dy *= -1;
+	// top and bottom
+	ball.dy *= -1;
   }
   // paddle
   if (
-    ball.x - ball.size > paddle.x &&
-    ball.x + ball.size < paddle.x + paddle.w &&
-    ball.y + ball.size > paddle.y
+	ball.x - ball.size > paddle.x &&
+	ball.x + ball.size < paddle.x + paddle.w &&
+	ball.y + ball.size > paddle.y
   ) {
-    ball.dy = -ball.speed;
+	ball.dy = -ball.speed;
   }
   // bricks
   bricks.forEach((column) => {
-    column.forEach((brick) => {
-      if (brick.visible) {
-        if (
-          ball.x - ball.size > brick.x && // left brick side check
-          ball.x + ball.size < brick.x + brick.w && // right brick side check
-          ball.y + ball.size > brick.y && // top brick side check
-          ball.y - ball.size < brick.y + brick.h // bottom brick side check
-        ) {
-          ball.dy *= -1;
-          brick.visible = false;
-          increaseScore();
-        }
-      }
-    });
+	column.forEach((brick) => {
+	  if (brick.visible) {
+		if (
+		  ball.x - ball.size > brick.x && // left brick side check
+		  ball.x + ball.size < brick.x + brick.w && // right brick side check
+		  ball.y + ball.size > brick.y && // top brick side check
+		  ball.y - ball.size < brick.y + brick.h // bottom brick side check
+		) {
+		  ball.dy *= -1;
+		  brick.visible = false;
+		  increaseScore();
+		}
+	  }
+	});
   });
   // game over
   if (ball.y + ball.size > canvas.height) {
-    showAllBricks();
-    score = 0;
+	showAllBricks();
+	score = 0;
   }
 }
 
 function increaseScore() {
   score++;
   if (score % (brickRowCount * brickRowCount) === 0) {
-    // no remainder
-    showAllBricks();
+	// no remainder
+	showAllBricks();
   }
 }
 
 function showAllBricks() {
   bricks.forEach((column) => {
-    column.forEach((brick) => (brick.visible = true));
+	column.forEach((brick) => (brick.visible = true));
   });
 }
 
@@ -175,12 +175,12 @@ function keyDown(e) {
 
 function keyUp(e) {
   if (
-    e.key === "Right" ||
-    e.key === "ArrowRight" ||
-    e.key === "Left" ||
-    e.key === "ArrowLeft"
+	e.key === "Right" ||
+	e.key === "ArrowRight" ||
+	e.key === "Left" ||
+	e.key === "ArrowLeft"
   ) {
-    paddle.dx = 0;
+	paddle.dx = 0;
   }
 }
 
