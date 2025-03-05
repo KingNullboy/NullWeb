@@ -1,71 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Lato, sans-serif;
-    background-color: black;
-    color: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: Lato, sans-serif;
+	background-color: black;
+	color: #FFFFFF;
 }
 
 /* Container that holds the three sections */
 #container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 /* Style for each section */
 .section {
-    flex: 1; /* Makes each section equally sized */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
+	flex: 1; /* Makes each section equally sized */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	border-bottom: 1px solid #ddd;
 }
 
 /* Remove the last border on the last section */
 .section:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 /* Styling the header */
 #header {
-    font-size: 32px;
-    font-weight: bold;
+	font-size: 32px;
+	font-weight: bold;
 }
 
 /* Styling the bread image */
 #breadImage {
-    width: 150px;
+	width: 150px;
 }
 
 /* Styling the button */
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
 }
 
 #clicker {
-    background-color: transparent;
-    border-color: transparent;
+	background-color: transparent;
+	border-color: transparent;
 }
 
 /* Styling the bread count */
 #breadCount {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 /* Optional: Style for upgrades section */
 #upgrades {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #upgrades button {
-    margin: 10px 0;
+	margin: 10px 0;
 }
