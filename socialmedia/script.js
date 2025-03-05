@@ -75,7 +75,7 @@ const VALID_USERS = {
   }
   
 	// Validate user credentials
-	if (!(localStorage.getItem("user") in VALID_USERS) || VALID_USERS[username].password !== localStorage.getItem("password")) {
+	if (!(localStorage.getItem("user") in VALID_USERS) || VALID_USERS[localStorage.getItem("user")].password !== localStorage.getItem("password")) {
 		alert("Invalid username or password.");
 		return;
 	}
