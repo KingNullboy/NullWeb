@@ -16,12 +16,11 @@
           <ul class="nav__links">
 						<button style="margin-right: 20px;" onclick="window.location.href='index.html'";">Home</button>
             <button onclick="window.location.href='info.html'";>Info</button>
+            <button id="login" onclick="window.location.href='login.html';">Login</button>
           </nav>
     </header><br>
     <center>
       <div id="form" name="form">
-        <input type="text" id="username" name="username" placeholder="Username*" required><br>
-        <input type="password" id="password" name="password" placeholder="Password*" required><br>
         <input type="text" id="title" name="title" placeholder="Title*"><br>
         <textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
         <button id="submit" onclick="updateGitHubFile(postmode)">Submit</button>
