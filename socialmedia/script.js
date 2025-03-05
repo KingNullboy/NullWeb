@@ -65,8 +65,6 @@ const VALID_USERS = {
   }
   
   async function updateGitHubFile() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
     const title = document.getElementById("title").value;
     const postContent = document.getElementById("postContent").value;
   
@@ -77,7 +75,7 @@ const VALID_USERS = {
   }
   
     // Validate user credentials
-    if (!(username in VALID_USERS) || VALID_USERS[username].password !== password) {
+    if (!(localStorage.getItem("user") in VALID_USERS) || VALID_USERS[username].password !== localStorage.getItem("password")) {
         alert("Invalid username or password.");
         return;
     }
@@ -173,5 +171,15 @@ function login(username, password) {
         localStorage.setItem("user", username);
         localStorage.setItem("password", password);
         alert("Logged in!");
+        window.location.href = "index.html";
     }
+}
+
+if ((localStorage.getItem("user") === null || localStorage.getItem("password") === null) && (window.location.href = "https://" + document.domain + "/socialmedia/" || window.location.href = "http://" + document.domain + "/socialmedia/" || window.location.href = "https://" + document.domain + "/socialmedia/index.html" || window.location.href = "http://" + document.domain + "/socialmedia/index.html") {
+    alert("To post, you need to log in.");
+    getElementById("login").innerHTML = "Login";
+    getElementById("login").onclick = "window.location.href = 'login.html';";
+} else {
+    getElementById("login").innerHTML = "Log Out";
+    getElementById("login").onclick = "localStorage.setItem('user') = null; localStorage.setItem('password') = null;";
 }
