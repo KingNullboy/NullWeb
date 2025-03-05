@@ -88,7 +88,11 @@ const VALID_USERS = {
 	const TOKEN = p1 + p2;
   
 	// Fetch the current index.html content
-	const response = await fetch(replace(window.location.href));
+	if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/")) {
+		const response = await fetch(index.html);
+	} else {
+	const response = await fetch(window.location.href.replace(window.location.protocol + "//" + document.domain + "/socialmedia/", ""));
+	}
 	if (!response.ok) {
 		alert("Failed to fetch the page content.");
 		return;
