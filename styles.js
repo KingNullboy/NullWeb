@@ -100,3 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStyles();
     });
 });
+
+document.addEventListener('click', function() {
+    // Apply the default styles
+    updateStyles();
+});
