@@ -1,27 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* General body styles */
+html {
+    font-family: var(--font-family, Lato);
+    color: var(--text-color, #FFFFFF);
+}
+
+body {
+    font-family: var(--font-family, Lato);
+    color: var(--text-color, #FFFFFF);
+    background-color: var(--bg-color, #000000);
+}
+
+h1 {
+    font-family: var(--font-family, Lato);
+    color: var(--text-color, #FFFFFF);
+    position: relative;
+}
+
+h2 {
+    font-family: var(--font-family, Lato);
+    color: var(--text-color, #FFFFFF);
+}
+
+/* Links */
+a {
+    font-family: var(--font-family, Lato);
+    color: var(--text-color, #FFFFFF);
+}
+
+a[id=link] {
+    color: var(--link-color, #0000FF);
+    text-decoration: underline;
+    text-decoration-color: var(--link-color, #0000FF);
+}
+
+a[id=link]:hover {
+    cursor: pointer;
+    color: var(--link-hover-color, #0000FF);
+}
+
+/* Navigation Bar */
 nav {
-    background-color: #000000;
+    background-color: var(--bg-color, #000000);
     border-radius: 25px;
     border-width: 4px;
-    border-color: #FFFFFF;
+    border-color: var(--border-color, #FFFFFF);
     height: 50px;
     justify-content: middle;
-    color: #FFFFFF;
+    color: var(--text-color, #FFFFFF);
     outline-width: 4px;
-    outline-color: #FFFFFF;
+    outline-color: var(--border-color, #FFFFFF);
 }
 
 a[id=logo] {
     justify-content: middle;
-    color: #FFFFFF;
+    color: var(--text-color, #FFFFFF);
 }
 
-a[id=homebutton] {
-    margin-left: 10px;
-}
-
-a[id=infobutton] {
+a[id=homebutton], a[id=infobutton] {
     margin-left: 10px;
 }
 
@@ -30,174 +67,94 @@ img[id=logo] {
     margin-top: 5px;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: var(--bg-color, #000000);
+    border-radius: 100px;
+    border: 10px solid var(--border-color, #FFFFFF);
+}
+
+/* Form Styles */
 div[id=form] {
     border-width: 2px;
-    border-color: #000000;
-    background-color: #363636;
+    border-color: var(--border-color, #000000);
+    background-color: var(--form-bg-color, #363636);
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
     width: 405px;
-    color: #FFFFFF;
+    color: var(--text-color, #FFFFFF);
 }
 
-a {
-    font-family: Lato;
-    color: #FFFFFF;
-}
-
-html {
-    font-family: Lato;
-    color: #FFFFFF;
-}
-
-body {
-    font-family: Lato;
-    color: #FFFFFF;
-    background-color: #000000;
-}
-
-h1 {
-    font-family: Lato;
-    color: #FFFFFF;
-    position: relative;
-}
-
-h1[id=pagetitle] {
-    left: 70px;
-}
-
-.nav__links {
-    position: relative;
-    top: -8px;
-}
-
-h2 {
-    font-family: Lato;
-    color: #FFFFFF;
-}
-
-input {
+/* Input Fields */
+input, textarea {
     border-radius: 5px;
-    border-color: #000000;
-    font-family: Lato;
-    width: 400px;
-    color: #FFFFFF;
-    background-color: #363636;
+    border-color: var(--border-color, #000000);
+    font-family: var(--font-family, Lato);
+    color: var(--text-color, #FFFFFF);
+    background-color: var(--input-bg-color, #363636);
 }
 
-input[id=title] {
+input[id=title], textarea[id=postContent] {
     width: 400px;
-    color: #FFFFFF;
-    background-color: #363636;
-}
-
-textarea {
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: #000000;
-    font-family: Lato;
-    color: #FFFFFF;
 }
 
 textarea[id=postContent] {
-    width: 400px;
     height: 45px;
     resize: both;
-    color: #FFFFFF;
-    background-color: #363636;
 }
 
+/* Buttons */
 button {
-    font-family: Lato;
+    font-family: var(--font-family, Lato);
     border-radius: 5px;
     border-width: 2px;
-    border-color: #000000;
-    background-color: #FF0000;
-    color: #FFFFFF;
+    border-color: var(--border-color, #000000);
+    background-color: var(--button-bg-color, #FF0000);
+    color: var(--text-color, #FFFFFF);
 }
 
 button:hover {
     cursor: pointer;
 }
 
-.logo {
-    cursor: pointer;
+.reply-button {
+    background-color: transparent;
+    border-color: transparent;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 10%;
-    background: #000000;
-    border-radius:100px;
-    border: #FFFFFF;
-    border: 10px solid #FFFFFF;
-}
-
-.nav__links {
-    list-style: none;
-}
-
-.nav__links button {
-    display: inline-block;
-    padding: 10px 10px;
-    border: 0px solid #FFFFFF;
-    background-color: #000000;
-    font-size: 20px;
-    color: #FFFFFF;
-}
-
-a[id=link] {
-    color: #0000FF;
-    text-decoration: underline;
-    text-decoration-color: #0000FF;
-}
-
-a[id=link]:hover {
-    cursor: pointer;
-}
-
-/* Styling for the original post */
+/* Article (Posts) */
 article {
     border-radius: 5px;
     border-width: 2px;
-    border-color: #000000;
-    background-color: #363636;
-    color: #FFFFFF;
+    border-color: var(--border-color, #000000);
+    background-color: var(--form-bg-color, #363636);
+    color: var(--text-color, #FFFFFF);
     padding-top: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
     width: 800px;
-    margin-bottom: 20px; /* Space between posts */
+    margin-bottom: 20px;
 }
 
-/* Styling for the replies */
+/* Replies */
 #reply {
-    border-left: 2px solid #888888; /* Lighter left border */
-    margin-left: 20px;               /* Indent the reply 20px to the right */
-    padding-left: 10px;              /* Add padding to the left of the reply */
-    margin-top: 0;                   /* No space above the reply */
-    margin-bottom: 0;                /* No space below the reply */
-    padding-top: 0;                  /* No top padding */
-    padding-bottom: 0;               /* No bottom padding */
+    border-left: 2px solid var(--reply-border-color, #888888);
+    margin-left: 20px;
+    padding-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-/* Remove any space between the original post and the first reply */
-article + #reply {
-    margin-top: 0;                   /* No gap between the post and the first reply */
-}
-
-/* Remove any space between consecutive replies */
-#reply + #reply {
-    margin-top: 0;                   /* No gap between replies */
-}
-
-.reply-button {
-    background-color: transparent;
-    border-color: transparent;
+/* Remove gaps between replies */
+article + #reply, #reply + #reply {
+    margin-top: 0;
 }
