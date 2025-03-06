@@ -117,3 +117,159 @@ header {
     font-size: 20px;
     color: var(--text-color);
 }
+
+#bg-color {
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    width: 25px;
+}
+
+#text-color {
+    width: 25px;
+    background-color: var(--text-color);
+    border-radius: 10px;
+}
+
+#border-color {
+    width: 25px;
+    background-color: var(--text-color);
+    border-radius: 10px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* Define CSS custom properties */
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --border-color: #ffffff;
+    --font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-color: var(--border-color);
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.navbtn {
+    height: 91px;
+    vertical-align: middle;
+}
+
+h1 {
+    font-family: var(--font-family);
+    color: var(--text-color);
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.botbtn button {
+    background-color: var(--bg-color);
+    border-radius: 15px;
+    border-color: var(--border-color);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: var(--text-color);
+}
+
+nav {
+    background-color: var(--bg-color);
+    border-radius: 25px;
+    border-width: 4px;
+    border-color: var(--border-color);
+    height: 50px;
+    justify-content: middle;
+    color: var(--text-color);
+    outline-width: 4px;
+    outline-color: var(--border-color);
+}
+
+a[id=logo] {
+    justify-content: middle;
+    color: var(--text-color);
+}
+
+a[id=homebutton] {
+    margin-left: 10px;
+}
+
+a[id=infobutton] {
+    margin-left: 10px;
+}
+
+img[id=logo] {
+    vertical-align: middle;
+    margin-top: 5px;
+}
+
+h1[id=pagetitle] {
+    left: 70px;
+}
+
+.nav__links {
+    position: relative;
+    top: -8px;
+}
+
+.logo {
+    cursor: pointer;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: var(--bg-color);
+    border-radius: 100px;
+    border: 10px solid var(--border-color);
+}
+
+.nav__links {
+    list-style: none;
+}
+
+.nav__links button {
+    display: inline-block;
+    padding: 10px 10px;
+    border: 0px solid var(--border-color);
+    background-color: var(--bg-color);
+    font-size: 20px;
+    color: var(--text-color);
+}
+
+#bg-color {
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    width: 25px;
+}
+
+#text-color {
+    width: 25px;
+    background-color: var(--text-color);
+    border-radius: 10px;
+}
+
+#font-family {
+    background-color: #363636;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
