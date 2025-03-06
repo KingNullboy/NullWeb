@@ -96,4 +96,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', updateStyles();)
+document.addEventListener('DOMContentLoaded', updateStyles())
