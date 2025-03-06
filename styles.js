@@ -95,4 +95,5 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStyles();
     });
 });
-    updateStyles();
+
+document.addEventListener('DOMContentLoaded', updateStyles();)
