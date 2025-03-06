@@ -17,15 +17,16 @@ function updateStyles() {
     document.documentElement.style.setProperty('--link-hover-color', storedLinkHoverColor);
 }
 
-// Event listeners to handle changes when customizing themes
+// Event listener to handle changes when customizing themes
 document.addEventListener('DOMContentLoaded', function() {
+    updateStyles()
+
     const bgColorInput = document.getElementById('bg-color');
     const textColorInput = document.getElementById('text-color');
     const borderColorInput = document.getElementById('border-color');
     const fontFamilyInput = document.getElementById('font-family');
     const linkColorInput = document.getElementById('link-color');
     const linkHoverColorInput = document.getElementById('link-hover-color');
-
     const resetButton = document.getElementById('reset-btn');
 
     // Load stored preferences into input fields when the page is loaded
@@ -33,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
     textColorInput.value = localStorage.getItem('text-color') || '#ffffff';
     borderColorInput.value = localStorage.getItem('border-color') || '#ffffff';
     fontFamilyInput.value = localStorage.getItem('font-family') || 'Lato';
+    linkColorInput.value = localStorage.getItem('link-color') || '#0000FF';
+    linkHoverColorInput.value = localStorage.getItem('link-hover-color') || '#0000FF';
 
     // Update the styles when inputs change
     bgColorInput.addEventListener('input', function() {
@@ -92,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply the default styles
         updateStyles();
     });
-});
 
-document.addEventListener('DOMContentLoaded', updateStyles())
+    // Apply initial styles based on saved preferences
+    updateStyles();
+});
