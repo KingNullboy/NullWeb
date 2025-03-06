@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     textColorInput.value = localStorage.getItem('text-color') || '#ffffff';
     borderColorInput.value = localStorage.getItem('border-color') || '#ffffff';
     fontFamilyInput.value = localStorage.getItem('font-family') || 'Lato';
-    linkColorInput.value = localStorage.getItem('link-color') || '#0000FF';
-    linkHoverColorInput.value = localStorage.getItem('link-hover-color') || '#0000FF';
 
     // Update the styles when inputs change
     bgColorInput.addEventListener('input', function() {
