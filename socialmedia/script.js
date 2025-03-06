@@ -49,8 +49,10 @@ const VALID_USERS = {
 	"mlj2016": { password: "marci6266", nickname: "Marci" },
 	"mk2014": { password: "Jayn-2007", nickname: "Marleigh Kate" },
 	"lj1981": { password: "Marleigh-14", nickname: "Leighan" },
-	"mj1970": { password: "redwolf", nickname: "Disco Fox" }
-  };
+	"mj1970": { password: "redwolf", nickname: "Disco Fox" },
+	"michaeljackson2011": { password: "moonwalker2011", nickname: "Mikey" },
+	"max32": { password: "bentleydude", nickname: "Bent" }
+}
   
   // List of filtered words (Add words manually)
 																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "dam", "danm", "pussy", "cock"];
