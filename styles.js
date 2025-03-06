@@ -17,11 +17,6 @@ function updateStyles() {
     document.documentElement.style.setProperty('--link-hover-color', storedLinkHoverColor);
 }
 
-// Ensure the styles are updated when the page loads
-if (window.location.href !== window.location.protocol + "//" + document.domain + "/styles.html") {
-    updateStyles();
-}
-
 // Event listeners to handle changes when customizing themes
 document.addEventListener('DOMContentLoaded', function() {
     const bgColorInput = document.getElementById('bg-color');
@@ -100,8 +95,4 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStyles();
     });
 });
-
-document.addEventListener('click', function() {
-    // Apply the default styles
     updateStyles();
-});
