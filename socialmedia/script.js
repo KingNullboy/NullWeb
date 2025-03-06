@@ -107,7 +107,7 @@ const VALID_USERS = {
 	} else {
 		var updatedContent = currentContent.replace(
 			"<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>",
-			"<br><article id='" + originalpost + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
+			"<br><article id='" + postmode + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'>Go to top</button>\n\t\t</center>"
 		);
 	}
   
