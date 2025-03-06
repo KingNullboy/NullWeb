@@ -1,64 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* Define CSS custom properties */
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --border-color: #ffffff;
+    --font-family: 'Lato', sans-serif;
+}
+
 body {
-	background-color: #000000;
-	font-family: Lato;
-	color: #FFFFFF;
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-color);
 }
 
 button {
-	background-color: #000000;
-	font-family: Lato;
-	color: #FFFFFF;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-color: #FFFFFF;
-	font-size: 20px;
-	border-radius: 20px;
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-color: var(--border-color);
+    font-size: 20px;
+    border-radius: 20px;
 }
 
 .navbtn {
-	height: 91px;
-	vertical-align: middle;
+    height: 91px;
+    vertical-align: middle;
 }
 
 h1 {
-	font-family: Lato;
-	color: #FFFFFF;
+    font-family: var(--font-family);
+    color: var(--text-color);
 }
 
 button:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .botbtn button {
-	background-color: #000000;
-	border-radius: 15px;
-	border-color: #FFFFFF;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	color: #FFFFFF
+    background-color: var(--bg-color);
+    border-radius: 15px;
+    border-color: var(--border-color);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: var(--text-color);
 }
 
 nav {
-    background-color: #000000;
+    background-color: var(--bg-color);
     border-radius: 25px;
     border-width: 4px;
-    border-color: #FFFFFF;
+    border-color: var(--border-color);
     height: 50px;
     justify-content: middle;
-    color: #FFFFFF;
+    color: var(--text-color);
     outline-width: 4px;
-    outline-color: #FFFFFF;
+    outline-color: var(--border-color);
 }
 
 a[id=logo] {
     justify-content: middle;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 
 a[id=homebutton] {
@@ -92,10 +100,9 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 10%;
-    background: #000000;
-    border-radius:100px;
-    border: #FFFFFF;
-    border: 10px solid #FFFFFF;
+    background: var(--bg-color);
+    border-radius: 100px;
+    border: 10px solid var(--border-color);
 }
 
 .nav__links {
@@ -105,8 +112,8 @@ header {
 .nav__links button {
     display: inline-block;
     padding: 10px 10px;
-    border: 0px solid #FFFFFF;
-    background-color: #000000;
+    border: 0px solid var(--border-color);
+    background-color: var(--bg-color);
     font-size: 20px;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
