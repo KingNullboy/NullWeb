@@ -1,3 +1,16 @@
+var word1 = document.getElementById("word1");
+var word2 = document.getElementById("word2");
+var word3 = document.getElementById("word3");
+var word4 = document.getElementById("word4");
+var word5 = document.getElementById("word5");
+var word6 = document.getElementById("word6");
+var word7 = document.getElementById("word7");
+var word8 = document.getElementById("word8");
+var word9 = document.getElementById("word9");
+var word10 = document.getElementById("word10");
+var word11 = document.getElementById("word11");
+var word12 = document.getElementById("word12");
+
 // Array of stories
 const stories = {
     num1: {
@@ -73,6 +86,23 @@ function setStory(storyNumber) {
     // Loop over each input field and update the placeholder text
     inputs.forEach((input, index) => {
         input.placeholder = selectedStory.placeholders[index];
+    });
+
+    inputs.forEach((input, index) => {
+        input.addEventListener('input', function() {
+            var word1 = document.getElementById("word1");
+            var word2 = document.getElementById("word2");
+            var word3 = document.getElementById("word3");
+            var word4 = document.getElementById("word4");
+            var word5 = document.getElementById("word5");
+            var word6 = document.getElementById("word6");
+            var word7 = document.getElementById("word7");
+            var word8 = document.getElementById("word8");
+            var word9 = document.getElementById("word9");
+            var word10 = document.getElementById("word10");
+            var word11 = document.getElementById("word11");
+            var word12 = document.getElementById("word12");
+        });
     });
 
     // Update the button to generate the story (if needed)
