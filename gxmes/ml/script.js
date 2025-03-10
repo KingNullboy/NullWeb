@@ -1,15 +1,15 @@
-var word1 = document.getElementById("word1");
-var word2 = document.getElementById("word2");
-var word3 = document.getElementById("word3");
-var word4 = document.getElementById("word4");
-var word5 = document.getElementById("word5");
-var word6 = document.getElementById("word6");
-var word7 = document.getElementById("word7");
-var word8 = document.getElementById("word8");
-var word9 = document.getElementById("word9");
-var word10 = document.getElementById("word10");
-var word11 = document.getElementById("word11");
-var word12 = document.getElementById("word12");
+var word1 = document.getElementById("word1").value;
+var word2 = document.getElementById("word2").value;
+var word3 = document.getElementById("word3").value;
+var word4 = document.getElementById("word4").value;
+var word5 = document.getElementById("word5").value;
+var word6 = document.getElementById("word6").value;
+var word7 = document.getElementById("word7").value;
+var word8 = document.getElementById("word8").value;
+var word9 = document.getElementById("word9").value;
+var word10 = document.getElementById("word10").value;
+var word11 = document.getElementById("word11").value;
+var word12 = document.getElementById("word12").value;
 
 // Array of stories
 const stories = {
@@ -90,18 +90,18 @@ function setStory(storyNumber) {
 
     inputs.forEach((input, index) => {
         input.addEventListener('input', function() {
-            word1 = document.getElementById("word1");
-            word2 = document.getElementById("word2");
-            word3 = document.getElementById("word3");
-            word4 = document.getElementById("word4");
-            word5 = document.getElementById("word5");
-            word6 = document.getElementById("word6");
-            word7 = document.getElementById("word7");
-            word8 = document.getElementById("word8");
-            word9 = document.getElementById("word9");
-            word10 = document.getElementById("word10");
-            word11 = document.getElementById("word11");
-            word12 = document.getElementById("word12");
+            word1 = document.getElementById("word1").value;
+            word2 = document.getElementById("word2").value;
+            word3 = document.getElementById("word3").value;
+            word4 = document.getElementById("word4").value;
+            word5 = document.getElementById("word5").value;
+            word6 = document.getElementById("word6").value;
+            word7 = document.getElementById("word7").value;
+            word8 = document.getElementById("word8").value;
+            word9 = document.getElementById("word9").value;
+            word10 = document.getElementById("word10").value;
+            word11 = document.getElementById("word11").value;
+            word12 = document.getElementById("word12").value;
         });
     });
 
