@@ -86,6 +86,10 @@ h1[id=pagetitle] {
     left: 70px;
 }
 
+#titleText {
+    color: var(--text-color, #FFFFFF);
+}
+
 .nav__links {
     position: relative;
     top: -8px;
