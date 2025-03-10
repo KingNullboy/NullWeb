@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mad Libs - NullG*mes</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <center>
+        <h1>Mad Libs!</h1>
+        
+        <!-- Buttons to select stories -->
+        <button onclick="setStory(1)">Story 1</button><br>
+        <button onclick="setStory(2)">Story 2</button><br>
+        <button onclick="setStory(3)">Story 3</button><br>
+        <button onclick="setStory(4)">Story 4</button><br>
+        <button onclick="setStory(5)">Story 5</button><br>
+        <button onclick="setStory(6)">Story 6</button><br>
+        <button onclick="setStory(7)">Story 7</button><br>
+        <button onclick="setStory(8)">Story 8</button><br>
+        <button onclick="setStory(9)">Story 9</button><br>
+        <button onclick="setStory(10)">Story 10</button><br>
+        
+        <div id="input-fields">
+            <!-- Input fields for the blanks, these will be updated dynamically -->
+            <input type="text" id="word1" placeholder="Word 1"><br>
+            <input type="text" id="word2" placeholder="Word 2"><br>
+            <input type="text" id="word3" placeholder="Word 3"><br>
+            <input type="text" id="word4" placeholder="Word 4"><br>
+            <input type="text" id="word5" placeholder="Word 5"><br>
+            <input type="text" id="word6" placeholder="Word 6"><br>
+            <input type="text" id="word7" placeholder="Word 7"><br>
+            <input type="text" id="word8" placeholder="Word 8"><br>
+            <input type="text" id="word9" placeholder="Word 9"><br>
+            <input type="text" id="word10" placeholder="Word 10"><br>
+            <input type="text" id="word11" placeholder="Word 11"><br>
+            <input type="text" id="word12" placeholder="Word 12"><br>
+        </div>
+
+        <!-- Button to generate the story -->
+        <button id="generate-story">Generate Story</button><br>
+
+        <h2>Outputted Story:</h2>
+        <p id="story"></p>
+    </center>
+</body>
+</html>
