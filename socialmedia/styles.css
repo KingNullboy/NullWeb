@@ -102,6 +102,15 @@ input, textarea {
 
 input[id=title], textarea[id=postContent] {
     width: 400px;
+    border-color: #000000;
+}
+
+#scrollBtn {
+    border-color: #000000;
+}
+
+#submit {
+    border-color: #000000;
 }
 
 textarea[id=postContent] {
