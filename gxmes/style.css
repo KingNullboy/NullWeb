@@ -10,6 +10,11 @@
     --link-hover-color: #0000FF; /* For link hover */
 }
 
+input {
+    border-radius: 5px;
+    background-color: #363636;
+}
+
 body {
     background-color: var(--bg-color);
     font-family: var(--font-family);
