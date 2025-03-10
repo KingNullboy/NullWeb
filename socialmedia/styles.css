@@ -113,6 +113,11 @@ input[id=title], textarea[id=postContent] {
     border-color: #000000;
 }
 
+#login, #scrollBtn {
+    border-color: transparent;
+    background-color: transparent;
+}
+
 textarea[id=postContent] {
     height: 45px;
     resize: both;
