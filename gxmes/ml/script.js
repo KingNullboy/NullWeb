@@ -69,23 +69,25 @@ function setStory(storyNumber) {
     
     // Update the placeholders dynamically based on the selected story
     const inputs = document.querySelectorAll('#input-fields input');
+    
+    // Loop over each input field and update the placeholder text
     inputs.forEach((input, index) => {
         input.placeholder = selectedStory.placeholders[index];
     });
 
-    // Create a function to display the story once filled out
-    document.querySelector("#story").innerHTML = `Please fill in the blanks above and click 'Generate Story' to see the magic!`;
-    
-    // When the user fills out the blanks and clicks 'Generate Story', the story will be generated
+    // Update the button to generate the story (if needed)
     document.querySelector("#generate-story").onclick = function() {
         let filledStory = selectedStory.story;
         
         // Replace placeholders with the user's inputs
-        for (let i = 1; i <= 12; i++) {
+        for (let i = 1; i <= 13; i++) { // Updated for 13 placeholders in Story 1
             filledStory = filledStory.replace('${word' + i + '}', document.getElementById('word' + i).value);
         }
         
         // Display the final story
         document.querySelector("#story").innerHTML = filledStory;
     };
+
+    // Clear the previously displayed story (if any)
+    document.querySelector("#story").innerHTML = `Please fill in the blanks above and click 'Generate Story' to see the magic!`;
 }
