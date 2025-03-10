@@ -78,7 +78,7 @@ var stories = {
 // Function to set the selected story and placeholders
 function setStory(storyNumber) {
     const storyKey = 'num' + storyNumber;
-    const selectedStory = stories[storyKey];
+    const selectedStory = stories[storyKey].story;
     
     // Update the placeholders dynamically based on the selected story
     const inputs = document.querySelectorAll('#input-fields input');
@@ -170,7 +170,7 @@ function setStory(storyNumber) {
 
     // Update the button to generate the story (if needed)
     document.querySelector("#generate-story").onclick = function() {
-        let filledStory = selectedStory.story;
+        let filledStory = selectedStory;
         
         // Replace placeholders with the user's inputs
         for (let i = 1; i <= 13; i++) { // Updated for 13 placeholders in Story 1
