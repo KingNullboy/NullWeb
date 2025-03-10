@@ -113,7 +113,7 @@ input[id=title], textarea[id=postContent] {
     border-color: #000000;
 }
 
-#login, #scrollBtn {
+#login, #headerBtn {
     border-color: transparent;
     background-color: transparent;
 }
