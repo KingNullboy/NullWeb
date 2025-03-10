@@ -90,18 +90,18 @@ function setStory(storyNumber) {
 
     inputs.forEach((input, index) => {
         input.addEventListener('input', function() {
-            var word1 = document.getElementById("word1");
-            var word2 = document.getElementById("word2");
-            var word3 = document.getElementById("word3");
-            var word4 = document.getElementById("word4");
-            var word5 = document.getElementById("word5");
-            var word6 = document.getElementById("word6");
-            var word7 = document.getElementById("word7");
-            var word8 = document.getElementById("word8");
-            var word9 = document.getElementById("word9");
-            var word10 = document.getElementById("word10");
-            var word11 = document.getElementById("word11");
-            var word12 = document.getElementById("word12");
+            word1 = document.getElementById("word1");
+            word2 = document.getElementById("word2");
+            word3 = document.getElementById("word3");
+            word4 = document.getElementById("word4");
+            word5 = document.getElementById("word5");
+            word6 = document.getElementById("word6");
+            word7 = document.getElementById("word7");
+            word8 = document.getElementById("word8");
+            word9 = document.getElementById("word9");
+            word10 = document.getElementById("word10");
+            word11 = document.getElementById("word11");
+            word12 = document.getElementById("word12");
         });
     });
 
