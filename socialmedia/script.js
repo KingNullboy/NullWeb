@@ -178,6 +178,7 @@ if (localStorage.getItem("auth") !== "true") {
 }
 
 function login(username, password) {
+	
 	if (!(username in VALID_USERS) && VALID_USERS[username].password !== password) {
 		alert("Invalid username or password.");
 	} else {
@@ -194,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		alert("To post, you need to log in.");
 		document.getElementById("login").innerHTML = "Login";
 		document.getElementById("login").onclick = function() {
-   			window.location.href = "login.html";
+   			window.history.back();
 		};
 	}
 
