@@ -67,8 +67,8 @@ const VALID_USERS = {
   }
   
   async function updateGitHubFile() {
-	const title = document.getElementById("title").value;
-	const postContent = document.getElementById("postContent").value;
+	var title = document.getElementById("title").value;
+	var postContent = document.getElementById("postContent").value;
   
 	// Check for filtered words
   if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
