@@ -122,6 +122,10 @@ header {
     color: var(--text-color);
 }
 
+#pagetitle {
+    color: #FFFFFF;
+}
+
 #bg-color {
     border-radius: 10px;
     background-color: var(--bg-color);
