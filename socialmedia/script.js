@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	document.addEventListener('keydown', function(event) {
-		// Check if Ctrl + Shift + I is pressed
+		// Check if Ctrl + Shift + I is pressed (Insert Image)
 		if (event.ctrlKey && event.shiftKey && event.key === 'I') {
 			event.preventDefault(); // Prevent the default action for this shortcut
 			
@@ -53,15 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				const textAfter = activeElement.value.substring(cursorPos);
 		
 				// Insert the image template at the cursor position
-				const imageTemplate = '<img src="" width="225px">';
+				const imageTemplate = '<img src="" width="225px">'; // Blank src for the image template
 				activeElement.value = textBefore + imageTemplate + textAfter;
 		
-				// Move the cursor to where the user should type the image URL (inside the src attribute)
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + imageTemplate.indexOf('[the cursor will be here]');
+				// Move the cursor to after the image tag, so the user can type the URL right after the src=""
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + imageTemplate.indexOf('src=""') + 5; // Move to after src=""
 			}
 		}
 	
-		// Check if Ctrl + Shift + C is pressed (Code Block)
+		// Check if Ctrl + Shift + C is pressed (Insert Blockquote)
 		if (event.ctrlKey && event.shiftKey && event.key === 'C') {
 			event.preventDefault(); // Prevent the default action for this shortcut
 			
@@ -74,15 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
 		
-				// Insert the code block HTML at the cursor position
-				const codeBlockTemplate = '<pre><code>[Your code here]</code></pre>';
-				activeElement.value = textBefore + codeBlockTemplate + textAfter;
+				// Insert the blockquote HTML at the cursor position
+				const blockquoteTemplate = '<blockquote></blockquote>';
+				activeElement.value = textBefore + blockquoteTemplate + textAfter;
 		
-				// Move the cursor inside the code block
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + codeBlockTemplate.indexOf('[Your code here]');
+				// Move the cursor inside the blockquote tag
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + blockquoteTemplate.indexOf('</blockquote>'); // Move inside the blockquote
 			}
 		}
-	});	
+	});
 });
 
 // Allowed users and their nicknames
