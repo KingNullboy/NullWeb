@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById("login").onclick = function() {
 		localStorage.removeItem("user");
 		localStorage.removeItem("password");
+		location.reload();
 		}
 	};
 });
