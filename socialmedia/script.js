@@ -158,7 +158,7 @@ const VALID_USERS = {
 	}
   
 	alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
-	window.reload();
+	window.location.reload();
   }
   
   function password(pswd) {
