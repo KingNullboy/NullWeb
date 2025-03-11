@@ -37,6 +37,34 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.scrollTo(0, 0);
 		});
 	});
+	
+	// Function to insert text at the current caret position in an input field
+    function insertAtCursor(element, text) {
+        const cursorPosition = element.selectionStart;
+        const textBefore = element.value.substring(0, cursorPosition);
+        const textAfter = element.value.substring(cursorPosition);
+        element.value = textBefore + text + textAfter;
+        element.selectionStart = element.selectionEnd = cursorPosition + text.length;
+    }
+
+    // Event listener for inserting <i> or </i> when Ctrl + I is pressed
+    document.querySelectorAll('input').forEach(inputElement => {
+        inputElement.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'i') {
+                event.preventDefault();
+                const textBox = event.target;
+                const cursorPos = textBox.selectionStart;
+                const text = textBox.value;
+
+                // Insert <i> at the cursor or </i> depending on where the cursor is
+                if (text[cursorPos] === '<' || text[cursorPos] === '>') {
+                    insertAtCursor(textBox, '</i>');
+                } else {
+                    insertAtCursor(textBox, '<i>');
+                }
+            }
+        });
+    })
 });
 
 // Allowed users and their nicknames
