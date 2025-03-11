@@ -82,6 +82,28 @@ document.addEventListener('DOMContentLoaded', function () {
 				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + blockquoteTemplate.indexOf('</blockquote>'); // Move inside the blockquote
 			}
 		}
+	
+		// Check if Ctrl + K is pressed (Insert Link Template)
+		if (event.ctrlKey && event.key === 'K') {
+			event.preventDefault(); // Prevent the default action for this shortcut
+			
+			// Get the current textarea or input element
+			const activeElement = document.activeElement;
+			
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				// Get the cursor position
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+		
+				// Insert the link template at the cursor position
+				const linkTemplate = '<a href="">[your link name here]</a>';
+				activeElement.value = textBefore + linkTemplate + textAfter;
+		
+				// Move the cursor inside the href=""
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + linkTemplate.indexOf('href=""') + 6; // Move to inside href=""
+			}
+		}
 	});
 });
 
