@@ -201,8 +201,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (localStorage.getItem("user") !== null && localStorage.getItem("password") !== null && !window.location.href.includes("login.html")) {
 	document.getElementById("login").innerHTML = "Log Out";
 	document.getElementById("login").onclick = function() {
-		localStorage.setItem("user", null);
-		localStorage.setItem("password", null);
+		localStorage.removeItem("user");
+		localStorage.removeItem("password");
 		}
 	};
 });
