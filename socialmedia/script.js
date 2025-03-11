@@ -115,8 +115,6 @@ const VALID_USERS = {
 			"<br><article id='" + postmode + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);' id='scrollBtn'>Go to top</button>\n\t\t</center>"
 		);
 	}
-
-	console.log(updatedContent);
   
 	// GitHub API URL for updating the file
 	if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/") {
@@ -160,8 +158,7 @@ const VALID_USERS = {
 	}
   
 	alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
-	title = '';
-	postContent = '';
+	window.reload();
   }
   
   function password(pswd) {
