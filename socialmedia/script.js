@@ -55,7 +55,7 @@ const VALID_USERS = {
 }
   
   // List of filtered words (Add words manually)
-																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "dam", "danm", "pussy", "cock"];
+																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock"];
   
   function containsFilteredWords(text) {
 	  for (let i = 0; i < FILTERED_WORDS.length; i++) {
@@ -82,7 +82,7 @@ const VALID_USERS = {
 		return;
 	}
 
-	if (title === '' || postContent === '') {
+	if ((title === '' && postmode === undefined) || postContent === '') {
 		alert("You need to post something!");
 		return;
 	}
@@ -115,6 +115,8 @@ const VALID_USERS = {
 			"<br><article id='" + postmode + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);'  id='scrollBtn'>Go to top</button>\n\t\t</center>"
 		);
 	}
+
+	console.log(updatedContent);
   
 	// GitHub API URL for updating the file
 	if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/") {
@@ -196,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		};
 	}
 
-	if (!(localStorage.getItem("user") === null || localStorage.getItem("password") === null) && !window.location.href.includes("login.html")) {
+	if (localStorage.getItem("user") !== null && localStorage.getItem("password") !== null && !window.location.href.includes("login.html")) {
 	document.getElementById("login").innerHTML = "Log Out";
 	document.getElementById("login").onclick = function() {
 		localStorage.setItem("user", null);
