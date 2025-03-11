@@ -40,6 +40,10 @@ a[id=link]:hover {
     color: var(--link-hover-color, #0000FF);
 }
 
+#pagetitle {
+    color: #FFFFFF;
+}
+
 /* Navigation Bar */
 nav {
     background-color: var(--bg-color, #000000);
