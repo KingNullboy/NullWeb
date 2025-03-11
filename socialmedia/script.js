@@ -39,24 +39,90 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	document.addEventListener('keydown', function(event) {
-		// Check if Ctrl + Shift + I is pressed (Insert Image)
-		if (event.ctrlKey && event.shiftKey && event.key === 'I') {
+		// Check if Ctrl + B is pressed (Bold)
+		if (event.ctrlKey && event.key === 'b') {
 			event.preventDefault(); // Prevent the default action for this shortcut
-			
+	
 			// Get the current textarea or input element
 			const activeElement = document.activeElement;
-			
+	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
 				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-		
+	
+				// Insert the bold tags at the cursor position
+				const boldTemplate = '<b></b>';
+				activeElement.value = textBefore + boldTemplate + textAfter;
+	
+				// Move the cursor inside the bold tag
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3; // Move to inside <b></b>
+			}
+		}
+	
+		// Check if Ctrl + I is pressed (Italic)
+		if (event.ctrlKey && event.key === 'i') {
+			event.preventDefault(); // Prevent the default action for this shortcut
+	
+			// Get the current textarea or input element
+			const activeElement = document.activeElement;
+	
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				// Get the cursor position
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+	
+				// Insert the italic tags at the cursor position
+				const italicTemplate = '<i></i>';
+				activeElement.value = textBefore + italicTemplate + textAfter;
+	
+				// Move the cursor inside the italic tag
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3; // Move to inside <i></i>
+			}
+		}
+	
+		// Check if Ctrl + U is pressed (Underline)
+		if (event.ctrlKey && event.key === 'u') {
+			event.preventDefault(); // Prevent the default action for this shortcut
+	
+			// Get the current textarea or input element
+			const activeElement = document.activeElement;
+	
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				// Get the cursor position
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+	
+				// Insert the underline tags at the cursor position
+				const underlineTemplate = '<u></u>';
+				activeElement.value = textBefore + underlineTemplate + textAfter;
+	
+				// Move the cursor inside the underline tag
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3; // Move to inside <u></u>
+			}
+		}
+	
+		// Check if Ctrl + Shift + I is pressed (Insert Image)
+		if (event.ctrlKey && event.shiftKey && event.key === 'I') {
+			event.preventDefault(); // Prevent the default action for this shortcut
+	
+			// Get the current textarea or input element
+			const activeElement = document.activeElement;
+	
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				// Get the cursor position
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+	
 				// Insert the image template at the cursor position
-				const imageTemplate = '<img src="" width="225px">'; // Blank src for the image template
+				const imageTemplate = '<img src="" width="225px">';
 				activeElement.value = textBefore + imageTemplate + textAfter;
-		
-				// Move the cursor to after the image tag, so the user can type the URL right after the src=""
+	
+				// Move the cursor to inside the src="" so the user can type the image URL
 				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + imageTemplate.indexOf('src=""') + 5; // Move to after src=""
 			}
 		}
@@ -64,42 +130,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Check if Ctrl + Shift + C is pressed (Insert Blockquote)
 		if (event.ctrlKey && event.shiftKey && event.key === 'C') {
 			event.preventDefault(); // Prevent the default action for this shortcut
-			
+	
 			// Get the current textarea or input element
 			const activeElement = document.activeElement;
-			
+	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
 				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-		
+	
 				// Insert the blockquote HTML at the cursor position
 				const blockquoteTemplate = '<blockquote></blockquote>';
 				activeElement.value = textBefore + blockquoteTemplate + textAfter;
-		
+	
 				// Move the cursor inside the blockquote tag
 				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + blockquoteTemplate.indexOf('</blockquote>'); // Move inside the blockquote
 			}
 		}
 	
 		// Check if Ctrl + K is pressed (Insert Link Template)
-		if (event.ctrlKey && event.key === 'K') {
+		if (event.ctrlKey && event.key === 'k') {
 			event.preventDefault(); // Prevent the default action for this shortcut
-			
+	
 			// Get the current textarea or input element
 			const activeElement = document.activeElement;
-			
+	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
 				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-		
+	
 				// Insert the link template at the cursor position
-				const linkTemplate = '<a href="">[your link name here]</a>';
+				const linkTemplate = '<a href="">[your title here]</a>';
 				activeElement.value = textBefore + linkTemplate + textAfter;
-		
+	
 				// Move the cursor inside the href=""
 				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + linkTemplate.indexOf('href=""') + 6; // Move to inside href=""
 			}
