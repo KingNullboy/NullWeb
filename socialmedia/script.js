@@ -81,6 +81,11 @@ const VALID_USERS = {
 		alert("Invalid username or password.");
 		return;
 	}
+
+	if (title === '' || postContent === '') {
+		alert("You need to post something!");
+		return;
+	}
   
 	// Get nickname
 	const nickname = VALID_USERS[localStorage.getItem("user")].nickname;
