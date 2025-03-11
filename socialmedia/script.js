@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				const textAfter = activeElement.value.substring(cursorPos);
 		
 				// Insert the image template at the cursor position
-				const imageTemplate = '<img src="[the cursor will be here]" width="225px">';
+				const imageTemplate = '<img src="" width="225px">';
 				activeElement.value = textBefore + imageTemplate + textAfter;
 		
 				// Move the cursor to where the user should type the image URL (inside the src attribute)
