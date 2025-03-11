@@ -39,135 +39,98 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	document.addEventListener('keydown', function(event) {
-		// Check if Ctrl + B is pressed (Bold)
-		if (event.ctrlKey && event.key === 'b') {
-			event.preventDefault(); // Prevent the default action for this shortcut
-	
-			// Get the current textarea or input element
-			const activeElement = document.activeElement;
-	
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				// Get the cursor position
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-	
-				// Insert the bold tags at the cursor position
-				const boldTemplate = '<b></b>';
-				activeElement.value = textBefore + boldTemplate + textAfter;
-	
-				// Move the cursor inside the bold tag
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3; // Move to inside <b></b>
+		// Check if Ctrl + Enter is pressed
+		if (event.ctrlKey && event.key === 'Enter') {
+			event.preventDefault(); // Prevent the default action (such as a page refresh)
+			
+			// Find the submit button and click it
+			const submitButton = document.querySelector('#submitButton'); // Change this to your submit button's ID
+			if (submitButton) {
+				submitButton.click(); // Simulate clicking the submit button
 			}
 		}
 	
-		// Check if Ctrl + I is pressed (Italic)
-		if (event.ctrlKey && event.key === 'i') {
-			event.preventDefault(); // Prevent the default action for this shortcut
-	
-			// Get the current textarea or input element
+		// Check if Ctrl + B is pressed (Bold)
+		if (event.ctrlKey && event.key === 'b') {
+			event.preventDefault();
 			const activeElement = document.activeElement;
-	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
+				const boldTemplate = '<b></b>';
+				activeElement.value = textBefore + boldTemplate + textAfter;
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
+			}
+		}
 	
-				// Insert the italic tags at the cursor position
-				const italicTemplate = '<i></i>';
-				activeElement.value = textBefore + italicTemplate + textAfter;
-	
-				// Move the cursor inside the italic tag
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3; // Move to inside <i></i>
+		// Check if Ctrl + I is pressed (Italics)
+		if (event.ctrlKey && event.key === 'i') {
+			event.preventDefault();
+			const activeElement = document.activeElement;
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+				const italicsTemplate = '<i></i>';
+				activeElement.value = textBefore + italicsTemplate + textAfter;
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
 			}
 		}
 	
 		// Check if Ctrl + U is pressed (Underline)
 		if (event.ctrlKey && event.key === 'u') {
-			event.preventDefault(); // Prevent the default action for this shortcut
-	
-			// Get the current textarea or input element
+			event.preventDefault();
 			const activeElement = document.activeElement;
-	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-	
-				// Insert the underline tags at the cursor position
 				const underlineTemplate = '<u></u>';
 				activeElement.value = textBefore + underlineTemplate + textAfter;
-	
-				// Move the cursor inside the underline tag
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3; // Move to inside <u></u>
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
 			}
 		}
 	
-		// Check if Ctrl + Shift + I is pressed (Insert Image)
-		if (event.ctrlKey && event.shiftKey && event.key === 'I') {
-			event.preventDefault(); // Prevent the default action for this shortcut
-	
-			// Get the current textarea or input element
-			const activeElement = document.activeElement;
-	
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				// Get the cursor position
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-	
-				// Insert the image template at the cursor position
-				const imageTemplate = '<img src="" width="225px">';
-				activeElement.value = textBefore + imageTemplate + textAfter;
-	
-				// Move the cursor to inside the src="" so the user can type the image URL
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + imageTemplate.indexOf('src=""') + 5; // Move to after src=""
-			}
-		}
-	
-		// Check if Ctrl + Shift + C is pressed (Insert Blockquote)
+		// Check if Ctrl + Shift + C is pressed (Code Block)
 		if (event.ctrlKey && event.shiftKey && event.key === 'C') {
-			event.preventDefault(); // Prevent the default action for this shortcut
-	
-			// Get the current textarea or input element
+			event.preventDefault();
 			const activeElement = document.activeElement;
-	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-	
-				// Insert the blockquote HTML at the cursor position
-				const blockquoteTemplate = '<blockquote></blockquote>';
-				activeElement.value = textBefore + blockquoteTemplate + textAfter;
-	
-				// Move the cursor inside the blockquote tag
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + blockquoteTemplate.indexOf('</blockquote>'); // Move inside the blockquote
+				const codeBlockTemplate = '<pre><code></code></pre>';
+				activeElement.value = textBefore + codeBlockTemplate + textAfter;
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 13;
 			}
 		}
 	
-		// Check if Ctrl + K is pressed (Insert Link Template)
+		// Check if Ctrl + K is pressed (Hyperlink)
 		if (event.ctrlKey && event.key === 'k') {
-			event.preventDefault(); // Prevent the default action for this shortcut
-	
-			// Get the current textarea or input element
+			event.preventDefault();
 			const activeElement = document.activeElement;
-	
 			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				// Get the cursor position
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-	
-				// Insert the link template at the cursor position
 				const linkTemplate = '<a href="">[your title here]</a>';
 				activeElement.value = textBefore + linkTemplate + textAfter;
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 9;
+			}
+		}
 	
-				// Move the cursor inside the href=""
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + linkTemplate.indexOf('href=""') + 6; // Move to inside href=""
+		// Check if Ctrl + Shift + Q is pressed (Blockquote)
+		if (event.ctrlKey && event.shiftKey && event.key === 'Q') {
+			event.preventDefault();
+			const activeElement = document.activeElement;
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+				const blockquoteTemplate = '<blockquote></blockquote>';
+				activeElement.value = textBefore + blockquoteTemplate + textAfter;
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 12;
 			}
 		}
 	});
