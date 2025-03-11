@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Apply the default styles
             updateStyles();
         });
-
+    }
     // Apply initial styles based on saved preferences
     updateStyles();
 });
