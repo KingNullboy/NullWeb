@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Check if Ctrl + Shift + I is pressed
 		if (event.ctrlKey && event.shiftKey && event.key === 'I') {
 			event.preventDefault(); // Prevent the default action for this shortcut
-	
+			
 			// Get the current textarea or input element
 			const activeElement = document.activeElement;
 			
@@ -51,16 +51,38 @@ document.addEventListener('DOMContentLoaded', function () {
 				const cursorPos = activeElement.selectionStart;
 				const textBefore = activeElement.value.substring(0, cursorPos);
 				const textAfter = activeElement.value.substring(cursorPos);
-	
+		
 				// Insert the image template at the cursor position
 				const imageTemplate = '<img src="[the cursor will be here]" width="225px">';
 				activeElement.value = textBefore + imageTemplate + textAfter;
-	
+		
 				// Move the cursor to where the user should type the image URL (inside the src attribute)
 				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + imageTemplate.indexOf('[the cursor will be here]');
 			}
 		}
-	});
+	
+		// Check if Ctrl + Shift + C is pressed (Code Block)
+		if (event.ctrlKey && event.shiftKey && event.key === 'C') {
+			event.preventDefault(); // Prevent the default action for this shortcut
+			
+			// Get the current textarea or input element
+			const activeElement = document.activeElement;
+			
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				// Get the cursor position
+				const cursorPos = activeElement.selectionStart;
+				const textBefore = activeElement.value.substring(0, cursorPos);
+				const textAfter = activeElement.value.substring(cursorPos);
+		
+				// Insert the code block HTML at the cursor position
+				const codeBlockTemplate = '<pre><code>[Your code here]</code></pre>';
+				activeElement.value = textBefore + codeBlockTemplate + textAfter;
+		
+				// Move the cursor inside the code block
+				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + codeBlockTemplate.indexOf('[Your code here]');
+			}
+		}
+	});	
 });
 
 // Allowed users and their nicknames
