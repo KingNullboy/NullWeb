@@ -37,34 +37,46 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.scrollTo(0, 0);
 		});
 	});
-	
-	// Function to insert text at the current caret position in an input field
-    function insertAtCursor(element, text) {
-        const cursorPosition = element.selectionStart;
-        const textBefore = element.value.substring(0, cursorPosition);
-        const textAfter = element.value.substring(cursorPosition);
-        element.value = textBefore + text + textAfter;
-        element.selectionStart = element.selectionEnd = cursorPosition + text.length;
+
+	// Function to insert or toggle <b> (Bold), <i> (Italics), <u> (Underline)
+  function insertTagAtCursor(tag) {
+    var activeElement = document.activeElement;
+
+    // For textareas, we need to handle text manipulation
+    if (activeElement.tagName.toLowerCase() === 'textarea' || activeElement.tagName.toLowerCase() === 'input') {
+      var cursorPos = activeElement.selectionStart;
+      var text = activeElement.value;
+      var selectedText = text.substring(activeElement.selectionStart, activeElement.selectionEnd);
+      
+      // Toggle the selected text by wrapping it in the desired tag
+      if (selectedText.length > 0) {
+        activeElement.value = text.substring(0, cursorPos) + tag.open + selectedText + tag.close + text.substring(activeElement.selectionEnd);
+        activeElement.selectionStart = cursorPos + tag.open.length;
+        activeElement.selectionEnd = cursorPos + tag.open.length + selectedText.length;
+      } else {
+        // If no text is selected, insert the tags at cursor position
+        activeElement.value = text.substring(0, cursorPos) + tag.open + tag.close + text.substring(cursorPos);
+        activeElement.selectionStart = cursorPos + tag.open.length;
+        activeElement.selectionEnd = cursorPos + tag.open.length;
+      }
     }
+  }
 
-    // Event listener for inserting <i> or </i> when Ctrl + I is pressed
-    document.querySelectorAll('input').forEach(inputElement => {
-        inputElement.addEventListener('keydown', function(event) {
-            if (event.ctrlKey && event.key === 'i') {
-                event.preventDefault();
-                const textBox = event.target;
-                const cursorPos = textBox.selectionStart;
-                const text = textBox.value;
-
-                // Insert <i> at the cursor or </i> depending on where the cursor is
-                if (text[cursorPos] === '<' || text[cursorPos] === '>') {
-                    insertAtCursor(textBox, '</i>');
-                } else {
-                    insertAtCursor(textBox, '<i>');
-                }
-            }
-        });
-    })
+  // Event listener for keydown to check for Ctrl+B, Ctrl+I, and Ctrl+U
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey) {
+      if (e.key === 'b') { // Ctrl + B (Bold)
+        e.preventDefault();
+        insertTagAtCursor({ open: '<b>', close: '</b>' });
+      } else if (e.key === 'i') { // Ctrl + I (Italics)
+        e.preventDefault();
+        insertTagAtCursor({ open: '<i>', close: '</i>' });
+      } else if (e.key === 'u') { // Ctrl + U (Underline)
+        e.preventDefault();
+        insertTagAtCursor({ open: '<u>', close: '</u>' });
+      }
+    }
+  });
 });
 
 // Allowed users and their nicknames
