@@ -174,7 +174,7 @@ const VALID_USERS = {
 		return;
 	}
 
-	if ((title === '' && postmode === undefined) || postContent === '') {
+	if (title === '' && postmode === undefined) {
 		alert("You need to post something!");
 		return;
 	}
