@@ -270,7 +270,7 @@ function encodeContentForGitHub(content) {
 	}
   
 	alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
-	window.location.reload();
+	// window.location.reload();
   }
   
   function password(pswd) {
