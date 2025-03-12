@@ -42,12 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Check if Ctrl + Enter is pressed
 		if (event.ctrlKey && event.key === 'Enter') {
 			event.preventDefault(); // Prevent the default action (such as a page refresh)
-			
-			// Find the submit button and click it
-			const submitButton = document.querySelector('#submitButton'); // Change this to your submit button's ID
-			if (submitButton) {
-				submitButton.click(); // Simulate clicking the submit button
-			}
+			updateGitHubFile(postmode);
 		}
 	
 		// Check if Ctrl + B is pressed (Bold)
