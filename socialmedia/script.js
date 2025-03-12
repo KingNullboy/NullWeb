@@ -164,8 +164,23 @@ const VALID_USERS = {
   }
   
   async function updateGitHubFile() {
-	var title = document.getElementById("title").value;
-	var postContent = document.getElementById("postContent").value;
+	// Function to properly encode content for GitHub using UTF-8 and base64
+function encodeContentForGitHub(content) {
+	// Ensure UTF-8 encoding and avoid non-Latin issues
+	const encoder = new TextEncoder();
+	const utf8Array = encoder.encode(content);
+	
+	// Convert the array of UTF-8 bytes to a binary string
+	let binaryString = '';
+	for (let i = 0; i < utf8Array.length; i++) {
+	  binaryString += String.fromCharCode(utf8Array[i]);
+	}
+  
+	// Base64 encode the binary string
+	return btoa(binaryString);
+  }
+	var title = encodeContentForGitHub(document.getElementById("title").value);
+	var postContent = encodeContentForGitHub(document.getElementById("postContent").value);
   
 	// Check for filtered words
   if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
