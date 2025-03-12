@@ -212,13 +212,6 @@ const VALID_USERS = {
 			"<br><article id='" + postmode + "'><h1>" + nickname + "</h1><h2>" + postmode + "</h2><p>" + postContent + "</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>\n\t\t\t<button onclick='window.scrollTo(0, 0);' id='scrollBtn'>Go to top</button>\n\t\t</center>"
 		);
 	}
-
-	function utf8ToBase64(str) {
-		const encoded = encodeURIComponent(str); // Encodes to handle non-Latin characters
-		const utf8Array = new TextEncoder().encode(encoded); // Converts string to a byte array in UTF-8
-		const base64String = btoa(String.fromCharCode(...utf8Array)); // Convert byte array to base64
-		return base64String;
-	}
   
 	// GitHub API URL for updating the file
 	if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/") {
@@ -240,7 +233,7 @@ const VALID_USERS = {
 	const fileJson = await fileData.json();
   
 	// Encode updated content in base64
-	const encodedContent = utf8ToBase64(updatedContent);
+	const encodedContent = btoa(updatedContent);
   
 	// Push the updated content to GitHub
 	const updateResponse = await fetch(githubApiUrl, {
