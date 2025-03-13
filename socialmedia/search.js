@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Filter for only HTML files (assuming they represent posts)
             const htmlFiles = files.filter(file => file.name.endsWith('.html'));
 
-            // Extract post titles from the HTML files
-            const postTitles = [];
+            // Extract post titles and article IDs from the HTML files
+            const posts = [];
 
             for (let file of htmlFiles) {
                 const fileResponse = await fetch(file.download_url);
@@ -45,11 +45,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 const h2Tags = doc.querySelectorAll('article h2');
 
                 h2Tags.forEach(h2 => {
-                    postTitles.push(h2.textContent); // Get the text content of each <h2>
+                    const article = h2.closest('article');
+                    const postTitle = h2.textContent; // Post title from <h2>
+                    const articleId = article.id; // Article ID
+
+                    posts.push({
+                        title: postTitle,
+                        articleId: articleId,
+                        file: file.name // File name to generate the link
+                    });
                 });
             }
 
-            return postTitles;
+            return posts;
         } catch (error) {
             console.error(error);
             return [];
@@ -68,13 +76,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Fetched Post Titles:', posts);
 
             // Filter the posts based on the search query
-            const filteredPosts = posts.filter(post => post.toLowerCase().includes(query));
+            const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(query));
             
             // Display the search results
             console.log('Filtered Posts:', filteredPosts);
 
             if (filteredPosts.length > 0) {
-                searchResults.innerHTML = '<ul>' + filteredPosts.map(post => `<li>${post}</li>`).join('') + '</ul>';
+                searchResults.innerHTML = '<ul>' + filteredPosts.map(post => {
+                    const postLink = window.location.protocol + "//" + document.domain + "/socialmedia/" + post.file + "#" + post.articleId;
+                    return `<li><a href="${postLink}" target="_blank">${post.title}</a></li>`;
+                }).join('') + '</ul>';
             } else {
                 searchResults.innerHTML = '<p>No posts found</p>';
             }
