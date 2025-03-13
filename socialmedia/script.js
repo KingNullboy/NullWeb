@@ -57,10 +57,7 @@ function addBoldTags(isKeybind) {
 
 // Shared function for adding italic tags
 function addItalicTags(isKeybind) {
-    if (isKeybind === true) {
-        event.preventDefault();
-    }
-
+    
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
@@ -74,10 +71,7 @@ function addItalicTags(isKeybind) {
 
 // Shared function for adding underline tags
 function addUnderlineTags(isKeybind) {
-    if (isKeybind === true) {
-        event.preventDefault();
-    }
-
+    
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
@@ -91,10 +85,7 @@ function addUnderlineTags(isKeybind) {
 
 // Shared function for adding code block tags
 function addCodeBlockTags(isKeybind) {
-    if (isKeybind === true) {
-        event.preventDefault();
-    }
-
+    
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
@@ -108,10 +99,7 @@ function addCodeBlockTags(isKeybind) {
 
 // Shared function for adding link tags
 function addLinkTags(isKeybind) {
-    if (isKeybind === true) {
-        event.preventDefault();
-    }
-
+    
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
@@ -125,10 +113,7 @@ function addLinkTags(isKeybind) {
 
 // Shared function for adding blockquote tags
 function addBlockquoteTags(isKeybind) {
-    if (isKeybind === true) {
-        event.preventDefault();
-    }
-
+    
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
@@ -142,10 +127,7 @@ function addBlockquoteTags(isKeybind) {
 
 // Shared function for adding image tag
 function addImageTags(isKeybind) {
-    if (isKeybind === true) {
-        event.preventDefault();
-    }
-
+    
     const activeElement = document.activeElement;
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
@@ -159,6 +141,7 @@ function addImageTags(isKeybind) {
 
 // Listen for keydown events for keybinds (Ctrl + key)
 document.addEventListener('keypress', function(event) {
+	event.preventDefault();
     if (event.ctrlKey && event.key === 'b') {
         addBoldTags(true);
     } else if (event.ctrlKey && event.key === 'i') {
