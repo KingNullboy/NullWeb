@@ -39,95 +39,171 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 
 	document.addEventListener('keydown', function(event) {
-		// Check if Ctrl + Enter is pressed
-		if (event.ctrlKey && event.key === 'Enter') {
-			event.preventDefault(); // Prevent the default action (such as a page refresh)
-			updateGitHubFile(postmode);
-		}
-	
-		// Check if Ctrl + B is pressed (Bold)
-		if (event.ctrlKey && event.key === 'b') {
-			event.preventDefault();
-			const activeElement = document.activeElement;
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-				const boldTemplate = '<b></b>';
-				activeElement.value = textBefore + boldTemplate + textAfter;
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
-			}
-		}
-	
-		// Check if Ctrl + I is pressed (Italics)
-		if (event.ctrlKey && event.key === 'i') {
-			event.preventDefault();
-			const activeElement = document.activeElement;
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-				const italicsTemplate = '<i></i>';
-				activeElement.value = textBefore + italicsTemplate + textAfter;
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
-			}
-		}
-	
-		// Check if Ctrl + U is pressed (Underline)
-		if (event.ctrlKey && event.key === 'u') {
-			event.preventDefault();
-			const activeElement = document.activeElement;
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-				const underlineTemplate = '<u></u>';
-				activeElement.value = textBefore + underlineTemplate + textAfter;
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
-			}
-		}
-	
-		// Check if Ctrl + Shift + C is pressed (Code Block)
-		if (event.ctrlKey && event.shiftKey && event.key === 'C') {
-			event.preventDefault();
-			const activeElement = document.activeElement;
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-				const codeBlockTemplate = '<pre><code></code></pre>';
-				activeElement.value = textBefore + codeBlockTemplate + textAfter;
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 13;
-			}
-		}
-	
-		// Check if Ctrl + K is pressed (Hyperlink)
-		if (event.ctrlKey && event.key === 'k') {
-			event.preventDefault();
-			const activeElement = document.activeElement;
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-				const linkTemplate = '<a href="">[your title here]</a>';
-				activeElement.value = textBefore + linkTemplate + textAfter;
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 9;
-			}
-		}
-	
-		// Check if Ctrl + Shift + Q is pressed (Blockquote)
-		if (event.ctrlKey && event.shiftKey && event.key === 'Q') {
-			event.preventDefault();
-			const activeElement = document.activeElement;
-			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-				const cursorPos = activeElement.selectionStart;
-				const textBefore = activeElement.value.substring(0, cursorPos);
-				const textAfter = activeElement.value.substring(cursorPos);
-				const blockquoteTemplate = '<blockquote></blockquote>';
-				activeElement.value = textBefore + blockquoteTemplate + textAfter;
-				activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 12;
-			}
-		}
+		// Shared function for adding bold tags
+function addBoldTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault(); // Prevent default action for keybind
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const boldTemplate = '<b></b>';
+        activeElement.value = textBefore + boldTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
+    }
+}
+
+// Shared function for adding italic tags
+function addItalicTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault();
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const italicTemplate = '<i></i>';
+        activeElement.value = textBefore + italicTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
+    }
+}
+
+// Shared function for adding underline tags
+function addUnderlineTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault();
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const underlineTemplate = '<u></u>';
+        activeElement.value = textBefore + underlineTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
+    }
+}
+
+// Shared function for adding code block tags
+function addCodeBlockTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault();
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const codeBlockTemplate = '<pre><code></code></pre>';
+        activeElement.value = textBefore + codeBlockTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 13;
+    }
+}
+
+// Shared function for adding link tags
+function addLinkTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault();
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const linkTemplate = '<a href="">[your title here]</a>';
+        activeElement.value = textBefore + linkTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 9;
+    }
+}
+
+// Shared function for adding blockquote tags
+function addBlockquoteTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault();
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const blockquoteTemplate = '<blockquote></blockquote>';
+        activeElement.value = textBefore + blockquoteTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 12;
+    }
+}
+
+// Shared function for adding image tag
+function addImageTags(isKeybind) {
+    if (isKeybind) {
+        event.preventDefault();
+    }
+
+    const activeElement = document.activeElement;
+    if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+        const cursorPos = activeElement.selectionStart;
+        const textBefore = activeElement.value.substring(0, cursorPos);
+        const textAfter = activeElement.value.substring(cursorPos);
+        const imageTemplate = '<img src="" width="225px">';
+        activeElement.value = textBefore + imageTemplate + textAfter;
+        activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 19;
+    }
+}
+
+// Listen for keydown events for keybinds (Ctrl + key)
+document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 'b') {
+        addBoldTags(true);
+    } else if (event.ctrlKey && event.key === 'i') {
+        addItalicTags(true);
+    } else if (event.ctrlKey && event.key === 'u') {
+        addUnderlineTags(true);
+    } else if (event.ctrlKey && event.key === 'c') {
+        addCodeBlockTags(true);
+    } else if (event.ctrlKey && event.key === 'k') {
+        addLinkTags(true);
+    } else if (event.ctrlKey && event.shiftKey && event.key === 'q') {
+        addBlockquoteTags(true);
+    } else if (event.ctrlKey && event.shiftKey && event.key === 'i') {
+   		addImageTags(true);
+   		}
+	});
+
+	// Listen for button clicks for formatting (on mobile and desktop)
+	document.getElementById('boldBtn').addEventListener('click', function() {
+	    addBoldTags(false);
+	});
+
+	document.getElementById('italicBtn').addEventListener('click', function() {
+	    addItalicTags(false);
+	});
+
+	document.getElementById('underlineBtn').addEventListener('click', function() {
+    	addUnderlineTags(false);
+	});	
+
+	document.getElementById('codeBlockBtn').addEventListener('click', function() {
+	    addCodeBlockTags(false);
+	});
+
+	document.getElementById('linkBtn').addEventListener('click', function() {
+	    addLinkTags(false);
+	});
+
+	document.getElementById('blockquoteBtn').addEventListener('click', function() {
+    	addBlockquoteTags(false);
+	});
+
+	document.getElementById('insertImageBtn').addEventListener('click', function() {
+    	addImageTags(false);
 	});
 });
 
