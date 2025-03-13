@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Get the elements from the DOM
     const searchBar = document.getElementById('searchBar');
-    const searchButton = document.getElementById('searchBtn');
+    const searchButton = document.getElementById('searchButton');
     const searchResults = document.getElementById('searchResults');
     
     // GitHub API token (Ensure you are securely storing and fetching this token)
