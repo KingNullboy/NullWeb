@@ -27,8 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const files = await response.json();
 
+            // Log files to check the structure
+            console.log("Files fetched from GitHub:", files);
+
             // Filter for only HTML files (assuming they represent posts)
             const htmlFiles = files.filter(file => file.name.endsWith('.html'));
+
+            // Log the filtered HTML files to check if we are picking the right files
+            console.log("Filtered HTML Files:", htmlFiles);
 
             // Extract post titles from the HTML files
             const postTitles = [];
@@ -36,6 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
             for (let file of htmlFiles) {
                 const fileResponse = await fetch(file.download_url);
                 const fileContent = await fileResponse.text();
+
+                // Log the raw file content for debugging
+                console.log(`File Content for ${file.name}:`, fileContent);
 
                 // Use a regex to extract all post titles (assuming they are inside <article><h2> tags)
                 const regex = /<article id="([^"]+)">.*?<h2>(.*?)<\/h2>/gs;
@@ -46,11 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // Log the post titles to debug
-            console.log("Fetched Post Titles:", postTitles);
+            // Log the titles to see if they are being extracted
+            console.log("Extracted Post Titles:", postTitles);
+
             return postTitles;
         } catch (error) {
-            console.error(error);
+            console.error("Error fetching post titles:", error);
             return [];
         }
     };
