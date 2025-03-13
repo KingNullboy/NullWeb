@@ -1,90 +1,51 @@
-// Define GitHub token (be careful when storing it!)
-var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
-var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
-const TOKEN = p1 + p2;
+document.getElementById("searchButton").addEventListener("click", function() {
+    const searchQuery = document.getElementById("searchBar").value.toLowerCase(); // Get the search query and convert to lowercase
+    const resultsContainer = document.getElementById("searchResults"); // Container to display results
 
-async function fetchSubpageFiles() {
-    const owner = 'nullmedia-social'; // Replace with your GitHub username
-    const repo = 'NullWeb';           // Replace with your repo name
-    const path = 'socialmedia';       // The directory where the subs are
+    // Check if the search bar is empty
+    if (!searchQuery.trim()) {
+        resultsContainer.innerHTML = "<p>Please enter a search term.</p>";
+        return;
+    }
 
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
-        headers: {
-            "Authorization": "token " + TOKEN
-        }
+    // List of subpages to search through
+    const subPages = ['index.html', 'politics.html']; // Add more subpages here as necessary
+    let searchResults = '';
+    let processedPages = 0;
+
+    // Function to fetch and process each subpage
+    subPages.forEach(subPage => {
+        fetch(subPage)
+            .then(response => response.text())
+            .then(data => {
+                // Parse the page content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const posts = doc.querySelectorAll('article'); // Get all posts (articles)
+
+                // Check each post's title for the search query
+                posts.forEach(post => {
+                    const title = post.querySelector('h2') ? post.querySelector('h2').textContent : "";
+                    if (title.toLowerCase().includes(searchQuery)) {
+                        searchResults += `<p><strong>Post found in ${subPage}:</strong> ${title}</p>`;
+                    }
+                });
+
+                // Increment processed pages
+                processedPages++;
+
+                // After all pages are processed, update the search results
+                if (processedPages === subPages.length) {
+                    if (searchResults === '') {
+                        resultsContainer.innerHTML = "<p>No posts found for your search.</p>";
+                    } else {
+                        resultsContainer.innerHTML = searchResults;
+                    }
+                }
+            })
+            .catch(error => {
+                resultsContainer.innerHTML = "<p>Error fetching subpages.</p>";
+                console.error(error);
+            });
     });
-    const files = await response.json();
-
-    // Filter out only the .html files
-    const htmlFiles = files.filter(file => file.name.endsWith('.html')).map(file => file.download_url);
-    return htmlFiles;
-}
-
-async function fetchPostTitlesFromPage(pageUrl) {
-    try {
-        const response = await fetch(pageUrl);
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        
-        // Get all articles (posts)
-        const articles = doc.querySelectorAll('article');
-        
-        // Extract titles from each article
-        const posts = Array.from(articles).map(article => {
-            const title = article.querySelector('h2') ? article.querySelector('h2').textContent : 'Untitled Post';
-            const postUrl = article.querySelector('a') ? article.querySelector('a').href : pageUrl; // Default to the page URL if no link
-            return { title, url: postUrl };
-        });
-        
-        return posts;
-    } catch (error) {
-        console.error('Error fetching post titles:', error);
-        return [];
-    }
-}
-
-async function fetchAllPosts() {
-    const htmlFiles = await fetchSubpageFiles();
-    const allPosts = [];
-
-    // Fetch and extract titles from each subpage
-    for (let fileUrl of htmlFiles) {
-        const posts = await fetchPostTitlesFromPage(fileUrl);
-        allPosts.push(...posts);
-    }
-
-    return allPosts;
-}
-
-function searchPosts(query, posts) {
-    const results = posts.filter(post => post.title.toLowerCase().includes(query.toLowerCase()));
-    return results;
-}
-
-function displayResults(results) {
-    const resultsContainer = document.getElementById('searchResults');
-    resultsContainer.innerHTML = ''; // Clear existing results
-
-    if (results.length === 0) {
-        resultsContainer.innerHTML = 'No results found.';
-    } else {
-        results.forEach(result => {
-            const resultElement = document.createElement('div');
-            resultElement.className = 'resultItem';
-            resultElement.innerHTML = `<a href="${result.url}">${result.title}</a>`;
-            resultsContainer.appendChild(resultElement);
-        });
-    }
-}
-
-// Main search function
-async function handleSearch() {
-    const query = document.getElementById('searchBar').value;
-    const posts = await fetchAllPosts(); // Fetch all posts dynamically
-    const results = searchPosts(query, posts);
-    displayResults(results);
-}
-
-// Add event listener to search bar
-document.getElementById('searchBar').addEventListener('input', handleSearch);
+});
