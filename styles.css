@@ -149,3 +149,63 @@ header {
     border-radius: 10px;
     color: #FFFFFF;
 }
+
+/* Wrapper for the search feature */
+#searchContainer {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Search Bar Styling */
+#searchContainer #searchBar {
+    padding: 8px;
+    width: 80%;
+    max-width: 600px;
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Results container */
+#searchContainer #searchResults {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--bg-color);
+}
+
+/* Each result's styling */
+#searchContainer .resultItem {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    font-size: 16px;
+}
+
+#searchContainer .resultItem:hover {
+    cursor: pointer;
+    background-color: #333333;
+}
+
+/* Clear search button */
+#searchContainer #clearSearch {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#searchContainer #clearSearch:hover {
+    cursor: pointer;
+    background-color: #444444;
+}
