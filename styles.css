@@ -150,12 +150,13 @@ header {
     color: #FFFFFF;
 }
 
-/* Search Container */
+/* Ensure that search results appear below the search bar */
 .searchContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+    flex-direction: column; /* Stack search bar and results vertically */
 }
 
 /* Search Bar */
@@ -164,51 +165,26 @@ header {
     font-size: 16px;
     border-radius: 20px;
     border: 2px solid var(--border-color);
-    margin-right: 10px;
+    margin-bottom: 10px; /* Add space below the search bar */
     background-color: var(--bg-color);
     color: var(--text-color);
     width: 250px; /* Adjust width for a clean look */
 }
 
-/* Search Button */
-.searchBtn {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: 2px solid var(--border-color);
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.searchBtn:hover {
-    background-color: var(--border-color);
-}
-
-/* Add space below the search bar */
+/* Search Results Styling */
 #searchResults {
     margin-top: 20px;
     color: var(--text-color);
-    max-width: 100%; /* Ensures results don't overflow */
+    width: 250px; /* Same width as search bar */
+    display: block;
 }
 
-/* Style the list of search results */
-#searchResults ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-/* Style individual search result items */
-#searchResults li {
-    margin: 5px 0;
-}
-
+/* Result Links */
 #searchResults a {
-    color: var(--text-color);
     text-decoration: none;
+    color: var(--text-color);
 }
 
 #searchResults a:hover {
-    text-decoration: underline;
+    color: var(--border-color);
 }
