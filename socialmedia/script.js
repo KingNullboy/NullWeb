@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.addEventListener('keydown', function(event) {
 		// Shared function for adding bold tags
 function addBoldTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault(); // Prevent default action for keybind
     }
 
@@ -58,7 +58,7 @@ function addBoldTags(isKeybind) {
 
 // Shared function for adding italic tags
 function addItalicTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault();
     }
 
@@ -75,7 +75,7 @@ function addItalicTags(isKeybind) {
 
 // Shared function for adding underline tags
 function addUnderlineTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault();
     }
 
@@ -92,7 +92,7 @@ function addUnderlineTags(isKeybind) {
 
 // Shared function for adding code block tags
 function addCodeBlockTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault();
     }
 
@@ -109,7 +109,7 @@ function addCodeBlockTags(isKeybind) {
 
 // Shared function for adding link tags
 function addLinkTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault();
     }
 
@@ -126,7 +126,7 @@ function addLinkTags(isKeybind) {
 
 // Shared function for adding blockquote tags
 function addBlockquoteTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault();
     }
 
@@ -143,7 +143,7 @@ function addBlockquoteTags(isKeybind) {
 
 // Shared function for adding image tag
 function addImageTags(isKeybind) {
-    if (isKeybind) {
+    if (isKeybind === true) {
         event.preventDefault();
     }
 
@@ -166,7 +166,7 @@ document.addEventListener('keydown', function(event) {
         addItalicTags(true);
     } else if (event.ctrlKey && event.key === 'u') {
         addUnderlineTags(true);
-    } else if (event.ctrlKey && event.key === 'c') {
+    } else if (event.ctrlKey && event.shiftKey && event.key === 'c') {
         addCodeBlockTags(true);
     } else if (event.ctrlKey && event.key === 'k') {
         addLinkTags(true);
