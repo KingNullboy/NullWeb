@@ -141,7 +141,10 @@ function addImageTags(isKeybind) {
 
 // Listen for keydown events for keybinds (Ctrl + key)
 document.addEventListener('keydown', function(event) {
-	event.preventDefault();
+	if (document.activeElement.tagName === "TEXTAREA" || document.activeElement.tagName === "INPUT") {
+		event.preventDefault();
+	}
+
     if (event.ctrlKey && event.key === 'b') {
         addBoldTags(true);
     } else if (event.ctrlKey && event.key === 'i') {
