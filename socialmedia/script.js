@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-	document.addEventListener('keydown', function(event) {
+	document.addEventListener('keypressed', function(event) {
 		// Shared function for adding bold tags
 function addBoldTags(isKeybind) {
     if (isKeybind === true) {
@@ -159,7 +159,7 @@ function addImageTags(isKeybind) {
 }
 
 // Listen for keydown events for keybinds (Ctrl + key)
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keypressed', function(event) {
     if (event.ctrlKey && event.key === 'b') {
         addBoldTags(true);
     } else if (event.ctrlKey && event.key === 'i') {
