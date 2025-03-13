@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
+            // Log the post titles to debug
+            console.log("Fetched Post Titles:", postTitles);
             return postTitles;
         } catch (error) {
             console.error(error);
@@ -60,9 +62,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (query.length > 0) {
             // Get the post titles dynamically from GitHub
             const posts = await getAllPostTitles();
-            
+
+            // Log posts to see what we're working with
+            console.log("Posts fetched for search:", posts);
+
             // Filter the posts based on the search query, making both title and query lowercase for case-insensitive comparison
             const filteredPosts = posts.filter(post => post.toLowerCase().includes(query));
+
+            // Log the filtered results to see if they are correctly filtered
+            console.log("Filtered Posts:", filteredPosts);
             
             // Display the search results
             if (filteredPosts.length > 0) {
