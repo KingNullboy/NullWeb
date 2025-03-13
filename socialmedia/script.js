@@ -158,6 +158,11 @@ document.addEventListener('keydown', function(event) {
    		addImageTags(true);
    		}
 	});
+	if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+		document.getElementById("formatBtns").style = "display: none;";
+	} else {
+		document.getElementById("formatBtns").style = "display: none;";
+	}
 
 	// Listen for button clicks for formatting (on mobile and desktop)
 	document.getElementById('boldBtn').addEventListener('click', function() {
