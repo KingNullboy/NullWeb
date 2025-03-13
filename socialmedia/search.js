@@ -27,14 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const files = await response.json();
 
-            // Log files to check the structure
-            console.log("Files fetched from GitHub:", files);
-
             // Filter for only HTML files (assuming they represent posts)
             const htmlFiles = files.filter(file => file.name.endsWith('.html'));
-
-            // Log the filtered HTML files to check if we are picking the right files
-            console.log("Filtered HTML Files:", htmlFiles);
 
             // Extract post titles from the HTML files
             const postTitles = [];
@@ -43,46 +37,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 const fileResponse = await fetch(file.download_url);
                 const fileContent = await fileResponse.text();
 
-                // Log the raw file content for debugging
-                console.log(`File Content for ${file.name}:`, fileContent);
+                // Use DOMParser to parse the HTML content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(fileContent, 'text/html');
 
-                // Use a regex to extract all post titles (assuming they are inside <article><h2> tags)
-                const regex = /<article id="([^"]+)">.*?<h2>(.*?)<\/h2>/gs;
-                let match;
+                // Select all <h2> elements inside <article> tags (assuming titles are inside <h2> tags)
+                const h2Tags = doc.querySelectorAll('article h2');
 
-                while ((match = regex.exec(fileContent)) !== null) {
-                    postTitles.push(match[2]); // match[2] contains the post title inside <h2>
-                }
+                h2Tags.forEach(h2 => {
+                    postTitles.push(h2.textContent); // Get the text content of each <h2>
+                });
             }
-
-            // Log the titles to see if they are being extracted
-            console.log("Extracted Post Titles:", postTitles);
 
             return postTitles;
         } catch (error) {
-            console.error("Error fetching post titles:", error);
+            console.error(error);
             return [];
         }
     };
 
     // Event listener for the search button
     searchButton.addEventListener('click', async function() {
-        const query = searchBar.value.toLowerCase(); // Convert query to lowercase
+        const query = searchBar.value.toLowerCase();
         
         if (query.length > 0) {
             // Get the post titles dynamically from GitHub
             const posts = await getAllPostTitles();
+            
+            // Log posts for debugging
+            console.log('Fetched Post Titles:', posts);
 
-            // Log posts to see what we're working with
-            console.log("Posts fetched for search:", posts);
-
-            // Filter the posts based on the search query, making both title and query lowercase for case-insensitive comparison
+            // Filter the posts based on the search query
             const filteredPosts = posts.filter(post => post.toLowerCase().includes(query));
-
-            // Log the filtered results to see if they are correctly filtered
-            console.log("Filtered Posts:", filteredPosts);
             
             // Display the search results
+            console.log('Filtered Posts:', filteredPosts);
+
             if (filteredPosts.length > 0) {
                 searchResults.innerHTML = '<ul>' + filteredPosts.map(post => `<li>${post}</li>`).join('') + '</ul>';
             } else {
