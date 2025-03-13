@@ -202,9 +202,11 @@ header {
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
     border-color: #FFFFFF;
 }
 
 .navbtn:hover {
     background-color: var(--border-color);
+    color: #000000;
 }
