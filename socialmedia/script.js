@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			window.scrollTo(0, 0);
 		});
 	});
-});
+
 	document.addEventListener('keydown', function(event) {
 		// Shared function for adding bold tags
 function addBoldTags(isKeybind) {
@@ -205,6 +205,7 @@ document.addEventListener('keydown', function(event) {
 	document.getElementById('insertImageBtn').addEventListener('click', function() {
     	addImageTags(false);
 	});
+});
 });
 
 // Allowed users and their nicknames
