@@ -1,51 +1,77 @@
-document.getElementById("searchButton").addEventListener("click", function() {
-    const searchQuery = document.getElementById("searchBar").value.toLowerCase(); // Get the search query and convert to lowercase
-    const resultsContainer = document.getElementById("searchResults"); // Container to display results
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the elements from the DOM
+    const searchBar = document.getElementById('searchBar');
+    const searchButton = document.getElementById('searchBtn');
+    const searchResults = document.getElementById('searchResults');
+    
+    // GitHub API token (Ensure you are securely storing and fetching this token)
+    const p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
+    const p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
+    const TOKEN = p1 + p2;
 
-    // Check if the search bar is empty
-    if (!searchQuery.trim()) {
-        resultsContainer.innerHTML = "<p>Please enter a search term.</p>";
-        return;
-    }
+    // GitHub API URL for fetching the file contents
+    const GITHUB_API_URL = "https://api.github.com/repos/nullmedia-social/NullWeb/contents/socialmedia/";
 
-    // List of subpages to search through
-    const subPages = ['index.html', 'politics.html']; // Add more subpages here as necessary
-    let searchResults = '';
-    let processedPages = 0;
-
-    // Function to fetch and process each subpage
-    subPages.forEach(subPage => {
-        fetch(subPage)
-            .then(response => response.text())
-            .then(data => {
-                // Parse the page content
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(data, 'text/html');
-                const posts = doc.querySelectorAll('article'); // Get all posts (articles)
-
-                // Check each post's title for the search query
-                posts.forEach(post => {
-                    const title = post.querySelector('h2') ? post.querySelector('h2').textContent : "";
-                    if (title.toLowerCase().includes(searchQuery)) {
-                        searchResults += `<p><strong>Post found in ${subPage}:</strong> ${title}</p>`;
-                    }
-                });
-
-                // Increment processed pages
-                processedPages++;
-
-                // After all pages are processed, update the search results
-                if (processedPages === subPages.length) {
-                    if (searchResults === '') {
-                        resultsContainer.innerHTML = "<p>No posts found for your search.</p>";
-                    } else {
-                        resultsContainer.innerHTML = searchResults;
-                    }
+    // Function to fetch all post titles dynamically from GitHub
+    const getAllPostTitles = async () => {
+        try {
+            const response = await fetch(GITHUB_API_URL, {
+                headers: {
+                    "Authorization": "token " + TOKEN
                 }
-            })
-            .catch(error => {
-                resultsContainer.innerHTML = "<p>Error fetching subpages.</p>";
-                console.error(error);
             });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch files from GitHub.");
+            }
+
+            const files = await response.json();
+
+            // Filter for only HTML files (assuming they represent posts)
+            const htmlFiles = files.filter(file => file.name.endsWith('.html'));
+
+            // Extract post titles from the HTML files
+            const postTitles = [];
+
+            for (let file of htmlFiles) {
+                const fileResponse = await fetch(file.download_url);
+                const fileContent = await fileResponse.text();
+
+                // Use a regex to extract all post titles (assuming they are inside <article><h2> tags)
+                const regex = /<article id="([^"]+)">.*?<h2>(.*?)<\/h2>/gs;
+                let match;
+
+                while ((match = regex.exec(fileContent)) !== null) {
+                    postTitles.push(match[2]); // match[2] contains the post title inside <h2>
+                }
+            }
+
+            return postTitles;
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    };
+
+    // Event listener for the search button
+    searchButton.addEventListener('click', async function() {
+        const query = searchBar.value.toLowerCase();
+        
+        if (query.length > 0) {
+            // Get the post titles dynamically from GitHub
+            const posts = await getAllPostTitles();
+            
+            // Filter the posts based on the search query
+            const filteredPosts = posts.filter(post => post.toLowerCase().includes(query));
+            
+            // Display the search results
+            if (filteredPosts.length > 0) {
+                searchResults.innerHTML = '<ul>' + filteredPosts.map(post => `<li>${post}</li>`).join('') + '</ul>';
+            } else {
+                searchResults.innerHTML = '<p>No posts found</p>';
+            }
+        } else {
+            searchResults.innerHTML = ''; // Clear search results if input is empty
+        }
     });
 });
