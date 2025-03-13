@@ -161,11 +161,6 @@ document.addEventListener('keydown', function(event) {
    		addImageTags(true);
    		}
 	});
-	if (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') {
-		document.getElementById("formatBtns").style = "display: block;";
-	} else {
-		document.getElementById("formatBtns").style = "display: none;";
-	}
 
 	// Listen for button clicks for formatting (on mobile and desktop)
 	document.getElementById('boldBtn').addEventListener('click', function() {
@@ -195,6 +190,14 @@ document.addEventListener('keydown', function(event) {
 	document.getElementById('insertImageBtn').addEventListener('click', function() {
     	addImageTags(false);
 	});
+});
+
+document.addEventListener('mousemoved', function() {
+	if (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') {
+		document.getElementById("formatBtns").style = "display: block;";
+	} else {
+		document.getElementById("formatBtns").style = "display: none;";
+	}
 });
 
 // Allowed users and their nicknames
