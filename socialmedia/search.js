@@ -55,13 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener for the search button
     searchButton.addEventListener('click', async function() {
-        const query = searchBar.value.toLowerCase();
+        const query = searchBar.value.toLowerCase(); // Convert query to lowercase
         
         if (query.length > 0) {
             // Get the post titles dynamically from GitHub
             const posts = await getAllPostTitles();
             
-            // Filter the posts based on the search query
+            // Filter the posts based on the search query, making both title and query lowercase for case-insensitive comparison
             const filteredPosts = posts.filter(post => post.toLowerCase().includes(query));
             
             // Display the search results
