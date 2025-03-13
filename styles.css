@@ -186,27 +186,29 @@ header {
     background-color: var(--border-color);
 }
 
-/* Search Results */
+/* Add space below the search bar */
 #searchResults {
     margin-top: 20px;
     color: var(--text-color);
+    max-width: 100%; /* Ensures results don't overflow */
 }
 
-/* Button Container Styling */
-.navbtn {
-    margin: 5px;
-    padding: 10px 20px;
-    background-color: var(--bg-color);
+/* Style the list of search results */
+#searchResults ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style individual search result items */
+#searchResults li {
+    margin: 5px 0;
+}
+
+#searchResults a {
     color: var(--text-color);
-    border-radius: 20px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    transition: color 0.3s ease;
-    border-color: #FFFFFF;
+    text-decoration: none;
 }
 
-.navbtn:hover {
-    background-color: var(--border-color);
-    color: #000000;
+#searchResults a:hover {
+    text-decoration: underline;
 }
