@@ -159,7 +159,7 @@ document.addEventListener('keydown', function(event) {
    		}
 	});
 	if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
-		document.getElementById("formatBtns").style = "display: none;";
+		document.getElementById("formatBtns").style = "display: block;";
 	} else {
 		document.getElementById("formatBtns").style = "display: none;";
 	}
