@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Check if the current page is 'subs.html'
-    if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/subs.html") {
+    if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/subs.html" || window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/subs") {
         // Select all the nav buttons
         const navButtons = document.querySelectorAll('#navbtn');
 
