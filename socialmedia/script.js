@@ -212,18 +212,6 @@ document.addEventListener('keydown', function(event) {
 	});
 });
 
-document.addEventListener('focusin', function(event) {
-    if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
-        document.getElementById("formatBtns").style.display = "block";
-    }
-});
-
-document.addEventListener('focusout', function(event) {
-    if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
-        document.getElementById("formatBtns").style.display = "none";
-    }
-});
-
 // Allowed users and their nicknames
 const VALID_USERS = {
 	"knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
