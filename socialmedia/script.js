@@ -166,7 +166,7 @@ document.addEventListener('keydown', function(event) {
 	    } else if (event.ctrlKey && event.key === 'u') {
 			event.preventDefault();
     	    addUnderlineTags(true);
-	    } else if (event.ctrlKey && event.shiftKey && event.key === 'c') {
+	    } else if (event.ctrlKey && event.shiftKey && event.key === 'C') {
 			event.preventDefault();
     	    addCodeBlockTags(true);
 	    } else if (event.ctrlKey && event.key === 'k') {
@@ -175,7 +175,7 @@ document.addEventListener('keydown', function(event) {
 	    } else if (event.ctrlKey && event.key === 'q') {
 			event.preventDefault();
     	    addBlockquoteTags(true);
-	    } else if (event.ctrlKey && event.shiftKey && event.key === 'i') {
+	    } else if (event.ctrlKey && event.shiftKey && event.key === 'I') {
 			event.preventDefault();
    			addImageTags(true);
    		}
