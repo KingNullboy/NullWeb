@@ -167,27 +167,29 @@ header {
 .searchRow {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Space between search bar and button */
+    gap: 0; /* Remove any space between the search bar and button */
 }
 
 #searchBar {
     padding: 10px;
     font-size: 16px;
-    border-radius: 20px;
+    border-radius: 20px 0 0 20px; /* Round the left side, flat right side */
     border: 2px solid var(--border-color);
     background-color: var(--bg-color);
     color: var(--text-color);
     width: 250px; /* Adjust width for a clean look */
+    border-right: 0; /* Remove the right border to connect with the button */
 }
 
 #searchButton {
     padding: 10px 20px;
     font-size: 16px;
-    border-radius: 20px;
+    border-radius: 0 20px 20px 0; /* Round the right side, flat left side */
     border: 2px solid var(--border-color);
     background-color: var(--bg-color);
     color: var(--text-color);
     cursor: pointer;
+    border-left: 0; /* Remove the left border to connect with the search bar */
 }
 
 #searchResults {
