@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if the current page is 'subs.html'
+    if (window.location.href === window.location.protocol + "//" + document.domain + "/socialmedia/subs.html") {
+        // Select all the nav buttons
+        const navButtons = document.querySelectorAll('#navbtn');
+
+        // Loop through each nav button and set the width style
+        navButtons.forEach(button => {
+            button.style.width = '90px'; // Adjust the width as needed
+        });
+    }
+
     // Get the elements from the DOM
     const searchBar = document.getElementById('searchBar');
     const searchButton = document.getElementById('searchButton');
