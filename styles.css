@@ -177,7 +177,7 @@ header {
     border: 2px solid var(--border-color);
     background-color: var(--bg-color);
     color: var(--text-color);
-    width: 250px; /* Adjust width for a clean look */
+    width: 500px; /* Adjust width for a clean look */
     border-right: 0; /* Remove the right border to connect with the button */
 }
 
