@@ -211,6 +211,7 @@ header {
     margin: 5px;
     border-radius: 20px;
     cursor: pointer;
+    transition: background-color .3s ease;
 }
 
 #navbtn:hover {
