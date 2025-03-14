@@ -111,11 +111,27 @@ input[id=title], textarea[id=postContent] {
 }
 
 #scrollBtn {
-    border-color: #000000;
+    border-color: var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#scrollBtn:hover {
+    background-color: var(--border-color);
+    color: var(--bg-color);
 }
 
 #submit {
-    border-color: #000000;
+    border-color: var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#submit:hover {
+    background-color: var(--border-color);
+    color: var(--bg-color);
 }
 
 #login, #headerBtn {
