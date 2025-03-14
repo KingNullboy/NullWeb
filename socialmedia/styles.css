@@ -177,3 +177,8 @@ article {
 article + #reply, #reply + #reply {
     margin-top: 0;
 }
+
+.formatBtn {
+    border-color: var(--border-color);
+    background-color: var(--bg-color);
+}
