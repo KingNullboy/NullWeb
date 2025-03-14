@@ -158,26 +158,26 @@ function addImageTags(isKeybind) {
 document.addEventListener('keydown', function(event) {
 	if (document.activeElement.tagName === "TEXTAREA" || document.activeElement.tagName === "INPUT") {
 	    if (event.ctrlKey && event.key === 'b') {
+			event.preventDefault();
     	    addBoldTags(true);
-			event.preventDefault();
 	    } else if (event.ctrlKey && event.key === 'i') {
+			event.preventDefault();
     	    addItalicTags(true);
-			event.preventDefault();
 	    } else if (event.ctrlKey && event.key === 'u') {
+			event.preventDefault();
     	    addUnderlineTags(true);
-			event.preventDefault();
 	    } else if (event.ctrlKey && event.shiftKey && event.key === 'c') {
+			event.preventDefault();
     	    addCodeBlockTags(true);
-			event.preventDefault();
 	    } else if (event.ctrlKey && event.key === 'k') {
+			event.preventDefault();
     	    addLinkTags(true);
+	    } else if (event.ctrlKey && event.key === 'q') {
 			event.preventDefault();
-	    } else if (event.ctrlKey && event.shiftKey && event.key === 'q') {
     	    addBlockquoteTags(true);
-			event.preventDefault();
 	    } else if (event.ctrlKey && event.shiftKey && event.key === 'i') {
-   			addImageTags(true);
 			event.preventDefault();
+   			addImageTags(true);
    		}
 	}
 });
