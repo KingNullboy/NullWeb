@@ -22,7 +22,7 @@ function getReplyCountForPost(postTitle) {
 function getReplyTitle(originalPost) {
 	// Get the number of replies for this post
 	const replyCount = getReplyCountForPost(originalPost);  // You'll need to create this helper function to count replies
-	return `Reply number ${replyCount + 1} in response to <a href='\\${window.location.href}#` + originalPost + `' id='link'>` + originalPost + `</a>`;
+	return `Reply number ${replyCount + 1} in response to <a href="${window.location.href}#` + originalPost + `" id="link">` + originalPost + `</a>`;
   }  
 
 var postmode;
