@@ -197,12 +197,16 @@ document.addEventListener('keydown', function(event) {
 	});
 });
 
-document.addEventListener('mousemove', function() {
-	if (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') {
-		document.getElementById("formatBtns").style = "display: block;";
-	} else {
-		document.getElementById("formatBtns").style = "display: none;";
-	}
+document.addEventListener('focusin', function(event) {
+    if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
+        document.getElementById("formatBtns").style.display = "block";
+    }
+});
+
+document.addEventListener('focusout', function(event) {
+    if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
+        document.getElementById("formatBtns").style.display = "none";
+    }
 });
 
 // Allowed users and their nicknames
