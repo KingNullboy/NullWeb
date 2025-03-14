@@ -197,4 +197,11 @@ article + #reply, #reply + #reply {
 .formatBtn {
     border-color: var(--border-color);
     background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.formatBtn:hover {
+    background-color: var(--border-color);
+    color: var(--bg-color);
 }
