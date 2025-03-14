@@ -55,7 +55,7 @@ button:hover {
 
 .botbtn:hover {
     background-color: var(--border-color);
-    color: var(--background-color);
+    color: var(--bg-color);
 }
 
 nav {
