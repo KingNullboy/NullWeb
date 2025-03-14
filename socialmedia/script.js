@@ -212,7 +212,7 @@ document.addEventListener('keydown', function(event) {
 	});
 });
 
-if (window.location.href.includes("?debug=true") || window.location.href.includes("&debug=true"))
+if (!window.location.href.includes("?debug=true") && !window.location.href.includes("&debug=true"))
 document.addEventListener('focusin', function(event) {
     if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
         document.getElementById("formatBtns").style.display = "block";
