@@ -27,8 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const files = await response.json();
 
-            // Filter for only HTML files (assuming they represent posts)
-            const htmlFiles = files.filter(file => file.name.endsWith('.html'));
+            // Filter for only HTML files (assuming they represent posts) and exclude the unwanted files
+            const excludedFiles = ['login.html', 'subs.html', 'info.html'];
+            const htmlFiles = files.filter(file => file.name.endsWith('.html') && !excludedFiles.includes(file.name));
 
             // Extract post titles and article IDs from the HTML files
             const posts = [];
