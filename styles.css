@@ -41,7 +41,7 @@ button:hover {
     cursor: pointer;
 }
 
-.botbtn button {
+.botbtn {
     background-color: var(--bg-color);
     border-radius: 15px;
     border-color: var(--border-color);
@@ -50,6 +50,12 @@ button:hover {
     padding-top: 5px;
     padding-bottom: 5px;
     color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.botbtn:hover {
+    background-color: var(--border-color);
+    color: var(--background-color);
 }
 
 nav {
