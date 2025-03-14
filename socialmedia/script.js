@@ -53,6 +53,7 @@ function addBoldTags(isKeybind) {
     }
 
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -60,7 +61,6 @@ function addBoldTags(isKeybind) {
         const boldTemplate = '<b></b>';
         activeElement.value = textBefore + boldTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
-		activeElement.focus();
     }
 }
 
@@ -68,6 +68,7 @@ function addBoldTags(isKeybind) {
 function addItalicTags(isKeybind) {
     
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -75,7 +76,6 @@ function addItalicTags(isKeybind) {
         const italicTemplate = '<i></i>';
         activeElement.value = textBefore + italicTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
-		activeElement.focus();
     }
 }
 
@@ -83,6 +83,7 @@ function addItalicTags(isKeybind) {
 function addUnderlineTags(isKeybind) {
     
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -90,7 +91,6 @@ function addUnderlineTags(isKeybind) {
         const underlineTemplate = '<u></u>';
         activeElement.value = textBefore + underlineTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 3;
-		activeElement.focus();
     }
 }
 
@@ -98,6 +98,7 @@ function addUnderlineTags(isKeybind) {
 function addCodeBlockTags(isKeybind) {
     
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -105,7 +106,6 @@ function addCodeBlockTags(isKeybind) {
         const codeBlockTemplate = '<pre><code></code></pre>';
         activeElement.value = textBefore + codeBlockTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 13;
-		activeElement.focus();
     }
 }
 
@@ -113,6 +113,7 @@ function addCodeBlockTags(isKeybind) {
 function addLinkTags(isKeybind) {
     
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -120,7 +121,6 @@ function addLinkTags(isKeybind) {
         const linkTemplate = '<a href="">[your title here]</a>';
         activeElement.value = textBefore + linkTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 9;
-		activeElement.focus();
     }
 }
 
@@ -128,6 +128,7 @@ function addLinkTags(isKeybind) {
 function addBlockquoteTags(isKeybind) {
     
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -135,7 +136,6 @@ function addBlockquoteTags(isKeybind) {
         const blockquoteTemplate = '<blockquote></blockquote>';
         activeElement.value = textBefore + blockquoteTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 12;
-		activeElement.focus();
     }
 }
 
@@ -143,6 +143,7 @@ function addBlockquoteTags(isKeybind) {
 function addImageTags(isKeybind) {
     
     const activeElement = lastFocusedElement;
+	activeElement.focus();
     if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
         const cursorPos = activeElement.selectionStart;
         const textBefore = activeElement.value.substring(0, cursorPos);
@@ -150,7 +151,6 @@ function addImageTags(isKeybind) {
         const imageTemplate = '<img src="" width="225px">';
         activeElement.value = textBefore + imageTemplate + textAfter;
         activeElement.selectionStart = activeElement.selectionEnd = cursorPos + 19;
-		activeElement.focus();
     }
 }
 
@@ -212,7 +212,6 @@ document.addEventListener('keydown', function(event) {
 	});
 });
 
-if (!window.location.href.includes("?debug=true") && !window.location.href.includes("&debug=true"))
 document.addEventListener('focusin', function(event) {
     if (event.target.tagName === 'TEXTAREA' || event.target.tagName === 'INPUT') {
         document.getElementById("formatBtns").style.display = "block";
