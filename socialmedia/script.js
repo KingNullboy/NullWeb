@@ -192,7 +192,7 @@ document.addEventListener('keydown', function(event) {
 	});
 });
 
-document.addEventListener('mousemoved', function() {
+document.addEventListener('mousemove', function() {
 	if (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') {
 		document.getElementById("formatBtns").style = "display: block;";
 	} else {
