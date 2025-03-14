@@ -142,25 +142,30 @@ function addImageTags(isKeybind) {
 // Listen for keydown events for keybinds (Ctrl + key)
 document.addEventListener('keydown', function(event) {
 	if (document.activeElement.tagName === "TEXTAREA" || document.activeElement.tagName === "INPUT") {
-		event.preventDefault();
-	}
-
-    if (event.ctrlKey && event.key === 'b') {
-        addBoldTags(true);
-    } else if (event.ctrlKey && event.key === 'i') {
-        addItalicTags(true);
-    } else if (event.ctrlKey && event.key === 'u') {
-        addUnderlineTags(true);
-    } else if (event.ctrlKey && event.shiftKey && event.key === 'c') {
-        addCodeBlockTags(true);
-    } else if (event.ctrlKey && event.key === 'k') {
-        addLinkTags(true);
-    } else if (event.ctrlKey && event.shiftKey && event.key === 'q') {
-        addBlockquoteTags(true);
-    } else if (event.ctrlKey && event.shiftKey && event.key === 'i') {
-   		addImageTags(true);
+	    if (event.ctrlKey && event.key === 'b') {
+    	    addBoldTags(true);
+			event.preventDefault();
+	    } else if (event.ctrlKey && event.key === 'i') {
+    	    addItalicTags(true);
+			event.preventDefault();
+	    } else if (event.ctrlKey && event.key === 'u') {
+    	    addUnderlineTags(true);
+			event.preventDefault();
+	    } else if (event.ctrlKey && event.shiftKey && event.key === 'c') {
+    	    addCodeBlockTags(true);
+			event.preventDefault();
+	    } else if (event.ctrlKey && event.key === 'k') {
+    	    addLinkTags(true);
+			event.preventDefault();
+	    } else if (event.ctrlKey && event.shiftKey && event.key === 'q') {
+    	    addBlockquoteTags(true);
+			event.preventDefault();
+	    } else if (event.ctrlKey && event.shiftKey && event.key === 'i') {
+   			addImageTags(true);
+			event.preventDefault();
    		}
-	});
+	}
+});
 
 	// Listen for button clicks for formatting (on mobile and desktop)
 	document.getElementById('boldBtn').addEventListener('click', function() {
