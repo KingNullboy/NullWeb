@@ -164,6 +164,8 @@ document.addEventListener('keydown', function(event) {
    			addImageTags(true);
 			event.preventDefault();
    		}
+
+		textarea.focus();
 	}
 });
 
