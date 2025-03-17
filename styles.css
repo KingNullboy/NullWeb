@@ -9,7 +9,9 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color); /* fallback color */
+    background-image: none; /* start with no background image */
+    background-size: cover; /* Ensure the background image covers the entire body */
     font-family: var(--font-family);
     color: var(--text-color);
 }

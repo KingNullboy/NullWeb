@@ -354,7 +354,6 @@ if (localStorage.getItem("auth") !== "true") {
 }
 
 function login(username, password) {
-
 	if (!(username in VALID_USERS) && VALID_USERS[username].password !== password) {
 		alert("Invalid username or password.");
 	} else {
