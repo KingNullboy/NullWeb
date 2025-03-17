@@ -345,11 +345,11 @@ const VALID_USERS = {
 		 alert("Incorrect password.");
 		  window.location = "about:blank";
 	  } else {
-		  localStorage.setItem("auth", "true");
+		  localStorage.setItem("auth", "medialvl");
 	  }
   }
 	
-if (localStorage.getItem("auth") !== "true") {
+if (localStorage.getItem("auth") !== "medialvl") {
 	  	password("NullMediaCrew-000");
 }
 
