@@ -1,49 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* Use dynamically set CSS variables */
 body {
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
-    color: var(--text-color);
+    background-color: var(--bg-color, #000000); /* Default to #000000 if not set */
+    font-family: var(--font-family, 'Lato');
+    color: var(--text-color, #ffffff); /* Default to white text if not set */
 }
 
 h1 {
-    font-family: var(--font-family);
-    color: var(--text-color);
+    font-family: var(--font-family, 'Lato');
+    color: var(--text-color, #ffffff);
 }
 
 a[id=link] {
-    color: var(--link-color);
+    color: var(--link-color, #0000FF); /* Default to blue for links */
     text-decoration: underline;
-    text-decoration-color: var(--link-color);
+    text-decoration-color: var(--link-color, #0000FF);
 }
 
 a[id=link]:hover {
     cursor: pointer;
-    color: var(--link-hover-color);
+    color: var(--link-hover-color, #0000FF); /* Default to blue on hover */
 }
 
 nav {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color, #000000);
     border-radius: 25px;
     border-width: 4px;
-    border-color: var(--border-color);
+    border-color: var(--border-color, #ffffff);
     height: 50px;
     justify-content: middle;
-    color: var(--text-color);
+    color: var(--text-color, #ffffff);
     outline-width: 4px;
-    outline-color: var(--border-color);
+    outline-color: var(--border-color, #ffffff);
 }
 
 a[id=logo] {
     justify-content: middle;
-    color: var(--text-color);
+    color: var(--text-color, #ffffff);
 }
 
-a[id=homebutton] {
-    margin-left: 10px;
-}
-
-a[id=infobutton] {
+a[id=homebutton], a[id=infobutton] {
     margin-left: 10px;
 }
 
@@ -70,9 +67,9 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px 10%;
-    background: var(--bg-color);
+    background: var(--bg-color, #000000);
     border-radius: 100px;
-    border: 10px solid var(--border-color);
+    border: 10px solid var(--border-color, #ffffff);
 }
 
 .nav__links {
@@ -82,8 +79,8 @@ header {
 .nav__links button {
     display: inline-block;
     padding: 10px 10px;
-    border: 0px solid var(--border-color);
-    background-color: var(--bg-color);
+    border: 0px solid var(--border-color, #ffffff);
+    background-color: var(--bg-color, #000000);
     font-size: 20px;
-    color: var(--text-color);
+    color: var(--text-color, #ffffff);
 }
