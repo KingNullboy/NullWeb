@@ -205,3 +205,28 @@ article + #reply, #reply + #reply {
     background-color: var(--border-color);
     color: var(--bg-color);
 }
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
+
+#reloadBtn {
+    background-color: #0000FF;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reloadBtn:hover {
+    background-color: #00008B;
+}
