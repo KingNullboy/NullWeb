@@ -16,11 +16,9 @@ input {
 }
 
 body {
-    background-color: var(--bg-color); /* Fallback background color */
+    background-color: var(--bg-color);
     font-family: var(--font-family);
     color: var(--text-color);
-    background-image: none; /* Default no background image */
-    background-size: cover; /* Ensure background image covers the entire body */
 }
 
 button {
@@ -34,12 +32,6 @@ button {
     border-color: var(--border-color);
     font-size: 20px;
     border-radius: 20px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-button:hover {
-    background-color: var(--border-color);
-    color: var(--bg-color);
 }
 
 .navbtn {
