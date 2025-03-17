@@ -97,11 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply initial styles based on saved preferences
     updateStyles();
 
-    // Add click sound to all buttons
-    const allButtons = document.querySelectorAll('button');
-    allButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            playClickSound();
-        });
+    // Add click sound to any element clicked on the page
+    document.addEventListener('click', function() {
+        playClickSound();
     });
 });
