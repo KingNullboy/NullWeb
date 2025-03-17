@@ -432,4 +432,4 @@ function showNotification() {
 }
 
 // Call the function every 15 seconds to check for new posts
-setInterval(checkForNewPosts, 15000);  // Checks for new posts every 15 seconds
+setInterval(checkForNewPosts, 5000);  // Checks for new posts every 15 seconds
