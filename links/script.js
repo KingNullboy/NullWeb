@@ -3,8 +3,8 @@
 **/
 
 function GxmeFiles() {
-    window.location.href='https://github.com/Nullboy000/HTMLFlashArchive/archive/refs/heads/main.zip'
-    alert('If this is your first time on this computer: After downloading the files, press the meta key (search key) type in "files", press enter, click the search bar at the top-right, type in HTMLFlashArchive, right click (click with 2 fingers) what pops up, click extract, close the files app ONCE, right click the thing that ends in ".zip", and click delete. Then click the other file twice fast, and click any file that you want to open twice fast, and enjoy your games! \n If you have done this before on this computer: Press the meta key (search key), type in files, press enter, click the search bar at the top-right, type in "HTMLFlashArchive", then click the other file twice fast, and click any file that you want to open twice fast, and enjoy your g*mes!')
+    alert('This will download the source code for my website. Don\'t use NullMedia from the source code. If this is your first time downloading these files on this computer: After downloading the files, press the meta key (search key on Chromebooks) type in "files", press enter, click the search bar at the top-right, type in "NullWeb", right click (click with 2 fingers) what pops up, click extract, close the files app ONCE, right click the thing that ends in ".zip", and click delete. Then click the other file twice fast, and click any file that you want to open twice fast, and enjoy your games!\nIf you have done this before on this computer: Press the meta key (search key on Chromebooks), type in files, press enter, click the search bar at the top-right, type in "NullWeb", then click the file that pops up twice fast, and click any file that you want to open twice fast, and enjoy your g*mes!');
+    window.location.href = 'https://github.com/nullmedia-social/NullWeb/archive/refs/heads/main.zip';
 }
 
 function password(pswd) {
@@ -13,10 +13,10 @@ function password(pswd) {
        alert("Incorrect password.");
         window.location = "about:blank";
     } else {
-        localStorage.setItem("auth", "true");
+        localStorage.setItem("auth", "gxmelvl");
     }
 }
 
-if (localStorage.getItem("auth") !== "true") {
+if (localStorage.getItem("auth") !== "medialvl" && localStorage.getItem("auth") !== "gxmelvl") {
     password("NullMediaCrew-000");
 }

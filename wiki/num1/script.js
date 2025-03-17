@@ -4,10 +4,10 @@ function password(pswd) {
        alert("Incorrect password.");
         window.location = "about:blank";
     } else {
-        localStorage.setItem("auth", "true");
+        localStorage.setItem("auth", "gxmelvl");
     }
 }
 
-if (localStorage.getItem("auth") !== "true") {
+if (localStorage.getItem("auth") !== "medialvl" && localStorage.getItem("auth") !== "gxmelvl") {
     password("NullMediaCrew-000");
 }
