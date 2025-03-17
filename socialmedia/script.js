@@ -360,7 +360,7 @@ function login(username, password) {
 		localStorage.setItem("user", username);
 		localStorage.setItem("password", password);
 		alert("Logged in!");
-		window.location.href = "index.html";
+		window.history.back();
 	}
 }
 
@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		alert("To post, you need to log in.");
 		document.getElementById("login").innerHTML = "Login";
 		document.getElementById("login").onclick = function() {
-   			window.history.back();
+   			window.location.href = "login.html";
 		};
 	}
 
