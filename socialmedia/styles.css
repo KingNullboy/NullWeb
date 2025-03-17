@@ -14,12 +14,9 @@ blockquote {
 body {
     font-family: var(--font-family, Lato);
     color: var(--text-color, #FFFFFF);
-    background-color: var(--bg-color, #000000); /* Fallback to background color */
-    background-image: none; /* Default no background image */
-    background-size: cover; /* Ensure background image covers the entire body */
+    background-color: var(--bg-color, #000000);
 }
 
-/* Headings */
 h1 {
     font-family: var(--font-family, Lato);
     color: var(--text-color, #FFFFFF);
@@ -137,11 +134,9 @@ input[id=title], textarea[id=postContent] {
     color: var(--bg-color);
 }
 
-/* Exclude header buttons from transitions */
 #login, #headerBtn {
     border-color: transparent;
     background-color: transparent;
-    transition: none; /* No transition for these buttons */
 }
 
 textarea[id=postContent] {
@@ -157,7 +152,6 @@ button {
     border-color: var(--border-color, #000000);
     background-color: var(--button-bg-color, #FF0000);
     color: var(--text-color, #FFFFFF);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transition applied to all buttons */
 }
 
 button:hover {
