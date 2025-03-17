@@ -398,3 +398,36 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	};
 });
+
+// Function to check for new posts
+function checkForNewPosts() {
+    const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';  // Replace with actual GitHub API URL for posts
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const latestCommit = data[0].sha;
+            const lastCheckedCommit = localStorage.getItem('lastCheckedCommit');
+
+            // Check if new commit exists
+            if (latestCommit !== lastCheckedCommit) {
+                showNotification(); // Show notification if new commit (post) found
+                localStorage.setItem('lastCheckedCommit', latestCommit); // Store the latest commit
+            }
+        })
+        .catch(error => console.error('Error checking for new posts:', error));
+}
+
+// Function to show the notification
+function showNotification() {
+    const notification = document.getElementById('notification');
+    notification.style.display = 'block';  // Show the notification
+
+    // Reload the page when the user clicks the button
+    document.getElementById('reloadBtn').addEventListener('click', () => {
+        location.reload(true);  // Reload the page
+    });
+}
+
+// Call the function every 15 seconds
+setInterval(checkForNewPosts, 15000);  // Checks for new posts every 15 seconds
