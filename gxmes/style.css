@@ -16,9 +16,11 @@ input {
 }
 
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color); /* Fallback background color */
     font-family: var(--font-family);
     color: var(--text-color);
+    background-image: none; /* Default no background image */
+    background-size: cover; /* Ensure background image covers the entire body */
 }
 
 button {
