@@ -216,6 +216,7 @@ article + #reply, #reply + #reply {
     border-radius: 5px;
     display: none;
     z-index: 1000;
+    border-color: var(--border-color);
 }
 
 #reloadBtn {
