@@ -226,3 +226,15 @@ header {
     background-color: var(--border-color);
     color: var(--bg-color);
 }
+
+button {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
