@@ -236,5 +236,5 @@ button {
 
 button:hover {
     background-color: var(--text-color);
-    color: var(--background-color);
+    color: var(--bg-color);
 }
