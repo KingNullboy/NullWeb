@@ -233,7 +233,7 @@ const VALID_USERS = {
 }
   
   // List of filtered words (Add words manually)
-																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script>", "</script>"];
+																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script>", "</script>", "\\n"];
   
   function containsFilteredWords(text) {
 	  for (let i = 0; i < FILTERED_WORDS.length; i++) {
