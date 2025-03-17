@@ -9,5 +9,5 @@ function password(pswd) {
 }
 
 if (localStorage.getItem("auth") !== "medialvl" && localStorage.getItem("auth") !== "gxmelvl") {
-    password("NullMediaCrew-000");
+    password("NullGamesPass-123");
 }
