@@ -14,9 +14,12 @@ blockquote {
 body {
     font-family: var(--font-family, Lato);
     color: var(--text-color, #FFFFFF);
-    background-color: var(--bg-color, #000000);
+    background-color: var(--bg-color, #000000); /* Fallback to background color */
+    background-image: none; /* Default no background image */
+    background-size: cover; /* Ensure background image covers the entire body */
 }
 
+/* Headings */
 h1 {
     font-family: var(--font-family, Lato);
     color: var(--text-color, #FFFFFF);
