@@ -137,9 +137,11 @@ input[id=title], textarea[id=postContent] {
     color: var(--bg-color);
 }
 
+/* Exclude header buttons from transitions */
 #login, #headerBtn {
     border-color: transparent;
     background-color: transparent;
+    transition: none; /* No transition for these buttons */
 }
 
 textarea[id=postContent] {
@@ -155,6 +157,7 @@ button {
     border-color: var(--border-color, #000000);
     background-color: var(--button-bg-color, #FF0000);
     color: var(--text-color, #FFFFFF);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transition applied to all buttons */
 }
 
 button:hover {
