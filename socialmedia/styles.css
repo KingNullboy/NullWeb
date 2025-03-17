@@ -210,8 +210,8 @@ article + #reply, #reply + #reply {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #ff0000;
-    color: white;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     padding: 10px 20px;
     border-radius: 5px;
     display: none;
@@ -219,14 +219,16 @@ article + #reply, #reply + #reply {
 }
 
 #reloadBtn {
-    background-color: #0000FF;
-    color: white;
-    border: none;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
     padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #reloadBtn:hover {
-    background-color: #00008B;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    cursor: pointer;
 }

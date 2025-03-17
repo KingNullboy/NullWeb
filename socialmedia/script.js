@@ -401,18 +401,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Function to check for new posts
 function checkForNewPosts() {
-    const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';  // Replace with actual GitHub API URL for posts
+    const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';  // GitHub API URL for commits
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            const latestCommit = data[0].sha;
+            const latestCommit = data[0];  // Get the latest commit
             const lastCheckedCommit = localStorage.getItem('lastCheckedCommit');
 
-            // Check if new commit exists
-            if (latestCommit !== lastCheckedCommit) {
-                showNotification(); // Show notification if new commit (post) found
-                localStorage.setItem('lastCheckedCommit', latestCommit); // Store the latest commit
+            // Check if this commit contains "New post by" in the message
+            const commitMessage = latestCommit.commit.message;
+
+            if (commitMessage.includes("New post by") && latestCommit.sha !== lastCheckedCommit) {
+                showNotification();  // Show notification if the commit message indicates a new post
+                localStorage.setItem('lastCheckedCommit', latestCommit.sha);  // Store the latest commit SHA
             }
         })
         .catch(error => console.error('Error checking for new posts:', error));
@@ -429,5 +431,5 @@ function showNotification() {
     });
 }
 
-// Call the function every 15 seconds
+// Call the function every 15 seconds to check for new posts
 setInterval(checkForNewPosts, 15000);  // Checks for new posts every 15 seconds
