@@ -32,6 +32,13 @@ button {
     border-color: var(--border-color);
     font-size: 20px;
     border-radius: 20px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    color: var(--bg-color);
+    background-color: var(--text-color);
 }
 
 .navbtn {
