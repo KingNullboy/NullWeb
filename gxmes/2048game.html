@@ -1,4 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+	<meta charset="utf-8" />
+	<title>Talha - 2048 Game</title>
+	<style>
+		body {
+  background-color: #faf8ef;
+  display: flex;
+  justify-content: center;
+  font-family: "Clear Sans", "Helvetica Neue";
+}
+
+h1 {
+  font-size: 80px;
+  line-height: 0.7;
+  color: #776e65;
+  margin: 0px;
+}
+
+.container {
+  width: 468px;
+  margin-top: 10px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 456px;
+  height: 456px;
+  background-color: #bbada0;
+  border: 7px solid #bbada0;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+.grid div {
+  width: 100px;
+  height: 100px;
+  margin: 7px;
+  border-radius: 3px;
+  background-color: #eee4da;
+  color: #afa192;
+  font-weight: bold;
+  text-align: center;
+  font-size: 60px;
+  line-height: 1.6;
+}
+
+.score-container {
+  text-align: center;
+  width: 70px;
+  height: 60px;
+  border-radius: 3px;
+  background-color: #8f7a66;
+  color: #ffffff;
+}
+
+#score {
+  font-size: 30px;
+}
+
+.score-title {
+  font-size: 16px;
+}
+
+	</style>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
   const gridDisplay = document.querySelector(".grid");
   const scoreDisplay = document.getElementById("score");
   const resultDisplay = document.getElementById("result");
@@ -267,3 +341,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   var myTimer = setInterval(addColours, 50);
 });
+	</script>
+	<link rel="icon" href="https://i.ibb.co/M6KTWnf/pic.jpg" />
+
+	<!-- 👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻-->
+	<!-- Also uploaded the demo of this code in a gif : https://c.tenor.com/x8v1oNUOmg4AAAAd/tenor.gif-->
+	<!-- 👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻-->
+
+	<!-- 👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻👇🏻-->
+	<!-- More html-css-js Games Calculators Games Cards Elements Projects on https://www.github.com/he-is-talha -->
+	<!-- 👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻-->
+  </head>
+  <body>
+	<div class="container">
+	  <div class="info">
+		<h1>2048</h1>
+		<div class="score-container">
+		  <div class="score-title">score</div>
+		  <span id="score">0</span>
+		</div>
+	  </div>
+	  <span id="result">Join the numbers and get to the <b>2048</b> tile!</span>
+	  <div class="grid"></div>
+	</div>
+  </body>
+</html>
