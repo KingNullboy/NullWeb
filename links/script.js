@@ -7,9 +7,9 @@ function GxmeFiles() {
     window.location.href = 'https://github.com/nullmedia-social/NullWeb/archive/refs/heads/main.zip';
 }
 
-function password(pswd) {
+function password(pswd, altpswd) {
     let password = prompt("This is a password-protected site. Please enter the password.");
-    if (password !== pswd) {
+    if (password !== pswd || password !== altpswd) {
        alert("Incorrect password.");
         window.location = "about:blank";
     } else {
@@ -18,5 +18,5 @@ function password(pswd) {
 }
 
 if (localStorage.getItem("auth") !== "medialvl" && localStorage.getItem("auth") !== "gxmelvl") {
-    password("NullGamesPass-123");
+    password("NullGamesPass-123", "NullMediaCrew-000");
 }
