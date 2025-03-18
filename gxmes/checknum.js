@@ -10,7 +10,7 @@ fetch('index.html')
 
     if (currentUrl === baseUrl || currentUrl === baseUrl + "index" || currentUrl === baseUrl + "index.html") {
       // If it's one of the matching URLs, update the "gamenum" element
-      document.getElementById("gamenum").innerHTML = "There are " + buttonTimes + " games of varying quality!";
+      document.getElementById("gamenum").innerHTML = "There are " + buttonTimes + " g*mes of varying quality!";
     } else {
       // Otherwise, update the "credit" and "thing" elements with the custom text
       document.getElementById("credit").innerHTML = "This g*mes website was originally made by selenite-cc on GitHub. Nullboy000 (me) added " + (buttonTimes - 50) + " more g*mes and made it an actual website, not just html files. (I think. I'm pretty sure selenite-cc wasn't using them to host a website, but given I'm basing that on the fact that I couldn't find it anywhere, I could be wrong, since I barely looked.)";
