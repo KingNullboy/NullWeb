@@ -12,7 +12,5 @@ function generateSafeEmbed() {
 }
 
 function extractVideoId(url) {
-    const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:[^\/\n\s]+\/\S+\/)+|(?:v=|e(?:mbed|\/)?)?([^"&?\/\s]{11})))/;
-    const matches = url.match(regex);
-    return matches ? matches[1] : null;
+    return url.replace("www", "").replace(".", "").replace("com", "").replace("be", "").replace("youtu");
 }
