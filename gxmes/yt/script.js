@@ -24,9 +24,5 @@ function generateSafeEmbed() {
 
 // Function to extract the video ID from a YouTube URL
 function extractVideoId(url) {
-    // Use a regular expression to match and extract the video ID from the URL
-    const match = url.match(/[?&]v=([^&]+)/);
-    
-    // Return the video ID if found, or null if the URL is invalid
-    return match ? match[1] : null;
+    return url.replace("https://www.youtube.com/watch?v=", "");
 }
