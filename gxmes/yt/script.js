@@ -3,11 +3,11 @@ function generateSafeEmbed() {
     const videoId = extractVideoId(youtubeUrl);
     
     if (videoId) {
-        const youtubeEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+        const youtubeEducationUrl = `https://www.youtubeeducation.com/watch?v=${videoId}`;
         
         // Create the iframe element for the Plyr player
         const iframe = document.createElement('iframe');
-        iframe.setAttribute('src', youtubeEmbedUrl);
+        iframe.setAttribute('src', youtubeEducationUrl);
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allowfullscreen', 'true');
         iframe.setAttribute('allow', 'autoplay; encrypted-media');
@@ -27,5 +27,6 @@ function generateSafeEmbed() {
 }
 
 function extractVideoId(url) {
+    // Extracts the video ID from a YouTube URL
     return url.replace("https://www.youtube.com/watch?v=", "");
 }
