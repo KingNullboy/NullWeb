@@ -12,5 +12,5 @@ function generateSafeEmbed() {
 }
 
 function extractVideoId(url) {
-    return url.replace("www", "").replace(".", "").replace("com", "").replace("be", "").replace("youtu");
+    return url.replace("www", "").replace(".", "").replace("com", "").replace("be", "").replace("youtu").replace("undefined", "").replace(":", "").replace("/");
 }
