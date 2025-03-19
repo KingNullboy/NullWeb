@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/styles.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NullEmbed - NullG*mes</title>
-
-    <!-- Plyr Library -->
-    <link href="https://cdn.jsdelivr.net/npm/plyr@3.6.8/dist/plyr.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.8/dist/plyr.polyfilled.js"></script>
-
+    <title>YouTube Education Video Embed</title>
     <script src="script.js"></script>
     <link href="styles.css">
 </head>
 <body>
-    <h1>NullEmbed</h1>
-    <p>Enter a YouTube video URL to create a clean, distraction-free embed using YouTube Education:</p>
-
+    <h1>YouTube Education Video Embed</h1>
+    <p>Enter a YouTube video URL to create a clean, distraction-free embed from YouTube Education:</p>
+    
     <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL here"><br>
     <button onclick="generateSafeEmbed()">Generate Safe Embed</button>
-
-    <div id="playerContainer"></div>
+    
+    <div id="iframeContainer"></div>
 </body>
 </html>
