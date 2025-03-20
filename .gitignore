@@ -47,6 +47,7 @@
 /gxmes/at2
 /gxmes/br
 /gxmes/br2d
+/gxmes/bmd
 
 # Ignore specific .html files
 /gxmes/2048game.html
