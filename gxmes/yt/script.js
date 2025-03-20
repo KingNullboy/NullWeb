@@ -9,7 +9,7 @@ function generateSafeEmbed() {
     // Check if a valid video ID was extracted
     if (videoId) {
         // Create the YouTube Education embed URL with the required parameters
-        const youtubeEducationUrl = `https://www.youtubeeducation.com/embed/${videoId}?enablejsapi=1&rel=0&controls=1&showinfo=0&start=0&autoplay=1&cc_load_policy=0&errorlinks=1&hl=en&authuser=0&modestbranding=1`;
+        const youtubeEducationUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
         
         // Generate the iframe embed code
         const iframeCode = `<iframe width="560" height="315" src="${youtubeEducationUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
