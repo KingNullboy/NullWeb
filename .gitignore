@@ -49,7 +49,7 @@
 /gxmes/br2d
 /gxmes/bmd
 /gxmes/bb
-/gxmes/bd
+# /gxmes/bd
 /gxmes/bc
 
 # Ignore specific .html files
