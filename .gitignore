@@ -1,3 +1,4 @@
+# Ignore specific game directories
 /gxmes/as
 /gxmes/1
 /gxmes/10mintilldawn
@@ -10,7 +11,6 @@
 /gxmes/aoc
 /gxmes/aquaslide
 /gxmes/archerygame
-/gxmes/as
 /gxmes/atc
 /gxmes/breakout
 /gxmes/candycrush
@@ -43,6 +43,8 @@
 /gxmes/ttt
 /gxmes/typegame
 /gxmes/wam
+
+# Ignore specific .html files
 /gxmes/2048game.html
 /gxmes/achieveunlocked.html
 /gxmes/aow.html
@@ -111,6 +113,8 @@
 /gxmes/tetris.html
 /gxmes/tron.html
 /gxmes/unfairmario.html
+
+# Ignore other specific files
 Katamari.js
 LICENSE
 logo.png
