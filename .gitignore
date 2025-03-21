@@ -70,6 +70,8 @@
 /gxmes/cb4
 /gxmes/cd
 /gxmes/ci
+/gxmes/cm
+/gxmes/cs
 
 # Ignore specific .html files
 /gxmes/2048game.html
