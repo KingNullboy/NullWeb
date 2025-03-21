@@ -1,3 +1,4 @@
+
 // Function to update styles based on stored preferences
 function updateStyles() {
     // Get the stored preferences from localStorage (or use default values)
