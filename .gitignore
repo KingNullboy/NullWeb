@@ -73,6 +73,7 @@
 /gxmes/cm
 /gxmes/cs
 /gxmes/ca
+/gxmes/checkers
 
 # Ignore specific .html files
 /gxmes/2048game.html
