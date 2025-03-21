@@ -85,6 +85,8 @@
 /gxmes/cookieclicker
 /gxmes/cb
 /gxmes/craftmine
+/gxmes/ckc
+/static
 
 # Ignore specific .html files
 /gxmes/2048game.html
@@ -162,3 +164,4 @@ Katamari.js
 LICENSE
 logo.png
 iosapplogo.png
+click.mp3
