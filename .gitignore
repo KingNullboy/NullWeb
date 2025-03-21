@@ -77,7 +77,8 @@
 /gxmes/chess
 /gxmes/dg
 /gxmes/circlo
-# /gxmes/cc
+/gxmes/cc
+/gxmes/clusterrush
 
 # Ignore specific .html files
 /gxmes/2048game.html
