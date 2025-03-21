@@ -74,6 +74,7 @@
 /gxmes/cs
 /gxmes/ca
 /gxmes/checkers
+/gxmes/chess
 
 # Ignore specific .html files
 /gxmes/2048game.html
