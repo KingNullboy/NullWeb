@@ -1,10 +1,8 @@
-
-
 // Function to create and download the mobileconfig file
 function generateProfile() {
     const dispName = document.getElementById("dispName").value;
     const payId = document.getElementById("payId").value;
-    const icon = document.getElementById("payId").value;
+    const icon = document.getElementById("icon").value;
     const url = document.getElementById("url").value;
     const organ = document.getElementById("organ").value;
     const profId = document.getElementById("profId").value;
