@@ -1,51 +1,56 @@
 <!DOCTYPE HTML>
-<html>
-	<head><script src="/styles.js"></script>
-		<title>NullWeb</title>
-		<link rel="icon" href="logo.png">
-		<link rel="stylesheet" href="styles.css">
-		<script src="openblank.js"></script>
-		<script src="iosapp.js"></script>
-		<script src="portraittext.js"></script>
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Expires" content="0">
-	</head>
-	<body>
-		<center>
-			<h1>NullWeb</h1>
-			<button id="navbtn" class="navbtn" onclick="window.location = 'socialmedia';">
-				<img src="socialmedia/logo.png" width="40px" /><br>
-				NullMedia
-			</button>
-			<button id="navbtn" class="navbtn" onclick="window.location = 'wiki';">
-				<img src="wiki/logo.png" width="40px" /><br>
-				NullWiki
-			</button>
-			<button id="navbtn" class="navbtn" onclick="window.location = 'links';">
-				<img src="links/logo.png" width="40px" /><br>
-				NullLinks
-			</button>
-			<button id="navbtn" class="navbtn" onclick="window.location = 'gxmes';">
-				<img src="gxmes/logo.png" width="40px" /><br>
-				NullG*mes
-			</button>
-			<!-- NullAppify button will only show on iOS -->
-			<button id="mobileOnly" class="navbtn" onclick="window.location = 'iosappifier';" style="position: relative; bottom: -24px;">
-				<img src="iosappifier/logo.png" width="30px" /><br>
-				NullAppify
-			</button>
-			<br><p id="mobilePortraitText">It is recommended that you use this website in landscape mode.</p><br>
-			<!-- Other buttons -->
-			<button id="openBlankLink" class="botbtn">Hide URL</button>
-			<button class="botbtn" onclick="window.location.href='styles.html';">Themes</button>
-			<!-- Install buttons -->
-			<button id="installButton" class="botbtn" onclick="generateProfile();">Download iOS App</button>
-			<!-- Android app download button will only show on Android -->
-			<button id="androidDownloadButton" class="botbtn" onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';">Download Android App</button>
-		</center>
-	</body>
+<html style="--bg-color: #000000; --text-color: #ffffff; --border-color: #ffffff; --font-family: Lato;">
+<head>
+    <script src="/styles.js"></script>
+    <title>NullWeb</title>
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="openblank.js"></script>
+    <script src="iosapp.js"></script>
+    <script src="portraittext.js"></script>
+    <script src="duolingo.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <center>
+        <h1>NullWeb</h1>
+        <button class="navbtn" onclick="window.location = 'socialmedia';">
+            <img src="socialmedia/logo.png" width="40px"><br>
+            NullMedia
+        </button>
+        <button class="navbtn" onclick="window.location = 'wiki';">
+            <img src="wiki/logo.png" width="40px"><br>
+            NullWiki
+        </button>
+        <button class="navbtn" onclick="window.location = 'links';">
+            <img src="links/logo.png" width="40px"><br>
+            NullLinks
+        </button>
+        <button class="navbtn" onclick="window.location = 'gxmes';">
+            <img src="gxmes/logo.png" width="40px"><br>
+            NullG*mes
+        </button>
+        <!-- NullAppify button will only show on iOS -->
+        <button id="mobileOnly" class="navbtn" onclick="window.location = 'iosappifier';" style="position: relative; bottom: -24px; display: none;">
+            <img src="iosappifier/logo.png" width="30px"><br>
+            NullAppify
+        </button>
+        <br>
+        <p id="mobilePortraitText" style="display: none;">It is recommended that you use this website in landscape mode.</p>
+        <br>
+        <!-- Other buttons -->
+        <button id="openBlankLink" class="botbtn">Hide URL</button>
+        <button class="botbtn" onclick="window.location.href='styles.html';">Themes</button>
+        <!-- Install buttons -->
+        <button id="installButton" class="botbtn" onclick="generateProfile();" style="display: none;">Download iOS App</button>
+        <button id="androidDownloadButton" class="botbtn" onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';" style="display: none;">Download Android App</button>
+        <br>
+        <iframe id="duolingo" src="https://duolingo.com" width="100%" height="530px"></iframe>
+    </center>
+</body>
 </html>
