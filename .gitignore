@@ -86,7 +86,6 @@
 /gxmes/cb
 /gxmes/craftmine
 /gxmes/ckc
-/static
 /gxmes/crossyroad
 /gxmes/csgoclicker
 
@@ -167,3 +166,8 @@ LICENSE
 logo.png
 iosapplogo.png
 click.mp3
+CNAME
+desktop.ini
+
+# Ignore other specific directories
+/static
