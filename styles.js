@@ -1,4 +1,3 @@
-
 // Function to update styles based on stored preferences
 function updateStyles() {
     // Get the stored preferences from localStorage (or use default values)
@@ -32,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const borderColorInput = document.getElementById('border-color');
         const fontFamilyInput = document.getElementById('font-family');
         const clickSoundUrl = document.getElementById('click-sound');
+        const adsInput = document.getElementById('ads');
         const resetButton = document.getElementById('reset-btn');
 
         // Load stored preferences into input fields when the page is loaded
@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
         borderColorInput.value = localStorage.getItem('border-color') || '#ffffff';
         fontFamilyInput.value = localStorage.getItem('font-family') || 'Lato';
         clickSoundUrl.value = localStorage.getItem('click-sound-url') || '/click.mp3';
-    
+        adsInput.value = localStorage.getItem('ads') || 'false'; // Default ads value is 'false'
+
         // Update the styles when inputs change
         bgColorInput.addEventListener('input', function() {
             const bgColor = bgColorInput.value;
@@ -71,6 +72,17 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('click-sound-url', clickSound);
         });
 
+        // Ads input handling
+        adsInput.addEventListener('input', function() {
+            const ads = adsInput.value;
+            if (ads === "true" || ads === "false") {
+                localStorage.setItem('ads', ads);
+            } else {
+                alert('Please enter "true" or "false" for Ads.');
+                adsInput.value = localStorage.getItem('ads') || 'false'; // Reset to last valid value
+            }
+        });
+
         // Reset to default values
         resetButton.addEventListener('click', function() {
             // Play the click sound when reset is clicked
@@ -82,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('border-color', '#ffffff');
             localStorage.setItem('font-family', 'Lato');
             localStorage.setItem('click-sound-url', '/click.mp3'); // Reset to default click sound URL
+            localStorage.setItem('ads', 'false'); // Reset to default ads value
 
             // Update the input values
             bgColorInput.value = '#000000';
@@ -89,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             borderColorInput.value = '#ffffff';
             fontFamilyInput.value = 'Lato';
             clickSoundUrl.value = '/click.mp3'; // Reset the click sound URL input
+            adsInput.value = 'false'; // Reset the ads input
 
             // Apply the default styles
             updateStyles();
