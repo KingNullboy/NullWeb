@@ -24,4 +24,4 @@ if (localStorage.getItem("ads") === "true") {
         document.body.appendChild(extraScript);
     }
 }
-}
+});
