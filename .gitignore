@@ -168,6 +168,7 @@ iosapplogo.png
 click.mp3
 CNAME
 desktop.ini
+ads.js
 
 # Ignore other specific directories
 /static
