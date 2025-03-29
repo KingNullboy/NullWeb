@@ -80,14 +80,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Handle "t" and "f" key presses to set "true" or "false"
+        // Handle "t" and "f" key presses to set "true" or "false" after 3ms delay
         adsInput.addEventListener('keydown', function(event) {
             if (event.key === 't' || event.key === 'T') {
-                adsInput.value = 'true';
-                localStorage.setItem('ads', 'true');
+                setTimeout(function() {
+                    adsInput.value = 'true';
+                    localStorage.setItem('ads', 'true');
+                }, 3);
             } else if (event.key === 'f' || event.key === 'F') {
-                adsInput.value = 'false';
-                localStorage.setItem('ads', 'false');
+                setTimeout(function() {
+                    adsInput.value = 'false';
+                    localStorage.setItem('ads', 'false');
+                }, 3);
             }
         });
 
