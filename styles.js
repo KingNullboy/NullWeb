@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         borderColorInput.value = localStorage.getItem('border-color') || '#ffffff';
         fontFamilyInput.value = localStorage.getItem('font-family') || 'Lato';
         clickSoundUrl.value = localStorage.getItem('click-sound-url') || '/click.mp3';
-        adsInput.value = localStorage.getItem('ads') || 'false'; // Default ads value is 'false'
+        adsInput.value = localStorage.getItem('ads') || 'true'; // Default ads value is 'true'
 
         // Update the styles when inputs change
         bgColorInput.addEventListener('input', function() {
@@ -77,9 +77,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const ads = adsInput.value;
             if (ads === "true" || ads === "false") {
                 localStorage.setItem('ads', ads);
-            } else {
-                alert('Please enter "true" or "false" for Ads.');
-                adsInput.value = localStorage.getItem('ads') || 'false'; // Reset to last valid value
+            }
+        });
+
+        // Handle "t" and "f" key presses to set "true" or "false"
+        adsInput.addEventListener('keydown', function(event) {
+            if (event.key === 't' || event.key === 'T') {
+                adsInput.value = 'true';
+                localStorage.setItem('ads', 'true');
+            } else if (event.key === 'f' || event.key === 'F') {
+                adsInput.value = 'false';
+                localStorage.setItem('ads', 'false');
             }
         });
 
@@ -94,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('border-color', '#ffffff');
             localStorage.setItem('font-family', 'Lato');
             localStorage.setItem('click-sound-url', '/click.mp3'); // Reset to default click sound URL
-            localStorage.setItem('ads', 'false'); // Reset to default ads value
+            localStorage.setItem('ads', 'true'); // Reset to default ads value
 
             // Update the input values
             bgColorInput.value = '#000000';
@@ -102,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
             borderColorInput.value = '#ffffff';
             fontFamilyInput.value = 'Lato';
             clickSoundUrl.value = '/click.mp3'; // Reset the click sound URL input
-            adsInput.value = 'false'; // Reset the ads input
+            adsInput.value = 'true'; // Reset the ads input
 
             // Apply the default styles
             updateStyles();
