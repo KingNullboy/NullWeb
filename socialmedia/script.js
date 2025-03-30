@@ -231,7 +231,8 @@ const VALID_USERS = {
 	"max32": { password: "bentleydude", nickname: "Bent" },
 	"eh2011": { password: "orange-0329", nickname: "E." },
 	"dk1955": { password: "215500", nickname: "KingNullboy's Nana" },
-	"jk1958": { password: "005952", nickname: "KingNullboy's Pawpaw" }
+	"jk1958": { password: "005952", nickname: "KingNullboy's Pawpaw" },
+	"mb1960": { password: "matt6:33", nickname: "KingNullboy's Aunt" }
 }
   
 // List of filtered words (Add words manually)
