@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-if (localStorage.getItem("ads") === "true") {
+if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
     let adScript = document.createElement("script");
     adScript.setAttribute("data-cfasync", "false");
     adScript.setAttribute("type", "text/javascript");
