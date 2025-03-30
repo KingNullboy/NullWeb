@@ -91,6 +91,9 @@
 /gxmes/ctr
 /gxmes/ctrh
 /gxmes/ctrtt
+/gxmes/baldibasic
+/gxmes/dante
+/gxmes/cf
 
 # Ignore specific .html files
 /gxmes/2048game.html
