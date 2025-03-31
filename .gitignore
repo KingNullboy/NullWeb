@@ -185,3 +185,4 @@ adType1.js
 
 # Ignore other specific directories
 /static
+/js
