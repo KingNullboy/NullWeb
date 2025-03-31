@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+  <head><script src="/styles.js"></script>
+	<link rel="icon" href="logo.png" type="image/x-icon">
+	<title>GIRAFFE - NullMedia</title>
+	<link rel="stylesheet" href="styles.css">
+	<script src="script.js"></script>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<script src="/js/main.js"></script>
+  </head>
+  <body>
+	<header>
+			<a href = "../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
+   	  <h1 id="pagetitle"><a href="subs.html">NullMedia</a></h1>
+	  <nav>
+		  <ul class="nav__links">
+			<button id="headerBtn" onclick="window.location.href='info.html'";>Info</button>
+			<button id="login" onclick="window.location.href='login.html';">Login</button>
+		  </nav>
+	</header><br>
+	<center>
+	  <div id="form" name="form">
+		<div id="formatBtns">
+			<button id="boldBtn" class="formatBtn"><b>B</b></button>
+			<button id="italicBtn" class="formatBtn"><i>I</i></button>
+			<button id="underlineBtn" class="formatBtn"><u>U</u></button>
+			<button id="codeBlockBtn" class="formatBtn">Code</button>
+			<button id="linkBtn" class="formatBtn">Link</button>
+			<button id="blockquoteBtn" class="formatBtn">Quote</button>
+			<button id="insertImageBtn" class="formatBtn">Image</button>
+		</div>
+		<input type="text" id="title" name="title" placeholder="Title*"><br>
+		<textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
+		<button id="submit" onclick="updateGitHubFile(postmode)">Submit</button>
+		<button id="scrollBtn" onclick="window.scrollTo(0, document.body.scrollHeight);">Go to bottom</button>
+	  </div><br>
+	  <article id='This is a branch of the site strictly for giving feedback on my website&apos;s g*mes.'><h1>KingNullboy</h1><h2>This is a branch of the site strictly for giving feedback on my website's g*mes.</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
+			<button onclick='window.scrollTo(0, 0);' id='scrollBtn'>Go to top</button>
+		</center>
+		<div id="notification" class="notification" style="display: none;">
+			New posts are available! <button id="reloadBtn">Reload</button>
+		</div>
+  </body>
+</html>
