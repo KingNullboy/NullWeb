@@ -183,7 +183,6 @@ CNAME
 desktop.ini
 ads.js
 adType1.js
-adType1.js
 
 # Ignore other specific directories
 /static
