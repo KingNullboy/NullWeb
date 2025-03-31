@@ -8,17 +8,12 @@
  		<meta name="apple-mobile-web-app-capable" content="yes">
  		<meta name="mobile-web-app-capable" content="yes">
  		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		 <script src="/ads.js"></script>
  		<script>
  			if (localStorage.getItem("hasSeenSubsMessage") !== "true") {
- 				let subsrequest = prompt("DO NOT SKIP THIS SHORT READ.\nOkay, sorry for that excuse of a greeting. I had to make sure you knew this. Anyway, my message is that if you click the title of the page, you will be taken to the Subs selection. Subs are my version of the subreddits from (shocker!) Reddit. Just wanted you to know that.\n\nThe maker of this website,\nKingNullboy.\n\nP.S.: If you would like to request a new Sub, type in 'YES' in all caps, without the quotes, in that text box. If you want to request more than one Sub, go to NullWeb>NullG*mes>Bookmarklets and scroll down until you see 'Request a Sub' and click it.");
- 				if (subsrequest === "YES") {
- 					window.location.href = "mailto:majohnson@wccbears.org?subject=New%20Sub%20request%20for%20NullMedia%3A%20%5Benter%20Sub%20name%20here!%5D&body=KingNullboy%2C%20the%20amazing%20website%20maker%2C%20I%20inquire%20that%20you%20make%20a%20Sub%20for%20our%20beloved%20social%20media%20website%2C%20made%2C%20of%20course%2C%20by%20you%2C%20and%20that%20the%20Sub's%20name%20be%20%5Benter%20Sub%20name%20here!%5D.%20The%20Sub%20is%20necessary%20to%20make%20because%20%5Bwhy%20is%20the%20Sub%20necessary%20to%20make%3F%5D.%20A%20Sub%20for%20%5Bwhat%20will%20you%20discuss%20in%20the%20Sub%3F%5D%20would%20serve%20us%20well.%0A%0ABy%20sending%20this%20email%2C%20I%20acknowledge%20that%20if%20this%20is%20not%20filled%20out%20I%20am%20subject%20to%20a%20temporary%20ban%20lasting%20one%20day%20long%20(at%20most%2C%20as%20you%20haven't%20permanently%20decided%20the%20punishment%20yet).%20If%20I%20scrap%20the%20fantastic%20email%20you%20premade%20for%20me%20and%20do%20not%20include%20the%20information%20that%20I%20would%20have%20provided%20by%20filling%20out%20your%20outstanding%20premade%20email%2C%20I%20am%20subject%20to%20the%20same%20punishment.%20I%20also%20acknowledge%20that%20I%20will%20be%20subject%20to%20said%20punishment%20if%20I%20request%20a%20Sub%20that%20has%20already%20been%20created%20to%20be%20created.%0A%0AAn%20admirer%20of%20your%20coding%20skills%2C%0A%5Byour%20name%20here%5D";
- 				}
- 				let keepSubsRequest = prompt("Do you wish to see these messages again?\nType '1' without the quotes if yes, and type '2' with the same procedure or type nothing if no.");
- 				if (keepSubsRequest !== "1") {
- 					localStorage.setItem("hasSeenSubsMessage", "true")
- 				}
- 			}
+ 				alert("If you click the title of the page, you will be taken to the Subs selection. Subs are my version of the subreddits from (shocker!) Reddit. Just wanted you to know that.\n\nThe maker of this website,\nKingNullboy.");
+				localStorage.setItem("hasSeebSubsMessage", "true");
+				}
  		</script>
    </head>
    <body>
@@ -71,7 +66,7 @@
 			<br><article id='Posting from E-Sports!'><h1>KingNullboy</h1><h2>Posting from E-Sports!</h2><p>Because why not, right?</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
 			<br><article id='h'><h1>Mr. Myers77</h1><h2>h</h2><p><img src="" width="225px"></p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
 			<br><article id='Posting from the iOS app at home!'><h1>KingNullboy</h1><h2>Posting from the iOS app at home!</h2><p>And don't forget that there's an Android app too!</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='¡Hoy es mi fiesta de cumpleaños!'><h1>KingNullboy</h1><h2>¡Hoy es mi fiesta de cumpleaños!</h2><p>Today is my birthday party!</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
+			<br><article id='ï¿½Hoy es mi fiesta de cumpleaï¿½os!'><h1>KingNullboy</h1><h2>ï¿½Hoy es mi fiesta de cumpleaï¿½os!</h2><p>Today is my birthday party!</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
 			<button onclick='window.scrollTo(0, 0);' id='scrollBtn'>Go to top</button>
 		</center>
 		<div id="notification" class="notification" style="display: none;">
