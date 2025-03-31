@@ -19,6 +19,6 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
         extraScript.setAttribute("async", "true");
 
         document.head.appendChild(extraScript);
-    } 
+    }
 }
 });
