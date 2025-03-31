@@ -181,7 +181,7 @@ iosapplogo.png
 click.mp3
 CNAME
 desktop.ini
-ads.js
+# ads.js
 adType1.js
 
 # Ignore other specific directories
