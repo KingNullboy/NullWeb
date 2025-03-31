@@ -15,7 +15,7 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
         let extraScript = document.createElement("script");
         extraScript.setAttribute("data-cfasync", "false");
         extraScript.setAttribute("type", "text/javascript");
-        extraScript.src = "https://shoukigaigoors.net/act/files/tag.min.js?z=9149882";
+        extraScript.src = "https://upskittyan.com/act/files/tag.min.js?z=9149882";
         extraScript.setAttribute("async", "true");
 
         document.head.appendChild(extraScript);
