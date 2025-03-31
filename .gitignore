@@ -98,6 +98,9 @@
 /gxmes/dr
 /gxmes/ds
 /gxmes/dft
+/gxmes/bic
+/gxmes/bic2
+/gxmes/bic3
 
 # Ignore specific .html files
 /gxmes/2048game.html
