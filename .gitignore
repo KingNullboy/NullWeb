@@ -104,6 +104,10 @@
 /gxmes/da2
 /gxmes/d
 /gxmes/dm
+# /gxmes/doom
+/gxmes/dth
+/gxmes/dvb
+/gxmes/dw
 
 # Ignore specific .html files
 /gxmes/2048game.html
