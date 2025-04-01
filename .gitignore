@@ -115,6 +115,9 @@
 /gxmes/ejp/
 /gxmes/etd/
 /gxmes/es/
+/gxmes/enf/
+/gxmes/eelslap/
+/gxmes/eggycar/
 
 # Ignore specific .html files
 /gxmes/2048game.html
