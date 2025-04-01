@@ -108,7 +108,6 @@
 /gxmes/dth/
 /gxmes/dvb/
 /gxmes/dw/
-# /gxmes/db/
 
 # Ignore specific .html files
 /gxmes/2048game.html
