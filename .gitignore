@@ -112,6 +112,9 @@
 /gxmes/drivemad/
 /gxmes/nd/
 /gxmes/ef/
+/gxmes/ejp/
+/gxmes/etd/
+/gxmes/es/
 
 # Ignore specific .html files
 /gxmes/2048game.html
