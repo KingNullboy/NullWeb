@@ -109,6 +109,9 @@
 /gxmes/dvb/
 /gxmes/dw/
 /gxmes/dh/
+/gxmes/drivemad/
+/gxmes/nd/
+/gxmes/ef/
 
 # Ignore specific .html files
 /gxmes/2048game.html
