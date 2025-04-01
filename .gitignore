@@ -128,6 +128,9 @@
 /gxmes/fairsquares/
 /gxmes/eth/
 /gxmes/fnaw/
+/gxmes/fn/
+# /gxmes/fsuc/
+/gxmes/gl/
 
 # Ignore specific .html files
 /gxmes/2048game.html
@@ -199,6 +202,7 @@
 /gxmes/tetris.html
 /gxmes/tron.html
 /gxmes/unfairmario.html
+/gxmes/fuchsiaxclient.html
 
 # Ignore other specific files in the root directory
 /Katamari.js
