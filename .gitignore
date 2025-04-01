@@ -127,6 +127,7 @@
 /gxmes/fbf/
 /gxmes/fairsquares/
 /gxmes/eth/
+/gxmes/fnaw/
 
 # Ignore specific .html files
 /gxmes/2048game.html
@@ -199,16 +200,18 @@
 /gxmes/tron.html
 /gxmes/unfairmario.html
 
-# Ignore other specific files
+# Ignore other specific files in the root directory
 /Katamari.js
 /LICENSE
-logo.png
 /iosappifier/iosapplogo.png
 /click.mp3
 /CNAME
 /desktop.ini
 /adType1.js
 /sw.js
+
+# Ignore other specific files across the repository
+logo.png
 
 # Ignore other specific directories
 /static
