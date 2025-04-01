@@ -108,6 +108,7 @@
 /gxmes/dth
 /gxmes/dvb
 /gxmes/dw
+# /gxmes/db
 
 # Ignore specific .html files
 /gxmes/2048game.html
@@ -181,14 +182,15 @@
 /gxmes/unfairmario.html
 
 # Ignore other specific files
-Katamari.js
-LICENSE
+/Katamari.js
+/LICENSE
 logo.png
-iosapplogo.png
-click.mp3
-CNAME
-desktop.ini
-adType1.js
+/iosappifier/iosapplogo.png
+/click.mp3
+/CNAME
+/desktop.ini
+/adType1.js
+/sw.js
 
 # Ignore other specific directories
 /static
