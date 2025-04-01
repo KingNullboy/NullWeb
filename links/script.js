@@ -9,11 +9,15 @@ function GxmeFiles() {
 
 function password(pswd, altpswd) {
     let password = prompt("This is a password-protected site. Please enter the password.");
-    if (password !== pswd || password !== altpswd) {
+    if (password !== pswd && password !== altpswd) {
        alert("Incorrect password.");
         window.location = "about:blank";
     } else {
-        localStorage.setItem("auth", "gxmelvl");
+        if (password === pswd) {
+            localStorage.setItem("auth", "medialvl");
+        } else {
+            localStorage.setItem("auth", "gxmelvl");
+        }
     }
 }
 
