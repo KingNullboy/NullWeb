@@ -7,3 +7,4 @@ This was originally a small project made so that I can chat with my friends on m
  - Talha for 30 of the games
  - [Phantom](https://phantom.quenq.org/) for inspiration
  - Seraph for Phantom's inspiration
+ - [Monetag](https://publishers.monetag.com/)
