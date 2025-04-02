@@ -4,8 +4,13 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
     adScript.setAttribute("data-cfasync", "false");
     adScript.setAttribute("type", "text/javascript");
     adScript.src = "/adType1.js";
+    let adScript2 = document.createElement("script");
+    adScript.setAttribute("data-cfasync", "false");
+    adScript.setAttribute("type", "text/javascript");
+    adScript.src = "https://offfurreton.com/400/9145743";
 
     document.head.appendChild(adScript);
+    document.head.appendChild(adScript2);
 
     let currentURL = window.location.href;
     let baseURL = window.location.protocol + "//" + document.domain + "/";
@@ -20,9 +25,10 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
     let extraScript2 = document.createElement("script");
     extraScript.setAttribute("data-cfasync", "false");
     extraScript.setAttribute("type", "text/javascript");
-    extraScript.src = "https://loajawun.com/400/9145743";
+    extraScript.src = "https://saptorge.com/400/9145743";
     extraScript.setAttribute("async", "true");
 
     document.head.appendChild(extraScript);
+    document.head.appendChild(extraScript2);
 }
 });
