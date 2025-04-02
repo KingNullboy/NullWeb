@@ -3,7 +3,7 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
     let adScript = document.createElement("script");
     adScript.setAttribute("data-cfasync", "false");
     adScript.setAttribute("type", "text/javascript");
-    adScript.src = "/adType1.js";
+    adScript.src = "https://vemtoutcheeg.com/400/9145743";
 
     document.head.appendChild(adScript);
 
@@ -15,7 +15,7 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
         let extraScript = document.createElement("script");
         extraScript.setAttribute("data-cfasync", "false");
         extraScript.setAttribute("type", "text/javascript");
-        extraScript.src = "/adType2.js";
+        extraScript.src = "https://couphaithuph.net/act/files/tag.min.js?z=9149882";
         extraScript.setAttribute("async", "true");
 
         document.head.appendChild(extraScript);
