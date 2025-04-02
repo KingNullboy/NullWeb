@@ -212,8 +212,8 @@
 /click.mp3
 /CNAME
 /desktop.ini
-/adType1.js
-/adType2.js
+# /adType1.js
+# /adType2.js
 /sw.js
 
 # Ignore other specific files across the repository
@@ -221,4 +221,4 @@ logo.png
 
 # Ignore other specific directories
 /static
-/js
+# /js
