@@ -15,7 +15,7 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
         let extraScript = document.createElement("script");
         extraScript.setAttribute("data-cfasync", "false");
         extraScript.setAttribute("type", "text/javascript");
-        extraScript.src = "/adType1.js";
+        extraScript.src = "/adType2.js";
         extraScript.setAttribute("async", "true");
 
         document.head.appendChild(extraScript);
