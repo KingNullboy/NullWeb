@@ -134,6 +134,7 @@
 /gxmes/gfg/
 
 # Ignore specific .html files
+/links/script.js
 /gxmes/2048game.html
 /gxmes/achieveunlocked.html
 /gxmes/aow.html
@@ -204,6 +205,7 @@
 /gxmes/tron.html
 /gxmes/unfairmario.html
 /gxmes/fuchsiaxclient.html
+/socialmedia/reply.png
 
 # Ignore other specific files in the root directory
 /Katamari.js
@@ -216,10 +218,17 @@
 /adType2.js
 /sw.js
 /iosapp.js
+/README.md
+/openblank.js
+/portraittext.js
+/NullWeb_App.apk
+/iosappfix.html
+/gxmes.txt
 
 # Ignore other specific files across the repository
 logo.png
 
 # Ignore other specific directories
-/static
-/js
+/static/
+/js/
+/iosappifier/
