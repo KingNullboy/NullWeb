@@ -212,7 +212,7 @@
 /click.mp3
 /CNAME
 /desktop.ini
-# /adType1.js
+/adType1.js
 /adType2.js
 /sw.js
 /iosapp.js
@@ -222,4 +222,4 @@ logo.png
 
 # Ignore other specific directories
 /static
-/js
+# /js
