@@ -413,7 +413,7 @@ function checkForNewPosts() {
     fetch(apiUrl, {
         method: 'GET',
         headers: {
-            'Authorization': `token ${token}`,  // Authentication header
+            'Authorization': `token ${TOKEN}`,  // Authentication header
             'Accept': 'application/vnd.github.v3+json'  // Optional: specifies the accepted content type
         }
     })
