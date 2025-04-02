@@ -21,18 +21,11 @@ function updateVisibility() {
     }
 
     // Show mobile buttons
-    if (isMobile) {
+    if (isIOS) {
         textElement2.style.display = "block"; // NullAppify button
         textElement3.style.display = "block"; // iOS install button
     } else {
         textElement2.style.display = "none";
-        textElement3.style.display = "none";
-    }
-
-    // Show iOS button only on iOS devices
-    if (isIOS) {
-        textElement3.style.display = "block"; // iOS install button
-    } else {
         textElement3.style.display = "none";
     }
 
