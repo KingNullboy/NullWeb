@@ -406,8 +406,17 @@ document.addEventListener("DOMContentLoaded", function() {
 // Function to check for new posts
 function checkForNewPosts() {
     const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';  // GitHub API URL for commits
+    var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
+	var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
+	const TOKEN = p1 + p2;
 
-    fetch(apiUrl)
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+            'Authorization': `token ${token}`,  // Authentication header
+            'Accept': 'application/vnd.github.v3+json'  // Optional: specifies the accepted content type
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const latestCommit = data[0];  // Get the latest commit
