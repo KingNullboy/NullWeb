@@ -20,7 +20,7 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
         let extraScript2 = document.createElement("script");
         extraScript.setAttribute("data-cfasync", "false");
         extraScript.setAttribute("type", "text/javascript");
-        extraScript.src = "https://staupsoaksy.net/ntfc.php?p=9149882";
+        extraScript.src = "https://saptorge.com/400/9145743";
         extraScript.setAttribute("async", "true");
 
         document.head.appendChild(extraScript);
