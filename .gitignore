@@ -213,6 +213,7 @@
 /CNAME
 /desktop.ini
 /adType1.js
+/adType2.js
 /sw.js
 
 # Ignore other specific files across the repository
