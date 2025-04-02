@@ -22,13 +22,7 @@ if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === nu
     extraScript.setAttribute("type", "text/javascript");
     extraScript.src = "/adType2.js";
     extraScript.setAttribute("async", "true");
-    let extraScript2 = document.createElement("script");
-    extraScript.setAttribute("data-cfasync", "false");
-    extraScript.setAttribute("type", "text/javascript");
-    extraScript.src = "https://saptorge.com/400/9145743";
-    extraScript.setAttribute("async", "true");
 
     document.head.appendChild(extraScript);
-    document.head.appendChild(extraScript2);
 }
 });
