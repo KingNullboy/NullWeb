@@ -38,11 +38,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
         if (thingElement) {
           thingElement.innerHTML = `NullG*mes is a website with some Flash G*mes available to play, there are currently <b>${buttonTimes}</b> g*mes available to play. This website was made in mind to also provide kids in schools who have free time to be able to play old g*mes they used to enjoy but have not been able to play because of Flash shutting down.`;
         }
-
-        // Update gamenumElement for the games link page
-        if (gamenumElement) {
-          gamenumElement.innerHTML = `There are ${buttonTimes + 1} g*me sites/g*mes right now! However, one is temporarily out of order.`;
-        }
       }
     })
     .catch(error => {
