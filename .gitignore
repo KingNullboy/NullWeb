@@ -234,3 +234,6 @@ logo.png
 /static/
 /js/
 /iosappifier/
+
+/.gitignore
+!/gxmes/fireice/index.html
