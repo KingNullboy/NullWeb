@@ -15,12 +15,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
       const thingElement = document.getElementById("thing");
 
       if (currentUrl === baseUrl || currentUrl === baseUrl + "index" || currentUrl === baseUrl + "index.html") {
-        // If it's one of the matching URLs, update the "gamenum" element
-        if (gamenumElement) {
           gamenumElement.innerHTML = "There are " + buttonTimes + " g*mes of varying quality!";
-        }
       } else {
-        baseUrl = window.location.protocol + "//" + document.domain + "/links/";
+        gamenumElement.innerHTML = "There are " + (buttonTimes + 1) + " g*me sites/g*mes right now! However, one is temporarily out of order.";
+      } 
+      
+      baseUrl = window.location.protocol + "//" + document.domain + "/links/";
         if (currentUrl !== baseUrl || currentUrl !== baseUrl + "index" || currentUrl !== baseUrl + "index.html") {
           // Otherwise, update the "credit" element with the custom text
           if (creditElement) {
