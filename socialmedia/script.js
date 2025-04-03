@@ -218,7 +218,7 @@ document.addEventListener('keydown', function(event) {
 
 // Allowed users and their nicknames
 const VALID_USERS = {
-	"knb2012": { password: "DuckSphere!", nickname: "KingNullboy" },
+	"knb2012": { password: "DuckSphere!", nickname: "<img src=\"pfps/PFPknb2012.png\" width=40px height=40px />KingNullboy" },
 	"dwd2012": { password: "tyrone123", nickname: "Dawson" },
 	"seth2012": { password: "110311Seth", nickname: "Quantompower" },
 	"td2012": { password: "mypasswordispassword", nickname: "Mr. Myers77" },
