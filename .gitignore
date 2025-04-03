@@ -236,4 +236,7 @@ logo.png
 /iosappifier/
 
 /.gitignore
-!/gxmes/ca/index.html
+!/gxmes/chess/index.html
+!/gxmes/chess/chess.html
+!/gxmes/checkers/checkers.html
+!/gxmes/checkers/checkers.html
