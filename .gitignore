@@ -2,7 +2,7 @@
 /gxmes/as/
 /gxmes/1/
 /gxmes/10mintilldawn/
-/gxmes/99balls/
+#/gxmes/99balls/
 /gxmes/100ng/
 /gxmes/2048adhd/
 /gxmes/adrenaline/
@@ -226,6 +226,7 @@
 /NullWeb_App.apk
 /iosappfix.html
 /gxmes.txt
+/.gitignore
 
 # Ignore other specific files across the repository
 logo.png
