@@ -234,6 +234,3 @@ logo.png
 /static/
 /js/
 /iosappifier/
-
-/.gitignore
-!/gxmes/gs/index.html
