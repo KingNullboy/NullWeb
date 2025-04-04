@@ -112,5 +112,4 @@ async function updateAnalytics() {
     alert("Analytics updated successfully!");
   }
   
-  updateAnalytics();
-  
+  updateAnalytics();  
