@@ -359,18 +359,36 @@ function containsFilteredWords(text) {
 	window.location.reload();
   }
   
-  function password(pswd) {
-	  let password = prompt("This is a password-protected site. Please enter the password.");
-	  if (password !== pswd) {
-		 alert("Incorrect password.");
-		  window.location = "about:blank";
-	  } else {
-		  localStorage.setItem("auth", "medialvl");
-	  }
-  }
-	
+  async function getPassword() {
+    try {
+        const response = await fetch("https://your-backend-url/.netlify/functions/password");
+        const data = await response.json();
+        return data.password; 
+    } catch (error) {
+        console.error("Error fetching password:", error);
+        return null; // Handle error gracefully
+    }
+}
+
+async function passwordCheck() {
+    const pswd = await getPassword();
+    if (!pswd) {
+        alert("Error fetching password. Try again later.");
+        window.location = "about:blank";
+        return;
+    }
+
+    let userPassword = prompt("This is a password-protected site. Please enter the password.");
+    if (userPassword !== pswd) {
+        alert("Incorrect password.");
+        window.location = "about:blank";
+    } else {
+        localStorage.setItem("auth", "medialvl");
+    }
+}
+
 if (localStorage.getItem("auth") !== "medialvl") {
-	  	password("NullMediaCrew-000");
+    passwordCheck();
 }
 
 function login(username, password) {
