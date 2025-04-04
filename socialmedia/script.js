@@ -361,7 +361,7 @@ function containsFilteredWords(text) {
   
   async function getPassword() {
     try {
-        const response = await fetch("https://your-backend-url/.netlify/functions/password");
+        const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth");
         const data = await response.json();
         return data.password; 
     } catch (error) {
