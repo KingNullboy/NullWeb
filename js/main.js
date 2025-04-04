@@ -53,6 +53,9 @@ async function updateAnalytics() {
     const fileData = await response.json();
     const fileContent = atob(fileData.content); // Decode the base64 content
   
+    // Log the file content to debug
+    console.log("File content:", fileContent);
+  
     // Use regex to extract view and user numbers
     const viewRegex = /_\[(\d+)\]_/;
     const usersRegex = /__\[(\d+)\]__/;
@@ -62,6 +65,8 @@ async function updateAnalytics() {
   
     if (!viewMatch || !usersMatch) {
       alert("Failed to parse the analytics file.");
+      console.log("View match:", viewMatch);
+      console.log("Users match:", usersMatch);
       return;
     }
   
@@ -107,4 +112,5 @@ async function updateAnalytics() {
     alert("Analytics updated successfully!");
   }
   
-  updateAnalytics();  
+  updateAnalytics();
+  
