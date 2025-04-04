@@ -263,6 +263,24 @@ function containsFilteredWords(text) {
     }
     return false; // Return false if no bad words are found
 }
+
+async function getGitHubToken() {
+	const scriptUrl = document.currentScript?.src || "";
+	try {
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/token", {
+			headers: {
+				"Script-URL": scriptUrl
+			}
+		});
+		if (!response.ok) throw new Error("Token fetch failed");
+		const data = await response.json();
+		return data.token;
+	} catch (err) {
+		console.error("Failed to fetch GitHub token:", err);
+		alert("Error fetching token.");
+		return null;
+	}
+}
   
   async function updateGitHubFile() {
 	var title = document.getElementById("title").value;
@@ -288,9 +306,11 @@ function containsFilteredWords(text) {
 	// Get nickname
 	const nickname = VALID_USERS[localStorage.getItem("user")].nickname;
 
-	var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
-	var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
-	const TOKEN = p1 + p2;
+	const TOKEN = await getGitHubToken();
+	if (!TOKEN) {
+		alert("Failed to fetch token!");
+		return;
+	}
   
 	// Fetch the current index.html content
 		const response = await fetch(window.location.href);
@@ -428,33 +448,39 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Function to check for new posts
-function checkForNewPosts() {
-    const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';  // GitHub API URL for commits
-    var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
-	var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
-	const TOKEN = p1 + p2;
+async function checkForNewPosts() {
+	const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';
 
-    fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-            'Authorization': `token ${TOKEN}`,  // Authentication header
-            'Accept': 'application/vnd.github.v3+json'  // Optional: specifies the accepted content type
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            const latestCommit = data[0];  // Get the latest commit
-            const lastCheckedCommit = localStorage.getItem('lastCheckedCommit');
+	const TOKEN = await getGitHubToken();
+	if (!TOKEN) return;
 
-            // Check if this commit contains "New post by" in the message
-            const commitMessage = latestCommit.commit.message;
+	try {
+		const response = await fetch(apiUrl, {
+			method: 'GET',
+			headers: {
+				'Authorization': `token ${TOKEN}`,
+				'Accept': 'application/vnd.github.v3+json'
+			}
+		});
 
-            if (commitMessage.includes("New post by") && latestCommit.sha !== lastCheckedCommit) {
-                showNotification();  // Show notification if the commit message indicates a new post
-                localStorage.setItem('lastCheckedCommit', latestCommit.sha);  // Store the latest commit SHA
-            }
-        })
-        .catch(error => console.error('Error checking for new posts:', error));
+		if (!response.ok) {
+			console.error("Failed to fetch commits:", response.statusText);
+			return;
+		}
+
+		const data = await response.json();
+		const latestCommit = data[0];
+		const lastCheckedCommit = localStorage.getItem('lastCheckedCommit');
+
+		const commitMessage = latestCommit.commit.message;
+
+		if (commitMessage.includes("New post by") && latestCommit.sha !== lastCheckedCommit) {
+			showNotification();
+			localStorage.setItem('lastCheckedCommit', latestCommit.sha);
+		}
+	} catch (error) {
+		console.error('Error checking for new posts:', error);
+	}
 }
 
 // Function to show the notification
