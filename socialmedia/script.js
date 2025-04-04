@@ -216,25 +216,24 @@ document.addEventListener('keydown', function(event) {
 	});
 });
 
-// Allowed users and their nicknames
-const VALID_USERS = {
-	"knb2012": { password: "DuckSphere!", nickname: "<img src=\"pfps/knb2012.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">KingNullboy</span>" },
-	"dwd2012": { password: "tyrone123", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Dawson</span>" },
-	"seth2012": { password: "110311Seth", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Quantompower</span>" },
-	"td2012": { password: "mypasswordispassword", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Mr. Myers77</span>" },
-	"brybry2012": { password: "billcipheriscousinswithhitler", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Bry</span>" },
-	"mlj2016": { password: "marci6266", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Marci</span>" },
-	"mk2014": { password: "Jayn-2007", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Marleigh Kate</span>" },
-	"lj1981": { password: "Marleigh-14", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Leighan</span>" },
-	"mj1970": { password: "redwolf", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Disco Fox</span>" },
-	"michaeljackson2011": { password: "moonwalker2011", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Mikey</span>" },
-	"max32": { password: "bentleydude", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Bent</span>" },
-	"eh2011": { password: "orange-0329", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">E.</span>" },
-	"dk1955": { password: "215500", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">KingNullboy's Nana</span>" },
-	"jk1958": { password: "005952", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">KingNullboy's Pawpaw</span>" },
-	"mb1960": { password: "matt6:33", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">KingNullboy's Aunt</span>" },
-	"rb1954": { password: "bologna", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">KingNullboy's Uncle</span>" },
-	"coolreid5": { password: "lions&tigers", nickname: "<img src=\"pfps/default.png\" width=\"40px\" height=\"40px\" style=\"border-radius: 20px;\"> <span style=\"position: relative; bottom: 11px;\">Squirt</span>" }
+async function getValidUsers() {
+	try {
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/users", {
+			method: "GET",
+			headers: {
+				"Script-URL": document.currentScript?.src || "unknown"
+			}
+		});
+		if (!response.ok) {
+			throw new Error("Failed to fetch user data.");
+		}
+		const data = await response.json();
+		return data.users;
+	} catch (error) {
+		console.error("Error fetching users:", error);
+		alert("Error verifying user credentials.");
+		return null;
+	}
 }
   
 // List of filtered words (Add words manually)
@@ -293,8 +292,8 @@ async function getGitHubToken() {
   }
   
 	// Validate user credentials
-	if (!(localStorage.getItem("user") in VALID_USERS) || VALID_USERS[localStorage.getItem("user")].password !== localStorage.getItem("password")) {
-		alert("Invalid username or password.");
+	if (!(localStorage.getItem("user") === null) || localStorage.getItem("password") === null) {
+		alert("You must log in to post.");
 		return;
 	}
 
@@ -416,14 +415,40 @@ if (localStorage.getItem("auth") !== "medialvl") {
 	});
 }
 
-function login(username, password) {
-	if (!(username in VALID_USERS) && VALID_USERS[username].password !== password) {
-		alert("Invalid username or password.");
-	} else {
+async function login() {
+	const username = document.getElementById("username").value;
+	const password = document.getElementById("password").value;
+
+	try {
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/users", {
+			headers: {
+				"Script-URL": document.currentScript?.src || "unknown"
+			}
+		});
+
+		if (!response.ok) {
+			throw new Error("Failed to fetch user data");
+		}
+
+		const users = await response.json();
+
+		// Do NOT expose the full object
+		const userData = users[username];
+
+		if (!userData || userData.password !== password) {
+			alert("Invalid username or password.");
+			return;
+		}
+
+		// Save login info
 		localStorage.setItem("user", username);
 		localStorage.setItem("password", password);
-		alert("Logged in!");
-		window.history.back();
+
+		alert("Login successful!");
+		location.reload();
+	} catch (err) {
+		console.error("Login failed:", err);
+		alert("Something went wrong during login.");
 	}
 }
 
