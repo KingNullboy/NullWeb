@@ -101,4 +101,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   
-  updateAnalytics();  
+  updateAnalytics();
