@@ -33,8 +33,8 @@ async function fetchBackendPasswords() {
 
         const data = await response.json();
         return {
-            medialvl: data.password, // Main password
-            gxmelvl: "NullGamesPass-123" // Secondary password (can be stored locally if not secret)
+            medialvl: data.medialvl, // Main password
+            gxmelvl: data.gxmelvl // Secondary password (can be stored locally if not secret)
         };
     } catch (error) {
         console.error("Failed to fetch password:", error);
