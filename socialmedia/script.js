@@ -359,36 +359,36 @@ function containsFilteredWords(text) {
 	window.location.reload();
   }
   
-  async function getPassword() {
-    try {
-        const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth");
-        const data = await response.json();
-        return data.password; 
-    } catch (error) {
-        console.error("Error fetching password:", error);
-        return null; // Handle error gracefully
-    }
+  function password(pswd) {
+	let userPassword = prompt("This is a password-protected site. Please enter the password.");
+	if (userPassword !== pswd) {
+		alert("Incorrect password.");
+		window.location = "about:blank";
+	} else {
+		localStorage.setItem("auth", "medialvl");
+	}
 }
 
-async function passwordCheck() {
-    const pswd = await getPassword();
-    if (!pswd) {
-        alert("Error fetching password. Try again later.");
-        window.location = "about:blank";
-        return;
-    }
-
-    let userPassword = prompt("This is a password-protected site. Please enter the password.");
-    if (userPassword !== pswd) {
-        alert("Incorrect password.");
-        window.location = "about:blank";
-    } else {
-        localStorage.setItem("auth", "medialvl");
-    }
+async function getBackendPassword() {
+	try {
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth");
+		const data = await response.json();
+		return data.password;
+	} catch (error) {
+		console.error("Failed to fetch password:", error);
+		return null;
+	}
 }
 
 if (localStorage.getItem("auth") !== "medialvl") {
-    passwordCheck();
+	getBackendPassword().then((backendPassword) => {
+		if (backendPassword) {
+			password(backendPassword);
+		} else {
+			alert("Error retrieving password.");
+			window.location = "about:blank";
+		}
+	});
 }
 
 function login(username, password) {
