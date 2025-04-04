@@ -264,27 +264,22 @@ function containsFilteredWords(text) {
 }
 
 async function getGitHubToken() {
-	try {
-	  // Safely get the current script's full URL
-	  const scriptUrl = document.currentScript?.src || '';
+	const scriptSrc = document.currentScript?.src || '';
   
-	  const response = await fetch('https://nullwebsecurity.netlify.app/.netlify/functions/token', {
-		method: 'GET',
-		headers: {
-		  'Script-URL': scriptUrl
-		}
-	  });
-  
-	  if (!response.ok) {
-		throw new Error('Token fetch failed');
+	const response = await fetch('/.netlify/functions/token', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+		'X-Script-Src': scriptSrc
 	  }
+	});
   
-	  const data = await response.json();
-	  return data.token;
-	} catch (error) {
-	  console.error('Failed to fetch GitHub token:', error);
-	  return null;
+	if (!response.ok) {
+	  throw new Error(`Token fetch failed: ${response.status}`);
 	}
+  
+	const { token } = await response.json();
+	return token;
   }  
   
   async function updateGitHubFile() {
