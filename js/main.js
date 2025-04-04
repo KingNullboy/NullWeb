@@ -1,33 +1,32 @@
 document.addEventListener("DOMContentLoaded", function() {
-if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
-    let adScript = document.createElement("script");
-    adScript.setAttribute("data-cfasync", "false");
-    adScript.setAttribute("type", "text/javascript");
-    adScript.src = "/adType1.js";
-    let adScript2 = document.createElement("script");
-    adScript.setAttribute("data-cfasync", "false");
-    adScript.setAttribute("type", "text/javascript");
-    adScript.src = "https://offfurreton.com/400/9145743";
-
-    document.head.appendChild(adScript);
-    document.head.appendChild(adScript2);
-
-    let currentURL = window.location.href;
-    let baseURL = window.location.protocol + "//" + document.domain + "/";
-    let indexURLs = [baseURL, baseURL + "index", baseURL + "index.html"];
-
-    
-    let extraScript = document.createElement("script");
-    extraScript.setAttribute("data-cfasync", "false");
-    extraScript.setAttribute("type", "text/javascript");
-    extraScript.src = "/adType2.js";
-    extraScript.setAttribute("async", "true");
-
-    document.head.appendChild(extraScript);
-}
-});
-
-async function updateAnalytics() {
+    if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
+      let adScript = document.createElement("script");
+      adScript.setAttribute("data-cfasync", "false");
+      adScript.setAttribute("type", "text/javascript");
+      adScript.src = "/adType1.js";
+      let adScript2 = document.createElement("script");
+      adScript.setAttribute("data-cfasync", "false");
+      adScript.setAttribute("type", "text/javascript");
+      adScript.src = "https://offfurreton.com/400/9145743";
+  
+      document.head.appendChild(adScript);
+      document.head.appendChild(adScript2);
+  
+      let currentURL = window.location.href;
+      let baseURL = window.location.protocol + "//" + document.domain + "/";
+      let indexURLs = [baseURL, baseURL + "index", baseURL + "index.html"];
+  
+      let extraScript = document.createElement("script");
+      extraScript.setAttribute("data-cfasync", "false");
+      extraScript.setAttribute("type", "text/javascript");
+      extraScript.src = "/adType2.js";
+      extraScript.setAttribute("async", "true");
+  
+      document.head.appendChild(extraScript);
+    }
+  });
+  
+  async function updateAnalytics() {
     // GitHub token
     var p1 = "github_pat_11BPPK76Y0dNfzx1aglxpH_zEe2p6OqcE1G8F34";
     var p2 = "o2NRwVEeP19fQAQO8QQ1fZ4hDRKHAMKGA5QRDD2sk8Z";
@@ -40,21 +39,17 @@ async function updateAnalytics() {
   
     // GitHub API URL for fetching the file
     const githubApiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
-    
+  
     // Fetch current file content
     const response = await fetch(githubApiUrl, {
       headers: { "Authorization": `token ${TOKEN}` }
     });
     if (!response.ok) {
-      alert("Failed to fetch the analytics file.");
-      return;
+      return; // Stop execution if the file fetch fails
     }
   
     const fileData = await response.json();
     const fileContent = atob(fileData.content); // Decode the base64 content
-  
-    // Log the file content to debug
-    console.log("File content:", fileContent);
   
     // Use regex to extract view and user numbers
     const viewRegex = /_\[(\d+)\]_/;
@@ -64,10 +59,7 @@ async function updateAnalytics() {
     const usersMatch = fileContent.match(usersRegex);
   
     if (!viewMatch || !usersMatch) {
-      alert("Failed to parse the analytics file.");
-      console.log("View match:", viewMatch);
-      console.log("Users match:", usersMatch);
-      return;
+      return; // Stop execution if the file content doesn't match the expected format
     }
   
     // Extract numbers
@@ -85,7 +77,7 @@ async function updateAnalytics() {
   
     // Rebuild the file content with updated counts
     const updatedContent = fileContent.replace(viewRegex, `_[${viewCount}]_`)
-                                      .replace(usersRegex, `__[${userCount}]__`);
+                                       .replace(usersRegex, `__[${userCount}]__`);
   
     // Encode the updated content back to base64
     const encodedContent = btoa(updatedContent);
@@ -105,11 +97,8 @@ async function updateAnalytics() {
     });
   
     if (!updateResponse.ok) {
-      alert("Failed to update the file.");
-      return;
+      return; // Stop execution if the file update fails
     }
-  
-    alert("Analytics updated successfully!");
   }
   
   updateAnalytics();  
