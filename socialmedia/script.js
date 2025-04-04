@@ -271,7 +271,7 @@ async function getGitHubToken() {
 	  const response = await fetch('https://nullwebsecurity.netlify.app/.netlify/functions/token', {
 		method: 'GET',
 		headers: {
-		  'script-url': scriptUrl
+		  'Script-URL': scriptUrl
 		}
 	  });
   
@@ -399,7 +399,7 @@ async function getBackendPassword() {
 		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
-				"Script-URL": document.currentScript?.src || "unknown"
+				"s-URL": document.currentScript?.src || "unknown"
 			}
 		});
 		const data = await response.json();
