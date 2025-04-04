@@ -371,7 +371,13 @@ function containsFilteredWords(text) {
 
 async function getBackendPassword() {
 	try {
-		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth");
+		const scriptUrl = document.currentScript ? document.currentScript.src : "Unknown";
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
+			method: "GET",
+			headers: {
+				"Script-URL": scriptUrl // Send the script's URL in the request header
+			}
+		});
 		const data = await response.json();
 		return data.password;
 	} catch (error) {
