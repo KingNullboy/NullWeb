@@ -264,33 +264,33 @@ function containsFilteredWords(text) {
 }
 
 async function getGitHubToken() {
-	const scriptSrc = document.currentScript?.src || 'unknown';
-	console.log("📡 Requesting GitHub token...");
-	console.log("🧾 Script Source:", scriptSrc);
+	const scriptSrc = document.currentScript?.src || '';
   
-	try {
-	  const response = await fetch('/.netlify/functions/token', {
-		method: 'POST',
-		headers: {
-		  'Content-Type': 'application/json',
-		  'X-Script-Src': scriptSrc
-		}
-	  });
-  
-	  if (!response.ok) {
-		const errorText = await response.text();
-		console.error("❌ Token fetch failed:", errorText);
-		return null;
+	const response = await fetch('nullwebsecurity.netlify.app/.netlify/functions/token', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+		'X-Script-Src': scriptSrc
 	  }
+	});
   
-	  const { token } = await response.json();
-	  console.log("🔐 Token received successfully");
-	  return token;
-	} catch (err) {
-	  console.error("⚠️ Error fetching token:", err);
-	  return null;
+	if (!response.ok) {
+	  throw new Error(`Token fetch failed: ${response.status}`);
 	}
+  
+	const { token } = await response.json();
+	return token;
   }  
+  
+  async function updateGitHubFile() {
+	var title = document.getElementById("title").value;
+	var postContent = document.getElementById("postContent").value;
+  
+	// Check for filtered words
+  if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
+	  alert("Your post contains words that are not allowed. Remove them or replace them to post this.\nThe words that are not allowed could include brainrot words.");
+	  return;
+  }
   
 	// Validate user credentials
 	if (!(localStorage.getItem("user") === null) || localStorage.getItem("password") === null) {
@@ -472,3 +472,39 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	};
 });
+
+// Function to check for new posts
+async function checkForNewPosts() {
+	const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';
+
+	const TOKEN = await getGitHubToken();
+	if (!TOKEN) return;
+
+	try {
+		const response = await fetch(apiUrl, {
+			method: 'GET',
+			headers: {
+				'Authorization': `token ${TOKEN}`,
+				'Accept': 'application/vnd.github.v3+json'
+			}
+		});
+
+		if (!response.ok) {
+			console.error("Failed to fetch commits:", response.statusText);
+			return;
+		}
+
+		const data = await response.json();
+		const latestCommit = data[0];
+		const lastCheckedCommit = localStorage.getItem('lastCheckedCommit');
+
+		const commitMessage = latestCommit.commit.message;
+
+		if (commitMessage.includes("New post by") && latestCommit.sha !== lastCheckedCommit) {
+			showNotification();
+			localStorage.setItem('lastCheckedCommit', latestCommit.sha);
+		}
+	} catch (error) {
+		console.error('Error checking for new posts:', error);
+	}
+}
