@@ -293,7 +293,7 @@ async function getGitHubToken() {
   }
   
 	// Validate user credentials
-	if (!(localStorage.getItem("user") === null) || localStorage.getItem("password") === null) {
+	if ((localStorage.getItem("user") === null) || localStorage.getItem("password") === null) {
 		alert("You must log in to post.");
 		return;
 	}
