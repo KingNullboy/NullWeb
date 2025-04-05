@@ -283,6 +283,7 @@ async function getGitHubToken() {
   }  
   
   async function updateGitHubFile() {
+	var VALID_USERS = await getValidUsers();
 	var title = document.getElementById("title").value;
 	var postContent = document.getElementById("postContent").value;
   
