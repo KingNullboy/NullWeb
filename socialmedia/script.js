@@ -399,15 +399,18 @@ async function getBackendPassword() {
 	}
 }
 
+function password(pswd) {
+	let password = prompt("This is a password-protected site. Please enter the password.");
+	if (pswd !== password) {
+		alert("Incorrect password.");
+		window.location.href = "about:blank";
+	} else {
+		localStorage.setItem("auth", "medialvl");
+	}
+}
+
 if (localStorage.getItem("auth") !== "medialvl") {
-	getBackendPassword().then((backendPassword) => {
-		if (backendPassword) {
-			password(backendPassword);
-		} else {
-			alert("Error retrieving password.");
-			window.location = "about:blank";
-		}
-	});
+	password(await getBackendPassword())
 }
 
 async function login() {
