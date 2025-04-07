@@ -410,7 +410,7 @@ function password(pswd) {
 }
 
 if (localStorage.getItem("auth") !== "medialvl") {
-	password(await getBackendPassword())
+	password(await getBackendPassword());
 }
 
 async function login() {
