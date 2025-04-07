@@ -392,7 +392,7 @@ async function getBackendPassword() {
 			}
 		});
 		const data = await response.json();
-		return data.password;
+		return data.medialvl;
 	} catch (error) {
 		console.error("Failed to fetch password:", error);
 		return null;
@@ -410,7 +410,7 @@ function password(pswd) {
 }
 
 if (localStorage.getItem("auth") !== "medialvl") {
-	password(await getBackendPassword());
+	password(getBackendPassword());
 }
 
 async function login() {
