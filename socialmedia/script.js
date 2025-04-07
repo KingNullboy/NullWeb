@@ -273,7 +273,7 @@ async function getGitHubToken() {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
-		'X-Script-Src': scriptSrc
+		'Script-URL': scriptSrc
 	  }
 	});
   
@@ -398,7 +398,7 @@ async function getBackendPassword() {
 		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
-				"s-URL": document.currentScript?.src || "unknown"
+				"Script-URL": document.currentScript?.src || "unknown"
 			}
 		});
 		const data = await response.json();
