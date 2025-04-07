@@ -1,3 +1,6 @@
+// Debug thing
+console.log(document.currentScript?.src);
+
 console.log("%cHELLO THERE! Don't dare try to hack into other people's accounts. I mean it.", "color: red;");
 console.log("%cAlso, you discovered an easter egg! Don't post about it though. Congrats on finding it.", "color: lightgreen;");
 console.log("%cOh, you want to make your console.log()s fun too? Just put %c at the beginning of your first argument in the log function\, and in the second argument, put css in quotes for the text\, the same way you'd do a style attribute for an HTML element.", "color: cyan");
