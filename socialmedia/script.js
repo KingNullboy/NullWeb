@@ -399,9 +399,10 @@ async function getBackendPassword() {
 	}
 }
 
-function password(pswd) {
-	let password = prompt("This is a password-protected site. Please enter the password.");
-	if (pswd !== password) {
+async function password() {
+	const pswd = await getBackendPassword();
+	let userInput = prompt("This is a password-protected site. Please enter the password.");
+	if (pswd !== userInput) {
 		alert("Incorrect password.");
 		window.location.href = "about:blank";
 	} else {
@@ -410,7 +411,7 @@ function password(pswd) {
 }
 
 if (localStorage.getItem("auth") !== "medialvl") {
-	password(getBackendPassword());
+	password();
 }
 
 async function login() {
