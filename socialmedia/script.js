@@ -218,7 +218,7 @@ document.addEventListener('keydown', function(event) {
 
 async function getValidUsers() {
 	try {
-		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/users", {
+		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
 			method: "GET",
 			headers: {
 				"Script-URL": document.currentScript?.src || "unknown"
@@ -266,7 +266,7 @@ function containsFilteredWords(text) {
 async function getGitHubToken() {
 	const scriptSrc = document.currentScript?.src || '';
   
-	const response = await fetch('nullwebsecurity.netlify.app/.netlify/functions/token', {
+	const response = await fetch('nullapi.netlify.app/.netlify/functions/token', {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
@@ -392,7 +392,7 @@ async function getGitHubToken() {
 
 async function getBackendPassword() {
 	try {
-		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
+		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
 				"s-URL": document.currentScript?.src || "unknown"
@@ -422,7 +422,7 @@ async function login() {
 	const password = document.getElementById("password").value;
 
 	try {
-		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/users", {
+		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
 			headers: {
 				"Script-URL": document.currentScript?.src || "unknown"
 			}
