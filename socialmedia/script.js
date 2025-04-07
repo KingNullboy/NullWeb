@@ -1,3 +1,6 @@
+const SCRIPT_SRC = document.currentScript?.src || "unknown";
+console.log("Script URL: ", SCRIPT_SRC);
+
 // Debug thing
 console.log(document.currentScript?.src);
 
@@ -224,7 +227,7 @@ async function getValidUsers() {
 		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
 			method: "GET",
 			headers: {
-				"Script-URL": document.currentScript?.src || "unknown"
+				"Script-URL": SCRIPT_SRC
 			}
 		});
 		if (!response.ok) {
