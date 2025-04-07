@@ -382,16 +382,6 @@ async function getGitHubToken() {
 	alert("Post added successfully! Please allow up to 5 minutes for the webpage to update.");
 	window.location.reload();
   }
-  
-  function password(pswd) {
-	let userPassword = prompt("This is a password-protected site. Please enter the password.");
-	if (userPassword !== pswd) {
-		alert("Incorrect password.");
-		window.location = "about:blank";
-	} else {
-		localStorage.setItem("auth", "medialvl");
-	}
-}
 
 async function getBackendPassword() {
 	try {
@@ -476,39 +466,3 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	};
 });
-
-// Function to check for new posts
-async function checkForNewPosts() {
-	const apiUrl = 'https://api.github.com/repos/nullmedia-social/NullWeb/commits';
-
-	const TOKEN = await getGitHubToken();
-	if (!TOKEN) return;
-
-	try {
-		const response = await fetch(apiUrl, {
-			method: 'GET',
-			headers: {
-				'Authorization': `token ${TOKEN}`,
-				'Accept': 'application/vnd.github.v3+json'
-			}
-		});
-
-		if (!response.ok) {
-			console.error("Failed to fetch commits:", response.statusText);
-			return;
-		}
-
-		const data = await response.json();
-		const latestCommit = data[0];
-		const lastCheckedCommit = localStorage.getItem('lastCheckedCommit');
-
-		const commitMessage = latestCommit.commit.message;
-
-		if (commitMessage.includes("New post by") && latestCommit.sha !== lastCheckedCommit) {
-			showNotification();
-			localStorage.setItem('lastCheckedCommit', latestCommit.sha);
-		}
-	} catch (error) {
-		console.error('Error checking for new posts:', error);
-	}
-}
