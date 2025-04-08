@@ -290,7 +290,7 @@ async function getGitHubToken() {
   
   async function updateGitHubFile() {
 	var VALID_USERS = await getValidUsers();
-	setTimeout(console.log("Waited 500 milliseconds!"), 500);
+	setTimeout(console.log("Waited 1 second!"), 1000);
 	var title = document.getElementById("title").value;
 	var postContent = document.getElementById("postContent").value;
   
