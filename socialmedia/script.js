@@ -224,23 +224,23 @@ document.addEventListener('keydown', function(event) {
 
 async function getValidUsers() {
 	try {
-		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
-			method: "GET",
-			headers: {
-				"Script-URL": SCRIPT_SRC
-			}
-		});
-		if (!response.ok) {
-			throw new Error("Failed to fetch user data.");
+	  const response = await fetch("https://nullweb0.netlify.app/.netlify/functions/users", {
+		method: "GET",
+		headers: {
+		  "Script-URL": SCRIPT_SRC
 		}
-		const data = await response.json();
-		return data.users;
-	} catch (error) {
-		console.error("Error fetching users:", error);
-		alert("Error verifying user credentials.");
-		return null;
+	  });
+  
+	  const data = await response.json();
+	  const VALID_USERS = data.users;
+  
+	  console.log("VALID_USERS keys:", Object.keys(VALID_USERS));
+	  return VALID_USERS;
+	} catch (err) {
+	  console.error("Error fetching VALID_USERS:", err);
+	  return {};
 	}
-}
+  }
   
 // List of filtered words (Add words manually)
 																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script>", "</script>", "\\n"];
