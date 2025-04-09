@@ -281,7 +281,7 @@ function containsFilteredWords(text) {
 async function getGitHubToken() {
 	const scriptSrc = document.currentScript?.src || '';
   
-	const response = await fetch('nullapi.netlify.app/.netlify/functions/token', {
+	const response = await fetch('https://nullapi.netlify.app/.netlify/functions/token', {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
