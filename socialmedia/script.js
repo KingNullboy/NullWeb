@@ -301,8 +301,8 @@ async function getGitHubToken() {
 	var VALID_USERS = await getValidUsers();
 	var currentUser = localStorage.getItem("user");
 	setTimeout(console.log("Waited 2.5 seconds!"), 2500);
-	var title = document.getElementById("title").value;
-	var postContent = document.getElementById("postContent").value;
+	var title = document.getElementById("title").value.replace("'", "&apos;").replace('"', "&quot;");
+	var postContent = document.getElementById("postContent").value.replace("'", "&apos;").replace('"', "&quot;");
   
 	// Check for filtered words
   if (containsFilteredWords(title) || containsFilteredWords(postContent)) {
