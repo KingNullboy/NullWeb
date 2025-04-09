@@ -5,7 +5,7 @@
 /gxmes/99balls/*
 /gxmes/100ng/*
 /gxmes/2048adhd/*
-#/gxmes/adrenaline/*
+/gxmes/adrenaline/*
 /gxmes/ah/*
 /gxmes/aoc/*
 /gxmes/aquaslide/*
@@ -133,6 +133,7 @@
 /gxmes/gab/*
 /gxmes/gfg/*
 /gxmes/gs/*
+/gxmes/pl/*
 
 # Ignore specific .html files
 /links/script.js
