@@ -228,20 +228,29 @@ async function getValidUsers() {
 			method: "GET",
 			headers: {
 				"Script-URL": SCRIPT_SRC
-			}
+			},
+			cache: "no-store" // prevent stale data
 		});
+
 		if (!response.ok) {
-			throw new Error("Failed to fetch user data.");
+			throw new Error(`Request failed: ${response.status}`);
 		}
+
 		const data = await response.json();
-		return data.users;
+
+		// Ensure the expected format exists
+		if (!data || typeof data !== "object") {
+			throw new Error("Invalid user data format.");
+		}
+
+		return data;
 	} catch (error) {
-		console.error("Error fetching users:", error);
-		alert("Error verifying user credentials.");
+		console.error("Error fetching valid users:", error);
+		alert("Unable to verify users. Please try again later.");
 		return null;
 	}
 }
-  
+
 // List of filtered words (Add words manually)
 																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script>", "</script>", "\\n"];
 const ALLOWLIST = ["class", "password", "hello", "passion", "assistant", "massive", "brass", "pass", "sass", "glass"];
