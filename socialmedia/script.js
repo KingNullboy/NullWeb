@@ -322,7 +322,7 @@ async function getGitHubToken() {
 	}
   
 	// Get nickname
-	const nickname = VALID_USERS.users.currentUser.nickname;
+	const nickname = eval(`VALID_USERS.users.${currentUser}.nickname`);
 
 	const TOKEN = await getGitHubToken();
 	if (!TOKEN) {
