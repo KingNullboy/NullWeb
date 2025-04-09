@@ -285,7 +285,7 @@ async function getGitHubToken() {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
-		'Script-URL': scriptSrc
+		'Script-URL': SCRIPT_SRC
 	  }
 	});
   
@@ -295,7 +295,7 @@ async function getGitHubToken() {
   
 	const { token } = await response.json();
 	return token;
-  }  
+  }
   
   async function updateGitHubFile() {
 	var VALID_USERS = await getValidUsers();
