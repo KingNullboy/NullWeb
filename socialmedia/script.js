@@ -299,9 +299,8 @@ async function getGitHubToken() {
   
   async function updateGitHubFile() {
 	var VALID_USERS = await getValidUsers();
-	console.log("Valid users at time of fetch(): ", VALID_USERS);
+	var currentUser = localStorage.getItem("user");
 	setTimeout(console.log("Waited 2.5 seconds!"), 2500);
-	console.log("Valid users 2.5 seconds after fetch(): ", VALID_USERS);
 	var title = document.getElementById("title").value;
 	var postContent = document.getElementById("postContent").value;
   
@@ -323,7 +322,7 @@ async function getGitHubToken() {
 	}
   
 	// Get nickname
-	const nickname = VALID_USERS[localStorage.getItem("user")].nickname;
+	const nickname = VALID_USERS.users.currentUser.nickname;
 
 	const TOKEN = await getGitHubToken();
 	if (!TOKEN) {
