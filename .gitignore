@@ -150,6 +150,8 @@
 /gxmes/hextris/*
 /gxmes/hrh/*
 /gxmes/ib/*
+/gxmes/job/*
+/gxmes/jf/*
 
 # Ignore specific files
 /links/script.js
@@ -226,6 +228,7 @@
 /gxmes/checknum.js
 /gxmes/info.html
 /gxmes/hcr.html
+/gxmes/id.html
 
 # Ignore other specific files in the root directory
 /Katamari.js
