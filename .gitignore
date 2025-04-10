@@ -141,6 +141,7 @@
 /gxmes/gf/*
 /gxmes/googlesnake/*
 /gxmes/gravitysoccer/*
+/gxmes/grindcraft/*
 
 # Ignore specific .html files
 /links/script.js
