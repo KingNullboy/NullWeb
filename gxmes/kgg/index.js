@@ -95,7 +95,7 @@ var Engine = {
       };
       setWindowTitle = function (title) {
         console.log(title + " was set to the title")
-        document.title = "Kitchen gun game";
+        document.title = "Kitchen G*n G*me - NullG*mes";
       };
     } else {
     }
