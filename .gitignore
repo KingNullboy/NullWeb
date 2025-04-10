@@ -150,7 +150,7 @@
 /gxmes/hextris/*
 /gxmes/hrh/*
 
-# Ignore specific .html files
+# Ignore specific files
 /links/script.js
 /gxmes/2048game.html
 /gxmes/achieveunlocked.html
@@ -224,6 +224,7 @@
 /socialmedia/reply.png
 /gxmes/checknum.js
 /gxmes/info.html
+/gxmes/hcr.html
 
 # Ignore other specific files in the root directory
 /Katamari.js
