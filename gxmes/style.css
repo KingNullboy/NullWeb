@@ -145,12 +145,11 @@ header {
 }
 
 #searchInput {
-    background-color: var(--input-bg-color, #363636);
-    color: var(--text-color, #FFFFFF);
-    border: 1px solid var(--border-color, #000000);
-    border-radius: 5px;
-    font-family: var(--font-family, Lato);
-    padding: 5px;
-    font-size: 16px;
-    outline: none;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 20px;
+	border: 2px solid var(--border-color);
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	width: 500px;
 }
