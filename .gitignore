@@ -146,6 +146,8 @@
 /gxmes/hardwaretycoon/*
 /gxmes/hba/*
 /gxmes/h/*
+/gxmes/he/*
+/gxmes/hextris/*
 
 # Ignore specific .html files
 /links/script.js
