@@ -262,3 +262,6 @@ logo.png
 /static/*
 /js/*
 /iosappifier/*
+
+# Unignore certain files
+!/gxmes/*/logo.png
