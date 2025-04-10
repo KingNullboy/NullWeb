@@ -144,6 +144,8 @@
 /gxmes/ht/*
 /gxmes/hh/*
 /gxmes/hardwaretycoon/*
+/gxmes/hba/*
+/gxmes/h/*
 
 # Ignore specific .html files
 /links/script.js
