@@ -138,10 +138,11 @@
 /gxmes/gc/*
 /gxmes/gb/*
 /gxmes/gn/*
-/gxmes/gf/*
 /gxmes/googlesnake/*
 /gxmes/gravitysoccer/*
 /gxmes/grindcraft/*
+/gxmes/ht/*
+/gxmes/hh/*
 
 # Ignore specific .html files
 /links/script.js
