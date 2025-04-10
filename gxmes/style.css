@@ -143,3 +143,23 @@ header {
     border-radius: 10px;
     color: #FFFFFF;
 }
+
+#searchInput {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  #searchInput::placeholder {
+    color: #bbbbbb;
+  }
+  
+  #searchInput:focus {
+    border-color: #00e5ff;
+    box-shadow: 0 0 5px #00e5ff;
+  }  

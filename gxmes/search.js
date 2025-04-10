@@ -1,13 +1,13 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('searchInput');
-    const buttons = document.querySelectorAll('.button-container button');
-  
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase();
-  
-      buttons.forEach(button => {
-        const match = button.textContent.toLowerCase().includes(query);
-        button.style.display = match ? 'inline-block' : 'none';
-      });
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('searchInput');
+
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    const buttons = document.querySelectorAll('button:not(header button)');
+
+    buttons.forEach(button => {
+      const text = button.textContent.toLowerCase();
+      button.style.display = text.includes(filter) ? 'inline-block' : 'none';
     });
-  });  
+  });
+});
