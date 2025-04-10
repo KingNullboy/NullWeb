@@ -149,6 +149,7 @@
 /gxmes/he/*
 /gxmes/hextris/*
 /gxmes/hrh/*
+/gxmes/ib/*
 
 # Ignore specific files
 /links/script.js
