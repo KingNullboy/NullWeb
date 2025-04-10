@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+/* document.addEventListener("DOMContentLoaded", function() {
     if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
       let adScript = document.createElement("script");
       adScript.setAttribute("data-cfasync", "false");
@@ -24,4 +24,4 @@ document.addEventListener("DOMContentLoaded", function() {
   
       document.head.appendChild(extraScript);
     }
-  });
+  }); */
