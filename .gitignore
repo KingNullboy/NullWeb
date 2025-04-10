@@ -156,6 +156,7 @@
 /gxmes/km/*
 
 # Ignore specific files
+/gxmes/linerider.html
 /links/script.js
 /gxmes/2048game.html
 /gxmes/achieveunlocked.html
