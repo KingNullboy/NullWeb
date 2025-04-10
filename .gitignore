@@ -156,6 +156,7 @@
 /gxmes/km/*
 /gxmes/ltfi/*
 /gxmes/ltf2/*
+/gxmes/ltf3/*
 
 # Ignore specific files
 /gxmes/linerider.html
