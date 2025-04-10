@@ -245,6 +245,6 @@
 logo.png
 
 # Ignore other specific directories
-/static/
-/js/
-/iosappifier/
+/static/*
+/js/*
+/iosappifier/*
