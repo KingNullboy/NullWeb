@@ -158,7 +158,8 @@
 /gxmes/ltf2/*
 /gxmes/ltf3/*
 /gxmes/smb/*
-/gxmes/ssf2/*
+/gxmes/mr/*
+/gxmes/ms/*
 
 # Ignore specific files
 /gxmes/linerider.html
