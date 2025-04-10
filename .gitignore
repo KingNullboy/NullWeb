@@ -152,6 +152,8 @@
 /gxmes/ib/*
 /gxmes/job/*
 /gxmes/jf/*
+/gxmes/kgg/*
+/gxmes/kc/*
 
 # Ignore specific files
 /links/script.js
