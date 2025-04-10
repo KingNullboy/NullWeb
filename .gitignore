@@ -135,6 +135,7 @@
 /gxmes/gs/*
 /gxmes/pl/*
 /gxmes/gta/*
+/gxmes/gc/*
 
 # Ignore specific .html files
 /links/script.js
