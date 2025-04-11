@@ -179,6 +179,8 @@
 /gxmes/ovo/*
 /gxmes/pio2/*
 /gxmes/pc/*
+/gxmes/pa/*
+/gxmes/pvz/*
 
 # Ignore specific files
 /gxmes/linerider.html
