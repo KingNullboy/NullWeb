@@ -188,6 +188,8 @@
 /gxmes/rb/*
 /gxmes/rl/*
 /gxmes/rb/*
+/gxmes/rv/*
+#/gxmes/rooftopsnipers/*
 
 # Ignore specific files
 /gxmes/linerider.html
