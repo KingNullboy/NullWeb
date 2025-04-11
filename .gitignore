@@ -195,7 +195,8 @@
 /gxmes/srtd/*
 /gxmes/s/*
 /gxmes/sm64/*
-/gxmes/sk/*
+/gxmes/smokingbarrels/*
+/gxmes/sr3d/*
 
 # Ignore specific files
 /gxmes/linerider.html
