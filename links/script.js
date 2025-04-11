@@ -3,7 +3,7 @@ function GxmeFiles() {
     window.location.href = 'https://github.com/nullmedia-social/NullWeb/archive/refs/heads/main.zip';
 }
 
-function promptPassword(pswd, altpswd) {
+/* function promptPassword(pswd, altpswd) {
     let userPassword = prompt("This is a password-protected site. Please enter the password.");
     if (userPassword !== pswd && userPassword !== altpswd) {
         alert("Incorrect password.");
@@ -51,4 +51,4 @@ if (localStorage.getItem("auth") !== "medialvl" && localStorage.getItem("auth") 
             window.location = "about:blank";
         }
     });
-}
+} */
