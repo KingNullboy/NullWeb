@@ -184,6 +184,8 @@
 /gxmes/pb/*
 /gxmes/p/*
 /gxmes/rs/*
+/gxmes/rs2/*
+/gxmes/rb/*
 
 # Ignore specific files
 /gxmes/linerider.html
