@@ -194,6 +194,7 @@
 /gxmes/sd/*
 /gxmes/srtd/*
 /gxmes/s/*
+/gxmes/sm64/*
 
 # Ignore specific files
 /gxmes/linerider.html
