@@ -166,6 +166,10 @@
 /gxmes/mm/*
 /gxmes/mt/*
 /gxmes/motox3m/*
+/gxmes/mrs/*
+/gxmes/ng/*
+/gxmes/n/*
+/gxmes/nec/*
 
 # Ignore specific files
 /gxmes/linerider.html
