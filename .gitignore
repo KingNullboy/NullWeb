@@ -171,6 +171,9 @@
 /gxmes/n/*
 /gxmes/nec/*
 /gxmes/nsp/*
+/gxmes/nss/*
+/gxmes/nsr/*
+/gxmes/op/*
 
 # Ignore specific files
 /gxmes/linerider.html
