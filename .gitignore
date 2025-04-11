@@ -192,6 +192,7 @@
 /gxmes/rooftopsnipers/*
 /gxmes/sb/*
 /gxmes/sd/*
+/gxmes/srtd/*
 
 # Ignore specific files
 /gxmes/linerider.html
