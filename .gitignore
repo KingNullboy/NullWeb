@@ -160,6 +160,7 @@
 /gxmes/smb/*
 /gxmes/mr/*
 /gxmes/ms/*
+/gxmes/mrr/*
 
 # Ignore specific files
 /gxmes/linerider.html
