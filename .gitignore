@@ -175,6 +175,7 @@
 /gxmes/nsr/*
 /gxmes/op/*
 /gxmes/onb/*
+/gxmes/ow/*
 
 # Ignore specific files
 /gxmes/linerider.html
