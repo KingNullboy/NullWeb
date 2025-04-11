@@ -163,6 +163,8 @@
 /gxmes/mrr/*
 /gxmes/missiles/*
 /gxmes/mp/*
+/gxmes/mm/*
+/gxmes/mt/*
 
 # Ignore specific files
 /gxmes/linerider.html
