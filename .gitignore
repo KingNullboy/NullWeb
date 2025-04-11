@@ -182,6 +182,7 @@
 /gxmes/pa/*
 /gxmes/pvz/*
 /gxmes/pb/*
+/gxmes/p/*
 
 # Ignore specific files
 /gxmes/linerider.html
