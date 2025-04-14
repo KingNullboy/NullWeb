@@ -456,7 +456,7 @@ async function login() {
 	localStorage.setItem("password", password);
 
 	alert("Login successful!");
-	location.history.back();
+	window.history.back();
 }
 
 document.addEventListener("DOMContentLoaded", function() {
