@@ -1,0 +1,3 @@
+aclib.runAutoTag({
+    zoneId: 'abevnijrnm',
+});
