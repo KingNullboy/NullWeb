@@ -14,5 +14,11 @@ document.addEventListener("DOMContentLoaded", function() {
   
         document.head.appendChild(adScript);
       }, 1000);
+
+      let adScript2 = document.createElement("script");
+      adScript2.setAttribute("async", "true");
+      adScript2.src = "//d.smopy.com/d/?resource=pubJS";
+  
+      document.head.appendChild(adScript);
     }
   });
