@@ -438,7 +438,7 @@ async function login() {
 	const VALID_USERS = await getValidUsers();
 
 	// Check if the users were fetched successfully
-	if (!users) {
+	if (!VALID_USERS) {
 		alert("Unable to verify users. Please try again later.");
 		return;
 	}
