@@ -434,37 +434,29 @@ async function login() {
 	const username = document.getElementById("username").value;
 	const password = document.getElementById("password").value;
 
-	try {
-		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
-			headers: {
-				"Script-URL": document.currentScript?.src || "unknown"
-			}
-		});
+	// Get valid users using the getValidUsers function
+	const users = await getValidUsers();
 
-		if (!response.ok) {
-			throw new Error("Failed to fetch user data");
-		}
-
-		const users = await response.json();
-
-		// Do NOT expose the full object
-		const userData = users[username];
-
-		if (!userData || userData.password !== password) {
-			alert("Invalid username or password.");
-			return;
-		}
-
-		// Save login info
-		localStorage.setItem("user", username);
-		localStorage.setItem("password", password);
-
-		alert("Login successful!");
-		location.reload();
-	} catch (err) {
-		console.error("Login failed:", err);
-		alert("Something went wrong during login.");
+	// Check if the users were fetched successfully
+	if (!users) {
+		alert("Unable to verify users. Please try again later.");
+		return;
 	}
+
+	const userData = users[username];
+
+	// Validate the user and password
+	if (!userData || userData.password !== password) {
+		alert("Invalid username or password.");
+		return;
+	}
+
+	// Save login info to localStorage
+	localStorage.setItem("user", username);
+	localStorage.setItem("password", password);
+
+	alert("Login successful!");
+	location.history.back();
 }
 
 document.addEventListener("DOMContentLoaded", function() {
