@@ -7,10 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
   
       document.head.appendChild(adLib);
       
-      let adScript = document.createElement("script");
-      adScript.setAttribute("type", "text/javascript");
-      adScript.src = "/js/adCashAd.js";
+      setTimeout(function() {
+        let adScript = document.createElement("script");
+        adScript.setAttribute("type", "text/javascript");
+        adScript.src = "/js/adCashAd.js";
   
-      document.head.appendChild(adScript);
+        document.head.appendChild(adScript);
+      }, 1000);
     }
   });
