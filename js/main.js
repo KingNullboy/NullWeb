@@ -19,6 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
       adScript2.setAttribute("async", "true");
       adScript2.src = "//d.smopy.com/d/?resource=pubJS";
   
-      document.head.appendChild(adScript);
+      document.head.appendChild(adScript2);
     }
   });
