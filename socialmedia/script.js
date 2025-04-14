@@ -192,6 +192,7 @@ document.addEventListener('keydown', function(event) {
 	}
 });
 
+if (window.location.href !== window.location.protocol + "//" + document.domain + "/socialmedia/login" && window.location.href !== window.location.protocol + "//" + document.domain + "/socialmedia/login.html") {
 	// Listen for button clicks for formatting (on mobile and desktop)
 	document.getElementById('boldBtn').addEventListener('click', function() {
 	    addBoldTags(false);
@@ -220,8 +221,8 @@ document.addEventListener('keydown', function(event) {
 	document.getElementById('insertImageBtn').addEventListener('click', function() {
     	addImageTags(false);
 	});
+}
 });
-
 async function getValidUsers() {
 	try {
 		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
