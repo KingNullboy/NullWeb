@@ -323,6 +323,7 @@ async function getGitHubToken() {
   
 	// Get nickname
 	const nickname = eval(`VALID_USERS.users.${currentUser}.nickname`);
+	const realNickname = eval(`VALID_USERS.users.${currentUser}.realNickname`);
 
 	const TOKEN = await getGitHubToken();
 	if (!TOKEN) {
@@ -382,7 +383,7 @@ async function getGitHubToken() {
 			"Content-Type": "application/json"
 		},
 		body: JSON.stringify({
-			message: "New post by " + nickname,
+			message: "New post by " + realNickname,
 			content: encodedContent,
 			sha: fileJson.sha
 		})
