@@ -435,7 +435,7 @@ async function login() {
 	const password = document.getElementById("password").value;
 
 	// Get valid users using the getValidUsers function
-	const users = await getValidUsers();
+	const VALID_USERS = await getValidUsers();
 
 	// Check if the users were fetched successfully
 	if (!users) {
@@ -443,7 +443,7 @@ async function login() {
 		return;
 	}
 
-	const userData = users[username];
+	const userData = eval(`VALID_USERS.users.${username}`)
 
 	// Validate the user and password
 	if (!userData || userData.password !== password) {
