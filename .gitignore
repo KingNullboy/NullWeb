@@ -299,7 +299,7 @@ logo.png
 
 # Ignore other specific directories
 /static/*
-#/js/*
+/js/*
 /iosappifier/*
 
 # Unignore certain files
