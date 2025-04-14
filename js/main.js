@@ -4,7 +4,5 @@ document.addEventListener("DOMContentLoaded", function() {
       adScript.setAttribute("data-cfasync", "false");
       adScript.setAttribute("type", "text/javascript");
       adScript.src = "https://pl26379383.profitableratecpm.com/cd/95/b5/cd95b527973b743989aca62366c43fdb.js";
-  
-      document.head.appendChild(adScript);
     }
   });
