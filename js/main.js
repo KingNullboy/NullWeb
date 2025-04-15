@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
-      let adLib = document.createElement("script");
+      /* let adLib = document.createElement("script");
       adLib.setAttribute("id", "aclib");
       adLib.setAttribute("type", "text/javascript");
       adLib.src = "//acscdn.com/script/aclib.js";
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         adScript.src = "/js/adCashAd.js";
   
         document.head.appendChild(adScript);
-      }, 1000);
+      }, 1000); */
 
       let adScript2 = document.createElement("script");
       adScript2.setAttribute("type", "text/javascript");
