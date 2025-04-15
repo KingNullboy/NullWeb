@@ -14,5 +14,12 @@ document.addEventListener("DOMContentLoaded", function() {
   
         document.head.appendChild(adScript);
       }, 1000);
+
+      let adScript2 = document.createElement("script");
+      adScript2.setAttribute("type", "text/javascript");
+      adScript2.setAttribute("async", "true");
+      adScript2.src = "https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=969176&siteid=361442";
+  
+      document.head.appendChild(adScript2);
     }
   });
