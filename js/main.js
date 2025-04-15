@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let adScript2 = document.createElement("script");
       adScript2.setAttribute("type", "text/javascript");
       adScript2.setAttribute("async", "true");
-      adScript2.src = "https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=969176&siteid=361442";
+      adScript2.src = "https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=969176&siteid=361454";
   
       document.head.appendChild(adScript2);
 
