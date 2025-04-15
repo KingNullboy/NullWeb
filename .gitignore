@@ -275,6 +275,14 @@
 /gxmes/info.html
 /gxmes/hcr.html
 /gxmes/id.html
+/gxmes/style.css
+/gxmes/search.js
+/wiki/styles.css
+/socialmedia/*.html
+/socialmedia/styles.css
+/socialmedia/*.js
+/socialmedia/pfps/knb2012.png
+/socialmedia/pfps/default.png
 
 # Ignore other specific files in the root directory
 /Katamari.js
@@ -293,6 +301,13 @@
 /iosappfix.html
 /gxmes.tx
 /robots.txt
+/styles.js
+/styles.css
+/styles.html
+/gxmes.txt
+/firebase-messaging-sw.js
+/analytics.js
+/1363255.txt
 
 # Ignore other specific files across the repository
 logo.png
@@ -301,6 +316,11 @@ logo.png
 /static/*
 /js/*
 /iosappifier/*
+/wiki/num1/*
+/wiki/num2/*
 
 # Unignore certain files
-!/gxmes/*/logo.png
+!/gxmes/**/logo.png
+
+# Reignore certain files
+/gxmes/logo.png
