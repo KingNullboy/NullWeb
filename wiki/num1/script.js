@@ -1,4 +1,4 @@
-/* function password(pswd) {
+function password(pswd) {
     let password = prompt("This is a password-protected site. Please enter the password.");
     if (password !== pswd) {
        alert("Incorrect password.");
@@ -10,4 +10,4 @@
 
 if (localStorage.getItem("auth") !== "medialvl" && localStorage.getItem("auth") !== "gxmelvl") {
     password("NullGamesPass-123");
-} */
+}
