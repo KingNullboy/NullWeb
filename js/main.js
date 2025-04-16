@@ -7,12 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
   
       document.head.appendChild(adScript);
       
-      setTimeout(function() {
-        let adScript2 = document.createElement("script");
-        adScript2.setAttribute("async", "true");
-        adScript2.src = "https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=969176&siteid=361500";
+      let adScript2 = document.createElement("script");
+      adScript2.setAttribute("async", "true");
+      adScript2.src = "https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=969176&siteid=361500";
   
-        document.head.appendChild(adScript2);
-      }, 1000);
+      document.head.appendChild(adScript2)
     }
   });
