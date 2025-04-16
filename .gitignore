@@ -301,22 +301,18 @@
 /click.mp3
 /CNAME
 /desktop.ini
-/adType1.js
-/adType2.js
 /iosapp.js
 /README.md
 /openblank.js
 /portraittext.js
 /NullWeb_App.apk
 /iosappfix.html
-/gxmes.tx
 /robots.txt
 /styles.js
 /styles.css
 /styles.html
 /gxmes.txt
 /firebase-messaging-sw.js
-/1363255.txt
 
 # Ignore other specific files across the repository
 logo.png
