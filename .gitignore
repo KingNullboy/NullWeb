@@ -203,6 +203,7 @@
 /gxmes/spacegarden/*
 /gxmes/spelunky/*
 /gxmes/sm/*
+/gxmes/sa/*
 
 # Ignore specific files
 /gxmes/linerider.html
