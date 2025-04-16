@@ -188,6 +188,7 @@
 /gxmes/rb/*
 /gxmes/rl/*
 /gxmes/rb/*
+/gxmes/rf/*
 /gxmes/rv/*
 /gxmes/rooftopsnipers/*
 /gxmes/sb/*
@@ -197,6 +198,7 @@
 /gxmes/sm64/*
 /gxmes/smokingbarrels/*
 /gxmes/soundboard/*
+/gxmes/ooc/*
 
 # Ignore specific files
 /gxmes/linerider.html
@@ -317,9 +319,6 @@ logo.png
 /iosappifier/*
 /wiki/num1/*
 /wiki/num2/*
-
-# Unignore certain files
-!/gxmes/**/logo.png
 
 # Reignore certain files
 /gxmes/logo.png
