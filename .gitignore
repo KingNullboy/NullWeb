@@ -201,6 +201,7 @@
 /gxmes/ooc/*
 /gxmes/spacecompany/*
 /gxmes/spacegarden/*
+/gxmes/spelunky/*
 
 # Ignore specific files
 /gxmes/linerider.html
