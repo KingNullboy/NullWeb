@@ -199,6 +199,8 @@
 /gxmes/smokingbarrels/*
 /gxmes/soundboard/*
 /gxmes/ooc/*
+/gxmes/spacecompany/*
+/gxmes/spacegarden/*
 
 # Ignore specific files
 /gxmes/linerider.html
