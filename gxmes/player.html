@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>G*me Player - NullG*mes</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/jpg" href="logo.png"/>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<!-- JS -->
+	<script src="/js/main.js"></script>
+	<script src="/styles.js"></script>
+
+	<!-- Mobile Meta -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const params = new URLSearchParams(window.location.search);
+			const which = params.get("which");
+			const iframe = document.getElementById("gameFrame");
+
+			if (which && iframe) {
+				iframe.src = "./" + encodeURIComponent(which);
+			}
+
+			const fullscreenBtn = document.getElementById("fullscreenBtn");
+			fullscreenBtn.addEventListener("click", () => {
+				if (iframe.requestFullscreen) {
+					iframe.requestFullscreen();
+				} else if (iframe.webkitRequestFullscreen) {
+					iframe.webkitRequestFullscreen();
+				} else if (iframe.msRequestFullscreen) {
+					iframe.msRequestFullscreen();
+				} else {
+					alert("Fullscreen not supported by this browser.");
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<header>
+		<a href="../"><img class="logo" src="logo.png" alt="logo" width="40"></a>
+		<h1>NullG*mes</h1>
+		<nav>
+			<ul class="nav__links">
+				<li><button onclick="window.location.href='index.html'">Home</button></li>
+				<li><button onclick="window.location.href='info.html'">Information</button></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main>
+		<center>
+			<iframe id="gameFrame" width="800" height="600" frameborder="0" allowfullscreen></iframe>
+			<br>
+			<button id="fullscreenBtn">Fullscreen</button>
+		</center>
+	</main>
+</body>
+</html>
