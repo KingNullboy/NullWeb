@@ -211,6 +211,7 @@
 /gxmes/tfe/
 /gxmes/th/
 /gxmes/tb/
+/gxmes/theheist/
 
 # Ignore specific files
 /gxmes/ss.html
@@ -328,3 +329,6 @@ logo.png
 /iosappifier/
 /wiki/num1/
 /wiki/num2/
+
+# Unignore specific files
+!/gxmes/**/logo.png
