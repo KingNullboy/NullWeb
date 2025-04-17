@@ -86,9 +86,7 @@ nav {
   background-color: var(--bg-color);
   color: var(--text-color);
   height: 50px;
-  border: 4px solid var(--border-color);
   border-radius: 25px;
-  outline: 4px solid var(--border-color);
   justify-content: middle;
 }
 
