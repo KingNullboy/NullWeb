@@ -399,7 +399,7 @@ async function getGitHubToken() {
 	window.location.reload();
   }
 
-  async function fetchBackendPassword() {
+async function getBackendPassword() {
 	try {
 		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/auth", {
 			method: "GET",
@@ -407,8 +407,6 @@ async function getGitHubToken() {
 				"Script-URL": document.currentScript?.src || "unknown"
 			}
 		});
-		if (!response.ok) throw new Error("Forbidden or failed");
-
 		const data = await response.json();
 		return data.medialvl;
 	} catch (error) {
@@ -417,23 +415,20 @@ async function getGitHubToken() {
 	}
 }
 
-async function checkPassword() {
-	const medialvl = await fetchBackendPassword();
-
-	if (!medialvl) {
-		// Optional: handle failure gracefully
-		alert("Could not verify access.");
-		window.location.href = "/auth.html";
-		return;
-	}
-
-	const stored = localStorage.getItem("auth");
-	if (stored !== medialvl) {
-		window.location.href = "/auth.html";
+async function password() {
+	const pswd = await getBackendPassword();
+	let userInput = prompt("This is a password-protected site. Please enter the password.");
+	if (pswd !== userInput) {
+		alert("Incorrect password.");
+		window.location.href = "about:blank";
+	} else {
+		localStorage.setItem("auth", "medialvl");
 	}
 }
 
-checkPassword();
+if (localStorage.getItem("auth") !== "medialvl") {
+	password();
+}
 
 async function login() {
 	const username = document.getElementById("username").value;
