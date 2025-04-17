@@ -40,6 +40,7 @@ input {
 h1,
 h1#pagetitle {
   color: var(--text-color);
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 h1#pagetitle {
