@@ -1,5 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* Global cursor */
+* {
+    cursor: url("./cursors/Pointer.cur") 0 0, pointer;
+}
+
+/* Specific cursors */
+button {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+    transition: color 0.3s ease, background-color 0.3s ease;
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+button:hover {
+    background-color: var(--text-color);
+    color: var(--background-color);
+}
+
+button:active {
+    cursor: url("./cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+a[id=link]:hover {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+canvas {
+    cursor: url("./cursors/Cross.cur") 0 0, crosshair;
+}
+
+body:active {
+    cursor: url("./cursors/Move.cur") 0 0, move;
+}
+
+/* Contextual dynamic cursors */
+.resize-mode {
+    cursor: url("./cursors/Vert.cur") 0 0, ns-resize;
+}
+
+.zoom-in {
+    cursor: url("./cursors/Zoom-in.cur") 0 0, zoom-in;
+}
+
+.zoom-out {
+    cursor: url("./cursors/Zoom-out.cur") 0 0, zoom-out;
+}
+
+.dragging {
+    cursor: url("./cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+.text-cursor {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+.waiting {
+    cursor: url("./cursors/Unavailable.cur") 0 0, wait;
+}
+
+/* Original style rules preserved below */
 body {
     background-color: var(--bg-color);
     font-family: var(--font-family);
@@ -15,11 +82,6 @@ a[id=link] {
     color: var(--link-color);
     text-decoration: underline;
     text-decoration-color: var(--link-color);
-}
-
-a[id=link]:hover {
-    cursor: pointer;
-    color: var(--link-hover-color);
 }
 
 nav {
@@ -62,7 +124,7 @@ h1[id=pagetitle] {
 }
 
 .logo {
-    cursor: pointer;
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
 }
 
 header {
@@ -86,16 +148,4 @@ header {
     background-color: var(--bg-color);
     font-size: 20px;
     color: var(--text-color);
-}
-
-button {
-    background-color: var(--bg-color);
-    border-color: var(--border-color);
-    color: var(--text-color);
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: var(--text-color);
-    color: var(--background-color);
 }
