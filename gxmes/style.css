@@ -13,17 +13,25 @@
 }
 
 /* =========================
+   General Cursor + Font
+   ========================= */
+* {
+  font-family: var(--font-family);
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Pointer.cur") 0 0, pointer;
+}
+
+/* =========================
    Base Elements
    ========================= */
 body {
   background-color: var(--bg-color);
-  font-family: var(--font-family);
   color: var(--text-color);
 }
 
 input {
   border-radius: 5px;
   background-color: #363636;
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 /* =========================
@@ -31,7 +39,6 @@ input {
    ========================= */
 h1,
 h1#pagetitle {
-  font-family: var(--font-family);
   color: var(--text-color);
 }
 
@@ -46,21 +53,23 @@ h1#pagetitle {
 button {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: var(--font-family);
   font-size: 20px;
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 20px;
   transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Link.cur") 0 0, pointer;
+}
+
+button:active {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Grabbing.cur") 0 0, grabbing;
 }
 
 button:hover {
-  cursor: pointer;
   background-color: var(--text-color);
   color: var(--bg-color);
 }
 
-/* Specific button style */
 .botbtn button {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -69,7 +78,6 @@ button:hover {
   padding: 5px;
 }
 
-/* Nav link buttons */
 .nav__links button {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -86,7 +94,6 @@ nav {
   background-color: var(--bg-color);
   color: var(--text-color);
   height: 50px;
-  border-radius: 25px;
   justify-content: middle;
 }
 
@@ -107,6 +114,7 @@ a#homebutton,
 a#infobutton {
   color: var(--text-color);
   justify-content: middle;
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Link.cur") 0 0, pointer;
 }
 
 a#homebutton,
@@ -118,7 +126,7 @@ a#infobutton {
    Logo / Header
    ========================= */
 .logo {
-  cursor: pointer;
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Pointer.cur") 0 0, pointer;
 }
 
 img#logo {
@@ -144,12 +152,14 @@ header {
 #border-color {
   border-radius: 10px;
   width: 25px;
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 #font-family {
   background-color: #363636;
   color: #ffffff;
   border-radius: 10px;
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 /* =========================
@@ -164,4 +174,36 @@ header {
   border-radius: 20px;
   background-color: var(--bg-color);
   color: var(--text-color);
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
+}
+
+/* =========================
+   Utility Cursor Classes
+   ========================= */
+canvas {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Cross.cur") 0 0, crosshair;
+}
+
+.resize-mode {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Vert.cur") 0 0, ns-resize;
+}
+
+.zoom-in {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Zoom-in.cur") 0 0, zoom-in;
+}
+
+.zoom-out {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Zoom-out.cur") 0 0, zoom-out;
+}
+
+.dragging {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+a, p, p * {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
+}
+
+.waiting {
+  cursor: url("https://website.nullweb.byethost6.com/cursors/Unavailable.cur") 0 0, wait;
 }
