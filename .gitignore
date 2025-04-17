@@ -208,6 +208,9 @@
 /gxmes/sf/
 /gxmes/smc/
 /gxmes/swerve/
+/gxmes/tfe/
+/gxmes/th/
+/gxmes/tb/
 
 # Ignore specific files
 /gxmes/ss.html
