@@ -207,8 +207,10 @@
 /gxmes/sh/
 /gxmes/sf/
 /gxmes/smc/
+/gxmes/swerve/
 
 # Ignore specific files
+/gxmes/ss.html
 /gxmes/linerider.html
 /links/script.js
 /gxmes/2048game.html
