@@ -1,7 +1,98 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-/* General body styles */
+/* Global cursor */
+* {
+    cursor: url("./cursors/Pointer.cur") 0 0, pointer;
+}
+
+/* Specific cursors */
+button {
+    font-family: var(--font-family, Lato);
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: var(--border-color, #000000);
+    background-color: var(--button-bg-color, #FF0000);
+    color: var(--text-color, #FFFFFF);
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+button:hover {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+button:active {
+    cursor: url("./cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+a[id=link]:hover {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+textarea[id=postContent] {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+canvas {
+    cursor: url("./cursors/Cross.cur") 0 0, crosshair;
+}
+
+body:active {
+    cursor: url("./cursors/Move.cur") 0 0, move;
+}
+
+.formatBtn:hover,
+#scrollBtn:hover,
+#submit:hover,
+#reloadBtn:hover {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+.reply-button {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+#reloadBtn {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+#reloadBtn:hover {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+/* Contextual dynamic cursors */
+.resize-mode {
+    cursor: url("./cursors/Vert.cur") 0 0, ns-resize;
+}
+
+.zoom-in {
+    cursor: url("./cursors/Zoom-in.cur") 0 0, zoom-in;
+}
+
+.zoom-out {
+    cursor: url("./cursors/Zoom-out.cur") 0 0, zoom-out;
+}
+
+.dragging {
+    cursor: url("./cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+.text-cursor {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+.waiting {
+    cursor: url("./cursors/Unavailable.cur") 0 0, wait;
+}
+
+/* Original Styles */
 html {
     font-family: var(--font-family, Lato);
     color: var(--text-color, #FFFFFF);
@@ -28,7 +119,6 @@ h2 {
     color: var(--text-color, #FFFFFF);
 }
 
-/* Links */
 a {
     font-family: var(--font-family, Lato);
     color: var(--text-color, #FFFFFF);
@@ -40,12 +130,6 @@ a[id=link] {
     text-decoration-color: var(--link-color, #0000FF);
 }
 
-a[id=link]:hover {
-    cursor: pointer;
-    color: var(--link-hover-color, #0000FF);
-}
-
-/* Navigation Bar */
 nav {
     background-color: var(--bg-color, #000000);
     border-radius: 25px;
@@ -82,7 +166,6 @@ header {
     border: 10px solid var(--border-color, #FFFFFF);
 }
 
-/* Form Styles */
 div[id=form] {
     border-width: 2px;
     border-color: var(--border-color, #000000);
@@ -96,7 +179,6 @@ div[id=form] {
     color: var(--text-color, #FFFFFF);
 }
 
-/* Input Fields */
 input, textarea {
     border-radius: 5px;
     border-color: var(--border-color, #000000);
@@ -117,21 +199,11 @@ input[id=title], textarea[id=postContent] {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#scrollBtn:hover {
-    background-color: var(--border-color);
-    color: var(--bg-color);
-}
-
 #submit {
     border-color: var(--border-color);
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#submit:hover {
-    background-color: var(--border-color);
-    color: var(--bg-color);
 }
 
 #login, #headerBtn {
@@ -144,26 +216,11 @@ textarea[id=postContent] {
     resize: both;
 }
 
-/* Buttons */
-button {
-    font-family: var(--font-family, Lato);
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: var(--border-color, #000000);
-    background-color: var(--button-bg-color, #FF0000);
-    color: var(--text-color, #FFFFFF);
-}
-
-button:hover {
-    cursor: pointer;
-}
-
 .reply-button {
     background-color: transparent;
     border-color: transparent;
 }
 
-/* Article (Posts) */
 article {
     border-radius: 5px;
     border-width: 2px;
@@ -178,7 +235,6 @@ article {
     margin-bottom: 20px;
 }
 
-/* Replies */
 #reply {
     border-left: 2px solid var(--reply-border-color, #888888);
     margin-left: 20px;
@@ -189,7 +245,6 @@ article {
     padding-bottom: 0;
 }
 
-/* Remove gaps between replies */
 article + #reply, #reply + #reply {
     margin-top: 0;
 }
@@ -199,11 +254,6 @@ article + #reply, #reply + #reply {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.formatBtn:hover {
-    background-color: var(--border-color);
-    color: var(--bg-color);
 }
 
 .notification {
@@ -226,10 +276,4 @@ article + #reply, #reply + #reply {
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#reloadBtn:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    cursor: pointer;
 }
