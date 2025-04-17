@@ -8,6 +8,64 @@
     --font-family: 'Lato', sans-serif;
 }
 
+/* Global cursor and font */
+* {
+    font-family: var(--font-family);
+    cursor: url("./cursors/Pointer.cur") 0 0, pointer;
+}
+
+/* Specific element cursors */
+button {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+button:active {
+    cursor: url("./cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+a {
+    cursor: url("./cursors/Link.cur") 0 0, pointer;
+}
+
+canvas {
+    cursor: url("./cursors/Cross.cur") 0 0, crosshair;
+}
+
+body:active {
+    cursor: url("./cursors/Move.cur") 0 0, move;
+}
+
+/* Contextual dynamic cursors */
+.resize-mode {
+    cursor: url("./cursors/Vert.cur") 0 0, ns-resize;
+}
+
+.zoom-in {
+    cursor: url("./cursors/Zoom-in.cur") 0 0, zoom-in;
+}
+
+.zoom-out {
+    cursor: url("./cursors/Zoom-out.cur") 0 0, zoom-out;
+}
+
+.dragging {
+    cursor: url("./cursors/Grabbing.cur") 0 0, grabbing;
+}
+
+.text-cursor {
+    cursor: url("./cursors/Text.cur") 0 0, text;
+}
+
+.waiting {
+    cursor: url("./cursors/Unavailable.cur") 0 0, wait;
+}
+
 body {
     background-color: var(--bg-color);
     font-family: var(--font-family);
