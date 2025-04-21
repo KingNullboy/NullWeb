@@ -325,6 +325,7 @@
 /styles.html
 /gxmes.txt
 /firebase-messaging-sw.js
+/qrcode.png
 
 # Ignore other specific files across the repository
 logo.png
