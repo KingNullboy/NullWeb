@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const params = new URLSearchParams(window.location.search);
 	const which = params.get("which");
+    const name = params.get("name");
 	const iframe = document.getElementById("gameFrame");
 
 	if (which && iframe) {
@@ -20,4 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			alert("Fullscreen not supported by this browser.");
 		}
 	});
+	
+	if (name !== null) {
+    	document.head.title = name + " — NullG*mes Player";
+	} else {
+		document.head.title = "NullG*mes Player"
+	}
 });
