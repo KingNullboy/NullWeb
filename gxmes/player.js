@@ -24,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if (name !== null) {
     	document.title = name + " — NullG*mes Player";
-		document.getElementById("name").innerHTML = name;
 	} else {
 		document.title = "NullG*mes Player"
-		document.getElementById("name").innerHTML = "NullG*mes Player";
 	}
 });
