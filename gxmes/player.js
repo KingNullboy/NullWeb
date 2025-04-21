@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const iframe = document.getElementById("gameFrame");
 	const saveButton = document.getElementById("saveButton");
 
-	saveButton.display = "none";
+	saveButton.style.display = "none";
 
 	if (which && iframe) {
 		// Prepend the '/gxmes/' directory to the path
@@ -33,6 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	if (which === "spacecompany") {
 		saveButton.style.display = "block";
-		saveButton.onclick = "document.getElementById('gameFrame').contentWindow.Game.save()";
+		saveButton.setAttribute("onclick", "document.getElementById('gameFrame').contentWindow.Game.save()")
 	}
 });
