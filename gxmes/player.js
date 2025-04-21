@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	const which = params.get("which");
     const name = params.get("name");
 	const iframe = document.getElementById("gameFrame");
+	const saveButton = document.getElementById("saveButton");
+
+	saveButton.display = "none";
 
 	if (which && iframe) {
 		// Prepend the '/gxmes/' directory to the path
@@ -26,5 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     	document.title = name + " — NullG*mes Player";
 	} else {
 		document.title = "NullG*mes Player"
+	}
+
+	if (which === "spacecompany") {
+		saveButton.style.display = "block";
+		saveButton.onclick = "document.getElementById('gameFrame').contentWindow.Game.save()";
 	}
 });
