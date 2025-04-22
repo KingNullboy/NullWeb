@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	};
 
-	saveButton("spacecompany", function() {
+	save("spacecompany", function() {
 		document.getElementById('gameFrame').contentWindow.Game.save();
 	});
 });
