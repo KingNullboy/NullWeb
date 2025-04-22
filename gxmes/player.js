@@ -31,8 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.title = "NullG*mes Player"
 	}
 
-	if (which === "spacecompany") {
-		saveButton.style.display = "block";
-		saveButton.setAttribute("onclick", "document.getElementById('gameFrame').contentWindow.Game.save()")
-	}
+	function saveButton(game, how) {
+		if (which.includes(game)) {
+			saveButton.style.display = "block";
+			saveButton.setAttribute("onclick", how)
+		}
+	};
+
+	saveButton("spacecompany", function() {
+		document.getElementById('gameFrame').contentWindow.Game.save();
+	});
 });
