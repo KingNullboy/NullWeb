@@ -1,61 +1,86 @@
-const CACHE_NAME = 'nullweb-cache-v1';
+const CACHE_NAME = 'offline-cache-v2';
 const OFFLINE_URL = '/offline.html';
-const OFFLINE_EXCLUDE = /^\/socialmedia\//;
+const EXCLUDED_PATH = '/socialmedia/';
 
-const FONT_STYLESHEET = 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap';
-
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      await cache.addAll([
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.addAll([
         OFFLINE_URL,
         '/styles.css',
-        FONT_STYLESHEET
-      ]);
-      // Fetch and cache the font files referenced in the stylesheet
-      fetch(FONT_STYLESHEET).then(async res => {
-        const cssText = await res.text();
-        const fontUrls = Array.from(cssText.matchAll(/url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g), m => m[1]);
-        const fontCache = await caches.open(CACHE_NAME);
-        fontUrls.forEach(url => fontCache.add(url));
-      });
-    })()
+        'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap',
+        'https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHjx4wXiWtFCc.woff2',
+      ])
+    )
   );
-  self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(clients.claim());
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener('fetch', event => {
-  const { request } = event;
+self.addEventListener('fetch', (event) => {
+  const request = event.request;
+  const url = new URL(request.url);
 
-  if (request.method !== 'GET') return;
+  // Ignore non-GET or chrome-extension:// or extension resources
+  if (
+    request.method !== 'GET' ||
+    url.protocol === 'chrome-extension:' ||
+    url.href.includes('extension') // extra safety for other browser schemes
+  ) {
+    return;
+  }
 
-  event.respondWith(
-    (async () => {
-      try {
-        const networkResponse = await fetch(request);
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(request, networkResponse.clone());
-        return networkResponse;
-      } catch (error) {
-        const cache = await caches.open(CACHE_NAME);
-        const cachedResponse = await cache.match(request);
-        if (cachedResponse) return cachedResponse;
+  // If the request is for CSS, we need to fetch and parse the CSS to find additional resource requests
+  if (request.headers.get('Accept') && request.headers.get('Accept').includes('text/css')) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          const clone = response.clone();
 
-        const pathname = new URL(request.url).pathname;
-        if (
-          request.destination === 'document' &&
-          !OFFLINE_EXCLUDE.test(pathname)
-        ) {
-          return await cache.match(OFFLINE_URL);
-        }
+          // Fetch and cache any external resources referenced in CSS files (like images, fonts, etc.)
+          response.text().then((cssText) => {
+            // Match all URL references, including background images, font files, etc.
+            const urlMatches = cssText.match(/url\(['"]?(https?:\/\/[^'")]+)['"]?\)/g);
+            if (urlMatches) {
+              const resourceUrls = urlMatches.map((match) => match.match(/(https?:\/\/[^'")]+)/)[0]);
+              caches.open(CACHE_NAME).then((cache) => {
+                resourceUrls.forEach((resourceUrl) => {
+                  if (!resourceUrl.startsWith(EXCLUDED_PATH)) {
+                    cache.add(resourceUrl).catch(() => {});
+                  }
+                });
+              });
+            }
+          });
 
-        return Response.error();
-      }
-    })()
-  );
+          return response;
+        })
+        .catch(() => caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL)))
+    );
+  } else {
+    // Handle all other requests (non-CSS)
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response.status === 206) {
+            throw new Error('Partial content not cacheable');
+          }
+
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            if (!url.pathname.startsWith(EXCLUDED_PATH)) {
+              cache.put(request, clone).catch(() => {});
+            }
+          });
+
+          return response;
+        })
+        .catch(() =>
+          caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))
+        )
+    );
+  }
 });
