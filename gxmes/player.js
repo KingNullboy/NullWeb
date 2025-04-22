@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function save(game, how) {
 		if (which.includes(game)) {
-			saveButton.style.display = "block";
+			saveButton.style.display = "inline-block";
 			saveButton.setAttribute("onclick", how)
 		}
 	};
