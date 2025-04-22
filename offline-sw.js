@@ -36,41 +36,40 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cachedResponse) => {
       if (cachedResponse) return cachedResponse;
 
-      return fetch(request)
-        .then((networkResponse) => {
-          if (networkResponse.status === 206) throw new Error('Partial content');
+      return fetch(request).then((networkResponse) => {
+        // Clone the response before using it
+        const responseClone = networkResponse.clone();
 
-          const clone = networkResponse.clone();
-
-          // If it's a CSS file, scan for url(...) resources and cache them too
-          if (
-            request.headers.get('Accept') &&
-            request.headers.get('Accept').includes('text/css')
-          ) {
-            clone.text().then((cssText) => {
-              const urlMatches = cssText.match(/url\(['"]?(https?:\/\/[^'")]+)['"]?\)/g);
-              if (urlMatches) {
-                const resourceUrls = urlMatches.map((match) => match.match(/(https?:\/\/[^'")]+)/)[0]);
-                caches.open(CACHE_NAME).then((cache) => {
-                  resourceUrls.forEach((resUrl) => {
-                    if (!resUrl.startsWith(EXCLUDED_PATH)) {
-                      cache.add(resUrl).catch(() => {});
-                    }
-                  });
+        // If it's a CSS file, scan for url(...) resources and cache them too
+        if (
+          request.headers.get('Accept') &&
+          request.headers.get('Accept').includes('text/css')
+        ) {
+          responseClone.text().then((cssText) => {
+            const urlMatches = cssText.match(/url\(['"]?(https?:\/\/[^'")]+)['"]?\)/g);
+            if (urlMatches) {
+              const resourceUrls = urlMatches.map((match) => match.match(/(https?:\/\/[^'")]+)/)[0]);
+              caches.open(CACHE_NAME).then((cache) => {
+                resourceUrls.forEach((resUrl) => {
+                  if (!resUrl.startsWith(EXCLUDED_PATH)) {
+                    cache.add(resUrl).catch(() => {});
+                  }
                 });
-              }
-            });
-          }
-
-          caches.open(CACHE_NAME).then((cache) => {
-            if (!url.pathname.startsWith(EXCLUDED_PATH)) {
-              cache.put(request, networkResponse.clone()).catch(() => {});
+              });
             }
           });
+        }
 
-          return networkResponse;
-        })
-        .catch(() => caches.match(OFFLINE_URL));
+        // Cache the cloned response
+        caches.open(CACHE_NAME).then((cache) => {
+          if (!url.pathname.startsWith(EXCLUDED_PATH)) {
+            cache.put(request, responseClone).catch(() => {});
+          }
+        });
+
+        // Return the original network response
+        return networkResponse;
+      }).catch(() => caches.match(OFFLINE_URL));
     })
   );
 });
