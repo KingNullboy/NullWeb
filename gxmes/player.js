@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.title = "NullG*mes Player"
 	}
 
-	function saveButton(game, how) {
+	function save(game, how) {
 		if (which.includes(game)) {
 			saveButton.style.display = "block";
 			saveButton.setAttribute("onclick", how)
