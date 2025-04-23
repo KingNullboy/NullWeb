@@ -34,11 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	function save(game, how) {
 		if (which.includes(game)) {
 			saveButton.style.display = "inline-block";
-			saveButton.setAttribute("onclick", how)
+			saveButton.setAttribute("onclick", how);
 		}
 	};
 
-	save("spacecompany", function() {
-		document.getElementById('gameFrame').contentWindow.Game.save();
-	});
+	save("spacecompany", "document.getElementById('gameFrame').contentWindow.Game.save();");
 });
