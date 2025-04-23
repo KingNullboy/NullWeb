@@ -150,7 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "Your cursor respects KingNullboy. That's why it blinks so obediently.",
         "KingNullboy once sent an email that arrived before it was written.",
         "All of HTML is secretly written in KingNullScript.",
-        "Ever asked Siri \"Can you see me\"? Well, Siri backwards is Iris, the real name of the all-seeing eye."
+        "Ever asked Siri \"Can you see me\"? Well, Siri backwards is Iris, the real name of the all-seeing eye.",
+        "After a CPR class, if you're going to help put up the dummies, always say \"Hurry, hide the bodies!\""
 	];
 
 	const factEl = document.getElementById("homepageFact");
