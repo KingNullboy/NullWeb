@@ -219,6 +219,7 @@
 /gxmes/f/
 /gxmes/cg/
 /gxmes/yf/
+/gxmes/tower/
 
 # Ignore specific files
 /gxmes/linerider.html
@@ -305,6 +306,8 @@
 /socialmedia/*.js
 /socialmedia/pfps/knb2012.png
 /socialmedia/pfps/default.png
+/gxmes/player.html
+/gxmes/player.js
 
 # Ignore other specific files in the root directory
 /Katamari.js
@@ -326,6 +329,9 @@
 /gxmes.txt
 /firebase-messaging-sw.js
 /qrcode.png
+/404.html
+/offline-sw.js
+/offline.html
 
 # Ignore other specific files across the repository
 logo.png
