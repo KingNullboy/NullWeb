@@ -24,31 +24,29 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Skip non-GET and extension URLs
+  // Ignore non-GET and extension requests
   if (
     request.method !== 'GET' ||
     url.protocol === 'chrome-extension:' ||
     url.href.includes('extension')
   ) return;
 
-  // Try cache first, then network
   event.respondWith(
-    caches.match(request).then((cachedResponse) => {
-      if (cachedResponse) return cachedResponse;
-
-      return fetch(request).then((networkResponse) => {
-        // Clone the response before using it
+    fetch(request)
+      .then((networkResponse) => {
+        // Clone for caching
         const responseClone = networkResponse.clone();
 
-        // If it's a CSS file, scan for url(...) resources and cache them too
+        // Scan CSS for linked resources and cache them
         if (
-          request.headers.get('Accept') &&
-          request.headers.get('Accept').includes('text/css')
+          request.headers.get('Accept')?.includes('text/css')
         ) {
           responseClone.text().then((cssText) => {
             const urlMatches = cssText.match(/url\(['"]?(https?:\/\/[^'")]+)['"]?\)/g);
             if (urlMatches) {
-              const resourceUrls = urlMatches.map((match) => match.match(/(https?:\/\/[^'")]+)/)[0]);
+              const resourceUrls = urlMatches.map(match =>
+                match.match(/(https?:\/\/[^'")]+)/)[0]
+              );
               caches.open(CACHE_NAME).then((cache) => {
                 resourceUrls.forEach((resUrl) => {
                   if (!resUrl.startsWith(EXCLUDED_PATH)) {
@@ -60,16 +58,17 @@ self.addEventListener('fetch', (event) => {
           });
         }
 
-        // Cache the cloned response
+        // Cache the request if not excluded
         caches.open(CACHE_NAME).then((cache) => {
           if (!url.pathname.startsWith(EXCLUDED_PATH)) {
             cache.put(request, responseClone).catch(() => {});
           }
         });
 
-        // Return the original network response
         return networkResponse;
-      }).catch(() => caches.match(OFFLINE_URL));
-    })
+      })
+      .catch(() =>
+        caches.match(request).then(res => res || caches.match(OFFLINE_URL))
+      )
   );
 });
