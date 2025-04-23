@@ -149,7 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "KingNullboy's code editor autocorrects reality itself.",
         "Your cursor respects KingNullboy. That's why it blinks so obediently.",
         "KingNullboy once sent an email that arrived before it was written.",
-        "All of HTML is secretly written in KingNullScript."
+        "All of HTML is secretly written in KingNullScript.",
+        "Ever asked Siri \"Can you see me\"? Well, Siri backwards is Iris, the real name of the all-seeing eye."
 	];
 
 	const factEl = document.getElementById("homepageFact");
