@@ -132,7 +132,7 @@ function setStory(storyNumber) {
             ]
         },
         num8: {
-            story: `At the WORD1 of the WORD2, a WORD3 was WORD4 in search of WORD5 who had WORD6 them. They journeyed through the WORD7 mountain and crossed the WORD8 river to find the WORD9 that held the WORD10 they were after. With WORD11 and WORD12 determination, they succeeded and became a WORD13.`,
+            story: `At WORD1 in the WORD2, a WORD3 traveler WORD4 in search of WORD5, who had WORD6 them. They journeyed through a WORD7 WORD8 and crossed a WORD9 to find the WORD10 treasure they were after. With WORD11 and having WORD12, they succeeded and became a WORD13.`,
             placeholders: [
                 { type: "time (e.g., morning, afternoon)" }, 
                 { type: "place" }, 
@@ -141,7 +141,7 @@ function setStory(storyNumber) {
                 { type: "person" }, 
                 { type: "verb (past tense)" }, 
                 { type: "adjective" }, 
-                { name: "geographical feature", type: "feature (mountain, river)" }, 
+                { type: "feature (mountain, river)" }, 
                 { type: "object" }, 
                 { type: "adjective" }, 
                 { type: "emotion" }, 
@@ -150,7 +150,7 @@ function setStory(storyNumber) {
             ]
         },
         num9: {
-            story: `In a WORD1 kingdom, a WORD2 named WORD3 was known for WORD4 with WORD5 animals. One day, they found a WORD6 and decided to WORD7 it to the WORD8 to help WORD9. On their journey, they came across a WORD10 who challenged them to WORD11 for WORD12.`,
+            story: `In a WORD1 kingdom, a WORD2 named WORD3 was known for WORD4 with WORD5 animals. One day, they found a WORD6 and decided to WORD7 it to the WORD8 to help a WORD9. On their journey, they came across a WORD10 who challenged them to WORD11 for a WORD12.`,
             placeholders: [
                 { type: "adjective" }, 
                 { type: "animal" }, 
@@ -167,7 +167,7 @@ function setStory(storyNumber) {
             ]
         },
         num10: {
-            story: `In a WORD1 city, a WORD2 was WORD3 to WORD4 the WORD5 that had been lost. With their WORD6 and WORD7, they followed the WORD8 trail. Along the way, they encountered a WORD9 who offered to WORD10 them in exchange for WORD11. Together, they WORD12 the WORD13 and became heroes.`,
+            story: `In a WORD1 city, a WORD2 was WORD3 to WORD4 the WORD5 that had been lost. With their WORD6 WORD7, they followed the trail to the WORD8. Along the way, they encountered a WORD9 who offered to WORD10 them in exchange for a WORD11. Together, they WORD12 the WORD13 and became heroes.`,
             placeholders: [
                 { type: "adjective" }, 
                 { type: "animal" }, 
