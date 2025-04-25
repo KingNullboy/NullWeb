@@ -52,7 +52,8 @@ function setStory(storyNumber) {
                 { name: "adjective", type: "adjective" }, 
                 { name: "place", type: "place" }, 
                 { name: "emotion", type: "emotion" }, 
-                { name: "verb", type: "verb (future tense)" }
+                { name: "verb", type: "verb (future tense)" },
+                { type: "leave this blank" }
             ]
         },
         num4: {
