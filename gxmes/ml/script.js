@@ -3,39 +3,39 @@ function setStory(storyNumber) {
     // Define the stories and their placeholders with correct context
     var stories = {
         num1: {
-            story: `Once upon a time in a faraway WORD1, there was a WORD2 who loved to WORD3. Every WORD4, they would gather with their friends, a WORD5 and a WORD6, to WORD7 by the WORD8. But one day, the WORD9 changed everything, and they found themselves facing a wild WORD10. In the end, they had to WORD11 in order to escape the WORD12, but they felt WORD13 after their daring adventure.`,
+            story: `Once upon a time in a faraway WORD1, there was a WORD2 who loved to WORD3. Every WORD4, they would gather with their friends, a WORD5 and a WORD6, to WORD7 by the WORD8. But one day, the WORD9 changed everything, and they found themselves facing a wild WORD10. In the end, they had to WORD11 in order to escape the WORD10, but they felt WORD13 after their daring adventure.`,
             placeholders: [
-                { name: "place", type: "place" }, 
-                { name: "adjective", type: "adjective" }, 
-                { name: "verb", type: "verb (present tense)" }, 
-                { name: "time of day", type: "time (e.g., morning, evening)" }, 
-                { name: "animal", type: "animal" }, 
-                { name: "adjective", type: "adjective" }, 
-                { name: "verb", type: "verb (present tense)" }, 
-                { name: "noun", type: "noun" }, 
-                { name: "emotion", type: "emotion" }, 
-                { name: "animal", type: "animal" }, 
-                { name: "verb", type: "verb (past tense)" }, 
-                { name: "noun", type: "noun" }, 
-                { name: "emotion", type: "emotion" }
+                { type: "place" }, 
+                { type: "noun" }, 
+                { type: "verb (present tense)" }, 
+                { type: "time (e.g., morning, evening)" }, 
+                { type: "noun (person/animal)" }, 
+                { type: "noun (person/animal)" }, 
+                { type: "verb (present tense)" }, 
+                { type: "noun" }, 
+                { type: "noun (person/thing, non-pronoun)" }, 
+                { type: "animal" }, 
+                { type: "verb (present tense)" }, 
+                { type: "noun (person/thing, non-pronoun)" }, 
+                { type: "emotion" }
             ]
         },
         num2: {
             story: `In a small WORD1, there was a WORD2 who loved to WORD3. Every WORD4, they would WORD5 around the WORD6 to collect WORD7. One WORD8, they found a mysterious WORD9 that led them to a WORD10 adventure! With a WORD11 heart, they WORD12 to the WORD13 and lived happily ever after.`,
             placeholders: [
-                { name: "place", type: "place" }, 
-                { name: "adjective", type: "adjective" }, 
-                { name: "verb", type: "verb (present tense)" }, 
-                { name: "time of day", type: "time (e.g., morning, evening)" }, 
-                { name: "verb", type: "verb (present tense)" }, 
-                { name: "location", type: "place" }, 
-                { name: "noun", type: "noun" }, 
-                { name: "time of year", type: "season/time of year" }, 
-                { name: "noun", type: "noun" }, 
-                { name: "adjective", type: "adjective" }, 
-                { name: "verb", type: "verb (past tense)" }, 
-                { name: "noun", type: "noun" }, 
-                { name: "emotion", type: "emotion" }
+                { type: "place" }, 
+                { type: "noun (personified, non-pronoun)" }, 
+                { type: "verb (present tense)" }, 
+                { type: "time (e.g., morning, evening)" }, 
+                { type: "verb (present tense)" }, 
+                { type: "place (around the...)" }, 
+                { type: "plural noun" }, 
+                { type: "season/time of year" }, 
+                { type: "noun" }, 
+                { type: "adjective" }, 
+                { type: "emotion" }, 
+                { type: "verb (past tense)" }, 
+                { type: "place" }
             ]
         },
         num3: {
