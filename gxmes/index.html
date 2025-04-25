@@ -13,6 +13,18 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<script src="/js/main.js"></script>
 		<script src="search.js"></script>
+		<script>
+			document.getElementById('randomGxmeBtn').addEventListener('click', function() {
+    			// Select all buttons except those within the header
+    			const buttons = Array.from(document.querySelectorAll('button:not(header button)'));
+
+    			// Pick a random button
+   				 const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
+
+    			// Click the randomly selected button
+    			randomButton.click();
+			});
+		</script>
  	</head>
   	<body>
 		<header>
@@ -28,6 +40,7 @@
 			<br><input type="text" id="searchInput" placeholder="Search for a g*me..." style="margin: 10px; padding: 5px; font-size: 16px;"><br><br>
       		<p>This is a quick website made using <a href="https://ruffle.rs">Ruffle</a> and GitHub. If you want the original repo to download the g*mes, go to the <a href="https://github.com/selenite-cc/flasharchive/">GitHub repo</a> and all of the SWF files should be there, along with all of the HTML files that I used to make this site. The original files can be found <a href="https://github.com/Games-From-Flash/swf">here</a>. Also, please review the games in <a href="../socialmedia/gxmefeedback.html">NullMedia</a>, since I won't be able to have every g*me from 3kh0 on this website due to storage issues with <a href="https://github.com/">GitHub</a></p>
       		<p id="gamenum">There are [Loading...] g*mes of varying quality!</p>
+      		<button id="randomGxmeBtn">Random G*me</button>
 			<h1><a href="https://selenite.cc">Selenite</a>'s G*mes</h1>
 			<h2>Bloons G*mes</h2>
       		<button onclick="window.location.href='btd.html';">Bloons TD</button>
