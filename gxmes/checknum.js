@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     .then(response => response.text())  // Get the text content of the file
     .then(data => {
       // Count occurrences of "</button>" in the file content
-      const buttonTimes = (data.match(/<\/button>/g) || []).length - 3;
+      const buttonTimes = (data.match(/<\/button>/g) || []).length - 4;
 
       // Get the current URL
       const currentUrl = window.location.href;
@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
       } else {
         // Update gamenumElement for other pages
         if (gamenumElement) {
-          gamenumElement.innerHTML = `There are ${buttonTimes + 1} g*me sites/g*mes right now! However, one is temporarily out of order.`;
+          gamenumElement.innerHTML = `There are ${buttonTimes + 2} g*me sites/g*mes right now! However, one is temporarily out of order.`;
         }
       }
 
