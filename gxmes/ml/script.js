@@ -114,18 +114,21 @@ function setStory(storyNumber) {
             ]
         },
         num7: {
-            story: `On a bright WORD1 morning, WORD2 set out on a WORD3 adventure. With their WORD4 in hand and a WORD5 in their heart, they journeyed through the WORD6 forest. Along the way, they discovered a WORD7 hidden behind a WORD8 rock. As they explored, they met a WORD9 who gave them a WORD10 gift.`,
+            story: `On a bright WORD1 morning, WORD2 set out on a WORD3 adventure. With their WORD4 in hand and with WORD5 in their heart, they journeyed through the WORD6 forest. Along the way, they discovered a WORD7 hidden behind a WORD8 rock. As they explored, they met a WORD9 who gave them a WORD10 gift.`,
             placeholders: [
                 { type: "adjective" }, 
                 { type: "name" }, 
                 { type: "adjective" }, 
                 { type: "object" }, 
                 { type: "emotion" }, 
-                { type: "place" }, 
+                { type: "place or adjective" }, 
                 { type: "noun" }, 
                 { type: "adjective" }, 
                 { type: "animal" }, 
-                { type: "noun" }
+                { type: "adjective" },
+                { type: "unused, ignore this" },
+                { type: "unused, ignore this" },
+                { type: "unused, ignore this" }
             ]
         },
         num8: {
