@@ -281,7 +281,7 @@ function setStory(storyNumber) {
     const inputs = document.querySelectorAll('#input-fields input');
     inputs.forEach((input, index) => {
         // Set the placeholder for each input based on the story's placeholders
-        input.placeholder = selectedStory.placeholders[index].name + " (" + selectedStory.placeholders[index].type + ")";
+        input.placeholder = selectedStory.placeholders[index].type;
     });
 
     // Add an event listener for generating the story once the user fills out the fields
