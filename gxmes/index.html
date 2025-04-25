@@ -14,15 +14,17 @@
 		<script src="/js/main.js"></script>
 		<script src="search.js"></script>
 		<script>
-			document.getElementById('randomGxmeBtn').addEventListener('click', function() {
-    			// Select all buttons except those within the header
-    			const buttons = Array.from(document.querySelectorAll('button:not(header button)'));
+			document.addEventListener('DOMContentLoaded', function() {
+				document.getElementById('randomGxmeBtn').addEventListener('click', function() {
+    				// Select all buttons except those within the header
+    				const buttons = Array.from(document.querySelectorAll('button:not(header button)'));
 
-    			// Pick a random button
-   				 const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
+    				// Pick a random button
+   					 const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
 
-    			// Click the randomly selected button
-    			randomButton.click();
+    				// Click the randomly selected button
+    				randomButton.click();
+				});
 			});
 		</script>
  	</head>
