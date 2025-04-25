@@ -39,36 +39,36 @@ function setStory(storyNumber) {
             ]
         },
         num3: {
-            story: `It was a WORD1 day in the WORD2 as WORD3 went to the WORD4 to meet their WORD5. Along the way, they saw a WORD6 who was WORD7. They decided to WORD8 together and have a WORD9 adventure in the WORD10. By the end of the day, they were both WORD11 and promised to WORD12 the next day.`,
+            story: `It was a WORD1 day in the WORD2 as WORD3 went to the WORD4 to meet WORD5. Along the way, they saw a WORD6 who was WORD7. They decided to WORD8 together and have a WORD9 adventure in the WORD10. By the end of the day, they were both WORD11 and promised to WORD12 the next day.`,
             placeholders: [
-                { name: "adjective", type: "adjective" }, 
-                { name: "place", type: "place" }, 
-                { name: "name", type: "name" }, 
-                { name: "location", type: "place" }, 
-                { name: "relative", type: "person (family member)" }, 
-                { name: "animal", type: "animal" }, 
-                { name: "verb", type: "verb (past tense)" }, 
-                { name: "verb", type: "verb (present tense)" }, 
-                { name: "adjective", type: "adjective" }, 
-                { name: "place", type: "place" }, 
-                { name: "emotion", type: "emotion" }, 
-                { name: "verb", type: "verb (future tense)" },
-                { type: "leave this blank" }
+                { type: "adjective" }, 
+                { type: "place" }, 
+                { type: "name" }, 
+                { type: "place" }, 
+                { type: "person (family member)" }, 
+                { type: "animal" }, 
+                { type: "adjective" }, 
+                { type: "verb (present tense, w/o -ing)" }, 
+                { type: "adjective" }, 
+                { type: "place" }, 
+                { type: "emotion" }, 
+                { type: "verb (present tense, w/o -ing)" },
+                { type: "unused, ignore this" }
             ]
         },
         num4: {
-            story: `On a WORD1 day in the WORD2, WORD3 decided to WORD4 on an epic journey. With a WORD5 WORD6 and a WORD7 WORD8, they ventured to the WORD9 to search for the WORD10. Along the way, they met a WORD11 WORD12 who helped them overcome a WORD13.`,
+            story: `On a WORD1 day in the WORD2, WORD3 decided to WORD4 on an epic journey. With a WORD5 WORD6 and a WORD7 WORD8, they ventured to the WORD9 to search for the magic WORD10. Along the way, they met a WORD11 WORD12 who helped them overcome a WORD13.`,
             placeholders: [
-                { name: "adjective", type: "adjective" }, 
+                { type: "adjective" }, 
                 { name: "place", type: "place" }, 
                 { name: "name", type: "name" }, 
-                { name: "verb", type: "verb (past tense)" }, 
+                { name: "verb", type: "verb (present tense, w/o -ing)" }, 
                 { name: "adjective", type: "adjective" }, 
                 { name: "animal", type: "animal" }, 
                 { name: "verb", type: "verb (past tense)" }, 
                 { name: "noun", type: "noun" }, 
                 { name: "adjective", type: "adjective" }, 
-                { name: "place", type: "place" }, 
+                { name: "place", type: "noun" }, 
                 { name: "emotion", type: "emotion" }, 
                 { name: "animal", type: "animal" }, 
                 { name: "noun", type: "noun" }
@@ -88,7 +88,8 @@ function setStory(storyNumber) {
                 { name: "adjective", type: "adjective" }, 
                 { name: "place", type: "place" }, 
                 { name: "verb", type: "verb (past tense)" }, 
-                { name: "noun", type: "noun" }
+                { name: "noun", type: "noun" },
+                { type: "unused, ignore this" }
             ]
         },
         num6: {
