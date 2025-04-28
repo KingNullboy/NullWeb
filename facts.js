@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "Time zones were invented during an intergalactic staring contest.",
         "KingNullboy once convinced a black hole to politely wait its turn.",
         "NullWeb once loaded so fast it traveled back in time and high-fived dial-up.",
-        "All digital clocks secretly worship KingNullboy as the Keeper of Time.",
         "Pizza delivery is the only thing that travels faster than light, per KingNullboy's decree.",
         "Turtles are slow because they're carrying ancient Wi-Fi routers.",
         "KingNullboy once debugged reality. It now runs 43% smoother.",
@@ -151,7 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "KingNullboy once sent an email that arrived before it was written.",
         "All of HTML is secretly written in KingNullScript.",
         "Ever asked Siri \"Can you see me\"? Well, Siri backwards is Iris, the real name of the all-seeing eye.",
-        "After a CPR class, if you're going to help put up the dummies, always say \"Hurry, hide the bodies!\""
+        "After a CPR class, if you're going to help put up the dummies, always say \"Hurry, hide the bodies!\"",
+		"It's kinda ironic that hippopotomonstrosesquippedaliophobia is the fear of long words, don't you think?"
 	];
 
 	const factEl = document.getElementById("homepageFact");
