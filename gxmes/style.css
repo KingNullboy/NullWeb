@@ -19,9 +19,10 @@ input {
   background-color: #363636;
 }
 
-/* =========================
-   Headings
-   ========================= */
+* {
+  font-family: Lato;
+}
+
 h1,
 h1#pagetitle {
   color: var(--text-color);
