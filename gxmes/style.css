@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-/* =========================
-   Root Variables
-   ========================= */
 :root {
   --bg-color: #000000;
   --text-color: #ffffff;
@@ -12,17 +9,6 @@
   --link-hover-color: #0000FF;
 }
 
-/* =========================
-   General Cursor + Font
-   ========================= */
-* {
-  font-family: var(--font-family);
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Pointer.cur") 0 0, pointer;
-}
-
-/* =========================
-   Base Elements
-   ========================= */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -31,7 +17,6 @@ body {
 input {
   border-radius: 5px;
   background-color: #363636;
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 /* =========================
@@ -40,7 +25,6 @@ input {
 h1,
 h1#pagetitle {
   color: var(--text-color);
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 h1#pagetitle {
@@ -59,11 +43,6 @@ button {
   border: 1px solid var(--border-color);
   border-radius: 20px;
   transition: color 0.3s ease, background-color 0.3s ease;
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Link.cur") 0 0, pointer;
-}
-
-button:active {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Grabbing.cur") 0 0, grabbing;
 }
 
 button:hover {
@@ -115,19 +94,11 @@ a#homebutton,
 a#infobutton {
   color: var(--text-color);
   justify-content: middle;
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Link.cur") 0 0, pointer;
 }
 
 a#homebutton,
 a#infobutton {
   margin-left: 10px;
-}
-
-/* =========================
-   Logo / Header
-   ========================= */
-.logo {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Pointer.cur") 0 0, pointer;
 }
 
 img#logo {
@@ -153,14 +124,12 @@ header {
 #border-color {
   border-radius: 10px;
   width: 25px;
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 #font-family {
   background-color: #363636;
   color: #ffffff;
   border-radius: 10px;
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
 }
 
 /* =========================
@@ -175,36 +144,4 @@ header {
   border-radius: 20px;
   background-color: var(--bg-color);
   color: var(--text-color);
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
-}
-
-/* =========================
-   Utility Cursor Classes
-   ========================= */
-canvas {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Cross.cur") 0 0, crosshair;
-}
-
-.resize-mode {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Vert.cur") 0 0, ns-resize;
-}
-
-.zoom-in {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Zoom-in.cur") 0 0, zoom-in;
-}
-
-.zoom-out {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Zoom-out.cur") 0 0, zoom-out;
-}
-
-.dragging {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Grabbing.cur") 0 0, grabbing;
-}
-
-a, p, p * {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Text.cur") 0 0, text;
-}
-
-.waiting {
-  cursor: url("https://website.nullweb.byethost6.com/cursors/Unavailable.cur") 0 0, wait;
 }
