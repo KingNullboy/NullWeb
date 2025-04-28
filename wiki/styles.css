@@ -56,10 +56,6 @@ h1[id=pagetitle] {
     top: -8px;
 }
 
-.logo {
-    cursor: url("https://website.nullweb.byethost6.com/cursors/Link.cur") 0 0, pointer;
-}
-
 header {
     display: flex;
     justify-content: space-between;
