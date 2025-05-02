@@ -178,16 +178,32 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
           close = w.querySelector("#groq_close"),
           title = w.querySelector("#groq_title");
   
-    function markdownToHTML(text) {
-      text = text
-        .replace(/```([^`]+)```/gs, (_, code) => `<pre><code>${code}</code></pre>`)
-        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-        .replace(/\*(.*?)\*/g, "<i>$1</i>")
-        .replace(/__(.*?)__/g, "<u>$1</u>")
-        .replace(/~~(.*?)~~/g, "<s>$1</s>")
-        .replace(/`([^`]+)`/g, "<code>$1</code>")
-        .replace(/\n/g, "<br>");
-      return text;
+    function markdownToHTML(md) {
+      md = md.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+      for (let i = 6; i > 0; i--) {
+        let re = new RegExp('^' + '#'.repeat(i) + ' (.+)$', 'gm');
+        md = md.replace(re, `<h${i}>$1</h${i}>`);
+      }
+
+      md = md.replace(/^\s*---\s*$/gm, '<hr>');
+      md = md.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+      md = md.replace(/^\d+\. (.+)$/gm, '<ol><li>$1</li></ol>');
+      md = md.replace(/<\/ol>\n<ol>/g, '');
+      md = md.replace(/^[-*] (.+)$/gm, '<ul><li>$1</li></ul>');
+      md = md.replace(/<\/ul>\n<ul>/g, '');
+
+      md = md.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+      md = md.replace(/\*(.+?)\*/g, '<i>$1</i>');
+      md = md.replace(/__(.+?)__/g, '<u>$1</u>');
+      md = md.replace(/~~(.+?)~~/g, '<s>$1</s>');
+
+      md = md.replace(/`([^`]+?)`/g, '<code>$1</code>');
+      md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2" style="max-width:100%;">');
+
+      md = md.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+      return md.replace(/\n/g, '<br>');
     }
   
     function updateLog() {
