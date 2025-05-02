@@ -163,7 +163,7 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
       input.value = "";
 
       if (firstMessage) {
-        history.push({ role: "system", content: "Never use 3 backticks consecutively. Instead use 2 backticks." });
+        history.push({ role: "system", content: "Ready to start chatting! Feel free to use Markdown formatting." });
         firstMessage = false;
       }
 
