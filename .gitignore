@@ -330,6 +330,7 @@
 /offline-sw.js
 /offline.html
 /facts.js
+/ai.js
 
 # Ignore other specific files across the repository
 logo.png
