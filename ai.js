@@ -162,7 +162,7 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
       <textarea id="groq_input" rows="2" placeholder="Type a message..."></textarea>
       <div id="groq_buttons">
         <button id="groq_send">Send</button>
-        <button id="groq_clear">Delete History</button>
+        <button id="groq_clear">Clear</button>
       </div>
     `;
     d.body.appendChild(w);
@@ -284,4 +284,4 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
         w.style.bottom = "auto";
       }
     });
-  })();  
+  })();
