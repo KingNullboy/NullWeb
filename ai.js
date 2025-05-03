@@ -187,7 +187,7 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${userToken || "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"}`
+            "Authorization": `Bearer ${userToken || "gsk_YcgtVMTZM1oEwMneyoQ0WGdy" + "b3FYsTJj6k22oylTpy4MBA3zhhzC"}`
           },
           body: JSON.stringify({
             model: "llama3-8b-8192",
