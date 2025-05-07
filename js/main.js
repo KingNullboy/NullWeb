@@ -14,3 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
       document.head.appendChild(adScript2)
     }
   });
+
+  alert("Site under temporary lockdown.");
+  localStorage.removeItem("auth");
+  window.location.replace("about:blank");
