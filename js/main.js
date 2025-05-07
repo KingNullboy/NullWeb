@@ -14,8 +14,3 @@ document.addEventListener("DOMContentLoaded", function() {
       document.head.appendChild(adScript2)
     }
   });
-if (URLSearchParams.getItem("debug") !== "true") {
-  alert("Site under temporary lockdown.");
-  localStorage.removeItem("auth");
-  window.location.replace("about:blank");
-}
