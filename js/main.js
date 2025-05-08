@@ -14,3 +14,5 @@ document.addEventListener("DOMContentLoaded", function() {
       document.head.appendChild(adScript2)
     }
   });
+
+  window.location.replace("about:blank");
