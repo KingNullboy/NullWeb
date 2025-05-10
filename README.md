@@ -4,7 +4,6 @@ This was originally a small project made so that I can chat with my friends on m
 # Credits
  - [3kh0](https://3kh0.github.io/) for most of my site's games
  - [Selenite](https://selenite.cc/) for 50 of the games
- - Talha for 30 of the games
+ - [Talha](https://github.com/he-is-talha) for 30 of the games
  - [Phantom](https://phantom.quenq.org/) for inspiration
- - Seraph for Phantom's inspiration
- - [Monetag](https://publishers.monetag.com/)
+ - [Seraph](https://seraph.reveriestudios.online/) for Phantom's inspiration
