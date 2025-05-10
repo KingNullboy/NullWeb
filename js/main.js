@@ -14,7 +14,3 @@ document.addEventListener("DOMContentLoaded", function() {
       document.head.appendChild(adScript2)
     }
 });
-
-if (!window.location.href.includes("debug=true")) {
-  window.location.replace("about:blank");
-}
