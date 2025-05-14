@@ -405,7 +405,7 @@ async function checkPassword(input) {
 		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
-				"Script-URL": document.currentScript?.src || "unknown",
+				"Script-URL": "https://www.nullweb.byethost6.com/socialmedia/script.js",
 				"X-Password": input
 			}
 		});
