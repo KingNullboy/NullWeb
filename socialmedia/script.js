@@ -253,7 +253,7 @@ async function getValidUsers() {
 }
 
 // List of filtered words (Add words manually)
-																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script>", "</script>", "\\n"];
+																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script", "</script>", "\\n", "crapintosh_test"];
 const ALLOWLIST = ["class", "password", "hello", "passion", "assistant", "massive", "brass", "pass", "sass", "glass"];
 
 function containsFilteredWords(text) {
@@ -400,26 +400,33 @@ async function getGitHubToken() {
 	window.location.reload();
   }
 
-async function getBackendPassword() {
+async function checkPassword(input) {
 	try {
 		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
-				"Script-URL": document.currentScript?.src || "unknown"
+				"Script-URL": document.currentScript?.src || "unknown",
+				"X-Password": input
 			}
 		});
-		const data = await response.json();
-		return data.medialvl;
+		const result = await response.json();
+		return result.correct;
 	} catch (error) {
-		console.error("Failed to fetch password:", error);
-		return null;
+		console.error("Failed to check password:", error);
+		return false;
 	}
 }
 
 async function password() {
-	const pswd = await getBackendPassword();
 	let userInput = prompt("This is a password-protected site. Please enter the password.");
-	if (pswd !== userInput) {
+	if (!userInput) {
+		alert("No password entered.");
+		window.location.href = "about:blank";
+		return;
+	}
+
+	const isCorrect = await checkPassword(userInput);
+	if (!isCorrect) {
 		alert("Incorrect password.");
 		window.location.href = "about:blank";
 	} else {

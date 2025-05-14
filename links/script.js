@@ -3,61 +3,48 @@ function GxmeFiles() {
     window.location.href = 'https://downgit.evecalm.com/#/home?url=https://github.com/nullmedia-social/NullWeb/tree/main/gxmes';
 }
 
-function promptPassword(pswd, altpswd) {
-    if (localStorage.getItem("auth") !== pswd && localStorage.getItem("auth") !== altpswd) {
+async function promptPassword() {
     let userPassword = prompt("This is a password-protected site. Please enter the password.");
-    if (userPassword !== pswd && userPassword !== altpswd) {
-        alert("Incorrect password.");
+    if (!userPassword) {
+        alert("No password entered.");
         window.location = "about:blank";
-    } else {
-        if (userPassword === pswd) {
-            localStorage.setItem("auth", pswd);
-        } else {
-            localStorage.setItem("auth", altpswd);
-        }
+        return;
     }
-}
-}
 
-async function fetchBackendPasswords() {
-    // Automatically detect the script's URL
-    let scriptUrl = document.currentScript ? document.currentScript.src : "";
-    
+    const scriptUrl = document.currentScript ? document.currentScript.src : "";
+
     try {
         const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
             method: "GET",
             headers: {
-                "Script-URL": scriptUrl
+                "Script-URL": scriptUrl,
+                "X-Password": userPassword
             }
         });
 
-        if (!response.ok) throw new Error("Forbidden or failed");
+        if (!response.ok) throw new Error("Request failed");
+        const result = await response.json();
 
-        const data = await response.json();
-        return {
-            medialvl: data.medialvl, // Main password
-            gxmelvl: data.gxmelvl // Secondary password (can be stored locally if not secret)
-        };
-    } catch (error) {
-        console.error("Failed to fetch password:", error);
-        return null;
+        if (result.correct) {
+            localStorage.setItem("auth", userPassword);
+        } else {
+            alert("Incorrect password.");
+            window.location = "about:blank";
+        }
+    } catch (err) {
+        alert("Failed to check password.");
+        window.location = "about:blank";
     }
 }
 
-    fetchBackendPasswords().then((passwords) => {
-        if (passwords) {
-            promptPassword(passwords.medialvl, passwords.gxmelvl);
-        } else {
-            alert("Error retrieving password.");
-            window.location = "about:blank";
-        }
-    });
+if (!localStorage.getItem("auth")) {
+    promptPassword();
+}
 
-// Function to clear history entries
 function clearHistory() {
-  if (history && history.pushState) {
-    history.pushState(null, null, location.href);
-    history.back();
-    history.forward();
-  }
+    if (history && history.pushState) {
+        history.pushState(null, null, location.href);
+        history.back();
+        history.forward();
+    }
 }
