@@ -225,7 +225,7 @@ if (window.location.href !== window.location.protocol + "//" + document.domain +
 });
 async function getValidUsers() {
 	try {
-		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/users", {
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/users", {
 			method: "GET",
 			headers: {
 				"Script-URL": SCRIPT_SRC
@@ -282,7 +282,7 @@ function containsFilteredWords(text) {
 async function getGitHubToken() {
 	const scriptSrc = document.currentScript?.src || '';
   
-	const response = await fetch('https://nullapi.netlify.app/.netlify/functions/token', {
+	const response = await fetch('https://nullwebsecurity.netlify.app/.netlify/functions/token', {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
@@ -402,7 +402,7 @@ async function getGitHubToken() {
 
 async function checkPassword(input) {
 	try {
-		const response = await fetch("https://nullapi.netlify.app/.netlify/functions/auth", {
+		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
 				"Script-URL": "https://www.nullweb.byethost6.com/socialmedia/script.js",
