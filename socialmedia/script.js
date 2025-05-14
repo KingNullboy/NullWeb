@@ -410,33 +410,44 @@ async function checkPassword(input) {
 			}
 		});
 		const result = await response.json();
-		return result.correct;
+		return result.correct === true;
 	} catch (error) {
 		console.error("Failed to check password:", error);
 		return false;
 	}
 }
 
-async function password() {
-	let userInput = prompt("This is a password-protected site. Please enter the password.");
-	if (!userInput) {
-		alert("No password entered.");
-		window.location.href = "about:blank";
-		return;
-	}
+async function promptPasswordUntilCorrect() {
+	while (true) {
+		let userInput = prompt("This is a password-protected site. Please enter the password.");
+		if (!userInput) {
+			alert("No password entered.");
+			window.location.href = "about:blank";
+			return;
+		}
 
-	const isCorrect = await checkPassword(userInput);
-	if (!isCorrect) {
-		alert("Incorrect password.");
-		window.location.href = "about:blank";
-	} else {
-		localStorage.setItem("auth", "medialvl");
+		const isCorrect = await checkPassword(userInput);
+		if (isCorrect) {
+			localStorage.setItem("auth", userInput); // store actual password for future validation
+			break;
+		} else {
+			alert("Incorrect password.");
+		}
 	}
 }
 
-if (localStorage.getItem("auth") !== "medialvl") {
-	password();
+async function verifyStoredPassword() {
+	const stored = localStorage.getItem("auth");
+	if (!stored) return false;
+	return await checkPassword(stored);
 }
+
+(async () => {
+	const isValid = await verifyStoredPassword();
+	if (!isValid) {
+		await promptPasswordUntilCorrect();
+	}
+})();
 
 async function login() {
 	const username = document.getElementById("username").value;
