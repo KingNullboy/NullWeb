@@ -309,7 +309,6 @@
 # Ignore other specific files in the root directory
 /Katamari.js
 /LICENSE
-/iosappifier/iosapplogo.png
 /click.mp3
 /CNAME
 /desktop.ini
