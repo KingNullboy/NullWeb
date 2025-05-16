@@ -18,16 +18,15 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            // Delete old caches
             return caches.delete(cache);
           }
         })
-      );
-    }).then(() => self.clients.claim())
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
@@ -35,22 +34,18 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Exclude non-GET requests and certain types (like extensions)
   if (
     request.method !== 'GET' ||
     url.protocol === 'chrome-extension:' ||
     url.href.includes('extension')
   ) return;
 
-  // If the request is for an HTML page or script, handle it separately
   if (url.pathname.endsWith('.html') || url.pathname.endsWith('.js')) {
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
-          // Handle partial responses
           if (networkResponse.status === 206) throw new Error('Partial content');
 
-          // Cache the response for future requests
           const cloneForCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(request, cloneForCache).catch(() => {});
@@ -58,22 +53,20 @@ self.addEventListener('fetch', (event) => {
 
           return networkResponse;
         })
-        .catch(() => 
-          caches.match(request).then((cachedResponse) =>
-            cachedResponse || caches.match(OFFLINE_URL)
-          )
-        )
+        .catch(() => {
+          if (request.mode === 'navigate') {
+            return caches.match(OFFLINE_URL);
+          }
+          return caches.match(request);
+        })
     );
   } else {
-    // For non-HTML and non-script requests (like CSS or images)
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
-          // Clone the network response and handle caching
           const cloneForCache = networkResponse.clone();
           const cloneForCSS = networkResponse.clone();
 
-          // If it's a CSS file, parse and cache its linked resources
           if (
             request.headers.get('Accept') &&
             request.headers.get('Accept').includes('text/css')
@@ -95,7 +88,6 @@ self.addEventListener('fetch', (event) => {
             });
           }
 
-          // Cache the response if it's not from the excluded path
           caches.open(CACHE_NAME).then((cache) => {
             if (!url.pathname.startsWith(EXCLUDED_PATH)) {
               cache.put(request, cloneForCache).catch(() => {});
@@ -104,11 +96,12 @@ self.addEventListener('fetch', (event) => {
 
           return networkResponse;
         })
-        .catch(() => 
-          caches.match(request).then((cachedResponse) =>
-            cachedResponse || caches.match(OFFLINE_URL)
-          )
-        )
+        .catch(() => {
+          if (request.mode === 'navigate') {
+            return caches.match(OFFLINE_URL);
+          }
+          return caches.match(request);
+        })
     );
   }
 });
