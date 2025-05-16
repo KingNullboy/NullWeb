@@ -1,6 +1,6 @@
 async function verifyStoredPassword() {
     const storedPassword = localStorage.getItem("auth");
-    const scriptUrl = "https://www.nullweb.byethost6.com/wiki/num1/script.js"; // update if needed
+    const scriptUrl = "https://www.null-web.vastserve.com/wiki/num1/script.js"; // update if needed
 
     if (!storedPassword) return false;
 
@@ -23,7 +23,7 @@ async function verifyStoredPassword() {
 }
 
 async function promptPasswordUntilCorrect() {
-    const scriptUrl = "https://www.nullweb.byethost6.com/wiki/num1/script.js"; // same here
+    const scriptUrl = "https://www.null-web.vastserve.com/wiki/num1/script.js"; // same here
 
     while (true) {
         const userPassword = prompt("This is a password-protected site. Please enter the password.");
