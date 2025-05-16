@@ -34,12 +34,14 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
+  // Ignore non-GET and extensions
   if (
     request.method !== 'GET' ||
     url.protocol === 'chrome-extension:' ||
     url.href.includes('extension')
   ) return;
 
+  // HTML or JS
   if (url.pathname.endsWith('.html') || url.pathname.endsWith('.js')) {
     event.respondWith(
       fetch(request)
@@ -53,14 +55,16 @@ self.addEventListener('fetch', (event) => {
 
           return networkResponse;
         })
-        .catch(() => {
-          if (request.mode === 'navigate') {
-            return caches.match(OFFLINE_URL);
-          }
-          return caches.match(request);
-        })
+        .catch(() =>
+          caches.match(request).then((cached) => {
+            if (cached) return cached;
+            if (request.mode === 'navigate') return caches.match(OFFLINE_URL);
+            return new Response('', { status: 503, statusText: 'Service Unavailable' });
+          })
+        )
     );
   } else {
+    // Other resources like CSS, images, fonts, etc.
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
@@ -96,12 +100,13 @@ self.addEventListener('fetch', (event) => {
 
           return networkResponse;
         })
-        .catch(() => {
-          if (request.mode === 'navigate') {
-            return caches.match(OFFLINE_URL);
-          }
-          return caches.match(request);
-        })
+        .catch(() =>
+          caches.match(request).then((cached) => {
+            if (cached) return cached;
+            if (request.mode === 'navigate') return caches.match(OFFLINE_URL);
+            return new Response('', { status: 503, statusText: 'Service Unavailable' });
+          })
+        )
     );
   }
 });
