@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Chore Divider</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const chores = ["Clean windows","Dishes","Vacuum everywhere","Laundry","Clean little bathroom","Clean living room","Mop","Clean big bathroom","Sweep porch/entryway","Organize shoes","Clean microwave & clean out fridge","Wipe down kitchen cabinets","Take out trash (including bathroom cans)","Restock toilet paper and paper towels","Clean couches","Clean fireplace","Wash sheets from all beds","Disinfect light switches and door handles","Clean trash cans","Refill soap dispensers", "Go through things we buy at the store and add what we need to the list", "Sweep off path to the porch", "Organize kitchen/pantry cabinets", "Clean off outside of fridge", "Clean off the den TV holder", "Clean bugs out of light fixtures", "Organize chargers everywhere"];
+
+                const peopleNames = ["Marty", "Marleigh Kate", "Marci"];
+
+                function shuffle(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                }
+
+                function divideChores(choresArray) {
+                    shuffle(choresArray);
+                    const people = [[], [], []];
+                    choresArray.forEach((chore, index) => {
+                        people[index % 3].push(chore);
+                    });
+
+                    const littleBathroom = "Clean little bathroom";
+                    const martyHasLittleBathroom = people[0].includes(littleBathroom);
+                    const othersHaveLittleBathroom = people[1].includes(littleBathroom) || people[2].includes(littleBathroom);
+
+                    if (!martyHasLittleBathroom) {
+                        // Marty must have it
+                        people[0].push(littleBathroom);
+                    }
+
+                    if (!othersHaveLittleBathroom) {
+                        // No one else has it, so assign randomly to either Marleigh Kate or Marci
+                        const randPerson = Math.random() < 0.5 ? 1 : 2;
+                        people[randPerson].push(littleBathroom);
+                    }
+
+                    return people;
+                }
+
+                function displayResults(divided) {
+                    const container = document.getElementById("results");
+                    container.innerHTML = "";
+                    divided.forEach((list, i) => {
+                        const personDiv = document.createElement("div");
+                        personDiv.innerHTML =
+                            "<h2>" +
+                            peopleNames[i] +
+                            "</h2><ul>" +
+                            list.map((chore) => "<li>" + chore + "</li>").join("") +
+                            "</ul>";
+                        container.appendChild(personDiv);
+                    });
+                }
+
+                document.getElementById("divideBtn").addEventListener("click", function () {
+                    const result = divideChores([...chores]);
+                    displayResults(result);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <center>
+            <h1 id="pagetitle">Chore Divider</h1>
+            <div class="searchContainer">
+                <div class="searchRow">
+                    <button id="divideBtn">Divide Chores</button>
+                </div>
+                <div id="results" class="searchContainer"></div>
+            </div>
+        </center>
+    </body>
+</html>
