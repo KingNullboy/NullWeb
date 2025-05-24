@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: Lato, sans-serif;
+  overflow: hidden; /* prevent scrolling outside chat */
+}
+
+#groq_chat_wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+#groq_chat_selector {
+  background: #111;
+  color: #fff;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 8px;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 6px 12px;
+  margin: 12px 15px 6px 15px;
+  cursor: pointer;
+  width: 120px;
+  user-select: none;
+  flex: 0 0 auto;
+  transition: background 0.3s, color 0.3s;
+}
+
+#groq_chat_selector:hover,
+#groq_chat_selector:focus {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+#groq_log {
+  flex: 1 1 auto;
+  margin: 0 15px 15px 15px;
+  padding: 15px;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 6px;
+  font-family: Lato, sans-serif;
+  font-size: 14px;
+  word-wrap: break-word;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #fff #222;
+}
+
+#groq_log::-webkit-scrollbar {
+  width: 8px;
+}
+
+#groq_log::-webkit-scrollbar-track {
+  background: #222;
+  border-radius: 4px;
+}
+
+#groq_log::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 4px;
+}
+
+#groq_input {
+  flex: 0 0 auto;
+  margin: 6px 15px;
+  width: calc(100% - 30px);
+  height: 60px;
+  padding: 6px;
+  font-family: Lato, sans-serif;
+  font-size: 16px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background: #363636;
+  color: #fff;
+  resize: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#groq_input:focus {
+  outline: none;
+  border-color: #fff;
+  box-shadow: 0 0 6px #fff;
+  background: #2a2a2a;
+}
+
+#groq_buttons {
+  display: flex;
+  gap: 10px;
+  width: calc(100% - 30px);
+  padding: 4px 15px 15px 15px;
+  flex: 0 0 auto;
+}
+
+#groq_buttons button {
+  flex: 1;
+  background: linear-gradient(135deg, #f00, #a00);
+  border: 2px solid #600;
+  border-radius: 5px;
+  color: #fff;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  height: 40px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+}
+
+#groq_buttons button:hover {
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+}
+
+#groq_log div b {
+  user-select: none;
+}
+
+#groq_log div b[style*="color:#0f0"] {
+  color: #0f0;
+}
+
+#groq_log div b[style*="color:#0ff"] {
+  color: #0ff;
+}
+
+#groq_log div b[style*="color:#ff0"] {
+  color: #ff0;
+}
+
+/* markdown code blocks use Space Mono */
+#groq_log pre,
+#groq_log code {
+  font-family: 'Space Mono', monospace;
+  background: #222;
+  color: #0ff;
+  padding: 2px 4px;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

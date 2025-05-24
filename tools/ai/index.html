@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NullAI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="groq_chat_wrap">
+    <select id="groq_chat_selector" aria-label="Select conversation">
+        <option value="chat1">Chat 1</option>
+        <option value="chat2">Chat 2</option>
+        <option value="chat3">Chat 3</option>
+        <option value="chat4">Chat 4</option>
+        <option value="chat5">Chat 5</option>
+    </select>
+    <div id="groq_log"></div>
+    <textarea id="groq_input" placeholder="Type your message here..."></textarea>
+    <div id="groq_buttons">
+      <button id="send_btn">Send</button>
+      <button id="clear_btn">Clear</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
