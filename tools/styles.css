@@ -1,41 +1,121 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 
 :root {
-    --bg-color: #000000;
-    --text-color: #ffffff;
-    --border-color: #ffffff;
-    --font-family: 'Lato', sans-serif;
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --border-color: #ffffff;
+  --font-family: 'Lato', sans-serif;
 }
 
 body {
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
-    color: var(--text-color);
-    text-align: center;
-    margin: 0;
-    padding: 0;
+  background-color: var(--bg-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  text-align: center;
+  margin: 0;
+  padding: 0 15px 30px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: flex-start;
 }
 
-h1 {
-    font-family: var(--font-family);
-    color: var(--text-color);
-    margin: 20px 0 20px 0; /* tight margin: top 10px, bottom 20px */
+.container {
+  max-width: 480px;
+  width: 100%;
+  margin-top: 40px;
+  padding: 30px 25px;
+  border: 2px solid var(--border-color);
+  border-radius: 15px;
+  box-sizing: border-box;
+  background: #111;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+h2 {
+  margin: 0 0 25px 0;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+label {
+  font-weight: 300;
+  font-size: 1rem;
+  display: inline-block;
+  margin: 15px 10px 8px 0;
+  text-align: left;
+  width: 100px;
+}
+
+input[type="file"] {
+  margin: 15px 0 25px 0;
+  width: 100%;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+input[type="number"],
+input[type="text"] {
+  padding: 6px 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  width: 120px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+#aspectRatio {
+  font-weight: 300;
+  font-style: italic;
+  color: #ccc;
+  margin-left: 5px;
 }
 
 button {
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
-    color: var(--text-color);
-    padding: 10px 20px;
-    border: 2px solid var(--border-color);
-    font-size: 20px;
-    border-radius: 20px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    cursor: pointer;
-    margin-top: 10px;
+  background-color: var(--bg-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  padding: 12px 30px;
+  border: 2px solid var(--border-color);
+  font-size: 1.25rem;
+  border-radius: 20px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 button:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+#outputLinks {
+  margin-top: 30px;
+  text-align: left;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+#outputLinks a {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+#outputLinks a:hover {
+  color: #aaa;
 }

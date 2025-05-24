@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universal Image Resizer & Viewer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Resize and View Image Files</h2>
+    <input type="file" id="fileInput" accept="image/*,.cur,.ani,.bmp,.ico" onchange="setDefaultFormat()" multiple />
+    <label for="aspectRatio">Aspect Ratio: </label>
+    <span id="aspectRatio">(will match input file)</span>
+    <br><br>
+    <label for="size">Width: </label>
+    <input type="number" id="size" value="32" min="1" />
+    <label for="size2">Height: </label>
+    <input type="number" id="size2" value="32" min="1" />
+    <br><br>
+    <label for="outputFormat">Enter Output Format (e.g., png, jpg, gif): </label>
+    <input type="text" id="outputFormat" value="png" />
+    <br><br>
+    <button onclick="processFiles()">Process & Convert</button>
+    <br><br>
+    <div id="outputLinks"></div>
+  </div>
+
+  <script>
+    const maxFiles = 100; // Set sensible limit for file uploads
+    let files = [];
+
+    function setDefaultFormat() {
+      const input = document.getElementById('fileInput');
+      const fileList = input.files;
+      
+      if (!fileList.length) return;
+
+      files = Array.from(fileList);
+
+      // Limit to max number of files
+      if (files.length > maxFiles) {
+        alert(`You can only upload a maximum of ${maxFiles} files.`);
+        files = files.slice(0, maxFiles);
+        input.files = files;
+      }
+
+      files.forEach(file => {
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        if (fileExtension === 'cur') {
+          document.getElementById('outputFormat').value = 'cur';
+        } else if (fileExtension === 'ani') {
+          document.getElementById('outputFormat').value = 'ani';
+        } else {
+          const mimeType = file.type.split('/')[1];
+          document.getElementById('outputFormat').value = mimeType || 'png';
+        }
+      });
+    }
+
+    function processFiles() {
+      const outputLinksDiv = document.getElementById('outputLinks');
+      outputLinksDiv.innerHTML = '';
+
+      const size = parseInt(document.getElementById('size').value);
+      const size2 = parseInt(document.getElementById('size2').value);
+      const outputFormat = document.getElementById('outputFormat').value.toLowerCase().trim();
+
+      files.forEach(file => {
+        const reader = new FileReader();
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const link = document.createElement('a');
+
+        reader.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const originalWidth = img.width;
+            const originalHeight = img.height;
+
+            if (size && size2) {
+              canvas.width = size;
+              canvas.height = size2;
+            } else {
+              canvas.width = originalWidth;
+              canvas.height = originalHeight;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            const fileNameWithoutExtension = file.name.substring(0, file.name.lastIndexOf('.'));
+            link.href = canvas.toDataURL(`image/${outputFormat}`);
+            link.download = `${fileNameWithoutExtension}.${outputFormat}`;
+            link.textContent = `Download ${file.name}`;
+            outputLinksDiv.appendChild(link);
+            outputLinksDiv.appendChild(document.createElement('br'));
+          };
+          img.src = e.target.result;
+        };
+
+        if (file.name.endsWith('.cur') || file.name.endsWith('.ani')) {
+          reader.readAsDataURL(file);
+        } else {
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
