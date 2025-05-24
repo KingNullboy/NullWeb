@@ -1,0 +1,91 @@
+body {
+  background: #222;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.calculator {
+  background: #363636;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #ffffff;
+  width: 340px;
+}
+
+#display {
+  width: 94%;
+  height: 40px;
+  font-size: 1.5rem;
+  text-align: right;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 15px;
+  background: #000;
+  color: #ffffff;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+button {
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  background: #444;
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #ffffff;
+  color: #222;
+}
+
+#equals {
+  background: #0ff;
+  color: #222;
+  font-weight: bold;
+  grid-column: span 1;
+}
+
+#clear {
+  background: #f44336;
+  color: #fff;
+}
+
+#backspace {
+  background: #ffa500;
+  color: #222;
+}
+
+.top-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#toggle-mode {
+  background: #444;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#toggle-mode:hover {
+  background: #fff;
+  color: #222;
+}
