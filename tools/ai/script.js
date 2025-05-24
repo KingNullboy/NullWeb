@@ -1,9 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  if (location.hostname.includes("nullweb.byethost6.com")) {
-    alert("This chat widget is disabled on this website.");
-    return;
-  }
-
   const d = document;
 
   let log = d.getElementById("groq_log");
@@ -71,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     input.value = "";
 
     if (firstMessage) {
-      history.push({ role: "system", content: "Ready to start chatting! Feel free to use Markdown formatting." });
+      history.push({ role: "system", content: "Ready to start chatting! Feel free to use Markdown formatting. Also, this is purely Groq AI, and I take no credit for it." });
       firstMessage = false;
     }
 
