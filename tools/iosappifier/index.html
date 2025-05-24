@@ -3,7 +3,7 @@
   <head><script src="/styles.js"></script>
     <link rel="icon" href="logo.png" type="image/x-icon">
     <title>iOS Appifier - NullWeb</title>
-    <link rel="stylesheet" href="../socialmedia/styles.css">
+    <link rel="stylesheet" href="../../socialmedia/styles.css">
     <script src="iosapp.js"></script>
 	  <meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="mobile-web-app-capable" content="yes">
@@ -15,12 +15,11 @@
   </head>
   <body>
     <header>
-			<a href = "../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
-   	  <h1 id="pagetitle">NullMedia</h1>
+			<a href = "../../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
+   	  <h1 id="pagetitle">NullAppify</h1>
       <nav>
           <ul class="nav__links">
-						<button style="margin-right: 20px;" onclick="window.location.href='index.html'";">Home</button>
-            <button onclick="window.location.href='info.html'";>Info</button>
+						<button style="margin-right: 20px;" onclick="window.location.href='index.html';" id="headerBtn">Home</button>
           </nav>
     </header><br>
     <center>
@@ -34,11 +33,11 @@
         <button id="submit" onclick="generateProfile();">Submit</button>
       </div><br>
       <p>Display Name: what you want it to say on the home screen</p><br>
-      <p>Payload Identifier: unique ID for your app (template: com.yourapp.webclip (probably needs to have 2 periods and com at the beginning and webclip at the end))</p><br>
+      <p>Payload Identifier: unique ID for your app (template: com.yourapp.webclip)</p><br>
       <p>Base64 Icon: what your app will look like of the home screen. (find a image to Base64 converter online, upload a picture, copy the output (NOT INCLUDING THE data:image/png;base64, PART), and paste it in the text box)</p><br>
-      <p>Display Name: what website you want to appify (template: google.com (don't use google for this just get the actual app))</p><br>
+      <p>URL: what website you want to appify (template: https://google.com (don't use google for this just get the actual app))</p><br>
       <p>Organization: who is this by (template: [your name], appified by KingNullboy)</p><br>
-      <p>Profile Identifier: another unique ID for your app (template: com.yourapp.config (probably needs to have 2 periods and com at the beginning and config at the end))</p><br>
+      <p>Profile Identifier: another unique ID for your app (template: com.yourapp.config)</p><br>
       <p>Note that this only works on Safari, unfortunately, and that it won't always work as well as my website's app does.</p><br>
     </center>
   </body>
