@@ -338,7 +338,6 @@ logo.png
 # Ignore other specific directories
 /static/
 /js/
-/iosappifier/
 /wiki/num1/
 /wiki/num2/
 
