@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QR Code Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+    :root {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --border-color: #ffffff;
+      --font-family: 'Lato', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      font-family: var(--font-family);
+      color: var(--text-color);
+      text-align: center;
+      margin: 0;
+      padding: 0 15px 30px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      align-items: flex-start;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      margin-top: 40px;
+      padding: 30px 25px;
+      border: 2px solid var(--border-color);
+      border-radius: 15px;
+      box-sizing: border-box;
+      background: #111;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    h2 {
+      margin: 0 0 25px 0;
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    label {
+      font-weight: 300;
+      font-size: 1rem;
+      display: inline-block;
+      margin: 15px 10px 8px 0;
+      text-align: left;
+      width: 100px;
+    }
+
+    input[type="file"],
+    select,
+    input[type="text"],
+    input[type="number"] {
+      padding: 6px 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: var(--bg-color);
+      font-family: var(--font-family);
+      color: var(--text-color);
+      padding: 12px 30px;
+      border: 2px solid var(--border-color);
+      font-size: 1.25rem;
+      border-radius: 20px;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button:hover {
+      background-color: var(--text-color);
+      color: var(--bg-color);
+    }
+
+    #qr-container {
+      margin-top: 25px;
+    }
+
+    .field-group {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>QR Code Generator</h2>
+
+    <label for="type">Type</label>
+    <select id="type">
+      <option value="url">URL</option>
+      <option value="text">Text</option>
+      <option value="wifi">Wi-Fi</option>
+    </select>
+
+    <div class="field-group" id="field-url">
+      <label for="url">URL</label>
+      <input type="text" id="url" placeholder="https://example.com">
+    </div>
+
+    <div class="field-group hidden" id="field-text">
+      <label for="text">Text</label>
+      <input type="text" id="text" placeholder="Hello world!">
+    </div>
+
+    <div class="hidden" id="field-wifi">
+      <label for="ssid">SSID</label>
+      <input type="text" id="ssid" placeholder="Wi-Fi Network Name">
+      <label for="password">Password</label>
+      <input type="text" id="password" placeholder="Wi-Fi Password">
+      <label for="encryption">Encryption</label>
+      <select id="encryption">
+        <option value="WPA">WPA/WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">None</option>
+      </select>
+    </div>
+
+    <label for="errorCorrection">Error Correction</label>
+    <select id="errorCorrection">
+      <option value="L">L (Low)</option>
+      <option value="M" selected>M (Medium)</option>
+      <option value="Q">Q (Quartile)</option>
+      <option value="H">H (High)</option>
+    </select>
+
+    <label for="size">Size (px)</label>
+    <input type="number" id="size" value="300">
+
+    <label for="logo">Upload Emblem</label>
+    <input type="file" id="logo" accept="image/*">
+
+    <button id="generate-btn">Generate QR Code</button>
+
+    <div id="qr-container"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script>
+    const typeSelect = document.getElementById('type');
+    const generateBtn = document.getElementById('generate-btn');
+    const qrContainer = document.getElementById('qr-container');
+
+    const fieldURL = document.getElementById('field-url');
+    const fieldText = document.getElementById('field-text');
+    const fieldWiFi = document.getElementById('field-wifi');
+
+    function updateFields() {
+      const type = typeSelect.value;
+      fieldURL.classList.toggle('hidden', type !== 'url');
+      fieldText.classList.toggle('hidden', type !== 'text');
+      fieldWiFi.classList.toggle('hidden', type !== 'wifi');
+    }
+
+    typeSelect.addEventListener('change', updateFields);
+    updateFields();
+
+    let qrCode;
+
+    function getFormattedData() {
+      const type = typeSelect.value;
+
+      if (type === 'url') {
+        return document.getElementById('url').value.trim();
+      }
+
+      if (type === 'text') {
+        return document.getElementById('text').value.trim();
+      }
+
+      if (type === 'wifi') {
+        const ssid = document.getElementById('ssid').value.trim();
+        const pass = document.getElementById('password').value.trim();
+        const enc = document.getElementById('encryption').value;
+
+        return `WIFI:T:${enc};S:${ssid};P:${pass};;`;
+      }
+
+      return '';
+    }
+
+    generateBtn.addEventListener('click', () => {
+      const data = getFormattedData();
+      if (!data) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      const size = parseInt(document.getElementById('size').value, 10) || 300;
+      const errorCorrection = document.getElementById('errorCorrection').value;
+      const logoInput = document.getElementById('logo');
+
+      const qrOptions = {
+        width: size,
+        height: size,
+        data: data,
+        image: '',
+        dotsOptions: { color: "#ffffff" },
+        backgroundOptions: { color: "#000000" },
+        imageOptions: {
+          crossOrigin: "anonymous",
+          margin: 4
+        },
+        qrOptions: {
+          errorCorrectionLevel: errorCorrection
+        }
+      };
+
+      qrContainer.innerHTML = "";
+      qrCode = new QRCodeStyling(qrOptions);
+
+      const logoFile = logoInput.files[0];
+      if (logoFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          qrCode.update({ image: e.target.result });
+          qrCode.append(qrContainer);
+        };
+        reader.readAsDataURL(logoFile);
+      } else {
+        qrCode.append(qrContainer);
+      }
+    });
+  </script>
+</body>
+</html>
