@@ -27,6 +27,8 @@
       border: 1px solid #444;
       padding: 10px;
       overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
     h1, h2 {
       color: #0f0;
@@ -49,7 +51,7 @@
 
   <!-- WebAssembly -->
   <h2>WebAssembly</h2>
-  <pre class="code">(compiled .wasm bytes)</pre>
+  <pre class="code" id="wasm-code"></pre>
   <pre id="wasm-output">Loading...</pre>
   <script>
     const wasmCode = new Uint8Array([
@@ -60,6 +62,14 @@
       0x01,0x07,0x00,0x20,0x00,0x20,0x01,0x6a,
       0x0b
     ]);
+
+    function toHexString(byteArray) {
+      return Array.from(byteArray)
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join(' ');
+    }
+    document.getElementById('wasm-code').textContent = toHexString(wasmCode);
+
     WebAssembly.instantiate(wasmCode).then(obj => {
       const result = obj.instance.exports.add(7, 8);
       document.getElementById("wasm-output").textContent = "7 + 8 = " + result;
