@@ -14,6 +14,24 @@
 
   <!-- Fengari (Lua) -->
   <script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.min.js"></script>
+
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: monospace;
+      padding: 20px;
+    }
+    pre.code {
+      background: #111;
+      border: 1px solid #444;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    h1, h2 {
+      color: #0f0;
+    }
+  </style>
 </head>
 <body onload="brython()">
 
@@ -21,13 +39,17 @@
 
   <!-- JavaScript -->
   <h2>JavaScript</h2>
+  <pre class="code" id="js-code"></pre>
   <pre id="js-output"></pre>
   <script>
-    document.getElementById("js-output").textContent = "Hello from JavaScript! 2 + 2 = " + (2 + 2);
+    const jsCode = `document.getElementById("js-output").textContent = "Hello from JavaScript! 2 + 2 = " + (2 + 2);`;
+    document.getElementById("js-code").textContent = jsCode;
+    eval(jsCode);
   </script>
 
   <!-- WebAssembly -->
   <h2>WebAssembly</h2>
+  <pre class="code">(compiled .wasm bytes)</pre>
   <pre id="wasm-output">Loading...</pre>
   <script>
     const wasmCode = new Uint8Array([
@@ -46,6 +68,13 @@
 
   <!-- Python (Brython) -->
   <h2>Python</h2>
+  <pre class="code">
+from browser import document
+output = "Hello from Python!\n"
+for i in range(3):
+    output += f"Count {i}\n"
+document["python-output"].text = output
+  </pre>
   <pre id="python-output"></pre>
   <script type="text/python">
 from browser import document
@@ -57,6 +86,13 @@ document["python-output"].text = output
 
   <!-- Ruby (Opal) -->
   <h2>Ruby</h2>
+  <pre class="code">
+output = "Hello from Ruby!\n"
+3.times do |i|
+  output += "Count #{i}\n"
+end
+`document.getElementById("ruby-output").textContent = output`
+  </pre>
   <pre id="ruby-output"></pre>
   <script type="text/ruby">
 output = "Hello from Ruby!\n"
@@ -72,15 +108,24 @@ end
 
   <!-- Lua (Fengari) -->
   <h2>Lua</h2>
+  <pre class="code">
+local js = require "js"
+local doc = js.global.document
+local output = "Hello from Lua!\n"
+for i = 0, 2 do
+  output = output .. "Count " .. i .. "\n"
+end
+doc:getElementById("lua-output").textContent = output
+  </pre>
   <pre id="lua-output">Loading...</pre>
   <script type="application/lua">
-    local js = require "js"
-    local doc = js.global.document
-    local output = "Hello from Lua!\n"
-    for i = 0, 2 do
-      output = output .. "Count " .. i .. "\n"
-    end
-    doc:getElementById("lua-output").textContent = output
+local js = require "js"
+local doc = js.global.document
+local output = "Hello from Lua!\n"
+for i = 0, 2 do
+  output = output .. "Count " .. i .. "\n"
+end
+doc:getElementById("lua-output").textContent = output
   </script>
 
 </body>
