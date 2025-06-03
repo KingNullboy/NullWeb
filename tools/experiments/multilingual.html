@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Multi-language Code Runner</title>
+
+  <!-- Brython (Python) -->
+  <script src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython_stdlib.js"></script>
+
+  <!-- Opal (Ruby) -->
+  <script src="https://cdn.opalrb.com/opal/current/opal.min.js"></script>
+  <script src="https://cdn.opalrb.com/opal/current/opal-parser.min.js"></script>
+
+  <!-- Fengari (Lua) -->
+  <script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.min.js"></script>
+</head>
+<body onload="brython()">
+
+  <h1>Multi-language Code Runner</h1>
+
+  <!-- JavaScript -->
+  <h2>JavaScript</h2>
+  <pre id="js-output"></pre>
+  <script>
+    document.getElementById("js-output").textContent = "Hello from JavaScript! 2 + 2 = " + (2 + 2);
+  </script>
+
+  <!-- WebAssembly -->
+  <h2>WebAssembly</h2>
+  <pre id="wasm-output">Loading...</pre>
+  <script>
+    const wasmCode = new Uint8Array([
+      0x00,0x61,0x73,0x6d,0x01,0x00,0x00,0x00,
+      0x01,0x07,0x01,0x60,0x02,0x7f,0x7f,0x01,
+      0x7f,0x03,0x02,0x01,0x00,0x07,0x07,0x01,
+      0x03,0x61,0x64,0x64,0x00,0x00,0x0a,0x09,
+      0x01,0x07,0x00,0x20,0x00,0x20,0x01,0x6a,
+      0x0b
+    ]);
+    WebAssembly.instantiate(wasmCode).then(obj => {
+      const result = obj.instance.exports.add(7, 8);
+      document.getElementById("wasm-output").textContent = "7 + 8 = " + result;
+    });
+  </script>
+
+  <!-- Python (Brython) -->
+  <h2>Python</h2>
+  <pre id="python-output"></pre>
+  <script type="text/python">
+from browser import document
+output = "Hello from Python!\n"
+for i in range(3):
+    output += f"Count {i}\n"
+document["python-output"].text = output
+  </script>
+
+  <!-- Ruby (Opal) -->
+  <h2>Ruby</h2>
+  <pre id="ruby-output"></pre>
+  <script type="text/ruby">
+output = "Hello from Ruby!\n"
+3.times do |i|
+  output += "Count #{i}\n"
+end
+`document.getElementById("ruby-output").textContent = output`
+  </script>
+  <script>
+    Opal.load('opal-parser');
+    Opal.load('opal');
+  </script>
+
+  <!-- Lua (Fengari) -->
+  <h2>Lua</h2>
+  <pre id="lua-output">Loading...</pre>
+  <script type="application/lua">
+    local js = require "js"
+    local doc = js.global.document
+    local output = "Hello from Lua!\n"
+    for i = 0, 2 do
+      output = output .. "Count " .. i .. "\n"
+    end
+    doc:getElementById("lua-output").textContent = output
+  </script>
+
+</body>
+</html>
