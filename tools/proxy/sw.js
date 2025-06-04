@@ -14,8 +14,7 @@ self.addEventListener('fetch', event => {
       method: event.request.method,
       headers: event.request.headers,
       body: event.request.body,
-      redirect: 'follow',
-      mode: 'cors',
+      redirect: 'follow'
     }));
   }
 });
