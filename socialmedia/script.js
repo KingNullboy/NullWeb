@@ -252,31 +252,45 @@ async function getValidUsers() {
 	}
 }
 
-// List of filtered words (Add words manually)
-																										const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", " ass ", "damn", "what the hell", "gyatt", "rizz", "wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole", "fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script", "</script>", "\\n", "crapintosh_test"];
-const ALLOWLIST = ["class", "password", "hello", "passion", "assistant", "massive", "brass", "pass", "sass", "glass"];
+const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "what the hell", "gyatt", "rizz","wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole","fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script", "</script>","\\n", "crapintosh_test"];
+
+// Added a separate dangerous tag & attribute list
+const DANGEROUS_TAGS = ["script", "iframe", "object", "embed", "link", "meta", "base"];
+const DANGEROUS_ATTRS = ["onerror", "onload", "onmouseover", "onfocus", "onclick", "onmouseenter", "onexit", "onunload", "style", "formaction", "srcdoc"];
+
+const ALLOWLIST = [
+  "class", "password", "hello", "passion", "assistant", "massive", "brass", "pass", "sass", "glass"
+];
 
 function containsFilteredWords(text) {
-    // Split the input text into words (use regex to capture words)
-    const words = text.split(/\s+/);
+    const lowerText = text.toLowerCase();
 
-    // Iterate through each word in the input text
+    // Check allowlist first (full-word match only)
+    const words = text.split(/\s+/);
     for (let i = 0; i < words.length; i++) {
         const word = words[i].toLowerCase();
+        if (ALLOWLIST.includes(word)) continue;
 
-        // Skip words in the allowlist (even if they contain bad words)
-        if (ALLOWLIST.includes(word)) {
-            continue;
-        }
-
-        // Check for filtered words within the word
         for (let j = 0; j < FILTERED_WORDS.length; j++) {
-            if (word.includes(FILTERED_WORDS[j].toLowerCase())) {
-                return true; // Return true if a bad word is found
+            if (word.includes(FILTERED_WORDS[j])) {
+                return true;
             }
         }
     }
-    return false; // Return false if no bad words are found
+
+    // Now check for dangerous HTML tags
+    for (let tag of DANGEROUS_TAGS) {
+        const regex = new RegExp("<\\s*" + tag + "[\\s>]", "i");
+        if (regex.test(lowerText)) return true;
+    }
+
+    // Check for dangerous attributes like onerror, onclick, etc
+    for (let attr of DANGEROUS_ATTRS) {
+        const attrRegex = new RegExp(attr + "\\s*=", "i");
+        if (attrRegex.test(lowerText)) return true;
+    }
+
+    return false;
 }
 
 async function getGitHubToken() {
