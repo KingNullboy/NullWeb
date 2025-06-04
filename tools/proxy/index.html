@@ -4,53 +4,40 @@
   <title>Pr*xy • NullTools</title>
   <meta charset="UTF-8">
   <style>
-    body {
-      font-family: sans-serif;
-      background: #111;
-      color: #0f0;
-      padding: 1em;
-    }
-    input, button {
-      font-size: 1em;
-      padding: 0.5em;
-      background: #000;
-      color: #0f0;
-      border: 1px solid #0f0;
-      margin-top: 0.5em;
-    }
-    iframe {
-      width: 100%;
-      height: 90vh;
-      border: 1px solid #0f0;
-      margin-top: 1em;
-    }
+    body { font-family: sans-serif; padding: 1em; }
+    input, button { font-size: 1em; padding: 0.5em; }
+    iframe { width: 100%; height: 90vh; border: none; margin-top: 1em; }
   </style>
 </head>
 <body>
-  <h1>🛠️ NullTools Pr*xy</h1>
-  <p>Enter a full URL to proxy (must start with <code>https://</code>):</p>
+  <h1>Pr*xy</h1>
+  <p>Enter a full URL to proxy:</p>
   <input id="targetUrl" placeholder="https://example.com">
-  <button onclick="load()">Proxy Load</button>
-
+  <button id="loadBtn" disabled>Proxy Load</button>
   <iframe id="frame"></iframe>
 
   <script>
-    // Register the external service worker (sw.js)
+    const loadBtn = document.getElementById('loadBtn');
+    const frame = document.getElementById('frame');
+
+    // Wait until the SW is fully registered and controlling the page
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('[SW] Registered sw.js'))
-        .catch(err => console.error('[SW] Registration failed:', err));
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        console.log('[SW] Registered');
+        return navigator.serviceWorker.ready;
+      }).then(() => {
+        console.log('[SW] Ready and controlling');
+        loadBtn.disabled = false;
+      }).catch(err => {
+        console.error('[SW] Failed', err);
+      });
     }
 
-    function load() {
-      const url = document.getElementById('targetUrl').value.trim();
-      if (!/^https?:\/\//i.test(url)) {
-        alert("Please enter a valid URL starting with http:// or https://");
-        return;
-      }
+    document.getElementById('loadBtn').onclick = () => {
+      const url = document.getElementById('targetUrl').value;
       const proxied = location.origin + '/proxy/' + btoa(url);
-      document.getElementById('frame').src = proxied;
-    }
+      frame.src = proxied;
+    };
   </script>
 </body>
 </html>
