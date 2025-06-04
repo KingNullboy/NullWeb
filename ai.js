@@ -190,7 +190,7 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
             "Authorization": `Bearer ${userToken || "gsk_YcgtVMTZM1oEwMneyoQ0WGdy" + "b3FYsTJj6k22oylTpy4MBA3zhhzC"}`
           },
           body: JSON.stringify({
-            model: "llama3-8b-8192",
+            model: "llama-3.1-8b-instant",
             messages: history,
             temperature: 0.7
           })
