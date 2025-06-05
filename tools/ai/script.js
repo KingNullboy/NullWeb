@@ -8,31 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let selector = d.getElementById("groq_chat_selector");
 
   let currentChat = selector.value;
-  let debugEnabled = false;
-
-  const originalConsole = {
-    log: console.log,
-    warn: console.warn,
-    error: console.error,
-    info: console.info
-  };
-
-  function debugPrint(method, ...args) {
-    originalConsole[method].apply(console, args);
-    if (debugEnabled) {
-      renderMessage(
-        "system",
-        `**[${method.toUpperCase()}]** ${args
-          .map(a => typeof a === "object" ? "```json\n" + JSON.stringify(a, null, 2) + "\n```" : String(a))
-          .join(" ")}`
-      );
-    }
-  }
-
-  console.log = (...args) => debugPrint("log", ...args);
-  console.warn = (...args) => debugPrint("warn", ...args);
-  console.error = (...args) => debugPrint("error", ...args);
-  console.info = (...args) => debugPrint("info", ...args);
+  let debugMode = false;
 
   function loadHistory(chatNum) {
     let hist = localStorage.getItem("groq_history_" + chatNum);
@@ -54,8 +30,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       localStorage.removeItem("user_token_" + chatNum);
   }
 
+  function loadImageToken(chatNum) {
+    return localStorage.getItem("image_token_" + chatNum);
+  }
+
+  function saveImageToken(chatNum, token) {
+    if (token)
+      localStorage.setItem("image_token_" + chatNum, token);
+    else
+      localStorage.removeItem("image_token_" + chatNum);
+  }
+
   let history = loadHistory(currentChat);
   let userToken = loadToken(currentChat);
+  let imageToken = loadImageToken(currentChat) || "6d271cb7-5741-" + "4a9f-a396-937981e154a4";
   let firstMessage = history.length === 0;
 
   function renderMessage(role, content) {
@@ -72,15 +60,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  function debugLog(...args) {
+    if (debugMode) {
+      renderMessage("system", "DEBUG: " + args.map(a => typeof a === "object" ? JSON.stringify(a) : a).join(" "));
+    }
+  }
+
   updateLog();
 
   selector.onchange = () => {
     saveHistory(currentChat, history);
     saveToken(currentChat, userToken);
+    saveImageToken(currentChat, imageToken);
 
     currentChat = selector.value;
     history = loadHistory(currentChat);
     userToken = loadToken(currentChat);
+    imageToken = loadImageToken(currentChat) || "6d271cb7-5741-" + "4a9f-a396-937981e154a4";
     firstMessage = history.length === 0;
     updateLog();
   };
@@ -93,60 +89,89 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (firstMessage) {
       history.push({
         role: "system",
-        content: `Ready to start chatting! Feel free to use **Markdown** formatting.
+        content: `Welcome to NullAI! You can use **Markdown formatting** in your messages.
 
-**Commands:**
-- \`/setToken [token]\`: Set Groq token
-- \`/resetToken\`: Clear Groq token
-- \`/img [prompt]\`: Generate an image using DeepAI
-- \`/debug\`: Toggle debug mode (shows console logs in chat)`
+Here are some useful commands:
+- \`/setToken YOUR_GROQ_TOKEN\` — set your Groq API token
+- \`/resetToken\` — reset Groq token
+- \`/setImgToken YOUR_DEEPAI_TOKEN\` — set your DeepAI image token
+- \`/resetImgToken\` — reset DeepAI token
+- \`/img your prompt\` — generate an image using DeepAI
+- \`/debug\` — toggle debug output in chat log
+
+You're chatting with **Groq AI**, not ChatGPT. This interface is powered by my brain. Let's go! 🚀`
       });
       firstMessage = false;
     }
 
     if (q === "/debug") {
-      debugEnabled = !debugEnabled;
-      renderMessage("system", `Debug mode ${debugEnabled ? "enabled" : "disabled"}.`);
+      debugMode = !debugMode;
+      renderMessage("system", `Debug mode ${debugMode ? "enabled" : "disabled"}.`);
       return;
     }
 
     if (q.startsWith("/setToken ")) {
       userToken = q.split(" ")[1];
       saveToken(currentChat, userToken);
-      renderMessage("system", "Token set.");
+      renderMessage("system", "Groq token set.");
       return;
     } else if (q === "/resetToken") {
       userToken = null;
       saveToken(currentChat, null);
-      renderMessage("system", "Token reset.");
+      renderMessage("system", "Groq token reset.");
       return;
-    } else if (q.startsWith("/img ")) {
-      const prompt = q.slice(5);
-      history.push({ role: "user", content: q });
-      updateLog();
+    }
+
+    if (q.startsWith("/setImgToken ")) {
+      imageToken = q.split(" ")[1];
+      saveImageToken(currentChat, imageToken);
+      renderMessage("system", "Image token set.");
+      return;
+    } else if (q === "/resetImgToken") {
+      imageToken = "6d271cb7-5741-" + "4a9f-a396-937981e154a4";
+      saveImageToken(currentChat, null);
+      renderMessage("system", "Image token reset to default.");
+      return;
+    }
+
+    if (q.startsWith("/img ")) {
+      const prompt = q.slice(5).trim();
+      if (!prompt) {
+        renderMessage("system", "You need to give me a prompt after /img.");
+        return;
+      }
+
+      renderMessage("user", q);
+      renderMessage("system", "Generating image...");
 
       try {
         const res = await fetch("https://api.deepai.org/api/text2img", {
           method: "POST",
           headers: {
-            "Api-Key": "6d271cb7-5741-" + "4a9f-a396-937981e154a4",
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Api-Key": imageToken
           },
-          body: new URLSearchParams({ text: prompt })
+          body: new URLSearchParams({ text: prompt }).toString()
         });
 
-        if (!res.ok) {
-          const err = await res.json();
-          renderMessage("system", `Image generation failed: ${err?.err || "Unknown error"}`);
+        const json = await res.json();
+        debugLog("Image API response:", json);
+
+        if (!json.output_url) {
+          renderMessage("system", "Image generation failed: " + (json.err || "No image URL received."));
           return;
         }
 
-        const json = await res.json();
-        renderMessage("assistant", `Image generated for prompt: **${prompt}**\n\n![Generated Image](${json.output_url})`);
+        const img = new Image();
+        img.src = json.output_url;
+        img.alt = prompt;
+        img.style.maxWidth = "100%";
+        log.appendChild(img);
+        log.scrollTop = log.scrollHeight;
       } catch (e) {
-        console.error("DeepAI error", e);
-        renderMessage("system", `Network error: ${e.message}`);
+        renderMessage("system", "Network error while generating image: " + e.message);
       }
+
       return;
     }
 
@@ -167,28 +192,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
       });
 
+      const json = await res.json();
+      debugLog("Groq response:", json);
+
       if (!res.ok) {
-        const err = await res.json();
         if (res.status === 429) {
-          if (err.error?.message?.includes("rate limit")) {
-            renderMessage("system", "Rate limit exceeded. Try again later.");
-          } else {
-            renderMessage("system", "Daily limit exceeded. Use /setToken [your_token].");
-          }
+          renderMessage("system", "Rate limit or quota exceeded. Use /setToken to try your own key.");
         } else {
-          renderMessage("system", `Error: ${err.error?.message || "Unknown error"}`);
+          renderMessage("system", "Groq error: " + (json.error?.message || "Unknown error"));
         }
         return;
       }
 
-      const json = await res.json();
       const reply = json.choices?.[0]?.message?.content?.trim() || "No response";
       history.push({ role: "assistant", content: reply });
       saveHistory(currentChat, history);
       updateLog();
     } catch (e) {
-      console.error("Groq fetch error", e);
-      renderMessage("system", `Network error: ${e.message}`);
+      renderMessage("system", "Network error: " + e.message);
     }
   };
 
