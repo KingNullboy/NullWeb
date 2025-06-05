@@ -29,8 +29,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       localStorage.removeItem("user_token_" + chatNum);
   }
 
+  function loadImageToken(chatNum) {
+    return localStorage.getItem("deepai_token_" + chatNum);
+  }
+
+  function saveImageToken(chatNum, token) {
+    if (token)
+      localStorage.setItem("deepai_token_" + chatNum, token);
+    else
+      localStorage.removeItem("deepai_token_" + chatNum);
+  }
+
   let history = loadHistory(currentChat);
   let userToken = loadToken(currentChat);
+  let imageToken = loadImageToken(currentChat);
   let firstMessage = history.length === 0;
 
   function renderMessage(role, content) {
@@ -52,10 +64,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   selector.onchange = () => {
     saveHistory(currentChat, history);
     saveToken(currentChat, userToken);
+    saveImageToken(currentChat, imageToken);
 
     currentChat = selector.value;
     history = loadHistory(currentChat);
     userToken = loadToken(currentChat);
+    imageToken = loadImageToken(currentChat);
     firstMessage = history.length === 0;
     updateLog();
   };
@@ -73,12 +87,51 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (q.startsWith("/setToken ")) {
       userToken = q.split(" ")[1];
       saveToken(currentChat, userToken);
-      renderMessage("system", "Token set.");
+      renderMessage("system", "Groq token set.");
+      return;
+    } else if (q.startsWith("/setImgToken ")) {
+      imageToken = q.split(" ")[1];
+      saveImageToken(currentChat, imageToken);
+      renderMessage("system", "DeepAI image token set.");
       return;
     } else if (q === "/resetToken") {
       userToken = null;
       saveToken(currentChat, null);
-      renderMessage("system", "Token reset.");
+      renderMessage("system", "Groq token reset.");
+      return;
+    } else if (q === "/resetImgToken") {
+      imageToken = null;
+      saveImageToken(currentChat, null);
+      renderMessage("system", "Image token reset.");
+      return;
+    }
+
+    if (q.startsWith("/img ")) {
+      const prompt = q.slice(5);
+      renderMessage("user", q);
+      renderMessage("system", "Generating image...");
+
+      try {
+        const imgRes = await fetch("https://api.deepai.org/api/text2img", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "api-key": imageToken || "6d271cb7-5741-" + "4a9f-a396-937981e154a4"
+          },
+          body: new URLSearchParams({ text: prompt })
+        });
+
+        const imgData = await imgRes.json();
+
+        if (imgData.output_url) {
+          renderMessage("assistant", `![Generated Image](${imgData.output_url})`);
+        } else {
+          renderMessage("system", "Image generation failed.");
+        }
+      } catch (err) {
+        renderMessage("system", "Image generation error: " + err.message);
+      }
+
       return;
     }
 
