@@ -8,6 +8,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   let selector = d.getElementById("groq_chat_selector");
 
   let currentChat = selector.value;
+  let debugEnabled = false;
+
+  const originalConsole = {
+    log: console.log,
+    warn: console.warn,
+    error: console.error,
+    info: console.info
+  };
+
+  function debugPrint(method, ...args) {
+    originalConsole[method].apply(console, args);
+    if (debugEnabled) {
+      renderMessage(
+        "system",
+        `**[${method.toUpperCase()}]** ${args
+          .map(a => typeof a === "object" ? "```json\n" + JSON.stringify(a, null, 2) + "\n```" : String(a))
+          .join(" ")}`
+      );
+    }
+  }
+
+  console.log = (...args) => debugPrint("log", ...args);
+  console.warn = (...args) => debugPrint("warn", ...args);
+  console.error = (...args) => debugPrint("error", ...args);
+  console.info = (...args) => debugPrint("info", ...args);
 
   function loadHistory(chatNum) {
     let hist = localStorage.getItem("groq_history_" + chatNum);
@@ -29,20 +54,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       localStorage.removeItem("user_token_" + chatNum);
   }
 
-  function loadImageToken(chatNum) {
-    return localStorage.getItem("deepai_token_" + chatNum);
-  }
-
-  function saveImageToken(chatNum, token) {
-    if (token)
-      localStorage.setItem("deepai_token_" + chatNum, token);
-    else
-      localStorage.removeItem("deepai_token_" + chatNum);
-  }
-
   let history = loadHistory(currentChat);
   let userToken = loadToken(currentChat);
-  let imageToken = loadImageToken(currentChat);
   let firstMessage = history.length === 0;
 
   function renderMessage(role, content) {
@@ -64,12 +77,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   selector.onchange = () => {
     saveHistory(currentChat, history);
     saveToken(currentChat, userToken);
-    saveImageToken(currentChat, imageToken);
 
     currentChat = selector.value;
     history = loadHistory(currentChat);
     userToken = loadToken(currentChat);
-    imageToken = loadImageToken(currentChat);
     firstMessage = history.length === 0;
     updateLog();
   };
@@ -81,69 +92,61 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (firstMessage) {
       history.push({
-  role: "system",
-  content: `Welcome to NullAI! You can use **Markdown formatting** in your messages.
+        role: "system",
+        content: `Ready to start chatting! Feel free to use **Markdown** formatting.
 
-Here are some useful commands:
-- \`/setToken YOUR_GROQ_TOKEN\` — set your Groq API token
-- \`/resetToken\` — reset Groq token
-- \`/setImgToken YOUR_DEEPAI_TOKEN\` — set your DeepAI image token
-- \`/resetImgToken\` — reset DeepAI token
-- \`/img your prompt\` — generate an image using DeepAI
-
-You're chatting with **Groq AI**, not ChatGPT. This interface is powered by KingNullboy's brain. Let's go! 🚀`
-});
+**Commands:**
+- \`/setToken [token]\`: Set Groq token
+- \`/resetToken\`: Clear Groq token
+- \`/img [prompt]\`: Generate an image using DeepAI
+- \`/debug\`: Toggle debug mode (shows console logs in chat)`
+      });
       firstMessage = false;
+    }
+
+    if (q === "/debug") {
+      debugEnabled = !debugEnabled;
+      renderMessage("system", `Debug mode ${debugEnabled ? "enabled" : "disabled"}.`);
+      return;
     }
 
     if (q.startsWith("/setToken ")) {
       userToken = q.split(" ")[1];
       saveToken(currentChat, userToken);
-      renderMessage("system", "Groq token set.");
-      return;
-    } else if (q.startsWith("/setImgToken ")) {
-      imageToken = q.split(" ")[1];
-      saveImageToken(currentChat, imageToken);
-      renderMessage("system", "DeepAI image token set.");
+      renderMessage("system", "Token set.");
       return;
     } else if (q === "/resetToken") {
       userToken = null;
       saveToken(currentChat, null);
-      renderMessage("system", "Groq token reset.");
+      renderMessage("system", "Token reset.");
       return;
-    } else if (q === "/resetImgToken") {
-      imageToken = null;
-      saveImageToken(currentChat, null);
-      renderMessage("system", "Image token reset.");
-      return;
-    }
-
-    if (q.startsWith("/img ")) {
+    } else if (q.startsWith("/img ")) {
       const prompt = q.slice(5);
-      renderMessage("user", q);
-      renderMessage("system", "Generating image...");
+      history.push({ role: "user", content: q });
+      updateLog();
 
       try {
-        const imgRes = await fetch("https://api.deepai.org/api/text2img", {
+        const res = await fetch("https://api.deepai.org/api/text2img", {
           method: "POST",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "api-key": imageToken || "6d271cb7-5741-" + "4a9f-a396-937981e154a4"
+            "Api-Key": "6d271cb7-5741-" + "4a9f-a396-937981e154a4",
+            "Content-Type": "application/x-www-form-urlencoded"
           },
           body: new URLSearchParams({ text: prompt })
         });
 
-        const imgData = await imgRes.json();
-
-        if (imgData.output_url) {
-          renderMessage("assistant", `![Generated Image](${imgData.output_url})`);
-        } else {
-          renderMessage("system", "Image generation failed.");
+        if (!res.ok) {
+          const err = await res.json();
+          renderMessage("system", `Image generation failed: ${err?.err || "Unknown error"}`);
+          return;
         }
-      } catch (err) {
-        renderMessage("system", "Image generation error: " + err.message);
-      }
 
+        const json = await res.json();
+        renderMessage("assistant", `Image generated for prompt: **${prompt}**\n\n![Generated Image](${json.output_url})`);
+      } catch (e) {
+        console.error("DeepAI error", e);
+        renderMessage("system", `Network error: ${e.message}`);
+      }
       return;
     }
 
@@ -184,6 +187,7 @@ You're chatting with **Groq AI**, not ChatGPT. This interface is powered by King
       saveHistory(currentChat, history);
       updateLog();
     } catch (e) {
+      console.error("Groq fetch error", e);
       renderMessage("system", `Network error: ${e.message}`);
     }
   };
