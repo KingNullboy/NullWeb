@@ -80,7 +80,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     input.value = "";
 
     if (firstMessage) {
-      history.push({ role: "system", content: "Ready to start chatting! Feel free to use Markdown formatting. Also, this is purely Groq AI, and I take no credit for it." });
+      history.push({
+  role: "system",
+  content: `Welcome to NullAI! You can use **Markdown formatting** in your messages.
+
+Here are some useful commands:
+- \`/setToken YOUR_GROQ_TOKEN\` — set your Groq API token
+- \`/resetToken\` — reset Groq token
+- \`/setImgToken YOUR_DEEPAI_TOKEN\` — set your DeepAI image token
+- \`/resetImgToken\` — reset DeepAI token
+- \`/img your prompt\` — generate an image using DeepAI
+
+You're chatting with **Groq AI**, not ChatGPT. This interface is powered by KingNullboy's brain. Let's go! 🚀`
+});
       firstMessage = false;
     }
 
