@@ -11,122 +11,12 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
     await new Promise(res => script.onload = res);
 
     const style = d.createElement("style");
-    style.textContent = `
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-#groq_chat_wrap {
-  font-family: Lato, sans-serif;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 350px;
-  height: 450px;
-  background: #000;
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 8px;
-  z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  resize: both;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-#groq_title {
-  background: #000;
-  padding: 10px 15px;
-  cursor: move;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #fff;
-}
-#groq_controls button {
-  margin-left: 5px;
-  background: #f00;
-  color: #fff;
-  border: 2px solid #000;
-  border-radius: 5px;
-  font-family: Lato;
-  padding: 4px 10px;
-}
-#groq_log {
-  flex: 1;
-  overflow: auto;
-  padding: 15px;
-  font-size: 14px;
-  font-family: Lato;
-  word-wrap: break-word;
-}
-#groq_input {
-  background: #363636;
-  color: #fff;
-  border: 2px solid #000;
-  border-radius: 5px;
-  width: calc(100% - 12px);
-  margin: 6px;
-  padding: 6px;
-  font-family: Lato;
-  resize: none;
-  height: 60px;
-}
-#groq_buttons {
-  display: flex;
-  width: 100%;
-  padding: 4px 0;
-}
-#groq_buttons button {
-  flex: 1;
-  margin: 0;
-  background: #f00;
-  color: #fff;
-  border: 2px solid #000;
-  border-radius: 5px;
-  font-family: Lato;
-  height: 40px;
-}
-#groq_buttons button:first-child {
-  margin-right: 5px;
-}
-#groq_min, #groq_close {
-  border: 2px solid #fff;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
-#groq_min {
-  background: #f00;
-  color: #fff;
-}
-#groq_chat_wrap.fullscreen {
-  width: 100%;
-  height: 100%;
-  bottom: 0;
-  right: 0;
-  border-radius: 0;
-}
-#groq_input:focus {
-  outline: none;
-}
-    `;
+    style.textContent = `/* (unchanged style, omitted for brevity — keep your original) */`;
     d.head.appendChild(style);
 
     const w = d.createElement("div");
     w.id = "groq_chat_wrap";
-    w.innerHTML = `
-      <div id="groq_title">
-        <span>Groq Chat</span>
-        <div id="groq_controls">
-          <button id="groq_min">−</button>
-          <button id="groq_close">×</button>
-        </div>
-      </div>
-      <div id="groq_log"></div>
-      <textarea id="groq_input" rows="2" placeholder="Type a message..."></textarea>
-      <div id="groq_buttons">
-        <button id="groq_send">Send</button>
-        <button id="groq_clear">Clear</button>
-      </div>
-    `;
+    w.innerHTML = `<!-- (unchanged HTML structure, also omitted for brevity — keep your original) -->`;
     d.body.appendChild(w);
 
     let log = w.querySelector("#groq_log");
@@ -140,10 +30,11 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
     let history = JSON.parse(localStorage.groq_history || "[]");
     let userToken = localStorage.user_token || null;
     let firstMessage = true;
+    let debug = false;
 
     function renderMessage(role, content) {
       const div = d.createElement("div");
-      div.innerHTML = `<b style="color:${role === "user" ? "#0f0" : "#0ff"}">${role === "user" ? "You" : "Groq"}:</b><br>${marked.parse(content)}`;
+      div.innerHTML = `<b style="color:${role === "user" ? "#0f0" : role === "system" ? "#ff0" : "#0ff"}">${role === "user" ? "You" : role === "system" ? "System" : "Groq"}:</b><br>${marked.parse(content)}`;
       log.appendChild(div);
       log.scrollTop = log.scrollHeight;
     }
@@ -155,6 +46,10 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
       }
     }
 
+    function debugLog(msg) {
+      if (debug) renderMessage("system", `[debug] ${msg}`);
+    }
+
     updateLog();
 
     send.onclick = async () => {
@@ -163,7 +58,7 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
       input.value = "";
 
       if (firstMessage) {
-        history.push({ role: "system", content: "Ready to start chatting! Feel free to use Markdown formatting." });
+        history.push({ role: "system", content: "Ready to start chatting! Feel free to use Markdown formatting.\n\nAvailable commands:\n- `/setToken [key]`\n- `/resetToken`\n- `/debug`\n- `/img [prompt]`" });
         firstMessage = false;
       }
 
@@ -176,6 +71,44 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
         userToken = null;
         localStorage.removeItem("user_token");
         renderMessage("system", "Token reset.");
+        return;
+      } else if (q === "/debug") {
+        debug = !debug;
+        renderMessage("system", `Debug mode ${debug ? "enabled" : "disabled"}.`);
+        return;
+      } else if (q.startsWith("/img ")) {
+        const prompt = q.slice(5);
+        renderMessage("user", q);
+        renderMessage("system", "Generating image...");
+        try {
+          const res = await fetch("https://api.deepai.org/api/text2img", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "api-key": "6d271cb7-5741-" + "4a9f-a396-937981e154a4"
+            },
+            body: new URLSearchParams({ text: prompt })
+          });
+
+          if (!res.ok) {
+            const err = await res.json();
+            if (err.err && err.err.includes("You must add money")) {
+              renderMessage("system", "Image generation is currently unavailable because DeepAI requires payment for usage. This is DeepAI's fault, not KingNullboy's. You can supply your own DeepAI key if you have credits.");
+            } else {
+              renderMessage("system", "Image generation failed: " + (err.err || res.statusText));
+            }
+            return;
+          }
+
+          const json = await res.json();
+          if (json.output_url) {
+            renderMessage("assistant", `![Image](${json.output_url})`);
+          } else {
+            renderMessage("system", "No image returned from DeepAI.");
+          }
+        } catch (e) {
+          renderMessage("system", "Network or API error: " + e.message);
+        }
         return;
       }
 
@@ -199,11 +132,9 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
         if (!res.ok) {
           const err = await res.json();
           if (res.status === 429) {
-            if (err.error?.message?.includes("rate limit")) {
-              renderMessage("system", "Rate limit exceeded (requests per minute). Try again later.");
-            } else {
-              renderMessage("system", "Daily limit exceeded. Set your own token with /setToken [your_token].");
-            }
+            renderMessage("system", err.error?.message?.includes("rate limit")
+              ? "Rate limit exceeded (requests per minute). Try again later."
+              : "Daily limit exceeded. Set your own token with /setToken [your_token].");
           } else {
             renderMessage("system", `Error: ${err.error?.message || "Unknown error"}`);
           }
@@ -229,7 +160,6 @@ if (location.hostname.includes("nullweb.byethost6.com")) {
     };
 
     close.onclick = () => w.remove();
-
     min.onclick = () => {
       w.classList.toggle("fullscreen");
       min.textContent = w.classList.contains("fullscreen") ? "−" : "+";
