@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NullRNG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h2><a href="./" style="color: inherit; text-decoration: none;">NullRNG</a></h2>
+
+    <label for="type">Number Type:</label>
+    <select id="type">
+      <option value="integer">Integer</option>
+      <option value="real">Real</option>
+    </select><br />
+
+    <label for="min">Min:</label>
+    <input type="number" id="min" /><br />
+
+    <label for="max">Max:</label>
+    <input type="number" id="max" /><br />
+
+    <button onclick="getRandom()">Generate</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function getRandom() {
+      const type = document.getElementById("type").value;
+      const min = parseFloat(document.getElementById("min").value);
+      const max = parseFloat(document.getElementById("max").value);
+      const resultEl = document.getElementById("result");
+
+      resultEl.textContent = "Loading...";
+
+      try {
+        if (type === "integer") {
+          const res = await fetch(`https://www.random.org/integers/?num=1&min=${Math.floor(min)}&max=${Math.floor(max)}&col=1&base=10&format=plain&rnd=new`);
+          const num = await res.text();
+          resultEl.textContent = `🎲 ${num.trim()}`;
+        } else {
+          const res = await fetch(`https://www.random.org/decimal-fractions/?num=1&dec=10&col=1&format=plain&rnd=new`);
+          const dec = parseFloat((await res.text()).trim());
+          const scaled = (dec * (max - min)) + min;
+          resultEl.textContent = `🎲 ${scaled.toFixed(10)}`;
+        }
+      } catch (err) {
+        resultEl.textContent = "Error fetching random number.";
+      }
+    }
+  </script>
+</body>
+</html>
