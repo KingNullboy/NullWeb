@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loading viewer...</title> <!-- ✅ Sneaky title -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: none; /* 😈 Hide cursor for spook factor */
+    }
+
+    #warning, #videoContainer {
+      display: none;
+    }
+    #warning.show, #videoContainer.show {
+      display: flex;
+    }
+
+    #warning {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+
+    button {
+      background: red;
+      color: white;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🔻 Fake age warning -->
+<div id="warning">
+  <h1>⚠️ Viewer Discretion Advised ⚠️</h1>
+  <p>This content may be emotionally disturbing. Viewer is responsible for continuing.</p>
+  <button onclick="playVideo()">Proceed Anyway</button>
+</div>
+
+<!-- 🎥 Fullscreen Rickroll -->
+<div id="videoContainer">
+  <video id="rickVid" 
+         src="rr.ogg" 
+         autoplay 
+         playsinline 
+         controls 
+         controlslist="nodownload nofullscreen noremoteplay" 
+         disablePictureInPicture>
+  </video>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const instant = params.get("instant");
+
+  const warning = document.getElementById("warning");
+  const videoContainer = document.getElementById("videoContainer");
+  const vid = document.getElementById("rickVid");
+
+  function playVideo() {
+    warning.classList.remove("show");
+    videoContainer.classList.add("show");
+
+    vid.volume = 1.0;
+    const playPromise = vid.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((e) => {
+        console.log("Autoplay failed, trying again after user interaction");
+      });
+    }
+  }
+
+  if (instant === "true") {
+    playVideo();
+  } else {
+    warning.classList.add("show");
+  }
+</script>
+
+</body>
+</html>
