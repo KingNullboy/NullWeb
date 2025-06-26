@@ -1,0 +1,7 @@
+Origin: NullWeb
+Label: NullWeb Repo
+Suite: stable
+Codename: stable
+Architectures: amd64
+Components: main
+Description: NullWeb custom repo
