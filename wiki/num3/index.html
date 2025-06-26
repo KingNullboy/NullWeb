@@ -3,7 +3,7 @@
 <head>
   <script src="/styles.js"></script>
   <link rel="icon" href="../logo.png">
-  <title>Installing Snake Game from Repo - NullWiki</title>
+  <title>Installing Snake Game - NullWiki</title>
   <link rel="stylesheet" href="../styles.css">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -12,40 +12,27 @@
 </head>
 <body>
   <center>
-    <h1>Installing Snake Game from Repo</h1>
+    <h1>Installing Snake Game</h1>
 
-    <h2>What is the Snake Repo?</h2>
-    <p>
-      The Snake repo hosts the latest version of the <strong>Snake Madness</strong> game package, complete with all the chaotic twists and microtransactions you love.
-      Adding this repo lets your system easily install and update the game using <code>apt</code>.
-    </p>
-
-    <h2>How to Add the Repo</h2>
-    <p>Open a terminal and run the following command to add the repo to your system:</p>
-    <pre><code>echo "deb [trusted=yes] https://www.null-web.vastserve.com/repo stable main" | sudo tee /etc/apt/sources.list.d/snake.list</code></pre>
-
-    <h2>Update Package Lists</h2>
-    <p>Refresh your package lists so your system recognizes the new repo:</p>
-    <pre><code>sudo apt update</code></pre>
-
-    <h2>Install Snake Madness</h2>
-    <p>Now install the game package with:</p>
-    <pre><code>sudo apt install snake</code></pre>
+    <h2>Quick Install (No Repo Needed)</h2>
+    <p>If you don't want to deal with the broken repo, just run these commands in your terminal:</p>
+    <pre><code>
+curl -O https://www.null-web.vastserve.com/repo/pool/main/snake.deb
+sudo dpkg -i snake.deb
+sudo apt-get install -f   # fix missing dependencies if any
+    </code></pre>
 
     <h2>Troubleshooting</h2>
-    <p>If you run into issues:</p>
     <ul>
       <li>Make sure you have internet connectivity</li>
-      <li>Check you entered the repo URL correctly</li>
-      <li>Try running <code>sudo apt update</code> again</li>
-      <li>Contact us on <a id="link" href="https://www.null-web.vastserve.com/contact">our contact page</a> if problems persist</li>
+      <li>If `dpkg` complains about missing dependencies, run <code>sudo apt-get install -f</code> to fix them</li>
+      <li>Feel free to delete the snake.deb file after installation to save space</li>
+      <li>Contact us on <a id="link" href="https://www.null-web.vastserve.com/contact">our contact page</a> if you run into issues</li>
     </ul>
 
-    <h2>Uninstalling Snake Madness</h2>
-    <p>If you want to remove the game:</p>
-    <pre><code>sudo apt remove snake
-sudo rm /etc/apt/sources.list.d/snake.list
-sudo apt update</code></pre>
+    <h2>Uninstalling Snake Game</h2>
+    <p>If you for some reason want to remove the game (which is not at all realistic given how amazing this game is), run:</p>
+    <pre><code>sudo apt remove snake</code></pre>
 
   </center>
 </body>
