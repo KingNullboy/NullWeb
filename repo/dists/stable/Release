@@ -2,6 +2,6 @@ Origin: NullWeb
 Label: NullWeb Repo
 Suite: stable
 Codename: stable
-Architectures: amd64
+Architectures: amd64 i386
 Components: main
-Description: NullWeb custom repo
+Description: NullWeb custom repo with both amd64 and i386
