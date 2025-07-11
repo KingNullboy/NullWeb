@@ -1,25 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Battle</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
-</head>
-<body>
-    <div id="battle-container">
-        <div id="battle-menu">
-            <!-- Menu content like enemy name, hp bar etc. goes here -->
-            <h2 id="enemy-name">Enemy Name</h2>
-            <div id="enemy-hp-bar"><div id="enemy-hp-fill"></div></div>
-        </div>
 
-        <div id="battle-buttons">
-            <button class="battle-btn">FIGHT</button>
-            <button class="battle-btn">MIND</button>
-            <button class="battle-btn">ITEM</button>
-            <button class="battle-btn">MERCY</button>
+<head>
+  <meta charset="UTF-8">
+  <title>Battle</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body tabindex="0" onload="this.focus()">
+  <div id="battle-container">
+    <div id="battle-menu">
+      <div id="enemy-1-ui" style="display: none;">
+        <h2 id="enemy-name-1">Enemy 1</h2>
+        <div id="enemy-hp-bar-1" class="enemy-hp-bar">
+          <div id="enemy-hp-fill-1" class="enemy-hp-fill"></div>
         </div>
+      </div>
+      <div id="enemy-2-ui" style="display: none;">
+        <h2 id="enemy-name-2">Enemy 2</h2>
+        <div id="enemy-hp-bar-2" class="enemy-hp-bar">
+          <div id="enemy-hp-fill-2" class="enemy-hp-fill"></div>
+        </div>
+      </div>
+      <div id="enemy-3-ui" style="display: none;">
+        <h2 id="enemy-name-3">Enemy 3</h2>
+        <div id="enemy-hp-bar-3" class="enemy-hp-bar">
+          <div id="enemy-hp-fill-3" class="enemy-hp-fill"></div>
+        </div>
+      </div>
+      <img id="attack-image" src="" alt="Attack" style="display: none; width: 100%; height: 100%;" />
+      <div id="attack-bar-container"
+        style="display: none; position: relative; width: 100%; height: 5px; background: #222; margin-top: 20px;">
+        <div id="attack-bar"
+          style="position: absolute; left: 0; top: -225px; width: 10px; height: 230px; background: yellow;"></div>
+      </div>
     </div>
+
+    <!-- ✅ Submenu box (newly added) -->
+    <div id="submenu-box" style="display: none; color: white; font-size: 18px; margin: 10px 0; text-align: center;">
+      <!-- Text will appear here dynamically -->
+    </div>
+
+    <br>
+    <div id="battle-buttons">
+      <button class="battle-btn">FIGHT</button>
+      <button class="battle-btn">MIND</button>
+      <button class="battle-btn">ITEM</button>
+      <button class="battle-btn">MERCY</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
