@@ -9,6 +9,18 @@
 
 <body tabindex="0" onload="this.focus()">
   <div id="battle-container">
+
+    <!-- 🔼 Enemy Sprites Displayed Above the Battle Menu -->
+    <div id="enemy-sprite-wrapper">
+      <img id="enemy-sprite-1" class="enemy-sprite" src="" alt="Enemy Sprite 1" />
+      <img id="enemy-sprite-2" class="enemy-sprite" src="" alt="Enemy Sprite 2" />
+      <img id="enemy-sprite-3" class="enemy-sprite" src="" alt="Enemy Sprite 3" />
+    </div>
+    
+    <div id="player-ui" style="text-align:center; margin-bottom: 8px;">
+        <span id="player-hp-text">HP: 20/20</span>
+    </div>
+
     <div id="battle-menu">
       <div id="enemy-1-ui" style="display: none;">
         <h2 id="enemy-name-1">Enemy 1</h2>
@@ -36,9 +48,7 @@
       </div>
     </div>
 
-    <!-- ✅ Submenu box (newly added) -->
     <div id="submenu-box" style="display: none; color: white; font-size: 18px; margin: 10px 0; text-align: center;">
-      <!-- Text will appear here dynamically -->
     </div>
 
     <br>
