@@ -78,7 +78,6 @@ window.addEventListener("DOMContentLoaded", () => {
           selectedEnemyIndex = (selectedEnemyIndex + 1) % activeEnemies.length;
           updateEnemySelection();
         } else if (event.key.toLowerCase() === "z") {
-          // Decide what to do based on submenu mode
           if (submenuMode === "fight") {
             const target = activeEnemies[selectedEnemyIndex];
             startAttackSequence(target);
@@ -94,7 +93,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
       case "mind-options":
         if (event.key.toLowerCase() === "x") {
-          // Back to enemy select for mind
           openEnemySelect("mind");
         } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
           mindOptionSelected = (mindOptionSelected + mindOptions.length - 1) % mindOptions.length;
@@ -110,7 +108,6 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Update selection highlight on main buttons
 function updateButtonSelection() {
   const buttons = document.querySelectorAll(".battle-btn");
   buttons.forEach((btn, i) => {
@@ -118,7 +115,6 @@ function updateButtonSelection() {
   });
 }
 
-// Update enemy name highlight in targeting mode
 function updateEnemySelection() {
   activeEnemies.forEach((_, i) => {
     const nameEl = document.getElementById(`enemy-name-${i + 1}`);
@@ -129,7 +125,6 @@ function updateEnemySelection() {
   updateEnemySpriteHighlights();
 }
 
-// Update sprite highlights for selected enemy in targeting
 function updateEnemySpriteHighlights() {
   activeEnemies.forEach((_, i) => {
     const sprite = document.getElementById(`enemy-sprite-${i + 1}`);
@@ -139,8 +134,7 @@ function updateEnemySpriteHighlights() {
   });
 }
 
-// Activate main buttons: fight, mind, item, mercy
-let submenuMode = null; // can be "fight", "mind", "mercy", "mind-options"
+let submenuMode = null;
 let mindOptions = ["Check", "Hug"];
 let mindOptionSelected = 0;
 
@@ -179,10 +173,9 @@ function activateSelectedButton(id) {
   }
 }
 
-// Clear submenu and return to main menu
 function unselectButton() {
   clearSubmenu();
-  clearBattleMenu(); // add this
+  clearBattleMenu();
   currentState = "menu";
   updateButtonSelection();
   submenuMode = null;
@@ -194,7 +187,6 @@ function clearBattleMenu() {
   if (menu) menu.innerHTML = "";
 }
 
-// Show enemy UI elements (names & HP bars)
 function showEnemyUI() {
   activeEnemies.forEach((_, i) => {
     const ui = document.getElementById(`enemy-${i + 1}-ui`);
@@ -202,7 +194,6 @@ function showEnemyUI() {
   });
 }
 
-// Hide enemy UI elements
 function hideEnemyUI() {
   activeEnemies.forEach((_, i) => {
     const ui = document.getElementById(`enemy-${i + 1}-ui`);
@@ -210,7 +201,6 @@ function hideEnemyUI() {
   });
 }
 
-// Show enemy sprites
 function showEnemySprites() {
   activeEnemies.forEach((_, i) => {
     const sprite = document.getElementById(`enemy-sprite-${i + 1}`);
@@ -218,7 +208,6 @@ function showEnemySprites() {
   });
 }
 
-// Hide enemy sprites
 function hideEnemySprites() {
   activeEnemies.forEach((_, i) => {
     const sprite = document.getElementById(`enemy-sprite-${i + 1}`);
@@ -226,17 +215,15 @@ function hideEnemySprites() {
   });
 }
 
-// Clear submenu box
 function clearSubmenu() {
   const submenuBox = document.getElementById("submenu-box");
   submenuBox.style.display = "none";
   submenuBox.textContent = "";
 }
 
-// Load enemies from URL and setup activeEnemies array
 function loadEnemies() {
   activeEnemies = [];
-  mercy = {}; // reset mercy
+  mercy = {};
 
   enemies.forEach((enemyId, index) => {
     if (enemyId !== "N/A" && enemyDatabase[enemyId]) {
@@ -268,14 +255,12 @@ function loadEnemies() {
   });
 }
 
-// Update enemy HP bar fill
 function updateEnemyHpBar(index, current, max) {
   const fill = document.getElementById(`enemy-hp-fill-${index}`);
   const percent = Math.max(0, (current / max) * 100);
   if (fill) fill.style.width = percent + "%";
 }
 
-// Update mercy colors on mercy enemy select screen
 function updateEnemyMercyColors() {
   activeEnemies.forEach((enemy, i) => {
     const nameEl = document.getElementById(`enemy-name-${i + 1}`);
@@ -285,14 +270,13 @@ function updateEnemyMercyColors() {
   });
 }
 
-// Start the attack minigame on selected target
 function startAttackSequence(target) {
   hideEnemyUI();
   hideEnemySprites();
 
   const attackImg = document.getElementById("attack-image");
   attackImg.style.display = "block";
-  attackImg.src = "attackmarker.jpg"; // replace with your image path
+  attackImg.src = "attackmarker.jpg";
 
   const bar = document.getElementById("attack-bar");
   const barContainer = document.getElementById("attack-bar-container");
@@ -317,30 +301,25 @@ function startAttackSequence(target) {
 }
 
 function removeEnemy(index) {
-  // Remove enemy from activeEnemies array
   const removed = activeEnemies.splice(index, 1)[0];
   if (!removed) return;
 
-  // Hide the enemy UI and sprite
   const ui = document.getElementById(`enemy-${index + 1}-ui`);
   const sprite = document.getElementById(`enemy-sprite-${index + 1}`);
 
   if (ui) ui.style.display = 'none';
   if (sprite) sprite.style.display = 'none';
 
-  // Shift remaining enemies' UI and sprite IDs so they match the new indexes
   for (let i = index; i < activeEnemies.length; i++) {
-    // Update enemy UI elements
     const oldUi = document.getElementById(`enemy-${i + 2}-ui`);
     const newUi = document.getElementById(`enemy-${i + 1}-ui`);
 
     if (oldUi && newUi) {
-      newUi.innerHTML = oldUi.innerHTML; // copy content
+      newUi.innerHTML = oldUi.innerHTML;
       newUi.style.display = oldUi.style.display;
       oldUi.style.display = 'none';
     }
 
-    // Update enemy name IDs to match
     const oldName = document.getElementById(`enemy-name-${i + 2}`);
     const newName = document.getElementById(`enemy-name-${i + 1}`);
     if (oldName && newName) {
@@ -348,7 +327,6 @@ function removeEnemy(index) {
       oldName.textContent = '';
     }
 
-    // Update HP bar fills
     const oldFill = document.getElementById(`enemy-hp-fill-${i + 2}`);
     const newFill = document.getElementById(`enemy-hp-fill-${i + 1}`);
     if (oldFill && newFill) {
@@ -356,7 +334,6 @@ function removeEnemy(index) {
       oldFill.style.width = '0%';
     }
 
-    // Update enemy sprites
     const oldSprite = document.getElementById(`enemy-sprite-${i + 2}`);
     const newSprite = document.getElementById(`enemy-sprite-${i + 1}`);
     if (oldSprite && newSprite) {
@@ -366,7 +343,6 @@ function removeEnemy(index) {
     }
   }
 
-  // Adjust selectedEnemyIndex if needed
   if (selectedEnemyIndex >= activeEnemies.length) {
     selectedEnemyIndex = activeEnemies.length - 1;
   }
@@ -375,7 +351,6 @@ function removeEnemy(index) {
   updateEnemySelection();
 }
 
-// Finish attack, calculate damage, reduce HP, handle enemy death
 function finishAttack(position, maxWidth) {
   clearInterval(attackInterval);
   attackInProgress = false;
@@ -398,28 +373,22 @@ function finishAttack(position, maxWidth) {
   const baseDamage = 5;
   const finalDamage = Math.round(baseDamage * multiplier);
 
-  // Apply damage
   target.currentHp -= finalDamage;
   if (target.currentHp < 0) target.currentHp = 0;
 
-  // Show damage info in submenu box
   const submenuBox = document.getElementById("submenu-box");
   submenuBox.style.display = "block";
   submenuBox.textContent = `Dealt ${finalDamage} damage to ${target.name}! Remaining HP: ${target.currentHp}`;
 
-  // Update HP bar UI
   updateEnemyHpBar(selectedEnemyIndex + 1, target.currentHp, enemyDatabase[target.name].hp);
 
-  // If enemy dead, remove it
   if (target.currentHp <= 0) {
     submenuBox.textContent += `\n${target.name} defeated!`;
     removeEnemy(selectedEnemyIndex);
   }
 
-  // Check if battle is over
   if (activeEnemies.length === 0) {
     submenuBox.textContent = "All enemies defeated! You win!";
-    // Redirect to win URL after short delay
     setTimeout(() => {
       window.location.href = "https://launch.playcanvas.com/2231302?debug=true";
     }, 1500);
@@ -431,22 +400,6 @@ function finishAttack(position, maxWidth) {
   hideEnemyUI();
 }
 
-// Enemy defeated: remove UI and sprite, remove from activeEnemies
-function enemyDefeated(target) {
-  // Hide UI and sprite
-  const ui = document.getElementById(`enemy-${target.id}-ui`);
-  const sprite = document.getElementById(`enemy-sprite-${target.id}`);
-
-  if (ui) ui.style.display = "none";
-  if (sprite) sprite.style.display = "none";
-
-  // Remove enemy from activeEnemies array
-  activeEnemies = activeEnemies.filter((e) => e.id !== target.id);
-
-  checkBattleEnd();
-}
-
-// Open mind submenu with options for selected enemy
 function openMindOptions(enemyIndex) {
   hideEnemyUI();
   hideEnemySprites();
@@ -465,7 +418,6 @@ function openMindOptions(enemyIndex) {
   currentState = "mind-options";
 }
 
-// Update mind option highlight
 function updateMindOptions() {
   const optionEls = document.querySelectorAll("#battle-menu .mind-option");
   optionEls.forEach((el, i) => {
@@ -473,7 +425,6 @@ function updateMindOptions() {
   });
 }
 
-// Handle mind option chosen (Check or Hug)
 function handleMindOptionSelection(enemyIndex) {
   const enemy = activeEnemies[enemyIndex];
   const submenuBox = document.getElementById("submenu-box");
@@ -493,7 +444,6 @@ function handleMindOptionSelection(enemyIndex) {
     updateEnemyMercyColors();
   }
 
-  // Wait for user to press X to go back to enemy select
   currentState = "mind-options-wait"; 
   document.addEventListener(
     "keydown",
@@ -507,7 +457,6 @@ function handleMindOptionSelection(enemyIndex) {
   );
 }
 
-// Open enemy select UI for mind or mercy modes
 function openEnemySelect(mode) {
   submenuMode = mode;
   const submenuBox = document.getElementById("submenu-box");
@@ -529,13 +478,11 @@ function openEnemySelect(mode) {
   if (mode === "mercy") updateEnemyMercyColors();
 }
 
-// Try to spare an enemy (mercy >= 100)
 function attemptSpare(enemyIndex) {
   const enemy = activeEnemies[enemyIndex];
   const submenuBox = document.getElementById("submenu-box");
 
   if (enemy.mercy >= 100) {
-    // Spare success
     submenuBox.style.display = "block";
     submenuBox.textContent = `You spared ${enemy.name}!`;
 
@@ -551,13 +498,11 @@ function attemptSpare(enemyIndex) {
     currentState = "menu";
     updateButtonSelection();
   } else {
-    // Not merciful enough
     submenuBox.style.display = "block";
     submenuBox.textContent = `${enemy.name} is not ready to be spared.`;
   }
 }
 
-// Check if battle ended (all enemies gone)
 function checkBattleEnd() {
   const submenuBox = document.getElementById("submenu-box");
 
