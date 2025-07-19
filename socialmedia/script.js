@@ -465,12 +465,12 @@ async function verifyStoredPassword() {
 	return await checkPassword(stored);
 }
 
-//(async () => {
-//	const isValid = await verifyStoredPassword();
-//	if (!isValid) {
-//		await promptPasswordUntilCorrect();
-//	}
-//})();
+(async () => {
+	const isValid = await verifyStoredPassword();
+	if (!isValid) {
+		await promptPasswordUntilCorrect();
+	}
+})();
 
 async function login() {
 	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
