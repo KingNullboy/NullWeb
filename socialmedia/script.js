@@ -341,7 +341,7 @@ async function getGitHubToken() {
 	const nickname = eval(`VALID_USERS.users.${currentUser}.nickname`);
 	const realNickname = eval(`VALID_USERS.users.${currentUser}.realNickname`);
 
-	const TOKEN = await getGitHubToken();
+	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth')).toString();
 	if (!TOKEN) {
 		alert("Failed to fetch token!");
 		return;
