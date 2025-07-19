@@ -223,33 +223,39 @@ if (window.location.href !== window.location.protocol + "//" + document.domain +
 	});
 }
 });
+
 async function getValidUsers() {
-	try {
-		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/users", {
-			method: "GET",
-			headers: {
-				"Script-URL": SCRIPT_SRC
-			},
-			cache: "no-store" // prevent stale data
-		});
+  const TOKEN = CryptoJS.AES.decrypt(
+    'U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==',
+    localStorage.getItem('auth')
+  ).toString(CryptoJS.enc.Utf8);
 
-		if (!response.ok) {
-			throw new Error(`Request failed: ${response.status}`);
-		}
+  try {
+    const response = await fetch("https://api.github.com/repos/nullmedia-social/userdata/contents/users.json?ref=main", {
+      headers: {
+		"User-Agent": "nullmedia-social",
+        "Authorization": `token ${TOKEN}`,
+        "Accept": "application/vnd.github.v3.raw"
+      },
+      cache: "no-store"
+    });
 
-		const data = await response.json();
+    if (!response.ok) {
+      throw new Error(`GitHub API request failed: ${response.status}`);
+    }
 
-		// Ensure the expected format exists
-		if (!data || typeof data !== "object") {
-			throw new Error("Invalid user data format.");
-		}
+    const data = await response.json();
 
-		return data;
-	} catch (error) {
-		console.error("Error fetching valid users:", error);
-		alert("Unable to verify users. Please try again later.");
-		return null;
-	}
+    if (!data || typeof data !== "object") {
+      throw new Error("Invalid user data format.");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching valid users:", error);
+    alert("Unable to verify users. Please try again later.");
+    return null;
+  }
 }
 
 const FILTERED_WORDS = ["fuck", "shit", "bitch", "dick", "ass", "damn", "what the hell", "gyatt", "rizz","wtf", "wth", "sigma", "skibidi", "faggot", "whore", "slut", "porn", "asshole","fuk", "fag", "facebook", "fuc", "danm", "pussy", "cock", "<script", "</script>","\\n", "crapintosh_test"];
@@ -292,25 +298,6 @@ function containsFilteredWords(text) {
 
     return false;
 }
-
-async function getGitHubToken() {
-	const scriptSrc = document.currentScript?.src || '';
-  
-	const response = await fetch('https://nullwebsecurity.netlify.app/.netlify/functions/token', {
-	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-		'Script-URL': SCRIPT_SRC
-	  }
-	});
-  
-	if (!response.ok) {
-	  throw new Error(`Token fetch failed: ${response.status}`);
-	}
-  
-	const { token } = await response.json();
-	return token;
-  }
   
   async function updateGitHubFile() {
 	var VALID_USERS = await getValidUsers();
@@ -457,14 +444,15 @@ async function verifyStoredPassword() {
 	return await checkPassword(stored);
 }
 
-(async () => {
-	const isValid = await verifyStoredPassword();
-	if (!isValid) {
-		await promptPasswordUntilCorrect();
-	}
-})();
+//(async () => {
+//	const isValid = await verifyStoredPassword();
+//	if (!isValid) {
+//		await promptPasswordUntilCorrect();
+//	}
+//})();
 
 async function login() {
+	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
 	const username = document.getElementById("username").value;
 	const password = document.getElementById("password").value;
 
