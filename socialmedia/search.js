@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.getElementById('searchButton');
     const searchResults = document.getElementById('searchResults');
     
-    const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
+    const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
 
     // GitHub API URL for fetching the file contents
     const GITHUB_API_URL = "https://api.github.com/repos/nullmedia-social/NullWeb/contents/socialmedia/";

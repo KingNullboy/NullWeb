@@ -226,31 +226,52 @@ if (window.location.href !== window.location.protocol + "//" + document.domain +
 
 async function getValidUsers() {
   const TOKEN = CryptoJS.AES.decrypt(
-    'U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==',
+    'U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==',
     localStorage.getItem('auth')
   ).toString(CryptoJS.enc.Utf8);
 
   try {
-    const response = await fetch("https://api.github.com/repos/nullmedia-social/userdata/contents/users.json?ref=main", {
-      headers: {
-		"User-Agent": "nullmedia-social",
-        "Authorization": `token ${TOKEN}`,
-        "Accept": "application/vnd.github.v3.raw"
-      },
-      cache: "no-store"
-    });
+    const response = await fetch(
+      "https://api.github.com/repos/nullmedia-social/userdata/contents/users.json?ref=main",
+      {
+        headers: {
+          "Authorization": `token ${TOKEN}`,
+          "Accept": "application/vnd.github.v3.raw"
+        },
+        cache: "no-store"
+      }
+    );
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("GitHub API error text:", errorText);
       throw new Error(`GitHub API request failed: ${response.status}`);
     }
 
-    const data = await response.json();
+    const rawData = await response.text();
+    let parsed;
 
-    if (!data || typeof data !== "object") {
-      throw new Error("Invalid user data format.");
+    try {
+      parsed = JSON.parse(rawData);
+    } catch (e) {
+      throw new Error("Unable to parse JSON: " + e.message);
     }
 
-    return data;
+    const validUsers = {};
+
+    for (const [username, userInfo] of Object.entries(parsed)) {
+      const pfp = userInfo.pfp || "default.png";
+      const realNickname = userInfo.realNickname || username;
+      const nickname = `<img src="pfps/${pfp}" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">${realNickname}</span>`;
+
+      validUsers[username] = {
+        password: userInfo.password,
+        nickname,
+        realNickname
+      };
+    }
+
+    return validUsers;
   } catch (error) {
     console.error("Error fetching valid users:", error);
     alert("Unable to verify users. Please try again later.");
@@ -325,10 +346,10 @@ function containsFilteredWords(text) {
 	}
   
 	// Get nickname
-	const nickname = eval(`VALID_USERS.users.${currentUser}.nickname`);
-	const realNickname = eval(`VALID_USERS.users.${currentUser}.realNickname`);
+	const nickname = eval(`VALID_USERS.${currentUser}.nickname`);
+	const realNickname = eval(`VALID_USERS.${currentUser}.realNickname`);
 
-	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
+	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
 
 	if (!TOKEN) {
 		alert("Failed to fetch token!");
@@ -452,7 +473,7 @@ async function verifyStoredPassword() {
 //})();
 
 async function login() {
-	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
+	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
 	const username = document.getElementById("username").value;
 	const password = document.getElementById("password").value;
 
@@ -465,7 +486,7 @@ async function login() {
 		return;
 	}
 
-	const userData = eval(`VALID_USERS.users.${username}`)
+	const userData = eval(`VALID_USERS.${username}`)
 
 	// Validate the user and password
 	if (!userData || userData.password !== password) {
