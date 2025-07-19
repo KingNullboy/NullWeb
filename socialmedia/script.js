@@ -6,7 +6,7 @@ console.log(document.currentScript?.src);
 
 console.log("%cHELLO THERE! Don't dare try to hack into other people's accounts. I mean it.", "color: red;");
 console.log("%cAlso, you discovered an easter egg! Don't post about it though. Congrats on finding it.", "color: lightgreen;");
-console.log("%cOh, you want to make your console.log()s fun too? Just put %c at the beginning of your first argument in the log function\, and in the second argument, put css in quotes for the text\, the same way you'd do a style attribute for an HTML element.", "color: cyan");
+console.log("%cOh, you want to make your console.log()s fun too? Just put \%c at the beginning of your first argument in the log function\, and in the second argument, put css in quotes for the text\, the same way you'd do a style attribute for an HTML element.", "color: cyan");
 
 function getReplyCountForPost(postTitle) {
 	// Find all posts (replies and original posts)
@@ -341,7 +341,8 @@ async function getGitHubToken() {
 	const nickname = eval(`VALID_USERS.users.${currentUser}.nickname`);
 	const realNickname = eval(`VALID_USERS.users.${currentUser}.realNickname`);
 
-	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth'));
+	const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+COHsM+2s4JjvbAzYWdSq/kQhroxYQhXan2jJsBQG1GMka+VLu18bXJUTpta2zGaARlwA2jrLMQOl2TAw1F7mHpQjrWelpyRkJVYdne/v9k5R1jjHvQzHPX/6Z4ypKjQvUnRvBDid6JQ==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
+
 	if (!TOKEN) {
 		alert("Failed to fetch token!");
 		return;
