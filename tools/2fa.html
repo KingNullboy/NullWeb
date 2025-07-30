@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Null2FA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2em;
+      background: #222;
+      color: #eee;
+      text-align: center;
+    }
+    input, textarea {
+      font-size: 1em;
+      padding: 0.4em;
+      margin: 0.2em;
+      width: 20ch;
+    }
+    button {
+      padding: 0.5em;
+      margin: 0.2em;
+    }
+    .entry {
+      margin: 1em 0;
+      border: 1px solid #555;
+      padding: 1em;
+      background: #333;
+    }
+    .code {
+      font-size: 2em;
+      letter-spacing: 0.2em;
+      font-weight: bold;
+    }
+    .note {
+      font-size: 0.9em;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+<h1>Null2FA</h1>
+<p>Codes update every 30 seconds</p>
+
+<form id="addForm">
+  <input type="text" id="label" placeholder="Name" required />
+  <input type="text" id="secret" placeholder="Secret (Base32)" required />
+  <textarea id="note" placeholder="Note (optional)"></textarea><br>
+  <button type="submit">Add / Update 2FA</button>
+  <input type="hidden" id="editingIndex">
+</form>
+
+<button onclick="exportData('json')">Export JSON</button>
+<button onclick="exportData('html')">Export HTML</button>
+<input type="file" id="importFile" />
+<button onclick="document.getElementById('importFile').click()">Import</button>
+
+<div id="codes"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/js-sha1@0.6.0/build/sha1.min.js"></script>
+<script>
+  const base32tohex = (base32) => {
+    const base32chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+    let bits = "", hex = "";
+    base32 = base32.replace(/=+$/, '');
+    for (let i = 0; i < base32.length; i++) {
+      const val = base32chars.indexOf(base32.charAt(i).toUpperCase());
+      if (val === -1) continue;
+      bits += val.toString(2).padStart(5, "0");
+    }
+    for (let i = 0; i + 4 <= bits.length; i += 4)
+      hex += parseInt(bits.substr(i, 4), 2).toString(16);
+    return hex;
+  };
+
+  const hexToBytes = (hex) => {
+    const bytes = [];
+    for (let c = 0; c < hex.length; c += 2)
+      bytes.push(parseInt(hex.substr(c, 2), 16));
+    return bytes;
+  };
+
+  const sha1Bytes = (bytes) => sha1.array(bytes);
+
+  const hmacSha1 = (key, message) => {
+    const blocksize = 64;
+    if (key.length > blocksize) key = sha1Bytes(key);
+    if (key.length < blocksize) key = key.concat(new Array(blocksize - key.length).fill(0));
+    const o_key_pad = key.map(b => b ^ 0x5c);
+    const i_key_pad = key.map(b => b ^ 0x36);
+    return sha1Bytes(o_key_pad.concat(sha1Bytes(i_key_pad.concat(message))));
+  };
+
+  const HOTP = (K, C) => {
+    const key = hexToBytes(K);
+    const counter = new Array(8).fill(0);
+    for (let i = 7; i >= 0; i--) {
+      counter[i] = C & 0xff;
+      C >>= 8;
+    }
+    const hmac = hmacSha1(key, counter);
+    const offset = hmac[hmac.length - 1] & 0xf;
+    const code = (
+      ((hmac[offset] & 0x7f) << 24) |
+      ((hmac[offset + 1] & 0xff) << 16) |
+      ((hmac[offset + 2] & 0xff) << 8) |
+      (hmac[offset + 3] & 0xff)
+    ) % 1000000;
+    return code.toString().padStart(6, "0");
+  };
+
+  const TOTP = (hexKey) => {
+    const T = Math.floor(Date.now() / 1000 / 30);
+    return HOTP(hexKey, T);
+  };
+
+  const getSecrets = () => JSON.parse(localStorage.getItem("null2fa-entries") || "[]");
+  const saveSecrets = (data) => localStorage.setItem("null2fa-entries", JSON.stringify(data));
+
+  function renderCodes() {
+    const list = getSecrets();
+    const container = document.getElementById("codes");
+    container.innerHTML = "";
+    for (let i = 0; i < list.length; i++) {
+      const { name, secret, note } = list[i];
+      const code = TOTP(base32tohex(secret));
+      const rem = 30 - Math.floor(Date.now() / 1000) % 30;
+      const div = document.createElement("div");
+      div.className = "entry";
+      div.innerHTML = `
+        <strong>${name}</strong>
+        <div class="code">${code}</div>
+        <div class="note">${note || ""}</div>
+        <div style="color:#999">Refresh in ${rem}s</div>
+        <button onclick="editEntry(${i})">Edit</button>
+        <button onclick="deleteEntry(${i})">Delete</button>
+      `;
+      container.appendChild(div);
+    }
+  }
+
+  function editEntry(index) {
+    const entry = getSecrets()[index];
+    document.getElementById("label").value = entry.name;
+    document.getElementById("secret").value = entry.secret;
+    document.getElementById("note").value = entry.note;
+    document.getElementById("editingIndex").value = index;
+  }
+
+  function deleteEntry(index) {
+    const list = getSecrets();
+    if (confirm(`Delete "${list[index].name}"?`)) {
+      list.splice(index, 1);
+      saveSecrets(list);
+      renderCodes();
+    }
+  }
+
+  document.getElementById("addForm").onsubmit = (e) => {
+    e.preventDefault();
+    const name = document.getElementById("label").value.trim();
+    const secret = document.getElementById("secret").value.trim().replace(/\s+/g, '');
+    const note = document.getElementById("note").value.trim();
+    const index = document.getElementById("editingIndex").value;
+
+    if (name && secret) {
+      const entries = getSecrets();
+      if (index === "") {
+        entries.push({ name, secret, note });
+      } else {
+        entries[index] = { name, secret, note };
+      }
+      saveSecrets(entries);
+      document.getElementById("addForm").reset();
+      renderCodes();
+    }
+  };
+
+  function exportData(type) {
+    const entries = getSecrets();
+    if (type === "json") {
+      const blob = new Blob([JSON.stringify(entries, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "null2fa-secrets.json";
+      a.click();
+    } else if (type === "html") {
+      const html = document.documentElement.outerHTML.replace(
+        /localStorage\.getItem\("null2fa-entries"\)\s*\|\|\s*"[^"]*"/,
+        `\`${JSON.stringify(entries).replace(/`/g, "\\`")}\``
+      );
+      const blob = new Blob([html], { type: "text/html" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "null2fa-export.html";
+      a.click();
+    }
+  }
+
+  document.getElementById("importFile").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const imported = JSON.parse(reader.result);
+        if (Array.isArray(imported)) {
+          saveSecrets(imported);
+          renderCodes();
+        } else {
+          alert("Invalid file format");
+        }
+      } catch {
+        alert("Error reading file");
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  setInterval(renderCodes, 1000);
+  renderCodes();
+</script>
+</body>
+</html>
