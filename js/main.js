@@ -14,10 +14,16 @@ document.addEventListener("DOMContentLoaded", function() {
         document.head.appendChild(adScript2);
 
         // Inject hilltopadstype1.js
-        let hilltopScript = document.createElement("script");
-        hilltopScript.setAttribute("async", "true");
-        hilltopScript.src = "/hilltopadstype1.js";
-        document.head.appendChild(hilltopScript);
+        let hilltopScript1 = document.createElement("script");
+        hilltopScript1.setAttribute("async", "true");
+        hilltopScript1.src = "/hilltopadstype1.js";
+        document.head.appendChild(hilltopScript1);
+
+        // Inject hilltopadstype2.js
+        let hilltopScript2 = document.createElement("script");
+        hilltopScript2.setAttribute("async", "true");
+        hilltopScript2.src = "/hilltopadstype2.js";
+        document.head.appendChild(hilltopScript2);
     }
 
     // Simple Analytics script injection
