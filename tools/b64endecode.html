@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Base64 File Encoder / Decoder</title>
+</head>
+<body>
+  <h1>Base64 File Encoder / Decoder</h1>
+
+  <h2>Encode a File to Base64</h2>
+  <input type="file" id="encodeInput" />
+  <button onclick="encodeFile()">Encode</button>
+  <a id="downloadEncoded" style="display:none" download="file.b64">Download Encoded</a>
+
+  <h2>Decode a Base64 File</h2>
+  <input type="file" id="decodeInput" />
+  <button onclick="decodeFile()">Decode</button>
+  <a id="downloadDecoded" style="display:none" download="decoded_file">Download Decoded</a>
+
+  <script>
+    function encodeFile() {
+      const fileInput = document.getElementById('encodeInput');
+      if (!fileInput.files.length) {
+        alert("Select a file to encode.");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(e.target.result)));
+        const blob = new Blob([base64], { type: 'text/plain' });
+
+        const downloadLink = document.getElementById('downloadEncoded');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = file.name + ".b64";
+        downloadLink.style.display = "inline";
+        downloadLink.textContent = "Download " + file.name + ".b64";
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+
+    function decodeFile() {
+      const fileInput = document.getElementById('decodeInput');
+      if (!fileInput.files.length) {
+        alert("Select a .b64 file to decode.");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        try {
+          const binaryStr = atob(e.target.result.trim());
+          const byteArray = new Uint8Array([...binaryStr].map(c => c.charCodeAt(0)));
+          const blob = new Blob([byteArray]);
+
+          const downloadLink = document.getElementById('downloadDecoded');
+          downloadLink.href = URL.createObjectURL(blob);
+          downloadLink.download = file.name.replace(/\.b64$/, '') || "decoded_file";
+          downloadLink.style.display = "inline";
+          downloadLink.textContent = "Download Decoded File";
+        } catch (err) {
+          alert("Failed to decode. The file may not be valid Base64.");
+        }
+      };
+
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
