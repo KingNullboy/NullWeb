@@ -12,6 +12,12 @@ document.addEventListener("DOMContentLoaded", function() {
         adScript2.setAttribute("async", "true");
         adScript2.src = "https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=969176&siteid=363262";
         document.head.appendChild(adScript2);
+
+        // Inject hilltopadstype1.js
+        let hilltopScript = document.createElement("script");
+        hilltopScript.setAttribute("async", "true");
+        hilltopScript.src = "/hilltopadstype1.js";
+        document.head.appendChild(hilltopScript);
     }
 
     // Simple Analytics script injection
