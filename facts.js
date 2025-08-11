@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		"Everything you've ever smelled is particles entering your nose. Ew?",
 		"Ants can survive in a microwave. Resilient snacks, not recommended.",
 		"Sometimes your dog looks at you and just thinks 'meh'.",
-		"Your fingers prune in water to improve grip. Evolution made you better at holding soap.",
+		"Your fingers prune in water to improve grip. God's design made you better at holding soap.",
 		"Did you know the inventor of Pringles is buried in a Pringles can? Respect.",
 		"Rabbits can't puke. That's why they always look smug.",
 		"The reason you can't tickle yourself is because your brain says 'I know what you're up to.'",
