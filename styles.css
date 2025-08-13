@@ -238,3 +238,63 @@ button:hover {
     background-color: var(--text-color);
     color: var(--bg-color);
 }
+
+/* Mobile-specific styles */
+@media (max-width: 1080px) and (pointer: coarse) {
+    h1 {
+        font-size: 24px;
+        margin: 15px 0;
+    }
+
+    .navbtn {
+        width: 100%;       /* Stack buttons full width */
+        margin: 5px 0;     /* Vertical spacing */
+        font-size: 16px;   /* Slightly smaller text */
+        padding: 8px 0;    /* Adjust padding for small screens */
+    }
+
+    .navbtn img {
+        width: 30px;       /* Smaller icons on mobile */
+        height: auto;
+        display: block;
+        margin: 0 auto 5px; /* Center icon above text */
+    }
+
+    .botbtn {
+        font-size: 14px;
+        padding: 6px 10px;
+        margin: 4px 0;
+        width: 90%;
+    }
+
+    #homepageFact {
+        font-size: 14px;
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    #searchBar {
+        width: 80%;
+        font-size: 14px;
+    }
+
+    #searchButton {
+        width: auto;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    #searchResults {
+        width: 90%;
+    }
+
+    #mobilePortraitText {
+        font-size: 12px;
+        padding: 0 10px;
+        text-align: center;
+    }
+
+    body, center {
+        padding: 0 10px;
+    }
+}
