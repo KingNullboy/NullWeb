@@ -1,0 +1,10 @@
+body {
+	background-color: black;
+	color: white;
+}
+
+#game-log {
+	border: 2px solid white;
+	padding: 10px;
+	margin: 20px;
+}
