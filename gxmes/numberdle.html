@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Numberdle</title>
+<style>
+  body {
+    background: #121213;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 { margin: 10px 0 20px; }
+  #board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px;
+    max-width: 240px;
+    margin: 20px auto;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  .tile {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    background: #121213;
+    color: #fff;
+  }
+  .tile.correct { background: #538d4e; border-color: #538d4e; }
+  .tile.present { background: #b59f3b; border-color: #b59f3b; }
+  .tile.absent  { background: #3a3a3c; border-color: #3a3a3c; }
+  #keyboard {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .key {
+    padding: 10px;
+    background: #818384;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .key.correct { background: #538d4e; }
+  .key.present { background: #b59f3b; }
+  .key.absent  { background: #3a3a3c; }
+  .key.wide { grid-column: span 2; }
+  #controls { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
+  #newGame, #showStats {
+    background: #538d4e;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #message { margin-top: 10px; }
+  /* Stats modal */
+  #statsModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  #statsContent {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: left;
+  }
+  #statsContent h2 { text-align: center; margin-top: 0; }
+  #closeStats {
+    display: block;
+    margin: 10px auto 0;
+    padding: 8px 16px;
+    background: #538d4e;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<h1>Numberdle</h1>
+<div id="board"></div>
+<div id="keyboard"></div>
+<div id="controls">
+  <button id="newGame">New Game</button>
+  <button id="showStats">Stats</button>
+</div>
+<p id="message"></p>
+
+<!-- Stats modal -->
+<div id="statsModal">
+  <div id="statsContent">
+    <h2>Statistics</h2>
+    <div id="stats"></div>
+    <button id="closeStats">Close</button>
+  </div>
+</div>
+
+<script>
+const board = document.getElementById("board");
+const keyboard = document.getElementById("keyboard");
+const message = document.getElementById("message");
+const statsDiv = document.getElementById("stats");
+const statsModal = document.getElementById("statsModal");
+const ROWS = 6, COLS = 4;
+let currentRow, currentCol, secret, guesses;
+
+let stats = JSON.parse(localStorage.getItem("numberdleStats") || 
+  '{"games":0,"wins":0,"losses":0,"winsByTry":[0,0,0,0,0,0]}');
+
+function saveStats() {
+  localStorage.setItem("numberdleStats", JSON.stringify(stats));
+}
+function showStats() {
+  let html = `
+    Games Played: ${stats.games}<br>
+    Wins: ${stats.wins}<br>
+    Losses: ${stats.losses}<br><br>
+    Wins by Attempt:<br>
+  `;
+  stats.winsByTry.forEach((v,i)=> {
+    html += `&nbsp;&nbsp;Try ${i+1}: ${v}<br>`;
+  });
+  statsDiv.innerHTML = html;
+  statsModal.style.display = "flex";
+}
+function hideStats() { statsModal.style.display = "none"; }
+
+function initGame() {
+  board.innerHTML = "";
+  keyboard.innerHTML = "";
+  message.textContent = "";
+  currentRow = 0;
+  currentCol = 0;
+  secret = String(Math.floor(1000 + Math.random() * 9000));
+  guesses = Array.from({length: ROWS}, () => Array(COLS).fill(""));
+  buildBoard();
+  buildKeyboard();
+  document.addEventListener("keydown", keydownHandler);
+}
+
+function buildBoard() {
+  for (let r = 0; r < ROWS; r++) {
+    const row = document.createElement("div");
+    row.className = "row";
+    for (let c = 0; c < COLS; c++) {
+      const tile = document.createElement("div");
+      tile.className = "tile";
+      tile.id = `tile-${r}-${c}`;
+      row.appendChild(tile);
+    }
+    board.appendChild(row);
+  }
+}
+
+function buildKeyboard() {
+  const keys = ["1","2","3","4","5","6","7","8","9","0","Enter","←"];
+  keys.forEach(k => {
+    const btn = document.createElement("button");
+    btn.className = "key" + (k === "Enter" || k==="←" ? " wide" : "");
+    btn.textContent = k;
+    btn.onclick = () => handleKey(k);
+    keyboard.appendChild(btn);
+  });
+}
+
+function handleKey(k) {
+  if (message.textContent) message.textContent = "";
+  if (k === "Enter") {
+    if (currentCol === COLS) submitGuess();
+  } else if (k === "←") {
+    if (currentCol > 0) {
+      currentCol--;
+      guesses[currentRow][currentCol] = "";
+      document.getElementById(`tile-${currentRow}-${currentCol}`).textContent = "";
+    }
+  } else if (/^[0-9]$/.test(k)) {
+    if (currentCol < COLS) {
+      guesses[currentRow][currentCol] = k;
+      document.getElementById(`tile-${currentRow}-${currentCol}`).textContent = k;
+      currentCol++;
+    }
+  }
+}
+
+function submitGuess() {
+  const guess = guesses[currentRow].join("");
+  if (guess.length !== COLS) return;
+  let secretArr = secret.split("");
+  let guessArr = guess.split("");
+  let feedback = Array(COLS).fill("absent");
+
+  // First pass: correct
+  for (let i=0; i<COLS; i++) {
+    if (guessArr[i] === secretArr[i]) {
+      feedback[i] = "correct";
+      secretArr[i] = null;
+      guessArr[i] = null;
+    }
+  }
+  // Second pass: present
+  for (let i=0; i<COLS; i++) {
+    if (guessArr[i] && secretArr.includes(guessArr[i])) {
+      feedback[i] = "present";
+      secretArr[secretArr.indexOf(guessArr[i])] = null;
+    }
+  }
+  // Apply colors
+  for (let i=0; i<COLS; i++) {
+    let tile = document.getElementById(`tile-${currentRow}-${i}`);
+    tile.classList.add(feedback[i]);
+    updateKeyboard(guesses[currentRow][i], feedback[i]);
+  }
+
+  if (guess === secret) {
+    message.textContent = "🎉 You guessed it! The number was " + secret;
+    stats.games++;
+    stats.wins++;
+    stats.winsByTry[currentRow]++; // track win by attempt #
+    saveStats();
+    disableInput();
+    setTimeout(showStats, 1000);
+    return;
+  }
+  currentRow++;
+  currentCol = 0;
+  if (currentRow >= ROWS) {
+    message.textContent = "❌ Out of tries! The number was " + secret;
+    stats.games++;
+    stats.losses++;
+    saveStats();
+    disableInput();
+    setTimeout(showStats, 1000);
+  }
+}
+
+function updateKeyboard(digit, status) {
+  [...keyboard.children].forEach(btn=>{
+    if (btn.textContent===digit) {
+      if (btn.classList.contains("correct")) return;
+      if (btn.classList.contains("present") && status==="absent") return;
+      btn.classList.add(status);
+    }
+  });
+}
+
+function disableInput() {
+  [...keyboard.children].forEach(btn => btn.onclick = null);
+  document.removeEventListener("keydown", keydownHandler);
+}
+
+function keydownHandler(e) {
+  if (/^[0-9]$/.test(e.key)) handleKey(e.key);
+  else if (e.key==="Enter") handleKey("Enter");
+  else if (e.key==="Backspace") handleKey("←");
+}
+
+document.getElementById("newGame").onclick = () => {
+  disableInput();
+  initGame();
+};
+document.getElementById("showStats").onclick = showStats;
+document.getElementById("closeStats").onclick = hideStats;
+
+function iReallyWantABookmarkletToCheat() {
+	document.body.innerHTML = "<a href='javascript:alert(secret);'><button>Drag me to the bookmarks bar, cheater.</button></a>"
+};
+
+initGame();
+
+/* --- SECRET CHEAT CODE ---
+   You sneaky little gremlin.
+   You want to cheat, don't you?
+   Fine. Run this in the console:
+   console.log(secret);
+
+   Oh, you want a BOOKMARKLET? Run this then:
+   iReallyWantABookmarkletToCheat();
+*/
+</script>
+</body>
+</html>
