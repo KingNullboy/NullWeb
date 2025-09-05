@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* General Background */
+#background, body {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    font-family: 'Lato', sans-serif !important;
+}
+
+/* Top banner */
+#top_banner {
+    background-color: #000000 !important;
+    border-bottom: 2px solid #ffffff !important;
+	display: none;
+}
+
+/* Messages */
+.allMessages {
+    background-color: #111111 !important;
+    border-radius: 12px !important;
+    margin: 5px 0 !important;
+    padding: 8px 12px !important;
+    color: #ffffff !important;
+    font-family: 'Lato', sans-serif !important;
+}
+
+/* Sent and received messages */
+.sent {
+    background-color: #333333 !important;
+    text-align: right !important;
+}
+
+.received {
+    background-color: #222222 !important;
+    text-align: left !important;
+}
+
+/* Private messages */
+.allMessages.pm {
+    border: 2px solid #555555 !important;
+}
+
+/* Emojis */
+.allMessages.containsOnlyEmojis .emoji,
+.emoji,
+.emojiInGrid {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+/* Sender info, badges, timestamps */
+.senderInfo {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.mod, .owner, .beta {
+    background-color: #444444 !important;
+    color: #ffffff !important;
+    border-radius: 6px !important;
+    padding: 2px 6px !important;
+    font-size: 12px !important;
+}
+
+#timestamp {
+    color: #aaaaaa !important;
+    font-size: 12px !important;
+}
+
+/* Message body */
+.msgBody {
+    color: #ffffff !important;
+}
+
+/* Replies and quoted messages */
+.reply {
+    border-left: 3px solid #ffffff !important;
+    padding-left: 8px !important;
+    color: #cccccc !important;
+}
+
+/* Context menu options */
+.ctxMenuOption {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+}
+
+.ctxMenuOption:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Input area */
+#input {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 20px !important;
+    padding: 8px 12px !important;
+    font-family: 'Lato', sans-serif !important;
+}
+
+#input:empty::before {
+    content: 'Type a message...' !important;
+    color: #888888 !important;
+}
+
+/* Scroll buttons */
+#loadMore,
+#scrollToBottom {
+    background-color: #000000 !important;
+    border: 2px solid #ffffff !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 6px 12px !important;
+    cursor: pointer !important;
+}
+
+#loadMore:hover,
+#scrollToBottom:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Reply banner */
+#replyBanner {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    padding: 6px 12px !important;
+}
+
+/* Pinned messages */
+.pinned {
+    background-color: #222222 !important;
+    border-left: 4px solid #ffffff !important;
+}
+
+/* Highlighted mentions */
+.highlight {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+
+/* Settings menu */
+#settings, #settingsWindow, #settingsMenu {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 12px !important;
+}
+
+#account, #name, #dltranscript, #save, #closeSettingsBtn {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 10px !important;
+    padding: 6px 12px !important;
+    cursor: pointer !important;
+}
+
+#account:hover, #save:hover, #closeSettingsBtn:hover, #dltranscript:hover {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Modals and dialogue */
+.dialogueModal {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-radius: 15px !important;
+    border: 2px solid #ffffff !important;
+    padding: 12px !important;
+}
+
+/* Typing indicator */
+#is_typing {
+    background-color: #222222 !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 6px 12px !important;
+}
+
+/* Emoji tray */
+#emojiTray, #emojiTrayToggle {
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    border: 2px solid #ffffff !important;
+}
+
+/* Tutorial wrapper */
+#shadow {
+    display: none !important; /* Hide tutorial if desired */
+}
+
+/* Load more and scroll to bottom responsive adjustments */
+@media (max-width: 1080px) and (pointer: coarse) {
+    .allMessages {
+        font-size: 14px !important;
+        padding: 6px 10px !important;
+    }
+
+    #input {
+        font-size: 14px !important;
+        padding: 6px 10px !important;
+    }
+
+    #loadMore, #scrollToBottom {
+        font-size: 14px !important;
+        padding: 4px 8px !important;
+    }
+
+    .mod, .owner, .beta {
+        font-size: 10px !important;
+        padding: 2px 4px !important;
+    }
+}
