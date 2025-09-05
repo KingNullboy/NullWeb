@@ -1,32 +1,90 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>NullChat</title>
-		<script src="/js/main.js"></script>
-		<script src="https://iframe.chat/scripts/main.min.js"></script>
-		<script>
-			chattable.initialize({
-				stylesheet: "chattable.css"
-			});
-		</script>
-        <style>
-        /* Make html and body take full height */
+<head>
+    <title>NullChat</title>
+    <script src="https://iframe.chat/scripts/main.min.js"></script>
+    <style>
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Make the iframe fill the viewport */
-        #chattable {
+        #iframeContainer {
+            flex: 1;
+            position: relative;
+        }
+
+        iframe {
             width: 100%;
             height: 100%;
-            border: none;
-            display: block;
+            border: 0;
+        }
+
+        #toggleBtn {
+            margin: 10px auto;
+            background-color: #111;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 24px;
+            padding: 12px 28px;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        #toggleBtn:hover {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.6);
         }
     </style>
-	</head>
-	<body>
-		<iframe src="https://iframe.chat/embed?chat=NullChat" id="chattable" width=100% height=100%></iframe>
-	</body>
+</head>
+<body>
+    <div id="iframeContainer">
+        <iframe id="chattable" src="" frameborder="0"></iframe>
+    </div>
+    <button id="toggleBtn"></button>
+
+    <script>
+        const iframe = document.getElementById('chattable');
+        const toggleBtn = document.getElementById('toggleBtn');
+
+        function getURLParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        function loadTC() {
+            iframe.src = "https://iframe.chat/embed?chat=NullChat";
+
+            iframe.onload = () => {
+                // Wait a tick to ensure iframe is ready
+                setTimeout(() => {
+                    chattable.initialize({
+                        stylesheet: "chattable.css"
+                    });
+                }, 0);
+            };
+
+            toggleBtn.textContent = "Switch to Voice Chat";
+            toggleBtn.onclick = loadVC;
+        }
+
+        function loadVC() {
+            iframe.src = "https://meet.jit.si/KingNullboysNullChat";
+            toggleBtn.textContent = "Switch to Text Chat";
+            toggleBtn.onclick = loadTC;
+        }
+
+        const mode = getURLParam('mode') || 'tc';
+        if (mode === 'vc') loadVC();
+        else loadTC();
+    </script>
+</body>
 </html>
