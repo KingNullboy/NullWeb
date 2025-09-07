@@ -5,7 +5,7 @@ async function verifyStoredPassword() {
     if (!storedPassword) return false;
 
     try {
-        const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
+        const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
             method: "GET",
             headers: {
                 "Script-URL": scriptUrl,
@@ -34,7 +34,7 @@ async function promptPasswordUntilCorrect() {
         }
 
         try {
-            const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
+            const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
                 method: "GET",
                 headers: {
                     "Script-URL": scriptUrl,
