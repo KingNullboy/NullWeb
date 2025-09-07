@@ -425,7 +425,7 @@ function containsFilteredWords(text) {
 
 async function checkPassword(input) {
 	try {
-		const response = await fetch("https://nullwebsecurity.netlify.app/.netlify/functions/auth", {
+		const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
 			method: "GET",
 			headers: {
 				"Script-URL": "https://www.null-web.vastserve.com/socialmedia/script.js",
