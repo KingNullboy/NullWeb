@@ -1,4 +1,43 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // IndexedDB wrapper
+    const DB_NAME = "NullEditorDB";
+    const DB_STORE = "kvstore";
+    const DB_VERSION = 1;
+
+    function openDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            request.onupgradeneeded = e => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains(DB_STORE)) {
+                    db.createObjectStore(DB_STORE);
+                }
+            };
+            request.onsuccess = e => resolve(e.target.result);
+            request.onerror = e => reject(e.target.error);
+        });
+    }
+
+    async function idbSet(key, value) {
+        const db = await openDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction(DB_STORE, "readwrite");
+            tx.objectStore(DB_STORE).put(value, key);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = e => reject(e.target.error);
+        });
+    }
+
+    async function idbGet(key) {
+        const db = await openDB();
+        return new Promise((resolve, reject) => {
+            const tx = db.transaction(DB_STORE, "readonly");
+            const req = tx.objectStore(DB_STORE).get(key);
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = e => reject(e.target.error);
+        });
+    }
+
     // ===== GLOBAL STATE =====
     const files = {}; if (!files[""]) { files[""] = { type: "folder", content: "", children: [] }; }
     let currentFile = null;
@@ -32,14 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function getEditorContent() { return editor.getValue(); }
     function setEditorContent(content) { editor.setValue(content); updatePreview(); }
     function setEditorMode(mode) { editor.setOption("mode", mode); }
-    function saveFiles() {
+    async function saveFiles() {
         if (currentFile && files[currentFile]) files[currentFile].content = getEditorContent();
-        localStorage.setItem("nulleditor-files", JSON.stringify(files));
+        idbSet("nulleditor-files", JSON.stringify(files));
         updatePreview();
     }
 
-    function loadFiles() {
-        const stored = localStorage.getItem("nulleditor-files");
+    async function loadFiles() {
+        const stored = await idbGet("nulleditor-files");
         if (stored) Object.assign(files, JSON.parse(stored));
     }
 
@@ -360,22 +399,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, "text/html");
             doc.querySelectorAll("script[src]").forEach(s => {
-                const p = s.getAttribute("src");
-                const content = getFileContentByPath(p);
-                if (content !== null) {
-                    const i = document.createElement("script");
-                    i.textContent = content;
-                    s.replaceWith(i);
-                }
+                const p = s.getAttribute("src"); if (files[p]) { const i = document.createElement("script"); i.textContent = files[p].content; s.replaceWith(i); }
             });
             doc.querySelectorAll("link[rel=stylesheet]").forEach(l => {
-                const p = l.getAttribute("href");
-                const content = getFileContentByPath(p);
-                if (content !== null) {
-                    const st = document.createElement("style");
-                    st.textContent = content;
-                    l.replaceWith(st);
-                }
+                const p = l.getAttribute("href"); if (files[p]) { const st = document.createElement("style"); st.textContent = files[p].content; l.replaceWith(st); }
             });
             if (!doc.body.style.backgroundColor) doc.body.style.backgroundColor = "white";
             content = "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
@@ -431,8 +458,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let extensions = [];
 
     // Load extensions from localStorage
-    function loadExtensions() {
-        const stored = localStorage.getItem("nulleditor-extensions");
+    async function loadExtensions() {
+        const stored = await idbGet("nulleditor-extensions");
         if (stored) extensions = JSON.parse(stored);
 
         extensions.forEach(ext => {
@@ -464,7 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
             removeBtn.style.marginLeft = "8px";
             removeBtn.addEventListener("click", () => {
                 extensions.splice(i, 1);
-                localStorage.setItem("nulleditor-extensions", JSON.stringify(extensions));
+                idbSet("nulleditor-extensions", JSON.stringify(extensions));
                 updateExtensionsUI();
             });
 
@@ -502,7 +529,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 eval(code);
             }
 
-            localStorage.setItem("nulleditor-extensions", JSON.stringify(extensions));
+            idbSet("nulleditor-extensions", JSON.stringify(extensions));
             updateExtensionsUI();
         });
 
@@ -608,4 +635,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    window.files = files;
 });
