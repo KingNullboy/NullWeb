@@ -499,4 +499,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load extensions when editor loads
     loadExtensions();
+
+    // ===== CONSOLE SYSTEM =====
+    const newConsoleBtn = document.getElementById("newConsoleBtn");
+    const consoleContainer = document.getElementById("consoleContainer");
+    let consoleCount = 0;
+    const consoles = [];
+
+    newConsoleBtn.addEventListener("click", () => {
+        const id = "console-" + consoleCount++;
+        const wrapper = document.createElement("div");
+        wrapper.id = id;
+        wrapper.className = "console-wrapper";
+        wrapper.style.borderTop = "2px solid #fff";
+        wrapper.style.background = "#111";
+        wrapper.style.color = "#fff";
+        wrapper.style.fontFamily = "monospace";
+        wrapper.style.fontSize = "12px";
+        wrapper.style.display = "flex";
+        wrapper.style.flexDirection = "column";
+        wrapper.style.marginTop = "4px";
+        wrapper.style.height = "200px";
+        wrapper.style.position = "relative";
+
+        const output = document.createElement("div");
+        output.style.flex = "1";
+        output.style.overflowY = "auto";
+        output.style.padding = "4px";
+
+        const input = document.createElement("textarea");
+        input.style.height = "24px";
+        input.style.background = "#222";
+        input.style.color = "#fff";
+        input.style.border = "none";
+        input.style.resize = "none";
+        input.style.padding = "2px";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "×";
+        closeBtn.style.position = "absolute";
+        closeBtn.style.top = "2px";
+        closeBtn.style.right = "2px";
+        closeBtn.style.background = "#222";
+        closeBtn.style.color = "#fff";
+        closeBtn.style.border = "1px solid #fff";
+        closeBtn.style.cursor = "pointer";
+        closeBtn.addEventListener("click", () => wrapper.remove());
+
+        wrapper.appendChild(closeBtn);
+        wrapper.appendChild(output);
+        wrapper.appendChild(input);
+        consoleContainer.appendChild(wrapper);
+
+        // Save this console
+        consoles.push({ wrapper, output, input });
+
+        // Override console methods locally
+        const originalConsole = { ...console };
+        ["log", "warn", "error", "info"].forEach(method => {
+            console[method] = (...args) => {
+                const msg = `[${method}] ${args.join(" ")}`;
+                const div = document.createElement("div");
+                div.textContent = msg;
+                output.appendChild(div);
+                output.scrollTop = output.scrollHeight;
+                originalConsole[method](...args);
+            };
+        });
+
+        function appendEvalResult(code) {
+            const div = document.createElement("div");
+            div.textContent = "> " + code;
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+            let result;
+            try { result = eval(code); }
+            catch (err) {
+                const errDiv = document.createElement("div");
+                errDiv.textContent = "Error: " + err;
+                output.appendChild(errDiv);
+                return;
+            }
+            if (result !== undefined) {
+                const resDiv = document.createElement("div");
+                resDiv.textContent = "< " + result;
+                output.appendChild(resDiv);
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        input.addEventListener("keydown", e => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                appendEvalResult(input.value);
+                input.value = "";
+            }
+        });
+    });
 });

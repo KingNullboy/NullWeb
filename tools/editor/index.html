@@ -5,19 +5,14 @@
     <meta charset="UTF-8">
     <title>NullEditor</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/theme/dracula.min.css">
-
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
 </head>
 
 <body>
-
     <div id="app">
-
         <!-- Sidebar -->
         <div id="sidebar">
             <div id="sidebarHeader">
@@ -25,10 +20,9 @@
                 <button id="newFolderBtn">New Folder</button>
                 <button id="togglePreview">Toggle Preview</button>
                 <button id="extensionsBtn">Extensions</button>
+                <button id="newConsoleBtn">New Console</button>
             </div>
-
             <ul id="fileTree"></ul>
-
             <div id="extensionsPanel"
                 style="display:none; padding:5px; overflow-y:auto; flex:1; border-top:2px solid #fff;">
                 <h4>Extensions</h4>
@@ -38,42 +32,39 @@
 
         <!-- Main area -->
         <div id="mainArea">
-
-            <!-- Editor toolbar -->
             <div id="editorToolbar">
                 <label for="highlightLang">Highlight text as:</label>
                 <select id="highlightLang">
-                <option value="">--Select--</option>
-                <option value="javascript">JavaScript</option>
-                <option value="htmlmixed">HTML</option>
-                <option value="css">CSS</option>
-                <option value="python">Python</option>
-                <option value="java">Java</option>
-                <option value="c">C</option>
-                <option value="cpp">C++</option>
-                <option value="json">JSON</option>
-                <option value="markdown">Markdown</option>
-            </select>
-
+        <option value="">--Select--</option>
+        <option value="javascript">JavaScript</option>
+        <option value="htmlmixed">HTML</option>
+        <option value="css">CSS</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="c">C</option>
+        <option value="cpp">C++</option>
+        <option value="json">JSON</option>
+        <option value="markdown">Markdown</option>
+      </select>
                 <label for="formatLang">Format text as:</label>
                 <select id="formatLang">
-                <option value="">--Select--</option>
-                <option value="javascript">JavaScript</option>
-                <option value="html">HTML</option>
-                <option value="css">CSS</option>
-                <option value="json">JSON</option>
-                <option value="markdown">Markdown</option>
-            </select>
+        <option value="">--Select--</option>
+        <option value="javascript">JavaScript</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="json">JSON</option>
+        <option value="markdown">Markdown</option>
+      </select>
             </div>
 
-            <!-- Editor & Preview -->
             <div id="editorPreviewContainer">
                 <textarea id="editor" placeholder="Start typing..."></textarea>
                 <iframe id="preview"></iframe>
             </div>
 
+            <!-- Console Panels -->
+            <div id="consoleContainer"></div>
         </div>
-
     </div>
 
     <!-- Context Menu -->
