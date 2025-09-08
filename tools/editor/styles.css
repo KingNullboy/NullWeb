@@ -1,0 +1,167 @@
+/* --- General --- */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+}
+
+#app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- Sidebar --- */
+#sidebar {
+    width: 220px;
+    background: #111;
+    border-right: 2px solid #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebarHeader {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    gap: 4px;
+}
+
+#sidebarHeader button {
+    flex: 1 1 auto;
+    padding: 6px 8px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+}
+
+#sidebarHeader button:hover {
+    background: #fff;
+    color: #000;
+}
+
+#fileTree {
+    list-style: none;
+    padding-left: 8px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.sidebar-item {
+    padding: 4px 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sidebar-item.folder>.folder-children {
+    padding-left: 15px;
+    display: none;
+}
+
+.sidebar-item.selected {
+    background: #444;
+}
+
+/* --- Main Area --- */
+#mainArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Editor & Preview Container */
+#editorPreviewContainer {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#editor {
+    flex: 1;
+    min-height: 0;
+}
+
+.CodeMirror {
+    flex: 1;
+    height: 100% !important;
+    min-height: 0;
+    background: #111;
+    color: #fff;
+}
+
+/* Preview */
+#preview {
+    flex: 1;
+    min-height: 0;
+    background: #222;
+    border: none;
+}
+
+#editorToolbar {
+    padding: 6px 10px;
+    background: #111;
+    border-bottom: 2px solid #fff;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+/* --- Context Menu --- */
+#contextMenu {
+    position: absolute;
+    background: #111;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    display: none;
+    z-index: 1000;
+}
+
+#contextMenu ul {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+}
+
+#contextMenu li {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+#contextMenu li:hover {
+    background: #fff;
+    color: #000;
+}
+
+#extensionsPanel {
+    background: #111;
+    border-top: 2px solid #fff;
+    padding: 5px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+#extensionsPanel h4 {
+    margin: 0 0 5px 0;
+}
+
+#extensionsPanel button {
+    padding: 4px 6px;
+    border: 1px solid #fff;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+}
+
+#extensionsPanel button:hover {
+    background: #fff;
+    color: #000;
+}

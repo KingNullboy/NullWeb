@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NullPortal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Lato', sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            max-width: 500px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 20px 0 0 20px;
+            border: 2px solid #fff;
+            background-color: #111;
+            color: #fff;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 0 20px 20px 0;
+            border: 2px solid #fff;
+            background-color: #111;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+            input[type="text"], button {
+                width: 80%;
+                border-radius: 20px;
+            }
+            button {
+                margin-top: 10px;
+            }
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>NullPortal</h1>
+    <div class="container">
+        <input type="text" id="urlInput" placeholder="Enter a URL (e.g., https://example.com)">
+        <button id="openPortalBtn">Open</button>
+    </div>
+    <p>Enter any URL and it will open inside a full-screen portal. All links stay inside!</p>
+
+    <script>
+        document.getElementById('openPortalBtn').addEventListener('click', function() {
+            let url = document.getElementById('urlInput').value.trim();
+            if (!url) return alert("Please enter a URL!");
+
+            if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+            const newTab = window.open('about:blank', '_blank');
+
+            if (!newTab) return alert("Couldn't open a new tab :(");
+
+            const iframe = newTab.document.createElement('iframe');
+            iframe.src = url;
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = '0';
+            newTab.document.body.style.margin = '0';
+            newTab.document.body.style.padding = '0';
+            newTab.document.body.appendChild(iframe);
+
+            // Intercept links inside iframe to open in the same iframe
+            iframe.onload = function() {
+                try {
+                    const links = iframe.contentDocument.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            iframe.src = link.href;
+                        });
+                    });
+                } catch(err) {
+                    // Cross-origin pages may throw a security error; ignore them
+                }
+            };
+        });
+    </script>
+</body>
+</html>
