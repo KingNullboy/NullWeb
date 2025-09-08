@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NullClock</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; font-family:'Lato',sans-serif; background:#000; color:#fff; min-height:100vh; display:flex; flex-direction:column; align-items:center; }
+  h1 { margin:10px 0; }
+  #time { font-size:2.5em; margin-bottom:20px; }
+  select, input, button { padding:8px 12px; margin:4px; font-size:14px; border-radius:10px; border:2px solid #fff; background:#111; color:#fff;}
+  button:hover { background:#fff; color:#000; cursor:pointer; }
+  .tabs { display:flex; justify-content:center; margin-bottom:20px; }
+  .tab-btn { flex:1; text-align:center; padding:10px; border:2px solid #fff; cursor:pointer; border-radius:10px; background:#111; margin:0 2px; }
+  .tab-btn.active { background:#fff; color:#000; }
+  .tab-content { background:#111; border:2px solid #fff; border-radius:10px; padding:15px; width:90%; max-width:600px; }
+  .timer, .alarm, .stopwatch { background:#222; border-radius:10px; padding:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; }
+  ul { list-style:none; padding-left:0; }
+</style>
+</head>
+<body>
+
+<h1>NullClock</h1>
+
+<div>
+  <label for="timezoneSelect">Timezone:</label>
+  <select id="timezoneSelect"></select>
+</div>
+
+<div id="time">--:--:--</div>
+
+<div class="tabs">
+  <div class="tab-btn active" data-tab="timers">Timers</div>
+  <div class="tab-btn" data-tab="alarms">Alarms</div>
+  <div class="tab-btn" data-tab="stopwatch">Stopwatch</div>
+</div>
+
+<div class="tab-content" id="timersTab">
+  <input type="number" id="timerMinutes" placeholder="Minutes" min="0">
+  <input type="number" id="timerSeconds" placeholder="Seconds" min="0">
+  <button id="addTimer">Add Timer</button>
+  <ul id="timersList"></ul>
+</div>
+
+<div class="tab-content" id="alarmsTab" style="display:none;">
+  <input type="time" id="alarmTime">
+  <button id="addAlarm">Add Alarm</button>
+  <ul id="alarmsList"></ul>
+</div>
+
+<div class="tab-content" id="stopwatchTab" style="display:none;">
+  <div id="stopwatchDisplay">00:00:00</div>
+  <button id="swStartPause">Start</button>
+  <button id="swReset">Reset</button>
+  <ul id="laps"></ul>
+</div>
+
+<audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio>
+
+<script>
+  // Timezone dropdown
+  const tzSelect = document.getElementById('timezoneSelect');
+  if(Intl.supportedValuesOf) {
+    Intl.supportedValuesOf('timeZone').forEach(tz => {
+      const opt = document.createElement('option');
+      opt.value = tz;
+      opt.textContent = tz.replace('_',' ');
+      tzSelect.appendChild(opt);
+    });
+  }
+
+  const timeDisplay = document.getElementById('time');
+  function updateTime(){
+    const tz = tzSelect.value;
+    const now = new Date();
+    const options = {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone: tz==='local'?undefined:tz};
+    timeDisplay.textContent = now.toLocaleTimeString('en-US', options);
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  // Tabs logic
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
+      document.getElementById(tab.dataset.tab+'Tab').style.display='block';
+    });
+  });
+
+  // Timers
+  const timersList = document.getElementById('timersList');
+  document.getElementById('addTimer').addEventListener('click',()=>{
+    let m=parseInt(document.getElementById('timerMinutes').value)||0;
+    let s=parseInt(document.getElementById('timerSeconds').value)||0;
+    if(m===0 && s===0) return;
+    let total=m*60+s;
+    const li=document.createElement('li'); li.className='timer';
+    let remaining=total;
+    li.innerHTML = `<span>${m}m ${s}s</span> <button>Start</button> <button>Remove</button>`;
+    timersList.appendChild(li);
+
+    let interval; 
+    const startBtn = li.querySelector('button:nth-of-type(1)');
+    const removeBtn = li.querySelector('button:nth-of-type(2)');
+    startBtn.addEventListener('click', ()=>{
+      if(interval) return;
+      interval=setInterval(()=>{
+        remaining--;
+        let mins=Math.floor(remaining/60), secs=remaining%60;
+        li.querySelector('span').textContent=`${mins}m ${secs}s`;
+        if(remaining<=0){ clearInterval(interval); interval=null; li.querySelector('span').textContent='Done!'; document.getElementById('alarmSound').play();}
+      },1000);
+    });
+    removeBtn.addEventListener('click',()=>{if(interval) clearInterval(interval); li.remove();});
+  });
+
+  // Stopwatch
+  let swTime=0, swInterval=null;
+  const swDisplay=document.getElementById('stopwatchDisplay');
+  document.getElementById('swStartPause').addEventListener('click',()=>{
+    if(swInterval){clearInterval(swInterval); swInterval=null;} 
+    else{swInterval=setInterval(()=>{swTime++; let h=Math.floor(swTime/3600), m=Math.floor(swTime%3600/60), s=swTime%60; swDisplay.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;},1000);}
+  });
+  document.getElementById('swReset').addEventListener('click',()=>{swTime=0; swDisplay.textContent='00:00:00'; clearInterval(swInterval); swInterval=null;});
+
+  // Alarms
+  const alarmsList=document.getElementById('alarmsList');
+  document.getElementById('addAlarm').addEventListener('click',()=>{
+    const t=document.getElementById('alarmTime').value;
+    if(!t) return;
+    const li=document.createElement('li'); li.className='alarm';
+    li.innerHTML=`<span>${t}</span> <button>Remove</button>`;
+    alarmsList.appendChild(li);
+    li.querySelector('button').addEventListener('click',()=>li.remove());
+  });
+
+  setInterval(()=>{
+    const now=new Date();
+    const hh=String(now.getHours()).padStart(2,'0');
+    const mm=String(now.getMinutes()).padStart(2,'0');
+    document.querySelectorAll('.alarm span').forEach(span=>{
+      if(span.textContent===`${hh}:${mm}`){ document.getElementById('alarmSound').play();}
+    });
+  },1000);
+</script>
+</body>
+</html>
