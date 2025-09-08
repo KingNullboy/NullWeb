@@ -360,10 +360,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, "text/html");
             doc.querySelectorAll("script[src]").forEach(s => {
-                const p = s.getAttribute("src"); if (files[p]) { const i = document.createElement("script"); i.textContent = files[p].content; s.replaceWith(i); }
+                const p = s.getAttribute("src");
+                const content = getFileContentByPath(p);
+                if (content !== null) {
+                    const i = document.createElement("script");
+                    i.textContent = content;
+                    s.replaceWith(i);
+                }
             });
             doc.querySelectorAll("link[rel=stylesheet]").forEach(l => {
-                const p = l.getAttribute("href"); if (files[p]) { const st = document.createElement("style"); st.textContent = files[p].content; l.replaceWith(st); }
+                const p = l.getAttribute("href");
+                const content = getFileContentByPath(p);
+                if (content !== null) {
+                    const st = document.createElement("style");
+                    st.textContent = content;
+                    l.replaceWith(st);
+                }
             });
             if (!doc.body.style.backgroundColor) doc.body.style.backgroundColor = "white";
             content = "<!DOCTYPE html>\n" + doc.documentElement.outerHTML;
