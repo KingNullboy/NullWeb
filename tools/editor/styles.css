@@ -165,3 +165,37 @@ body {
     background: #fff;
     color: #000;
 }
+
+#consoleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px;
+}
+
+.consolePanel {
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    padding: 6px;
+    font-family: monospace;
+    max-height: 200px;
+    overflow-y: auto;
+    resize: vertical;
+}
+
+.consoleInput {
+    width: 100%;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    background: #222;
+    color: #fff;
+    padding: 4px;
+    font-family: monospace;
+}
+
+.consoleOutput {
+    margin-top: 4px;
+    white-space: pre-wrap;
+}
