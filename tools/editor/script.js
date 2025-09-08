@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function setEditorMode(mode) { editor.setOption("mode", mode); }
     function saveFiles() {
         if (currentFile && files[currentFile]) files[currentFile].content = getEditorContent();
-        localStorage.setItem("nullnotes-files", JSON.stringify(files));
+        localStorage.setItem("nulleditor-files", JSON.stringify(files));
         updatePreview();
     }
 
     function loadFiles() {
-        const stored = localStorage.getItem("nullnotes-files");
+        const stored = localStorage.getItem("nulleditor-files");
         if (stored) Object.assign(files, JSON.parse(stored));
     }
 
@@ -420,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load extensions from localStorage
     function loadExtensions() {
-        const stored = localStorage.getItem("nullnotes-extensions");
+        const stored = localStorage.getItem("nulleditor-extensions");
         if (stored) extensions = JSON.parse(stored);
 
         extensions.forEach(ext => {
@@ -452,7 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
             removeBtn.style.marginLeft = "8px";
             removeBtn.addEventListener("click", () => {
                 extensions.splice(i, 1);
-                localStorage.setItem("nullnotes-extensions", JSON.stringify(extensions));
+                localStorage.setItem("nulleditor-extensions", JSON.stringify(extensions));
                 updateExtensionsUI();
             });
 
@@ -490,7 +490,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 eval(code);
             }
 
-            localStorage.setItem("nullnotes-extensions", JSON.stringify(extensions));
+            localStorage.setItem("nulleditor-extensions", JSON.stringify(extensions));
             updateExtensionsUI();
         });
 
