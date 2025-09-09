@@ -158,90 +158,38 @@ async function submitPost() {
 
 document.getElementById("submit").addEventListener("click", submitPost)
 
-// Login function remains mostly unchanged
-async function getValidUsers() {
-    const TOKEN = CryptoJS.AES.decrypt(
-        'U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==',
-        localStorage.getItem('auth')
-    ).toString(CryptoJS.enc.Utf8);
+async function login() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username || !password) {
+        alert("Please enter both username and password.");
+        return;
+    }
 
     try {
-        const response = await fetch(
-            "https://api.github.com/repos/nullmedia-social/userdata/contents/users.json?ref=main",
-            {
-                headers: {
-                    "Authorization": `token ${TOKEN}`,
-                    "Accept": "application/vnd.github.v3.raw"
-                },
-                cache: "no-store"
-            }
-        );
+        const response = await fetch("https://nullapis.netlify.app/.netlify/functions/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("GitHub API error text:", errorText);
-            throw new Error(`GitHub API request failed: ${response.status}`);
+        const result = await response.json();
+
+        if (response.status === 200 && result.message === "Login successful") {
+            localStorage.setItem("user", username);
+            localStorage.setItem("password", password)
+            alert("Login successful!");
+            window.history.back();
+        } else {
+            alert("Login failed: " + (result.error || "Unknown error"));
         }
-
-        const rawData = await response.text();
-        let parsed;
-
-        try {
-            parsed = JSON.parse(rawData);
-        } catch (e) {
-            throw new Error("Unable to parse JSON: " + e.message);
-        }
-
-        const validUsers = {};
-
-        for (const [username, userInfo] of Object.entries(parsed)) {
-            const pfp = userInfo.pfp || "default.png";
-            const realNickname = userInfo.realNickname || username;
-            const nickname = `<img src="pfps/${pfp}" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">${realNickname}</span>`;
-
-            validUsers[username] = {
-                password: userInfo.password,
-                nickname,
-                realNickname
-            };
-        }
-
-        return validUsers;
-    } catch (error) {
-        console.error("Error fetching valid users:", error);
-        alert("Unable to verify users. Please try again later.");
-        return null;
+    } catch (err) {
+        console.error("Login error:", err);
+        alert("An error occurred while logging in.");
     }
 }
-async function login() {
-    const TOKEN = CryptoJS.AES.decrypt('U2FsdGVkX1+3BAIDUKTRTKl4X2/ao75PetmZOsJruVRrD5Lvf0pDuFyS5WjWW2I2wLlxUsrsvS9p7XpKiIYXsGpSaYsXaJuIATfjXUaBTp0PjNBnOLolL4jw7IqtIC3xskcCWl0CWK3QXxjP5lAD6g==', localStorage.getItem('auth')).toString(CryptoJS.enc.Utf8);
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
 
-    // Get valid users using the getValidUsers function
-    const VALID_USERS = await getValidUsers();
-
-    // Check if the users were fetched successfully
-    if (!VALID_USERS) {
-        alert("Unable to verify users. Please try again later.");
-        return;
-    }
-
-    const userData = eval(`VALID_USERS.${username}`)
-
-    // Validate the user and password
-    if (!userData || userData.password !== password) {
-        alert("Invalid username or password.");
-        return;
-    }
-
-    // Save login info to localStorage
-    localStorage.setItem("user", username);
-    localStorage.setItem("password", password);
-
-    alert("Login successful!");
-    window.history.back();
-}
 async function checkPassword(input) {
     try {
         const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
@@ -281,7 +229,7 @@ async function promptPasswordUntilCorrect() {
         }
     }
 }
-(async () => { const isValid = await verifyStoredPassword(); if (!isValid) await promptPasswordUntilCorrect(); })();
+//(async () => { const isValid = await verifyStoredPassword(); if (!isValid) await promptPasswordUntilCorrect(); })();
 
 // Update login/logout button logic
 document.addEventListener("DOMContentLoaded", function () {
