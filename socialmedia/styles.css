@@ -65,7 +65,8 @@ a[id=logo] {
     color: var(--text-color, #FFFFFF);
 }
 
-a[id=homebutton], a[id=infobutton] {
+a[id=homebutton],
+a[id=infobutton] {
     margin-left: 10px;
 }
 
@@ -97,7 +98,8 @@ div[id=form] {
     color: var(--text-color, #FFFFFF);
 }
 
-input, textarea {
+input,
+textarea {
     border-radius: 5px;
     border-color: var(--border-color, #000000);
     font-family: var(--font-family, Lato);
@@ -105,7 +107,8 @@ input, textarea {
     background-color: var(--input-bg-color, #363636);
 }
 
-input[id=title], textarea[id=postContent] {
+input[id=title],
+textarea[id=postContent] {
     width: 400px;
     border-color: #000000;
 }
@@ -124,7 +127,8 @@ input[id=title], textarea[id=postContent] {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#login, #headerBtn {
+#login,
+#headerBtn {
     border-color: transparent;
     background-color: transparent;
 }
@@ -163,7 +167,8 @@ article {
     padding-bottom: 0;
 }
 
-article + #reply, #reply + #reply {
+article+#reply,
+#reply+#reply {
     margin-top: 0;
 }
 
