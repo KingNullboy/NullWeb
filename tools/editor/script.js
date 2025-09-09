@@ -637,4 +637,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.files = files;
+
+    updateSidebar();
 });
