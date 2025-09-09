@@ -214,22 +214,17 @@ async function verifyStoredPassword() {
 async function promptPasswordUntilCorrect() {
     while (true) {
         let userInput = prompt("This is a password-protected site. Please enter the password.");
-        if (!userInput) {
-            alert("No password entered.");
-            window.location.href = "about:blank";
-            return;
-        }
 
         const isCorrect = await checkPassword(userInput);
         if (isCorrect) {
-            localStorage.setItem("auth", userInput); // store actual password for future validation
+            localStorage.setItem("auth", userInput);
             break;
         } else {
             alert("Incorrect password.");
         }
     }
 }
-//(async () => { const isValid = await verifyStoredPassword(); if (!isValid) await promptPasswordUntilCorrect(); })();
+(async () => { const isValid = await verifyStoredPassword(); if (!isValid) await promptPasswordUntilCorrect(); })();
 
 // Update login/logout button logic
 document.addEventListener("DOMContentLoaded", function () {

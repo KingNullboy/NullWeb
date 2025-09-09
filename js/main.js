@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Ads script injection
     if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
         let hilltopScript1 = document.createElement("script");
@@ -39,11 +39,7 @@ async function checkPassword(input) {
 async function promptPasswordUntilCorrect() {
     while (true) {
         const userPassword = prompt("This is a password-protected site. Please enter the password.");
-        if (!userPassword) {
-            alert("No password entered.");
-            window.location = "about:blank";
-            return;
-        }
+
         const correct = await checkPassword(userPassword);
         if (correct) {
             localStorage.setItem("auth", userPassword);
@@ -62,16 +58,7 @@ async function verifyStoredPassword() {
 
 // Immediately verify password on page load
 (async () => {
-    const verified = await verifyStoredPassword();
-    if (!verified) {
-        await promptPasswordUntilCorrect();
-    }
-
-    // Protect gxmes pages
-    if (window.location.href.includes("gxmes/")) {
-        const access = await checkPassword(localStorage.getItem("auth"));
-        if (!access) {
-            window.location.href = window.location.protocol + "//" + document.domain + "/gxmes/";
-        }
+    if (window.location.href.includes("gxmes/") && !window.location.href.includes("gxmes/index") && window.location.href !== window.location.protocol+"//"+document.domain+"/gxmes/") {
+        window.location.href = window.location.protocol+"//"+document.domain+"/gxmes/";
     }
 })();

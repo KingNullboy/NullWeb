@@ -27,11 +27,6 @@ async function promptPasswordUntilCorrect() {
 
     while (true) {
         const userPassword = prompt("This is a password-protected site. Please enter the password.");
-        if (!userPassword) {
-            alert("No password entered.");
-            window.location = "about:blank";
-            return;
-        }
 
         try {
             const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
