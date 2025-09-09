@@ -395,7 +395,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!currentFile) { preview.srcdoc = "<html><body style='background:white;'>No file selected</body></html>"; return; }
         let content = getEditorContent();
         if (currentFile.endsWith(".md")) preview.srcdoc = `<html><body style="background:white;">${marked.parse(content || "")}</body></html>`;
-        else if (currentFile.endsWith(".mdp")) preview.srcdoc = `<html><body style="background:white;">${MarkdownPlus.parse(content || "")}</body></html>`
+        else if (currentFile.endsWith(".mdp")) preview.srcdoc = `<html><body style="background:white;">${MarkdownPlus.parse(content || "").replace(/\n/g, "<br>")}</body></html>`
         else if (currentFile.endsWith(".html")) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, "text/html");
@@ -638,6 +638,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.files = files;
-
-    updateSidebar();
+    marked.setOptions({ breaks: true });
+    setInterval(updateSidebar, 1000);
 });
