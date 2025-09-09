@@ -10,7 +10,7 @@
     <!-- Meta description for search engines -->
     <meta name="description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 
-    <!-- Open Graph for search engines and social shares -->
+    <!-- Open Graph (Facebook/Discord/social sharing) -->
     <meta property="og:title" content="NullWeb - Social Media, Wiki, Games & Tools">
     <meta property="og:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
     <meta property="og:type" content="website">
@@ -23,11 +23,16 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://www.null-web.vastserve.com/logo.png">
 
-	<link rel="preload" href="styles.css" as="style">
-	<link rel="preload" href="logo.png" as="image">
+    <!-- Styles -->
+    <link rel="preload" href="styles.css" as="style">
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
     <link rel="icon" href="logo.png" type="image/png">
-	<link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Apple & mobile web app settings -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,6 +43,10 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+
+    <!-- Verification tags -->
+    <meta name="1c0c5ea3b3bd850dba40170d17be6ebfe83d029c" content="1c0c5ea3b3bd850dba40170d17be6ebfe83d029c">
+    <meta name="7searchppc" content="ff4b6afbcbb42673ffe95c30f02b4ea8">
 
     <!-- Scripts -->
     <script src="/styles.js" defer></script>
@@ -58,45 +67,40 @@
     </script>
 </head>
 <body>
-    <main role="main" style="text-align:center;">
-        <header>
-            <h1>NullWeb</h1>
-            <p>Your hub for fun, games, social media, and useful tools.</p>
-        </header>
-
-        <nav aria-label="Main navigation">
-            <button class="navbtn" onclick="window.location = 'socialmedia/';" title="Visit NullMedia" role="link">
-                <img src="socialmedia/logo.png" alt="NullMedia logo" width="40"><br>NullMedia
-            </button>
-            <button class="navbtn" onclick="window.location = 'wiki/';" title="Visit NullWiki" role="link">
-                <img src="wiki/logo.png" alt="NullWiki logo" width="40"><br>NullWiki
-            </button>
-            <button class="navbtn" onclick="window.location = 'links/';" title="Visit NullLinks" role="link">
-                <img src="links/logo.png" alt="NullLinks logo" width="40"><br>NullLinks
-            </button>
-            <button class="navbtn" onclick="window.location = 'gxmes/';" title="Visit NullG*mes" role="link">
-                <img src="gxmes/logo.png" alt="NullG*mes logo" width="40"><br>NullG*mes
-            </button>
-            <button class="navbtn" onclick="window.location = 'tools/';" title="Visit NullTools" role="link">
-                <img src="tools/logo.png" alt="NullTools logo" width="30"><br>NullTools
-            </button>
-        </nav>
-
-        <section aria-label="Fun facts">
-            <p id="homepageFact" style="cursor:pointer; margin-top:20px;">[loading a weird truth... click me!]</p>
-        </section>
-
-        <section aria-label="Utilities">
-            <button id="openBlankLink" class="botbtn" title="Hide URL">Hide URL</button>
-            <button class="botbtn" onclick="window.location.href='styles.html';" title="Change Themes">Themes</button>
-            <button class="botbtn" onclick="window.open('qrcode.png');" title="View QR Code">QR Code</button>
-            <button class="botbtn" onclick="window.location.href='contact.html';" title="Contact NullWeb">Contact Us</button>
-        </section>
-
-        <section aria-label="App downloads">
-            <button id="installButton" class="botbtn" onclick="generateProfile();" style="display:none;" title="Download iOS App">Download iOS App</button>
-            <button id="androidDownloadButton" class="botbtn" onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';" style="display:none;" title="Download Android App">Download Android App</button>
-        </section>
-    </main>
+    <center>
+        <h1>NullWeb</h1>
+        <button class="navbtn" alt="NullMedia logo" onclick="window.location = 'socialmedia/';">
+            <img src="socialmedia/logo.png" width="40px"><br>
+            NullMedia
+        </button>
+        <button class="navbtn" alt="NullWiki logo" onclick="window.location = 'wiki/';">
+            <img src="wiki/logo.png" width="40px"><br>
+            NullWiki
+        </button>
+        <button class="navbtn" alt="NullLinks logo" onclick="window.location = 'links/';">
+            <img src="links/logo.png" width="40px"><br>
+            NullLinks
+        </button>
+        <button class="navbtn" alt="NullG*mes logo" onclick="window.location = 'gxmes/';">
+            <img src="gxmes/logo.png" width="40px"><br>
+            NullG*mes
+        </button>
+        <button class="navbtn" alt="NullTools logo" onclick="window.location = 'tools/';">
+            <img src="tools/logo.png" width="30px"><br>
+            NullTools
+        </button>
+        <br><br>
+        <p id="homepageFact" style="cursor: pointer; margin-top: 20px;">[loading a weird truth... click me!]</p>
+        <br><br>
+        <!-- Other buttons -->
+        <button id="openBlankLink" class="botbtn">Hide URL</button>
+        <button class="botbtn" onclick="window.location.href='styles.html';">Themes</button>
+        <button class="botbtn" onclick="window.open('qrcode.png')";>QR Code</button>
+        <button class="botbtn" onclick="window.location.href='contact.html';">Contact Us</button>
+        <!-- Install buttons -->
+        <button id="installButton" class="botbtn" onclick="generateProfile();" style="display: none;">Download iOS App</button>
+        <button id="androidDownloadButton" class="botbtn" onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';" style="display: none;">Download Android App</button>
+        <br>
+    </center>
 </body>
 </html>
