@@ -15,48 +15,63 @@ const MarkdownPlus = (() => {
    *   %color:red%, %size:20px%, %clear%, %clear:all%
    */
   function preprocess(text) {
-    const stack = [];
-    let output = "";
-    let lastIndex = 0;
+  const stack = [];
+  let output = "";
+  let lastIndex = 0;
+  let autoClear = true; // By default, clear at line ends
 
-    const regex = /%([^%]+)%/g;
-    let match;
+  const regex = /%([^%]+)%/g;
+  let match;
 
-    while ((match = regex.exec(text)) !== null) {
-      output += text.slice(lastIndex, match.index);
-      lastIndex = regex.lastIndex;
+  while ((match = regex.exec(text)) !== null) {
+    output += text.slice(lastIndex, match.index);
+    lastIndex = regex.lastIndex;
 
-      const cmdText = match[1].trim().toLowerCase();
+    const cmdText = match[1].trim().toLowerCase();
 
-      if (cmdText === "clear" || cmdText.startsWith("clear:")) {
-        // Close all open spans
-        if (stack.length > 0) {
-          output += "</span>".repeat(stack.length);
-          stack.length = 0;
-        }
+    if (cmdText === "clear" || cmdText.startsWith("clear:")) {
+      output += "</span>".repeat(stack.length);
+      stack.length = 0;
+    } else if (cmdText === "clears:onclear") {
+      autoClear = true;
+    } else if (cmdText === "clears:off") {
+      autoClear = false;
+    } else {
+      const [key, val] = match[1].split(":");
+      const styleProp = styleMap[key?.trim().toLowerCase()];
+
+      if (styleProp && val) {
+        const value =
+          key.toLowerCase() === "size" && !val.trim().endsWith("px")
+            ? val.trim() + "px"
+            : val.trim();
+        output += `<span style="${styleProp}:${value}">`;
+        stack.push(styleProp);
       } else {
-        const [key, val] = match[1].split(":");
-        const styleProp = styleMap[key?.trim().toLowerCase()];
-
-        if (styleProp && val) {
-          const value =
-            key.toLowerCase() === "size" && !val.trim().endsWith("px")
-              ? val.trim() + "px"
-              : val.trim();
-          output += `<span style="${styleProp}:${value}">`;
-          stack.push(styleProp);
-        } else {
-          // Invalid command, leave as-is
-          output += match[0];
-        }
+        output += match[0]; // Invalid command, leave as-is
       }
     }
-
-    output += text.slice(lastIndex);
-    if (stack.length > 0) output += "</span>".repeat(stack.length);
-
-    return output;
   }
+
+  output += text.slice(lastIndex);
+
+  // Auto-clear at line breaks
+  if (autoClear) {
+    output = output
+      .split("\n")
+      .map((line) => {
+        if (stack.length > 0) {
+          return line + "</span>".repeat(stack.length);
+        }
+        return line;
+      })
+      .join("\n");
+  } else if (stack.length > 0) {
+    output += "</span>".repeat(stack.length);
+  }
+
+  return output;
+}
 
   /**
    * Parse text: preprocess %commands then run through marked
