@@ -281,7 +281,7 @@ async function promptPasswordUntilCorrect() {
         }
     }
 }
-//(async () => { const isValid = await verifyStoredPassword(); if (!isValid) await promptPasswordUntilCorrect(); })();
+(async () => { const isValid = await verifyStoredPassword(); if (!isValid) await promptPasswordUntilCorrect(); })();
 
 // Update login/logout button logic
 document.addEventListener("DOMContentLoaded", function () {
