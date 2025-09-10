@@ -12,66 +12,85 @@ const MarkdownPlus = (() => {
   /**
    * Preprocess %commands into inline <span> styles.
    * Supports:
-   *   %color:red%, %size:20px%, %clear%, %clear:all%
+   *   %color:red%, %size:20px%, %clear%, %clear:prop%, %font:Lato%
+   *   Multiple styles: %size:100,color:red%
+   *   Auto-clearing per line (default), or persistent with %clears:onclear%
    */
   function preprocess(text) {
-  const stack = [];
-  let output = "";
-  let lastIndex = 0;
-  let autoClear = true; // By default, clear at line ends
+    const stack = [];
+    let output = "";
+    let lastIndex = 0;
+    let autoClear = true; // By default, formatting clears at line breaks
 
-  const regex = /%([^%]+)%/g;
-  let match;
+    const regex = /%([^%]+)%/g;
+    let match;
 
-  while ((match = regex.exec(text)) !== null) {
-    output += text.slice(lastIndex, match.index);
-    lastIndex = regex.lastIndex;
+    while ((match = regex.exec(text)) !== null) {
+      output += text.slice(lastIndex, match.index);
+      lastIndex = regex.lastIndex;
 
-    const cmdText = match[1].trim().toLowerCase();
+      const cmdText = match[1].trim();
 
-    if (cmdText === "clear" || cmdText.startsWith("clear:")) {
-      output += "</span>".repeat(stack.length);
-      stack.length = 0;
-    } else if (cmdText === "clears:onclear") {
-      autoClear = true;
-    } else if (cmdText === "clears:off") {
-      autoClear = false;
-    } else {
-      const [key, val] = match[1].split(":");
-      const styleProp = styleMap[key?.trim().toLowerCase()];
-
-      if (styleProp && val) {
-        const value =
-          key.toLowerCase() === "size" && !val.trim().endsWith("px")
-            ? val.trim() + "px"
-            : val.trim();
-        output += `<span style="${styleProp}:${value}">`;
-        stack.push(styleProp);
+      if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
+        // Close all open spans
+        output += "</span>".repeat(stack.length);
+        stack.length = 0;
       } else {
-        output += match[0]; // Invalid command, leave as-is
+        // Allow multiple commands separated by commas
+        const parts = cmdText.split(",");
+        let styles = [];
+
+        for (let part of parts) {
+          let [key, val] = part.split(":").map(s => s && s.trim());
+          if (!key) continue;
+
+          key = key.toLowerCase();
+
+          if (key === "clears" && val && val.toLowerCase() === "onclear") {
+            autoClear = false;
+            continue;
+          }
+          if (key === "clears" && val && val.toLowerCase() === "off") {
+            autoClear = true;
+            continue;
+          }
+
+          const styleProp = styleMap[key];
+          if (styleProp && val) {
+            if (key === "size" && !val.endsWith("px")) val += "px";
+            styles.push(`${styleProp}:${val}`);
+          }
+        }
+
+        if (styles.length > 0) {
+          output += `<span style="${styles.join(";")}">`;
+          stack.push("span");
+        } else {
+          // Unknown command, keep raw
+          output += match[0];
+        }
       }
     }
+
+    output += text.slice(lastIndex);
+
+    // Auto-clear formatting at line breaks (default)
+    if (autoClear) {
+      output = output
+        .split("\n")
+        .map((line) => {
+          if (stack.length > 0) {
+            return line + "</span>".repeat(stack.length);
+          }
+          return line;
+        })
+        .join("\n");
+    } else if (stack.length > 0) {
+      output += "</span>".repeat(stack.length);
+    }
+
+    return output;
   }
-
-  output += text.slice(lastIndex);
-
-  // Auto-clear at line breaks
-  if (autoClear) {
-    output = output
-      .split("\n")
-      .map((line) => {
-        if (stack.length > 0) {
-          return line + "</span>".repeat(stack.length);
-        }
-        return line;
-      })
-      .join("\n");
-  } else if (stack.length > 0) {
-    output += "</span>".repeat(stack.length);
-  }
-
-  return output;
-}
 
   /**
    * Parse text: preprocess %commands then run through marked
