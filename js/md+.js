@@ -11,38 +11,6 @@ const MarkdownPlus = (() => {
 
   const loadedFonts = new Map(); // url -> fontName
 
-  function loadFont(url) {
-    // Only Google Fonts or custom URL
-    if (url.includes("fonts.googleapis.com")) {
-      if (!loadedFonts.has(url)) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = url;
-        document.head.appendChild(link);
-        const match = url.match(/family=([^:&]+)/);
-        let fontName = match ? decodeURIComponent(match[1]).split(':')[0] : "CustomFont";
-        loadedFonts.set(url, fontName);
-      }
-      return loadedFonts.get(url);
-    } else {
-      const fontName = "Font" + (loadedFonts.size + 1);
-      if (!loadedFonts.has(url)) {
-        const style = document.createElement("style");
-        style.textContent = `
-          @font-face {
-            font-family: '${fontName}';
-            src: url('${url}');
-            font-display: swap;
-          }
-        `;
-        document.head.appendChild(style);
-        loadedFonts.set(url, fontName);
-      }
-      return fontName;
-    }
-  }
-
-  // Escape placeholders for parsing
   function escapePlaceholders(text) {
     return text
       .replace(/\\%/g, "__ESCAPED_PERCENT__")
@@ -55,7 +23,6 @@ const MarkdownPlus = (() => {
       .replace(/__ESCAPED_PLUS__/g, "+");
   }
 
-  // Preprocess +underline+ syntax
   function preprocessUnderline(text) {
     return text.replace(/(\+)(.+?)\1/g, (match, wrapper, content) => {
       return `<span style="text-decoration:underline">${content}</span>`;
@@ -86,10 +53,15 @@ const MarkdownPlus = (() => {
         continue;
       }
 
-      // Handle fontImport
+      // Handle fontImport by replacing with <link>
       if (/^fontImport:/i.test(cmdText)) {
         const url = cmdText.slice(11).trim();
-        if (url) loadFont(url); // inject font link
+        if (url && url.includes("fonts.googleapis.com")) {
+          const matchFont = url.match(/family=([^:&]+)/);
+          let fontName = matchFont ? decodeURIComponent(matchFont[1]).split(":")[0] : "CustomFont";
+          loadedFonts.set(fontName, fontName); // mark font as loaded
+          output += `<link rel="stylesheet" href="${url}">`;
+        }
         continue;
       }
 
@@ -112,7 +84,6 @@ const MarkdownPlus = (() => {
           if (key === "size" && !val.endsWith("px")) val += "px";
 
           if (key === "font") {
-            // Only allow previously loaded fonts or system fonts
             if (loadedFonts.has(val)) {
               val = `'${loadedFonts.get(val)}'`;
             } else if (/^[a-zA-Z0-9\s]+$/.test(val)) {
