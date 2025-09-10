@@ -13,31 +13,37 @@ const MarkdownPlus = (() => {
 
   function loadFont(url) {
     if (url.includes("fonts.googleapis.com")) {
-      if (!loadedFonts.has(url)) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = url;
-        document.head.appendChild(link);
-        loadedFonts.add(url);
-      }
-      const match = url.match(/family=([^:&]+)/);
-      return match ? decodeURIComponent(match[1]).replace(/\+/g, " ") : "CustomFont";
+        if (!loadedFonts.has(url)) {
+            const link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = url;
+            document.head.appendChild(link);
+            loadedFonts.add(url);
+        }
+        const match = url.match(/family=([^:&]+)/);
+        if (match) {
+            // Strip any :wght@... suffix
+            let fontName = decodeURIComponent(match[1]).split(':')[0];
+            return `'${fontName}'`; // wrap in quotes
+        }
+        return "'CustomFont'";
     }
 
     const fontName = "Font" + (loadedFonts.size + 1);
     if (!loadedFonts.has(url)) {
-      const style = document.createElement("style");
-      style.textContent = `
-        @font-face {
-          font-family: '${fontName}';
-          src: url('${url}');
-        }
-      `;
-      document.head.appendChild(style);
-      loadedFonts.add(url);
+        const style = document.createElement("style");
+        style.textContent = `
+            @font-face {
+                font-family: '${fontName}';
+                src: url('${url}');
+                font-display: swap;
+            }
+        `;
+        document.head.appendChild(style);
+        loadedFonts.add(url);
     }
     return fontName;
-  }
+}
 
   // Escape placeholders for parsing
   function escapePlaceholders(text) {
