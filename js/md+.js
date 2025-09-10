@@ -1,5 +1,5 @@
 // MarkdownPlus.js
-// Preprocesses %commands and runs the result through marked.parse()
+// Markdown but better. Usage: MarkdownPlus.parse()
 
 const MarkdownPlus = (() => {
   const styleMap = {
@@ -9,18 +9,45 @@ const MarkdownPlus = (() => {
     bgcolor: "background-color",
   };
 
-  /**
-   * Preprocess %commands into inline <span> styles.
-   * Supports:
-   *   %color:red%, %size:20px%, %clear%, %clear:prop%, %font:Lato%
-   *   Multiple styles: %size:100,color:red%
-   *   Auto-clearing per line (default), or persistent with %clears:onclear%
-   */
+  // Keep track of loaded fonts so we don’t inject duplicates
+  const loadedFonts = new Set();
+
+  function loadFont(url) {
+    // Case 1: Google Fonts (URL contains fonts.googleapis.com/css2?family=...)
+    if (url.includes("fonts.googleapis.com")) {
+      if (!loadedFonts.has(url)) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = url;
+        document.head.appendChild(link);
+        loadedFonts.add(url);
+      }
+      // Extract family name from URL (e.g. family=Lato -> Lato)
+      const match = url.match(/family=([^:&]+)/);
+      return match ? decodeURIComponent(match[1]).replace(/\+/g, " ") : "CustomFont";
+    }
+
+    // Case 2: Direct font file (.ttf, .woff, etc.)
+    const fontName = "Font" + (loadedFonts.size + 1);
+    if (!loadedFonts.has(url)) {
+      const style = document.createElement("style");
+      style.textContent = `
+        @font-face {
+          font-family: '${fontName}';
+          src: url('${url}');
+        }
+      `;
+      document.head.appendChild(style);
+      loadedFonts.add(url);
+    }
+    return fontName;
+  }
+
   function preprocess(text) {
     const stack = [];
     let output = "";
     let lastIndex = 0;
-    let autoClear = true; // By default, formatting clears at line breaks
+    let autoClear = true;
 
     const regex = /%([^%]+)%/g;
     let match;
@@ -30,34 +57,30 @@ const MarkdownPlus = (() => {
       lastIndex = regex.lastIndex;
 
       const cmdText = match[1].trim();
-
       if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
-        // Close all open spans
         output += "</span>".repeat(stack.length);
         stack.length = 0;
       } else {
-        // Allow multiple commands separated by commas
         const parts = cmdText.split(",");
         let styles = [];
 
         for (let part of parts) {
           let [key, val] = part.split(":").map(s => s && s.trim());
           if (!key) continue;
-
           key = key.toLowerCase();
 
-          if (key === "clears" && val && val.toLowerCase() === "onclear") {
-            autoClear = false;
-            continue;
-          }
-          if (key === "clears" && val && val.toLowerCase() === "off") {
-            autoClear = true;
-            continue;
-          }
+          if (key === "clears" && val?.toLowerCase() === "onclear") { autoClear = false; continue; }
+          if (key === "clears" && val?.toLowerCase() === "off") { autoClear = true; continue; }
 
           const styleProp = styleMap[key];
           if (styleProp && val) {
             if (key === "size" && !val.endsWith("px")) val += "px";
+            if (key === "font") {
+              // If it's a URL, load it, else assume it’s a font-family name
+              if (/^https?:\/\//.test(val)) {
+                val = loadFont(val);
+              }
+            }
             styles.push(`${styleProp}:${val}`);
           }
         }
@@ -66,7 +89,6 @@ const MarkdownPlus = (() => {
           output += `<span style="${styles.join(";")}">`;
           stack.push("span");
         } else {
-          // Unknown command, keep raw
           output += match[0];
         }
       }
@@ -74,16 +96,10 @@ const MarkdownPlus = (() => {
 
     output += text.slice(lastIndex);
 
-    // Auto-clear formatting at line breaks (default)
     if (autoClear) {
       output = output
         .split("\n")
-        .map((line) => {
-          if (stack.length > 0) {
-            return line + "</span>".repeat(stack.length);
-          }
-          return line;
-        })
+        .map((line) => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
         .join("\n");
     } else if (stack.length > 0) {
       output += "</span>".repeat(stack.length);
@@ -92,9 +108,6 @@ const MarkdownPlus = (() => {
     return output;
   }
 
-  /**
-   * Parse text: preprocess %commands then run through marked
-   */
   function parse(text) {
     const htmlWithStyles = preprocess(text);
     return marked.parse(htmlWithStyles);
