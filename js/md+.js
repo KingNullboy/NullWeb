@@ -9,11 +9,9 @@ const MarkdownPlus = (() => {
     bgcolor: "background-color",
   };
 
-  // Keep track of loaded fonts so we don’t inject duplicates
   const loadedFonts = new Set();
 
   function loadFont(url) {
-    // Case 1: Google Fonts (URL contains fonts.googleapis.com/css2?family=...)
     if (url.includes("fonts.googleapis.com")) {
       if (!loadedFonts.has(url)) {
         const link = document.createElement("link");
@@ -22,12 +20,10 @@ const MarkdownPlus = (() => {
         document.head.appendChild(link);
         loadedFonts.add(url);
       }
-      // Extract family name from URL (e.g. family=Lato -> Lato)
       const match = url.match(/family=([^:&]+)/);
       return match ? decodeURIComponent(match[1]).replace(/\+/g, " ") : "CustomFont";
     }
 
-    // Case 2: Direct font file (.ttf, .woff, etc.)
     const fontName = "Font" + (loadedFonts.size + 1);
     if (!loadedFonts.has(url)) {
       const style = document.createElement("style");
@@ -49,7 +45,8 @@ const MarkdownPlus = (() => {
     let lastIndex = 0;
     let autoClear = true;
 
-    const regex = /%([^%]+)%/g;
+    // Match %...% but not if preceded by \
+    const regex = /(?<!\\)%([^%]+)%/g;
     let match;
 
     while ((match = regex.exec(text)) !== null) {
@@ -98,7 +95,7 @@ const MarkdownPlus = (() => {
           output += `<span style="${styles.join(";")}">`;
           stack.push("span");
         } else if (!handled) {
-          output += match[0]; // leave unknown commands intact
+          output += match[0];
         }
       }
     }
@@ -113,6 +110,9 @@ const MarkdownPlus = (() => {
     } else if (stack.length > 0) {
       output += "</span>".repeat(stack.length);
     }
+
+    // Unescape escaped % -> %
+    output = output.replace(/\\%/g, "%");
 
     return output;
   }
