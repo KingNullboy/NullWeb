@@ -40,81 +40,73 @@ const MarkdownPlus = (() => {
   }
 
   function preprocess(text) {
-    const stack = [];
-    let output = "";
-    let lastIndex = 0;
-    let autoClear = true;
+  // --- Preload fonts ---
+  text = text.replace(/%font:([^%]+)%/gi, (full, url) => {
+    loadFont(url.trim());
+    return ""; // strip out the %font% command
+  });
 
-    // Match %...% but not if preceded by \
-    const regex = /(?<!\\)%([^%]+)%/g;
-    let match;
+  const stack = [];
+  let output = "";
+  let lastIndex = 0;
+  let autoClear = true;
 
-    while ((match = regex.exec(text)) !== null) {
-      output += text.slice(lastIndex, match.index);
-      lastIndex = regex.lastIndex;
+  const regex = /%([^%]+)%/g;
+  let match;
 
-      const cmdText = match[1].trim();
+  while ((match = regex.exec(text)) !== null) {
+    output += text.slice(lastIndex, match.index);
+    lastIndex = regex.lastIndex;
 
-      if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
-        output += "</span>".repeat(stack.length);
-        stack.length = 0;
-      } else {
-        const parts = cmdText.split(",");
-        let styles = [];
-        let handled = false;
+    const cmdText = match[1].trim();
+    if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
+      output += "</span>".repeat(stack.length);
+      stack.length = 0;
+    } else {
+      const parts = cmdText.split(",");
+      let styles = [];
 
-        for (let part of parts) {
-          let [key, val] = part.split(":").map(s => s && s.trim());
-          if (!key) continue;
-          key = key.toLowerCase();
+      for (let part of parts) {
+        let [key, val] = part.split(":").map(s => s && s.trim());
+        if (!key) continue;
+        key = key.toLowerCase();
 
-          if (key === "clears") {
-            if (val?.toLowerCase() === "onclear") {
-              autoClear = false;
-              handled = true;
-            }
-            if (val?.toLowerCase() === "off") {
-              autoClear = true;
-              handled = true;
-            }
-            continue;
-          }
+        if (key === "clears" && val?.toLowerCase() === "onclear") { autoClear = false; continue; }
+        if (key === "clears" && val?.toLowerCase() === "off") { autoClear = true; continue; }
 
-          const styleProp = styleMap[key];
-          if (styleProp && val) {
-            if (key === "size" && !val.endsWith("px")) val += "px";
-            if (key === "font" && /^https?:\/\//.test(val)) {
+        const styleProp = styleMap[key];
+        if (styleProp && val) {
+          if (key === "size" && !val.endsWith("px")) val += "px";
+          if (key === "font") {
+            if (/^https?:\/\//.test(val)) {
               val = loadFont(val);
             }
-            styles.push(`${styleProp}:${val}`);
-            handled = true;
           }
-        }
-
-        if (styles.length > 0) {
-          output += `<span style="${styles.join(";")}">`;
-          stack.push("span");
-        } else if (!handled) {
-          output += match[0];
+          styles.push(`${styleProp}:${val}`);
         }
       }
+
+      if (styles.length > 0) {
+        output += `<span style="${styles.join(";")}">`;
+        stack.push("span");
+      } else {
+        output += match[0];
+      }
     }
+  }
 
-    output += text.slice(lastIndex);
+  output += text.slice(lastIndex);
 
-    if (autoClear) {
-      output = output
-        .split("\n")
-        .map(line => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
-        .join("\n");
-    } else if (stack.length > 0) {
-      output += "</span>".repeat(stack.length);
-    }
+  if (autoClear) {
+    output = output
+      .split("\n")
+      .map((line) => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
+      .join("\n");
+  } else if (stack.length > 0) {
+    output += "</span>".repeat(stack.length);
+  }
 
-    // Unescape escaped % -> %
-    output = output.replace(/\\%/g, "%");
-
-    return output;
+  return output;
   }
 
   function parse(text) {
