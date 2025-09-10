@@ -43,19 +43,18 @@ const MarkdownPlus = (() => {
   function escapePlaceholders(text) {
     return text
       .replace(/\\%/g, "__ESCAPED_PERCENT__")
-      .replace(/\\\*\*\*/g, "__ESCAPED_TRIPLE_STAR__")
-      .replace(/\\___/g, "__ESCAPED_TRIPLE_UNDER__");
+      .replace(/\\\+/g, "__ESCAPED_PLUS__");
   }
 
   function unescapePlaceholders(text) {
     return text
       .replace(/__ESCAPED_PERCENT__/g, "%")
-      .replace(/__ESCAPED_TRIPLE_STAR__/g, "***")
-      .replace(/__ESCAPED_TRIPLE_UNDER__/g, "___");
+      .replace(/__ESCAPED_PLUS__/g, "+");
   }
 
+  // Preprocess +underline+ syntax
   function preprocessUnderline(text) {
-    return text.replace(/(\*\*\*|___)(.+?)\1/g, (match, wrapper, content) => {
+    return text.replace(/(\+)(.+?)\1/g, (match, wrapper, content) => {
       return `<span style="text-decoration:underline">${content}</span>`;
     });
   }
@@ -68,7 +67,7 @@ const MarkdownPlus = (() => {
     let lastIndex = 0;
     let autoClear = true;
 
-    const regex = /%([^%]+)%/g; // Already escaped %, so safe
+    const regex = /%([^%]+)%/g;
     let match;
 
     while ((match = regex.exec(text)) !== null) {
@@ -102,17 +101,14 @@ const MarkdownPlus = (() => {
 
           if (key === "font") {
             if (/^https?:\/\//.test(val)) {
-              // Load font from URL
               val = loadFont(val);
-            } else {
-              // Wrap plain font names with quotes if they contain spaces
-              if (val.includes(" ")) val = `'${val}'`;
+            } else if (val.includes(" ")) {
+              val = `'${val}'`;
             }
           }
 
           styles.push(`${styleProp}:${val}`);
         }
-
       }
 
       if (styles.length > 0) {
@@ -139,8 +135,8 @@ const MarkdownPlus = (() => {
 
   function parse(text) {
     const escapedText = escapePlaceholders(text);
-    const htmlWithStyles = preprocess(withUnderline);
-    const withUnderline = preprocessUnderline(escapedText);
+    const underlined = preprocessUnderline(escapedText);
+    const htmlWithStyles = preprocess(underlined);
     return marked.parse(htmlWithStyles);
   }
 
