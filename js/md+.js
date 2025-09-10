@@ -57,39 +57,48 @@ const MarkdownPlus = (() => {
       lastIndex = regex.lastIndex;
 
       const cmdText = match[1].trim();
+
       if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
         output += "</span>".repeat(stack.length);
         stack.length = 0;
       } else {
         const parts = cmdText.split(",");
         let styles = [];
+        let handled = false;
 
         for (let part of parts) {
           let [key, val] = part.split(":").map(s => s && s.trim());
           if (!key) continue;
           key = key.toLowerCase();
 
-          if (key === "clears" && val?.toLowerCase() === "onclear") { autoClear = false; continue; }
-          if (key === "clears" && val?.toLowerCase() === "off") { autoClear = true; continue; }
+          if (key === "clears") {
+            if (val?.toLowerCase() === "onclear") {
+              autoClear = false;
+              handled = true;
+            }
+            if (val?.toLowerCase() === "off") {
+              autoClear = true;
+              handled = true;
+            }
+            continue;
+          }
 
           const styleProp = styleMap[key];
           if (styleProp && val) {
             if (key === "size" && !val.endsWith("px")) val += "px";
-            if (key === "font") {
-              // If it's a URL, load it, else assume it’s a font-family name
-              if (/^https?:\/\//.test(val)) {
-                val = loadFont(val);
-              }
+            if (key === "font" && /^https?:\/\//.test(val)) {
+              val = loadFont(val);
             }
             styles.push(`${styleProp}:${val}`);
+            handled = true;
           }
         }
 
         if (styles.length > 0) {
           output += `<span style="${styles.join(";")}">`;
           stack.push("span");
-        } else {
-          output += match[0];
+        } else if (!handled) {
+          output += match[0]; // leave unknown commands intact
         }
       }
     }
@@ -99,7 +108,7 @@ const MarkdownPlus = (() => {
     if (autoClear) {
       output = output
         .split("\n")
-        .map((line) => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
+        .map(line => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
         .join("\n");
     } else if (stack.length > 0) {
       output += "</span>".repeat(stack.length);
