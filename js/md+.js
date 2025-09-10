@@ -39,20 +39,20 @@ const MarkdownPlus = (() => {
     return fontName;
   }
 
+  // Handle underline before Markdown parsing
+  function preprocessUnderline(text) {
+    return text.replace(/(\*\*\*|___)(.+?)\1/g, (match, wrapper, content) => {
+      return `${wrapper}[underlined:]${content}${wrapper}`;
+    });
+  }
+
   function preprocess(text) {
-    // 1. Handle escaped % commands
-    text = text.replace(/\\%/g, "__ESCAPED_PERCENT__");
-
-    // 2. Handle underline: ***text*** or ___text___
-    text = text.replace(/\*\*\*(.*?)\*\*\*/gs, '<span style="text-decoration:underline">$1</span>');
-    text = text.replace(/___(.*?)___/gs, '<span style="text-decoration:underline">$1</span>');
-
     const stack = [];
     let output = "";
     let lastIndex = 0;
     let autoClear = true;
 
-    const regex = /%([^%]+)%/g;
+    const regex = /(?<!\\)%([^%]+)%/g; // Ignore escaped \%
     let match;
 
     while ((match = regex.exec(text)) !== null) {
@@ -60,61 +60,59 @@ const MarkdownPlus = (() => {
       lastIndex = regex.lastIndex;
 
       const cmdText = match[1].trim();
-      if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
+      if (/^clear(:.*)?$/i.test(cmdText)) {
         output += "</span>".repeat(stack.length);
         stack.length = 0;
+        continue;
+      }
+
+      const parts = cmdText.split(",");
+      let styles = [];
+
+      for (let part of parts) {
+        let [key, val] = part.split(":").map(s => s && s.trim());
+        if (!key) continue;
+        key = key.toLowerCase();
+
+        if (key === "clears") {
+          if (val?.toLowerCase() === "onclear") autoClear = true;
+          if (val?.toLowerCase() === "off") autoClear = false;
+          continue;
+        }
+
+        const styleProp = styleMap[key];
+        if (styleProp && val) {
+          if (key === "size" && !val.endsWith("px")) val += "px";
+          if (key === "font" && /^https?:\/\//.test(val)) val = loadFont(val);
+          styles.push(`${styleProp}:${val}`);
+        }
+      }
+
+      if (styles.length > 0) {
+        output += `<span style="${styles.join(";")}">`;
+        stack.push("span");
       } else {
-        const parts = cmdText.split(",");
-        let styles = [];
-
-        for (let part of parts) {
-          let [key, val] = part.split(":").map(s => s && s.trim());
-          if (!key) continue;
-          key = key.toLowerCase();
-
-          if (key === "clears" && val?.toLowerCase() === "onclear") { autoClear = true; continue; }
-          if (key === "clears" && val?.toLowerCase() === "off") { autoClear = false; continue; }
-
-          const styleProp = styleMap[key];
-          if (styleProp && val) {
-            if (key === "size" && !val.endsWith("px")) val += "px";
-            if (key === "font") {
-              if (/^https?:\/\//.test(val)) {
-                val = loadFont(val);
-              }
-            }
-            styles.push(`${styleProp}:${val}`);
-          }
-        }
-
-        if (styles.length > 0) {
-          output += `<span style="${styles.join(";")}">`;
-          stack.push("span");
-        } else {
-          output += match[0];
-        }
+        output += match[0];
       }
     }
 
     output += text.slice(lastIndex);
 
-    if (autoClear) {
+    if (autoClear && stack.length > 0) {
       output = output
         .split("\n")
-        .map((line) => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
+        .map(line => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
         .join("\n");
-    } else if (stack.length > 0) {
+    } else if (!autoClear && stack.length > 0) {
       output += "</span>".repeat(stack.length);
     }
-
-    // Restore escaped %
-    output = output.replace(/__ESCAPED_PERCENT__/g, "%");
 
     return output;
   }
 
   function parse(text) {
-    const htmlWithStyles = preprocess(text);
+    const withUnderline = preprocessUnderline(text);
+    const htmlWithStyles = preprocess(withUnderline);
     return marked.parse(htmlWithStyles);
   }
 
