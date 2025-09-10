@@ -39,7 +39,21 @@ const MarkdownPlus = (() => {
     return fontName;
   }
 
-  // Handle underline before Markdown parsing
+  // Escape placeholders for parsing
+  function escapePlaceholders(text) {
+    return text
+      .replace(/\\%/g, "__ESCAPED_PERCENT__")
+      .replace(/\\\*\*\*/g, "__ESCAPED_TRIPLE_STAR__")
+      .replace(/\\___/g, "__ESCAPED_TRIPLE_UNDER__");
+  }
+
+  function unescapePlaceholders(text) {
+    return text
+      .replace(/__ESCAPED_PERCENT__/g, "%")
+      .replace(/__ESCAPED_TRIPLE_STAR__/g, "***")
+      .replace(/__ESCAPED_TRIPLE_UNDER__/g, "___");
+  }
+
   function preprocessUnderline(text) {
     return text.replace(/(\*\*\*|___)(.+?)\1/g, (match, wrapper, content) => {
       return `${wrapper}[underlined:]${content}${wrapper}`;
@@ -47,12 +61,14 @@ const MarkdownPlus = (() => {
   }
 
   function preprocess(text) {
+    text = escapePlaceholders(text);
+
     const stack = [];
     let output = "";
     let lastIndex = 0;
     let autoClear = true;
 
-    const regex = /(?<!\\)%([^%]+)%/g; // Ignore escaped \%
+    const regex = /%([^%]+)%/g; // Already escaped %, so safe
     let match;
 
     while ((match = regex.exec(text)) !== null) {
@@ -107,11 +123,12 @@ const MarkdownPlus = (() => {
       output += "</span>".repeat(stack.length);
     }
 
-    return output;
+    return unescapePlaceholders(output);
   }
 
   function parse(text) {
-    const withUnderline = preprocessUnderline(text);
+    const escapedText = escapePlaceholders(text);
+    const withUnderline = preprocessUnderline(escapedText);
     const htmlWithStyles = preprocess(withUnderline);
     return marked.parse(htmlWithStyles);
   }
