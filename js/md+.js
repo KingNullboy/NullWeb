@@ -40,73 +40,77 @@ const MarkdownPlus = (() => {
   }
 
   function preprocess(text) {
-  // --- Preload fonts ---
-  text = text.replace(/%font:([^%]+)%/gi, (full, url) => {
-    loadFont(url.trim());
-    return ""; // strip out the %font% command
-  });
+    // 1. Handle escaped % commands
+    text = text.replace(/\\%/g, "__ESCAPED_PERCENT__");
 
-  const stack = [];
-  let output = "";
-  let lastIndex = 0;
-  let autoClear = true;
+    // 2. Handle underline: ***text*** or ___text___
+    text = text.replace(/\*\*\*(.*?)\*\*\*/gs, '<span style="text-decoration:underline">$1</span>');
+    text = text.replace(/___(.*?)___/gs, '<span style="text-decoration:underline">$1</span>');
 
-  const regex = /%([^%]+)%/g;
-  let match;
+    const stack = [];
+    let output = "";
+    let lastIndex = 0;
+    let autoClear = true;
 
-  while ((match = regex.exec(text)) !== null) {
-    output += text.slice(lastIndex, match.index);
-    lastIndex = regex.lastIndex;
+    const regex = /%([^%]+)%/g;
+    let match;
 
-    const cmdText = match[1].trim();
-    if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
-      output += "</span>".repeat(stack.length);
-      stack.length = 0;
-    } else {
-      const parts = cmdText.split(",");
-      let styles = [];
+    while ((match = regex.exec(text)) !== null) {
+      output += text.slice(lastIndex, match.index);
+      lastIndex = regex.lastIndex;
 
-      for (let part of parts) {
-        let [key, val] = part.split(":").map(s => s && s.trim());
-        if (!key) continue;
-        key = key.toLowerCase();
+      const cmdText = match[1].trim();
+      if (cmdText.toLowerCase() === "clear" || cmdText.toLowerCase().startsWith("clear:")) {
+        output += "</span>".repeat(stack.length);
+        stack.length = 0;
+      } else {
+        const parts = cmdText.split(",");
+        let styles = [];
 
-        if (key === "clears" && val?.toLowerCase() === "onclear") { autoClear = false; continue; }
-        if (key === "clears" && val?.toLowerCase() === "off") { autoClear = true; continue; }
+        for (let part of parts) {
+          let [key, val] = part.split(":").map(s => s && s.trim());
+          if (!key) continue;
+          key = key.toLowerCase();
 
-        const styleProp = styleMap[key];
-        if (styleProp && val) {
-          if (key === "size" && !val.endsWith("px")) val += "px";
-          if (key === "font") {
-            if (/^https?:\/\//.test(val)) {
-              val = loadFont(val);
+          if (key === "clears" && val?.toLowerCase() === "onclear") { autoClear = true; continue; }
+          if (key === "clears" && val?.toLowerCase() === "off") { autoClear = false; continue; }
+
+          const styleProp = styleMap[key];
+          if (styleProp && val) {
+            if (key === "size" && !val.endsWith("px")) val += "px";
+            if (key === "font") {
+              if (/^https?:\/\//.test(val)) {
+                val = loadFont(val);
+              }
             }
+            styles.push(`${styleProp}:${val}`);
           }
-          styles.push(`${styleProp}:${val}`);
+        }
+
+        if (styles.length > 0) {
+          output += `<span style="${styles.join(";")}">`;
+          stack.push("span");
+        } else {
+          output += match[0];
         }
       }
-
-      if (styles.length > 0) {
-        output += `<span style="${styles.join(";")}">`;
-        stack.push("span");
-      } else {
-        output += match[0];
-      }
     }
-  }
 
-  output += text.slice(lastIndex);
+    output += text.slice(lastIndex);
 
-  if (autoClear) {
-    output = output
-      .split("\n")
-      .map((line) => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
-      .join("\n");
-  } else if (stack.length > 0) {
-    output += "</span>".repeat(stack.length);
-  }
+    if (autoClear) {
+      output = output
+        .split("\n")
+        .map((line) => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
+        .join("\n");
+    } else if (stack.length > 0) {
+      output += "</span>".repeat(stack.length);
+    }
 
-  return output;
+    // Restore escaped %
+    output = output.replace(/__ESCAPED_PERCENT__/g, "%");
+
+    return output;
   }
 
   function parse(text) {
