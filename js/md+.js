@@ -56,7 +56,7 @@ const MarkdownPlus = (() => {
 
   function preprocessUnderline(text) {
     return text.replace(/(\*\*\*|___)(.+?)\1/g, (match, wrapper, content) => {
-      return `${wrapper}[underlined:]${content}${wrapper}`;
+      return `<span style="text-decoration:underline">${content}</span>`;
     });
   }
 
