@@ -4,51 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Browser tab title -->
     <title>NullWeb</title>
 
-    <!-- Meta description for search engines -->
     <meta name="description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 
-    <!-- Open Graph (Facebook/Discord/social sharing) -->
     <meta property="og:title" content="NullWeb - Social Media, Wiki, Games & Tools">
     <meta property="og:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.null-web.vastserve.com/">
     <meta property="og:image" content="https://www.null-web.vastserve.com/logo.png">
 
-    <!-- Twitter card -->
     <meta name="twitter:title" content="NullWeb - Social Media, Wiki, Games & Tools">
     <meta name="twitter:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://www.null-web.vastserve.com/logo.png">
 
-    <!-- Styles -->
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="https://www.null-web.vastserve.com/styles.css" as="style">
+    <link rel="stylesheet" href="https://www.null-web.vastserve.com/styles.css">
 
-    <!-- Icons -->
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="apple-touch-icon" href="logo.png">
 
-    <!-- Manifest -->
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Apple & mobile web app settings -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Caching & offline -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
 
-    <!-- Verification tags -->
     <meta name="1c0c5ea3b3bd850dba40170d17be6ebfe83d029c" content="1c0c5ea3b3bd850dba40170d17be6ebfe83d029c">
     <meta name="7searchppc" content="ff4b6afbcbb42673ffe95c30f02b4ea8">
 
-    <!-- Scripts -->
     <script src="/styles.js" defer></script>
     <script src="openblank.js" defer></script>
     <script src="iosapp.js" defer></script>
@@ -60,15 +49,15 @@
             navigator.serviceWorker.register('/offline-sw.js');
         }
 
-        // 1 in 50 chance redirect
         if (Math.floor(Math.random() * 50) === 0) {
             window.location.href = "/tools/nsfw/?instant=true";
         }
     </script>
 </head>
-<body>
+<body style="background-color: black;">
     <center>
         <h1>NullWeb</h1>
+
         <button class="navbtn" onclick="window.location = 'socialmedia/';">
             <img src="socialmedia/logo.png" width="40px"><br>
             NullMedia
@@ -85,21 +74,31 @@
             <img src="gxmes/logo.png" width="40px"><br>
             NullG*mes
         </button>
-        <!-- NullAppify button will only show on iOS -->
         <button class="navbtn" onclick="window.location = 'tools/';">
             <img src="tools/logo.png" width="30px"><br>
             NullTools
         </button>
+
+        <!-- Attention-grabbing competition button -->
+	  <br>
+        <button id="competitionBtn" class="navbtn" 
+                style="background-color: #ff0000; color: #ffffff; border: 3px solid #ffffff; font-size: 24px; padding: 15px 30px; border-radius: 25px; margin: 20px 0; cursor: pointer;"
+                onclick="window.location.href='competition.html';">
+            Hack NullWeb Competition
+        </button>
+
         <br><br>
         <p id="homepageFact" style="cursor: pointer; margin-top: 20px;">[loading a weird truth... click me!]</p>
         <br><br>
         <p id="mobilePortraitText" style="display: none;">It is recommended that you use this website in landscape mode.</p>
         <br>
+
         <!-- Other buttons -->
         <button id="openBlankLink" class="botbtn">Hide URL</button>
         <button class="botbtn" onclick="window.location.href='styles.html';">Themes</button>
-        <button class="botbtn" onclick="window.open('qrcode.png')";>QR Code</button>
+        <button class="botbtn" onclick="window.open('qrcode.png');">QR Code</button>
         <button class="botbtn" onclick="window.location.href='contact.html';">Contact Us</button>
+
         <!-- Install buttons -->
         <button id="installButton" class="botbtn" onclick="generateProfile();" style="display: none;">Download iOS App</button>
         <button id="androidDownloadButton" class="botbtn" onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';" style="display: none;">Download Android App</button>
