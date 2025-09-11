@@ -74,7 +74,7 @@
                 let html = MarkdownPlus.parse(ugcmaker.value).replace(/\n/g, "<br>");
                 fetch("https://nullapis.netlify.app/.netlify/functions/ugc", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json", "Path": "ugc.html" },
                     body: JSON.stringify({ content: html })
                 }).then(r => r.json())
                   .then(d => console.log("UGC submitted:", d))
