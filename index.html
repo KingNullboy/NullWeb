@@ -59,27 +59,14 @@
         }
 
         /* scrapped ugc thing i couldnt figure out
-            let ugcmaker = document.createElement('textarea');
-            ugcmaker.placeholder = "Write some MD+ here...";
-            ugcmaker.style.width = "300px";
-            ugcmaker.style.height = "100px";
-
-            let ugcmakerbtn = document.createElement('button');
-            ugcmakerbtn.innerText = "Submit UGC";
-
-            document.body.appendChild(ugcmaker);
-            document.body.appendChild(ugcmakerbtn);
-
-            ugcmakerbtn.addEventListener("click", ()=>{
-                let html = MarkdownPlus.parse(ugcmaker.value).replace(/\n/g, "<br>");
-                fetch("https://nullapis.netlify.app/.netlify/functions/ugc", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", "Path": "ugc.html" },
-                    body: JSON.stringify({ content: html })
-                }).then(r => r.json())
-                  .then(d => console.log("UGC submitted:", d))
-                  .catch(e => console.error(e));
-            });
+            let html = MarkdownPlus.parse(ugcmaker.value).replace(/\n/g, "<br>");
+            fetch("https://nullapis.netlify.app/.netlify/functions/ugc", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Path": "ugc.html" },
+                body: JSON.stringify({ content: html })
+            }).then(r => r.json())
+            .then(d => console.log("UGC submitted:", d))
+            .catch(e => console.error(e));
         */
     </script>
 </head>
