@@ -156,7 +156,7 @@ async function submitPost() {
     }
 }
 
-document.getElementById("submit").addEventListener("click", submitPost)
+document.addEventListener("DOMContentLoaded", () => document.getElementById("submit").addEventListener("click", submitPost));
 
 async function login() {
     const username = document.getElementById("username").value.trim();
@@ -238,3 +238,51 @@ document.addEventListener("DOMContentLoaded", function () {
         loginBtn.onclick = () => { localStorage.removeItem("user"); localStorage.removeItem("password"); location.reload(); };
     }
 });
+
+async function loadPosts() {
+    const container = document.createElement('div');
+    container.id = 'postsContainer';
+    document.body.appendChild(container);
+
+    try {
+        const response = await fetch("https://nullapis.netlify.app/.netlify/functions/posts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sub: window.location.href.replace(window.location.protocol+"//"+document.domain+"/socialmedia/", "").replace(".html", "").replace("about:srcdoc", "index") || "index" })
+        });
+
+        const data = await response.json();
+        const posts = data.posts || [];
+
+        container.innerHTML = '';
+
+        posts.forEach(post => {
+            const article = document.createElement('article');
+            article.id = post.title;
+            article.innerHTML = `
+                <h1><img src="${post.pfp || 'pfps/default.png'}" width="40" height="40" style="border-radius: 20px;">
+                    <span style="position: relative; bottom: 11px;">${post.username}</span>
+                </h1>
+                <h2>${post.title}</h2>
+                <p>${post.content}</p>
+                <br>
+                <button class="reply-button"><img src='reply.png' alt='reply' /></button>
+            `;
+            container.appendChild(article);
+        });
+
+        document.querySelectorAll('.reply-button').forEach(button => {
+            button.addEventListener('click', function () {
+                originalpost = this.closest('article').querySelector('h2').innerText;
+                postmode = getReplyTitle(originalpost);
+                window.scrollTo(0, 0);
+            });
+        });
+
+    } catch (err) {
+        console.error("Error loading posts:", err);
+        container.innerHTML = "<p>Failed to load posts. Please try again later.</p>";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadPosts);
