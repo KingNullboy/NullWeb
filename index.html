@@ -1,21 +1,25 @@
 <!DOCTYPE HTML>
 <html lang="en" style="--bg-color: #000000; --text-color: #ffffff; --border-color: #ffffff; --font-family: Lato;">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>NullWeb</title>
 
-    <meta name="description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
+    <meta name="description"
+        content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 
     <meta property="og:title" content="NullWeb - Social Media, Wiki, Games & Tools">
-    <meta property="og:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
+    <meta property="og:description"
+        content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.null-web.vastserve.com/">
     <meta property="og:image" content="https://www.null-web.vastserve.com/logo.png">
 
     <meta name="twitter:title" content="NullWeb - Social Media, Wiki, Games & Tools">
-    <meta name="twitter:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
+    <meta name="twitter:description"
+        content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://www.null-web.vastserve.com/logo.png">
 
@@ -44,6 +48,7 @@
     <script src="portraittext.js" defer></script>
     <script src="/js/main.js" defer></script>
     <script src="facts.js" defer></script>
+    <script src="js/md+.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/offline-sw.js');
@@ -52,8 +57,33 @@
         if (Math.floor(Math.random() * 50) === 0) {
             window.location.href = "/tools/nsfw/?instant=true";
         }
+
+        /* scrapped ugc thing i couldnt figure out
+            let ugcmaker = document.createElement('textarea');
+            ugcmaker.placeholder = "Write some MD+ here...";
+            ugcmaker.style.width = "300px";
+            ugcmaker.style.height = "100px";
+
+            let ugcmakerbtn = document.createElement('button');
+            ugcmakerbtn.innerText = "Submit UGC";
+
+            document.body.appendChild(ugcmaker);
+            document.body.appendChild(ugcmakerbtn);
+
+            ugcmakerbtn.addEventListener("click", ()=>{
+                let html = MarkdownPlus.parse(ugcmaker.value).replace(/\n/g, "<br>");
+                fetch("https://nullapis.netlify.app/.netlify/functions/ugc", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: html })
+                }).then(r => r.json())
+                  .then(d => console.log("UGC submitted:", d))
+                  .catch(e => console.error(e));
+            });
+        */
     </script>
 </head>
+
 <body style="background-color: black;">
     <center>
         <h1>NullWeb</h1>
@@ -80,17 +110,20 @@
         </button>
 
         <!-- Attention-grabbing competition button -->
-	  <br>
-        <button id="competitionBtn" class="navbtn" 
-                style="background-color: #ff0000; color: #ffffff; border: 3px solid #ffffff; font-size: 24px; padding: 15px 30px; border-radius: 25px; margin: 20px 0; cursor: pointer;"
-                onclick="window.location.href='competition.html';">
+        <br>
+        <button id="competitionBtn" class="navbtn"
+            style="background-color: #ff0000; color: #ffffff; border: 3px solid #ffffff; font-size: 24px; padding: 15px 30px; border-radius: 25px; margin: 20px 0; cursor: pointer;"
+            onclick="window.location.href='competition.html';">
             Hack NullWeb Competition
         </button>
+        <!-- User-submitted content -->
+        <div id="deletesoon"></div>
 
         <br><br>
         <p id="homepageFact" style="cursor: pointer; margin-top: 20px;">[loading a weird truth... click me!]</p>
         <br><br>
-        <p id="mobilePortraitText" style="display: none;">It is recommended that you use this website in landscape mode.</p>
+        <p id="mobilePortraitText" style="display: none;">It is recommended that you use this website in landscape mode.
+        </p>
         <br>
 
         <!-- Other buttons -->
@@ -100,9 +133,13 @@
         <button class="botbtn" onclick="window.location.href='contact.html';">Contact Us</button>
 
         <!-- Install buttons -->
-        <button id="installButton" class="botbtn" onclick="generateProfile();" style="display: none;">Download iOS App</button>
-        <button id="androidDownloadButton" class="botbtn" onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';" style="display: none;">Download Android App</button>
+        <button id="installButton" class="botbtn" onclick="generateProfile();" style="display: none;">Download iOS
+            App</button>
+        <button id="androidDownloadButton" class="botbtn"
+            onclick="alert('To use the Android app, look up how to install apk files.'); window.location.href = 'NullWeb_App.apk';"
+            style="display: none;">Download Android App</button>
         <br>
     </center>
 </body>
+
 </html>
