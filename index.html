@@ -60,6 +60,7 @@
 
         /* scrapped ugc thing i couldnt figure out
             let html = MarkdownPlus.parse(ugcmaker.value).replace(/\n/g, "<br>");
+            // i could check source code by removing the . before netlify and adding .js to the end, i think
             fetch("https://nullapis.netlify.app/.netlify/functions/ugc", {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Path": "ugc.html" },
