@@ -1,89 +1,60 @@
 <!DOCTYPE HTML>
- <html>
-   <head><script src="/styles.js"></script>
- 	<link rel="icon" href="logo.png" type="image/x-icon">
- 	<title>Home - NullMedia</title>
- 	<link rel="stylesheet" href="styles.css">
- 	<script src="script.js"></script>
- 		<meta name="apple-mobile-web-app-capable" content="yes">
- 		<meta name="mobile-web-app-capable" content="yes">
- 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-		<script src="/js/main.js"></script>
- 		<script>
- 			if (localStorage.getItem("hasSeenSubsMessage") !== "true") {
- 				alert("If you click the title of the page, you will be taken to the Subs selection. Subs are my version of the subreddits from (shocker!) Reddit. Just wanted you to know that.\n\nThe maker of this website,\nKingNullboy.");
-				localStorage.setItem("hasSeenSubsMessage", "true");
-			}
- 		</script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   </head>
-   <body>
- 	<header>
- 			<a href = "../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
-    	  <h1 id="pagetitle"><a href='subs.html'>NullMedia</a></h1>
- 	  <nav>
- 		  <ul class="nav__links">
- 			<button onclick="window.location.href='info.html';" id="headerBtn">Info</button>
- 			<button id="login" onclick="window.location.href='login.html';">Login</button>
- 		  </nav>
- 	</header><br>
- 	<center>
- 	  	<div id="form" name="form">
-			<div id="formatBtns">
-			<button id="boldBtn" class="formatBtn"><b>B</b></button>
-			<button id="italicBtn" class="formatBtn"><i>I</i></button>
-			<button id="underlineBtn" class="formatBtn"><u>U</u></button>
-			<button id="codeBlockBtn" class="formatBtn">Code</button>
-			<button id="linkBtn" class="formatBtn">Link</button>
-			<button id="blockquoteBtn" class="formatBtn">Quote</button>
-			<button id="insertImageBtn" class="formatBtn">Image</button>
-		</div>
- 			<input type="text" id="title" name="title" placeholder="Title*"><br>
-     		<textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
- 			<button id="submit" onclick="submitPost()">Submit</button>
- 			<button onclick="window.scrollTo(0, document.body.scrollHeight);" id="scrollBtn">Go to bottom</button>
- 	  	</div><br>
- 	  		<article id='My First Post'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>My First Post</h2><p>Welcome to my mini social media project! This is the first post, and I'm excited to share this with everyone. And by "everyone," I mean a few people. Now that I think about it, Facebook started like this too. Who knows where this will go? Maybe it'll stay small, or maybe it'll grow into something more. Either way, this is just the beginning.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 	  		<br><article id='Alright, this still works!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Alright, this still works!</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 	  		<br><article id='I added a language filter.'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>I added a language filter.</h2><p>The filtered words include the normal swears, but also brainrot words. If you find a way around the filter, know this: I will not hesitate to remove or edit your post (dev perks) should the need arise.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 	  		<br><article id='My website is really growing!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>My website is really growing!</h2><p>In file size, anyway. But I'm really happy with how it's coming along. And there's even a g*mes part! I've also made the name of the entire website: NullWeb! And I decided that the color scheme is going to be black, like the rest of the website.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='TRUCKTOR'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>TRUCKTOR</h2><p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYlR69dSDquekPksGVoY6iI8AB6rVJl557JQ&s" width='225px'/><br>TRUCKTOR</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 	  		<br><article id='meme'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Mr. Myers77</span></h1><h2>meme</h2><p> <img src="https://canada1.discourse-cdn.com/flex027/uploads/typesy/optimized/2X/c/c7c977a6a83853f8133658cf716a2afca01dd084_2_598x500.jpeg" width='225px'><br></p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='lebron james'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Dawson</span></h1><h2>lebron james</h2><p>is everybody on</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='Why can&apos;t I post'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Mr. Myers77</span></h1><h2>Why can&apos;t I post</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='I don&apos;t see why you can&apos;t post Mr. Myers77'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>I don't see why you can't post Mr. Myers77</h2><p>And yes Dawson</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='what is up with the tuckter'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Dawson</span></h1><h2>what is up with the tuckter</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='who'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Dawson</span></h1><h2>who</h2><p>who is mr. myers?</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
-			<br><article id='can you text back'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Dawson</span></h1><h2></h2><p>can you text back</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='Dawson, It&apos;s Tyler'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Dawson, It's Tyler</h2><p>And no you can't yet.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='oh my bad im in science'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Dawson</span></h1><h2>oh my bad im in science</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='Working on making replies!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Working on making replies!</h2><p>I think I'm close.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></button></article>
- 			<br><article id='I finished making replies!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>I finished making replies!</h2><p>Reply to check it out!</p><br><button class='reply-button'><img src='reply.png' alt='reply.png' /></article><br>
- 			<br><article id='My website was down and everything was blocked O_O'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>My website was down and everything was blocked O_O</h2><p>For about a cl*ss period. -\_(=D)_/-</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
- 			<br><article id='Now when you log in you don&apos;t have to enter your password for the 3 vigintillionth time to make a post!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Now when you log in you don't have to enter your password for the 3 vigintillionth time to make a post!</h2><p>My dad will be happy about that.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
- 			<br><article id='Sorry about NullMedia not letting you post earlier...'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Sorry about NullMedia not letting you post earlier...</h2><p>But I fixed it now, so it's all good.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
- 			<br><article id='Keybinds!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Keybinds!</h2><p><blockquote>console.log("Hi guys!")</blockquote>So I <b>made</b> a <i>new feature</i> in my social media, <a href="https://www.null-web.vastserve.com">NullMedia</a>: keybinds! To see the keybinds, just click "Info", then "NullMedia Bonus Features" at the top of the page. Or, click <a href="../wiki/num2">here</a>.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='-\_(=D)_/-'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Dawson</span></h1><h2>-\_(=D)_/-</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Posting from E-Sports!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Posting from E-Sports!</h2><p>Because why not, right?</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='h'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Mr. Myers77</span></h1><h2>h</h2><p><img src="" width="225px"></p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Posting from the iOS app at home!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Posting from the iOS app at home!</h2><p>And don't forget that there's an Android app too!</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='&iexcl;Hoy es mi fiesta de cumplea&nacute;os!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>&iexcl;Hoy es mi fiesta de cumplea&nacute;os!</h2><p>Today is my birthday party!</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Sorry for NullMedia not working, y&apos;all!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Sorry for NullMedia not working, y&apos;all!</h2><p>But I fixed it, so we're all good now.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='My Awesome Prank'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>My Awesome Prank</h2><p>Today I pulled an awesome prank on <span title="I don&apos;t know if she wants her name on my website, so I put this.">my health teacher</span>! I put tons of CPR dummies at the desks in her classroom. Their names were that of Mr. Myers77, <span title="I don't know if he wants his name on my website, so I put this.">the school superintendent</span>, some other guy from the board meeting who sat next to the superintendent (I don't remember his name lol), <span title="I don't know if he wants his name on my website, so I put this.">the person I sit next to in health</span>, Bob (Marci's boyfriend), Boberta, Joseph, Elon Musk, Jeff Bezos, and one other person who I forgot the name of. Click <a href="javascript:(function() {window.open('https://mail.google.com/mail/u/0/?ui=2&ik=0aa71107b9&attid=0.1&permmsgid=msg-f:1829142982720654123&th=19626bda00768b2b&view=fimg&disp=thd&attbid=ANGjdJ_zqyg_xrWuwj-HS9eZI74pkavIOtBYu0Sc0266GBLS1IJYucAKLb37ku4-CEvKDypFuoXMWDGX9n9vcYMRTrj5xVC9QeepxEyOlwjLQZWlPDDeryRjuPdctZ0&ats=2524608000000&sz=w1366-h647'); window.open('https://mail.google.com/mail/u/0/?ui=2&ik=0aa71107b9&attid=0.3&permmsgid=msg-f:1829142982720654123&th=19626bda00768b2b&view=fimg&disp=thd&attbid=ANGjdJ-59hFYg79DgvEtF0iqo81Rchl6pBNNj-KgPkBpm436LID09YWYt29NJ9u0H_vncVzulpu9YXX1YcPRO4QkvhjFcl3qL0xB0QqgAZ3RIKVcpoYq3V8jHLv1Ie0&ats=2524608000000&sz=w1366-h647'); window.open('https://mail.google.com/mail/u/0/?ui=2&ik=0aa71107b9&attid=0.5&permmsgid=msg-f:1829142982720654123&th=19626bda00768b2b&view=fimg&disp=thd&attbid=ANGjdJ9DLV66N-GBjwIziiXr4AEELMrtWksA4qPzfntymxN3UJXBdbwPTxgXpO-TjN7AYzzGVX98gYSqLxpHDcOkiYYKYD4lB-5AZq7d0EQMaiBSyxazFOMwjzOKHX8&ats=2524608000000&sz=w1366-h647'); window.open('https://mail.google.com/mail/u/0/?ui=2&ik=0aa71107b9&attid=0.7&permmsgid=msg-f:1829142982720654123&th=19626bda00768b2b&view=fimg&disp=thd&attbid=ANGjdJ-0AQ__mqS14L2qm-VuVA-M_zA4ykWlKjna04IKNr9x68_PZcCoYPl1vPho5ZCKKW1HR7HyC75NimDP1-8UbA7wqQkN_nKtJnRXloCeBURfa-DJ5tEwprvXsOI&ats=2524608000000&sz=w1366-h647');}())">here</a> to see the pictures.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Today I&apos;m planting corn!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Today I&apos;m planting corn!</h2><p></p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='death day'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Mr. Myers77</span></h1><h2>death day</h2><p>[the image breaks actually everything so I had to remove it, but it says Friday, 29th August 2087 Age 75<br>--KingNullboy</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='I just realized something...'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>I just realized something...</h2><p>If we are what we eat... I&apos;m a human &#128563;</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='<a href="http://null.web/">Null.web</a> Is Live&mdash;Here&apos;s How to Check It Out!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2><a href="http://null.web/">Null.web</a> Is Live&mdash;Here&apos;s How to Check It Out!</h2><p>Just wanted to drop a quick shoutout&mdash;my local domain <a href="http://null.web/">null.web</a> is officially up and running, hosted straight from my own PC! No more relying on third-party hosts.<br><br>If youre on my Wi-Fi or connected through the network, just hit up <a href="http://null.web/">http://null.web/</a> and see it for yourself.<br><br>For those outside my network, I&apos;ve set up port forwarding, so you can also reach it by visiting my public IP: <a href="http://97.114.17.189/">97.114.17.189</a>.<br><br>And as you all know of course, you can join from <a href="https://www.null-web.vastserve.com/">the website youre likely already on</a>. It wont be taken down, dont worry!<br><br>However, null.web and my IP will only work while my computer is open and on Linux Mint, not Windows.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Y&apos;ALL I&apos;M A BRACEFACE NOW'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Y&apos;ALL I&apos;M A BRACEFACE NOW</h2><p><img src="pfps/knb2012.png" width="225px"></p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='I&apos;m sure all of you are overjoyed that ads are working on my website again!'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>I&apos;m sure all of you are overjoyed that ads are working on my website again!</h2><p>But a reminder for you: just go to <a href="/styles.html">the themes page</a> and set ads to false if you don&apos;t want any! Of course, it&apos;s appreciated if you allow ads as it supports my website. Braceface KingNullboy is watching.</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='I made this cool little thing'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>I made this cool little thing</h2><p><img src="https://i.ibb.co/mrkh5g6p/IMG-0757.jpg" width="225px"></p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='BRANSON TRIP WITH BRY'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>BRANSON TRIP WITH BRY</h2><p>YIPPE YIPPE YIPPE</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Back to school, y&apos;all!'><h1><img src="pfps/knb2012.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">KingNullboy</span></h1><h2>Back to school, y&apos;all!</h2><p>I&apos;m having mixed feelings about it. Also Fleksy keyboard is crazy good, I reccomend it. At any rate, it&apos;s better than iOS keyboard and less spyware-y than Gboard. </p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article>
-			<br><article id='Reply number 1 in response to <a href="https://www.null-web.vastserve.com/socialmedia/#meme" id="link">meme</a>'><h1><img src="pfps/default.png" width="40px" height="40px" style="border-radius: 20px;"> <span style="position: relative; bottom: 11px;">Mikey</span></h1><h2>Reply number 1 in response to <a href="https://www.null-web.vastserve.com/socialmedia/#meme" id="link">meme</a></h2><p>Tyler why did you post this meme bro?</p><br><button class='reply-button'><img src='reply.png' alt='reply.png'></button></article><br>
-			<button onclick='window.scrollTo(0, 0);' id='scrollBtn'>Go to top</button>
-		</center>
-		<div id="notification" class="notification" style="display: none;">
-			New posts are available! <button id="reloadBtn">Reload</button>
-		</div>
-   	</body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - NullMedia</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <script src="/styles.js"></script>
+    <script src="script.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+            integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <script>
+        if (localStorage.getItem("hasSeenSubsMessage") !== "true") {
+            alert(
+                "If you click the title of the page, you will be taken to the Subs selection. Subs are my version of the subreddits from (shocker!) Reddit. Just wanted you to know that.\n\nThe maker of this website,\nKingNullboy."
+            );
+            localStorage.setItem("hasSeenSubsMessage", "true");
+        }
+    </script>
+</head>
+<body style="background-color: black;">
+    <header>
+        <a href="../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
+        <h1 id="pagetitle"><a href="subs.html">NullMedia</a></h1>
+        <nav>
+            <ul class="nav__links">
+                <button onclick="window.location.href='info.html';" id="headerBtn">Info</button>
+                <button id="login">Login</button>
+            </ul>
+        </nav>
+    </header>
+    <br>
+    <center>
+        <div id="form" name="form">
+            <div id="formatBtns">
+                <button id="boldBtn" class="formatBtn"><b>B</b></button>
+                <button id="italicBtn" class="formatBtn"><i>I</i></button>
+                <button id="underlineBtn" class="formatBtn"><u>U</u></button>
+                <button id="codeBlockBtn" class="formatBtn">Code</button>
+                <button id="linkBtn" class="formatBtn">Link</button>
+                <button id="blockquoteBtn" class="formatBtn">Quote</button>
+                <button id="insertImageBtn" class="formatBtn">Image</button>
+            </div>
+            <input type="text" id="title" name="title" placeholder="Title*"><br>
+            <textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
+            <button id="submit">Submit</button>
+            <button onclick="window.scrollTo(0, document.body.scrollHeight);" id="scrollBtn">Go to bottom</button>
+        </div>
+        <br>
+        <!-- Posts will be dynamically loaded here -->
+        <div id="postsContainer"></div>
+    </center>
+</body>
 </html>
