@@ -261,7 +261,7 @@ async function loadPosts() {
             article.id = post.title;
             article.innerHTML = `
                 <h1><img src="${post.pfp || 'pfps/default.png'}" width="40" height="40" style="border-radius: 20px;">
-                    <span style="position: relative; bottom: 11px;">${post.username}</span>
+                    <span style="position: relative; bottom: 11px;">${post.author}</span>
                 </h1>
                 <h2>${post.title}</h2>
                 <p>${post.content}</p>
