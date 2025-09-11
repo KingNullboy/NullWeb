@@ -58,7 +58,10 @@ async function verifyStoredPassword() {
 
 // Immediately verify password on page load
 (async () => {
-    if (window.location.href.includes("gxmes/") && !window.location.href.includes("gxmes/index") && window.location.href !== window.location.protocol+"//"+document.domain+"/gxmes/") {
-        window.location.href = window.location.protocol+"//"+document.domain+"/gxmes/";
+    if (window.location.href.includes("gxmes/") && !window.location.href.includes("gxmes/index")) {
+        const isCorrect = await verifyStoredPassword();
+        if (!isCorrect) {
+            await promptPasswordUntilCorrect();
+        }
     }
 })();
