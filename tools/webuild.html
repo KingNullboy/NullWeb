@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NullWeBuild</title>
+<style>
+    body { margin:0; font-family:Lato,sans-serif; display:flex; height:100vh; overflow:hidden; }
+    #sidebar { width:250px; background:#111; color:#fff; padding:10px; box-sizing:border-box; overflow:auto; }
+    #canvas { flex:1; background:#222; position:relative; }
+    .element { position:absolute; border:1px dashed #555; padding:5px; cursor:move; min-width:50px; min-height:20px; color:#fff; }
+    label { display:block; margin-top:10px; }
+    input, select, textarea { width:100%; margin-top:3px; }
+    button { margin-top:10px; width:100%; padding:5px; }
+</style>
+</head>
+<body>
+<div id="sidebar">
+    <h2>NullWeBuild</h2>
+    <button onclick="addElement('h1')">Add Heading</button>
+    <button onclick="addElement('p')">Add Paragraph</button>
+    <button onclick="addElement('button')">Add Button</button>
+    <button onclick="addElement('img')">Add Image</button>
+    <hr>
+    <div id="inspector">
+        <p>Select an element to edit its properties</p>
+    </div>
+    <button onclick="exportHTML()">Export HTML</button>
+</div>
+<div id="canvas"></div>
+
+<script>
+let selected = null;
+
+function addElement(type){
+    const el = document.createElement(type==='button'?'button':type);
+    el.className = 'element';
+    el.innerText = type==='img'?'Image':'Sample '+type;
+
+    if(type==='img'){
+        let url = prompt('Enter image URL:','https://');
+        if(!url) url = 'https://via.placeholder.com/150';
+        el.src = url;
+        el.style.width='150px';
+        el.style.height='100px';
+    }
+
+    el.style.top='50px';
+    el.style.left='50px';
+    el.addEventListener('mousedown', selectElement);
+    el.addEventListener('dblclick', () => {
+        if(type==='img') el.src=prompt('Image URL:', el.src);
+        else el.innerText=prompt('Text:', el.innerText);
+        if(el===selected) showInspector(el);
+    });
+    makeDraggable(el);
+    document.getElementById('canvas').appendChild(el);
+}
+
+function selectElement(e){
+    if(selected) selected.style.border='1px dashed #555';
+    selected = e.target;
+    selected.style.border='1px solid #0f0';
+    showInspector(selected);
+}
+
+function showInspector(el){
+    const inspector = document.getElementById('inspector');
+    inspector.innerHTML='';
+    if(el.tagName!=='IMG') inspector.appendChild(createLabelInput('Text', el.innerText, val=>{ el.innerText=val; }));
+    inspector.appendChild(createLabelInput('Font Size (px)', parseInt(window.getComputedStyle(el).fontSize), val=>{ el.style.fontSize=val+'px'; }));
+    inspector.appendChild(createLabelInput('Color', rgbToHex(window.getComputedStyle(el).color), val=>{ el.style.color=val; }));
+    inspector.appendChild(createLabelInput('Background', rgbToHex(window.getComputedStyle(el).backgroundColor), val=>{ el.style.background=val; }));
+    inspector.appendChild(createLabelInput('Width (px)', el.offsetWidth, val=>{ el.style.width=val+'px'; }));
+    inspector.appendChild(createLabelInput('Height (px)', el.offsetHeight, val=>{ el.style.height=val+'px'; }));
+    if(el.tagName==='BUTTON' || el.tagName==='IMG'){
+        inspector.appendChild(createLabelInput('Link (optional)', el.dataset.href||'', val=>{ el.dataset.href=val; }));
+        if(el.tagName==='IMG'){
+            inspector.appendChild(createLabelInput('Image URL', el.src, val=>{ el.src=val; }));
+        }
+    }
+}
+
+function createLabelInput(labelText, value, oninput){
+    const label = document.createElement('label');
+    label.innerText = labelText;
+    const input = document.createElement('input');
+    input.value = value;
+    input.addEventListener('input', e=>oninput(e.target.value));
+    label.appendChild(input);
+    return label;
+}
+
+function makeDraggable(el){
+    let offsetX, offsetY;
+    el.addEventListener('mousedown', function(e){
+        if(e.button!==0) return;
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+        function move(ev){
+            el.style.left = (ev.clientX - offsetX)+'px';
+            el.style.top = (ev.clientY - offsetY)+'px';
+        }
+        function up(){ document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up); }
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+    });
+}
+
+function rgbToHex(rgb){
+    const m = rgb.match(/\d+/g);
+    if(!m) return '#ffffff';
+    return '#'+m.map(x=>parseInt(x).toString(16).padStart(2,'0')).join('');
+}
+
+function exportHTML(){
+    let html = '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>Export</title>\n<style>\nbody{font-family:Lato,sans-serif;}\n</style>\n</head>\n<body>\n';
+    document.querySelectorAll('#canvas .element').forEach(el=>{
+        let style = `position:absolute;top:${el.offsetTop}px;left:${el.offsetLeft}px;width:${el.offsetWidth}px;height:${el.offsetHeight}px;color:${el.style.color};background:${el.style.background};font-size:${el.style.fontSize};padding:${el.style.padding};margin:${el.style.margin};`;
+        if(el.tagName==='IMG') html+=`<img src="${el.src}" style="${style}">\n`;
+        else if(el.tagName==='BUTTON'){
+            let href = el.dataset.href?` onclick="window.location='${el.dataset.href}'"`:'';
+            html+=`<button style="${style}"${href}>${el.innerText}</button>\n`;
+        } else html+=`<${el.tagName.toLowerCase()} style="${style}">${el.innerText}</${el.tagName.toLowerCase()}>\n`;
+    });
+    html+='</body>\n</html>';
+    const w = window.open();
+    w.document.write('<pre>'+html.replace(/</g,'&lt;')+'</pre>');
+}
+</script>
+</body>
+</html>
