@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>NullCrypt</title>
+		<style>
+			body {
+				margin: 0;
+				font-family: Lato, sans-serif;
+				background: #111;
+				color: #eee;
+			}
+			header {
+				padding: 10px;
+				background: #222;
+				text-align: center;
+			}
+			#container {
+				display: flex;
+				height: calc(100vh - 50px);
+			}
+			#left {
+				flex: 1;
+				padding: 10px;
+				display: flex;
+				flex-direction: column;
+			}
+			#right {
+				width: 350px;
+				padding: 10px;
+				background: #222;
+				overflow: auto;
+			}
+			textarea {
+				width: 100%;
+				height: 150px;
+				margin-bottom: 10px;
+				background: #000;
+				color: #fff;
+				border: 1px solid #555;
+				padding: 5px;
+			}
+			button,
+			select,
+			input {
+				margin: 3px 0;
+				padding: 5px;
+				width: 100%;
+				background: #333;
+				color: #fff;
+				border: 1px solid #555;
+				cursor: pointer;
+			}
+			button:hover,
+			input:hover,
+			select:hover {
+				background: #444;
+			}
+			.cipher-step {
+				border: 1px solid #555;
+				padding: 5px;
+				margin-bottom: 5px;
+			}
+			#output {
+				height: 150px;
+				background: #000;
+				color: #0f0;
+			}
+			h2 {
+				margin: 5px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header><h1>NullCrypt - Cipher & Encoder Tool</h1></header>
+		<div id="container">
+			<div id="left">
+				<h2>Input</h2>
+				<textarea id="input"></textarea>
+				<h2>Pipeline Steps</h2>
+				<div id="pipeline"></div>
+				<button onclick="addStep()">Add Step</button>
+				<button onclick="runPipeline()">Run Pipeline</button>
+				<h2>Output</h2>
+				<textarea id="output" readonly></textarea>
+				<button onclick="copyOutput()">Copy Output</button>
+				<button onclick="exportMD()">Export MD+</button>
+			</div>
+			<div id="right">
+				<h2>Available Steps</h2>
+				<select id="stepType">
+					<option value="reverse">Reverse</option>
+					<option value="replace">Replace</option>
+					<option value="case">Case Transform</option>
+					<option value="binary">Binary</option>
+					<option value="hex">Hex</option>
+					<option value="decimal">Decimal</option>
+					<option value="base64">Base64</option>
+					<option value="base32">Base32</option>
+					<option value="url">URL Encode/Decode</option>
+					<option value="unicode">Unicode Code Points</option>
+					<option value="rot13">ROT13</option>
+					<option value="caesar">Caesar Cipher</option>
+					<option value="vigenere">Vigenère Cipher</option>
+					<option value="a1z26">A1Z26</option>
+					<option value="bacon">Bacon Cipher</option>
+				</select>
+				<div id="stepOptions"></div>
+			</div>
+		</div>
+		<script>
+			// Core transforms
+			function reverse(str) {
+				return str.split("").reverse().join("");
+			}
+			function caseTransform(str, type) {
+				return type === "upper"
+					? str.toUpperCase()
+					: type === "lower"
+						? str.toLowerCase()
+						: str;
+			}
+			function replaceText(str, from, to) {
+				return str.split(from).join(to);
+			}
+
+			// Numeral/Encoding
+			function toBinary(str) {
+				return str
+					.split("")
+					.map((c) => c.charCodeAt(0).toString(2).padStart(8, "0"))
+					.join(" ");
+			}
+			function fromBinary(str) {
+				return str
+					.split(" ")
+					.map((b) => String.fromCharCode(parseInt(b, 2)))
+					.join("");
+			}
+			function toHex(str) {
+				return str
+					.split("")
+					.map((c) => c.charCodeAt(0).toString(16).padStart(2, "0"))
+					.join("");
+			}
+			function fromHex(str) {
+				return str
+					.match(/.{1,2}/g)
+					.map((h) => String.fromCharCode(parseInt(h, 16)))
+					.join("");
+			}
+			function toDecimal(str) {
+				return str
+					.split("")
+					.map((c) => c.charCodeAt(0))
+					.join(" ");
+			}
+			function fromDecimal(str) {
+				return str
+					.split(" ")
+					.map((n) => String.fromCharCode(parseInt(n)))
+					.join("");
+			}
+			function toBase64(str) {
+				return btoa(str);
+			}
+			function fromBase64(str) {
+				return atob(str);
+			}
+			function toBase32(str) {
+				const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+				let bits = "";
+				for (let c of str) {
+					bits += c.charCodeAt(0).toString(2).padStart(8, "0");
+				}
+				let out = "";
+				while (bits.length >= 5) {
+					out += alphabet[parseInt(bits.slice(0, 5), 2)];
+					bits = bits.slice(5);
+				}
+				if (bits.length > 0)
+					out += alphabet[parseInt(bits.padEnd(5, "0"), 2)];
+				return out;
+			}
+			function fromBase32(str) {
+				const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+				let bits = "";
+				for (let c of str) {
+					bits += alphabet
+						.indexOf(c.toUpperCase())
+						.toString(2)
+						.padStart(5, "0");
+				}
+				let out = "";
+				while (bits.length >= 8) {
+					out += String.fromCharCode(parseInt(bits.slice(0, 8), 2));
+					bits = bits.slice(8);
+				}
+				return out;
+			}
+			function urlEncode(str) {
+				return encodeURIComponent(str);
+			}
+			function urlDecode(str) {
+				return decodeURIComponent(str);
+			}
+			function unicodePoints(str) {
+				return str
+					.split("")
+					.map(
+						(c) =>
+							"U+" + c.charCodeAt(0).toString(16).toUpperCase(),
+					)
+					.join(" ");
+			}
+			function fromUnicodePoints(str) {
+				return str
+					.split(" ")
+					.map((p) =>
+						String.fromCharCode(parseInt(p.replace("U+", ""), 16)),
+					)
+					.join("");
+			}
+
+			// Ciphers
+			function rot13(str) {
+				return str.replace(/[A-Za-z]/g, (c) =>
+					String.fromCharCode(
+						(c <= "Z" ? 65 : 97) +
+							((c.charCodeAt(0) - (c <= "Z" ? 65 : 97) + 13) %
+								26),
+					),
+				);
+			}
+			function caesar(str, shift) {
+				return str.replace(/[A-Za-z]/g, (c) =>
+					String.fromCharCode(
+						(c <= "Z" ? 65 : 97) +
+							((c.charCodeAt(0) - (c <= "Z" ? 65 : 97) + shift) %
+								26),
+					),
+				);
+			}
+			function vigenere(str, key) {
+				let out = "",
+					ki = 0;
+				key = key.toUpperCase();
+				for (let c of str) {
+					if (c.match(/[A-Za-z]/)) {
+						let base = c <= "Z" ? 65 : 97;
+						let k = key.charCodeAt(ki % key.length) - 65;
+						out += String.fromCharCode(
+							base + ((c.charCodeAt(0) - base + k) % 26),
+						);
+						ki++;
+					} else out += c;
+				}
+				return out;
+			}
+			function a1z26(str) {
+				return str
+					.split("")
+					.map((c) => {
+						if (c.match(/[A-Za-z]/)) {
+							return c.toUpperCase().charCodeAt(0) - 64;
+						} else return c;
+					})
+					.join(" ");
+			}
+			function fromA1Z26(str) {
+				return str
+					.split(" ")
+					.map((n) => String.fromCharCode(parseInt(n) + 64))
+					.join("");
+			}
+			function bacon(str) {
+				const baconMap = {
+					A: "AAAAA",
+					B: "AAAAB",
+					C: "AAABA",
+					D: "AAABB",
+					E: "AABAA",
+					F: "AABAB",
+					G: "AABBA",
+					H: "AABBB",
+					I: "ABAAA",
+					J: "ABAAB",
+					K: "ABABA",
+					L: "ABABB",
+					M: "ABBAA",
+					N: "ABBAB",
+					O: "ABBBA",
+					P: "ABBBB",
+					Q: "BAAAA",
+					R: "BAAAB",
+					S: "BAABA",
+					T: "BAABB",
+					U: "BABAA",
+					V: "BABAB",
+					W: "BABBA",
+					X: "BABBB",
+					Y: "BBAAA",
+					Z: "BBAAB",
+				};
+				return str
+					.toUpperCase()
+					.split("")
+					.map((c) => baconMap[c] || c)
+					.join(" ");
+			}
+
+			// Pipeline handling
+			let pipelineSteps = [];
+			function addStep() {
+				const type = document.getElementById("stepType").value;
+				const options = {};
+				if (type === "replace") {
+					options.from = prompt("Replace: from?");
+					options.to = prompt("Replace: to?");
+				}
+				if (type === "case") {
+					options.caseType = prompt("Case transform: upper/lower?");
+				}
+				if (type === "caesar") {
+					options.shift = parseInt(prompt("Caesar shift?"), 10) || 0;
+				}
+				if (type === "vigenere") {
+					options.key = prompt("Vigenère key?") || "KEY";
+				}
+				pipelineSteps.push({ type, options });
+				renderPipeline();
+			}
+			function renderPipeline() {
+				const div = document.getElementById("pipeline");
+				div.innerHTML = "";
+				pipelineSteps.forEach((s, i) => {
+					const step = document.createElement("div");
+					step.className = "cipher-step";
+					step.innerText =
+						i + 1 + ". " + s.type + JSON.stringify(s.options);
+					const del = document.createElement("button");
+					del.innerText = "Delete";
+					del.onclick = () => {
+						pipelineSteps.splice(i, 1);
+						renderPipeline();
+					};
+					step.appendChild(del);
+					div.appendChild(step);
+				});
+			}
+			function runPipeline() {
+				let text = document.getElementById("input").value;
+				for (let s of pipelineSteps) {
+					switch (s.type) {
+						case "reverse":
+							text = reverse(text);
+							break;
+						case "replace":
+							text = replaceText(
+								text,
+								s.options.from,
+								s.options.to,
+							);
+							break;
+						case "case":
+							text = caseTransform(text, s.options.caseType);
+							break;
+						case "binary":
+							text = toBinary(text);
+							break;
+						case "hex":
+							text = toHex(text);
+							break;
+						case "decimal":
+							text = toDecimal(text);
+							break;
+						case "base64":
+							text = toBase64(text);
+							break;
+						case "base32":
+							text = toBase32(text);
+							break;
+						case "url":
+							text = urlEncode(text);
+							break;
+						case "unicode":
+							text = unicodePoints(text);
+							break;
+						case "rot13":
+							text = rot13(text);
+							break;
+						case "caesar":
+							text = caesar(text, s.options.shift);
+							break;
+						case "vigenere":
+							text = vigenere(text, s.options.key);
+							break;
+						case "a1z26":
+							text = a1z26(text);
+							break;
+						case "bacon":
+							text = bacon(text);
+							break;
+					}
+				}
+				document.getElementById("output").value = text;
+			}
+			function copyOutput() {
+				navigator.clipboard.writeText(
+					document.getElementById("output").value,
+				);
+			}
+			function exportMD() {
+				const out = document.getElementById("output").value;
+				const w = window.open();
+				w.document.write(
+					"<pre>" + out.replace(/</g, "&lt;") + "</pre>",
+				);
+			}
+		</script>
+	</body>
+</html>
