@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NullCrypto</title>
+<style>
+  body { font-family: 'Lato', sans-serif; margin:0; padding:0; background:#000; color:#fff; }
+  h1 { text-align:center; margin:20px 0; text-shadow:0 0 8px #0f0,0 0 16px #0ff; }
+  #dashboard { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:15px; padding:20px; }
+  .coin { background:#111; padding:15px; border-radius:12px; border:1px solid #0f0; box-shadow:0 0 8px #0f0; transition:all 0.3s ease; }
+  .coin:hover { box-shadow:0 0 16px #0ff,0 0 24px #0f0; transform:translateY(-3px); }
+  .coin h3 { margin:0 0 10px; text-align:center; }
+  .coin p { text-align:center; margin:5px 0; }
+  .coin input { width:80%; padding:4px; margin:5px auto; display:block; border-radius:5px; border:none; text-align:center; }
+  .coin button { margin:3px; padding:6px 10px; border-radius:6px; border:none; background:#222; color:#0f0; cursor:pointer; transition:all 0.2s ease; }
+  .coin button:hover { background:#0f0; color:#000; }
+  #portfolio { margin:20px; padding:15px; background:#111; border-radius:12px; border:1px solid #0ff; box-shadow:0 0 8px #0ff; }
+  #portfolio ul { list-style:none; padding-left:0; }
+  #portfolioChart { background:#000; display:block; margin:20px auto; border-radius:12px; }
+</style>
+</head>
+<body style="background-color: black;">
+
+<h1>NullCrypto - Paper Trading Simulator</h1>
+
+<div id="dashboard"></div>
+
+<div id="portfolio">
+  <h2>Portfolio</h2>
+  <p id="cash">Cash: $10,000</p>
+  <ul id="holdings"></ul>
+  <h3>Total Value: $<span id="totalValue">10,000</span></h3>
+</div>
+
+<canvas id="portfolioChart" width="800" height="300"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const coins = [
+  {id:"bitcoin",symbol:"BTC"},
+  {id:"ethereum",symbol:"ETH"},
+  {id:"dogecoin",symbol:"DOGE"},
+  {id:"litecoin",symbol:"LTC"},
+  {id:"ripple",symbol:"XRP"},
+  {id:"cardano",symbol:"ADA"},
+  {id:"polkadot",symbol:"DOT"},
+  {id:"solana",symbol:"SOL"},
+  {id:"shiba-inu",symbol:"SHIB"},
+  {id:"avalanche-2",symbol:"AVAX"},
+  {id:"nullcoin",symbol:"NULL"} // Fake NullCoin
+];
+
+let portfolio = {cash:10000};
+coins.forEach(c => portfolio[c.symbol]=0);
+let priceData = {};
+let portfolioHistory = [];
+
+async function fetchPrices() {
+  const realCoins = coins.filter(c=>c.id!=="nullcoin").map(c=>c.id);
+  if(realCoins.length>0){
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${realCoins.join()}&vs_currencies=usd`);
+    const data = await res.json();
+    coins.forEach(c=>{
+      if(c.id==="nullcoin"){
+        // NullCoin random drift
+        let prev = priceData[c.symbol] ? parseFloat(priceData[c.symbol]) : 1.0;
+        let change = (Math.random()*0.2-0.1); // ±10 cents
+        priceData[c.symbol] = Math.max(prev+change,0.01).toFixed(2);
+      } else {
+        priceData[c.symbol] = data[c.id].usd.toFixed(2);
+      }
+    });
+  }
+  renderDashboard();
+  updatePortfolio();
+}
+
+function renderDashboard() {
+  const dash = document.getElementById("dashboard");
+  dash.innerHTML = '';
+  coins.forEach(c=>{
+    const coinDiv = document.createElement("div");
+    coinDiv.className = "coin";
+    
+    const title = document.createElement("h3"); title.innerText = c.symbol;
+    const priceP = document.createElement("p"); priceP.innerText = `Price: $${priceData[c.symbol]}`;
+    const buyInput = document.createElement("input"); buyInput.placeholder="USD to buy"; buyInput.type="number";
+    const buyBtn = document.createElement("button"); buyBtn.innerText="Buy"; buyBtn.onclick=()=>buy(c.symbol,buyInput.value);
+    const sellInput = document.createElement("input"); sellInput.placeholder="Coins to sell"; sellInput.type="number";
+    const sellBtn = document.createElement("button"); sellBtn.innerText="Sell"; sellBtn.onclick=()=>sell(c.symbol,sellInput.value);
+    const realBtn = document.createElement("button"); 
+    if(c.id==="nullcoin") realBtn.onclick=()=>alert("NullCoin cannot be bought in real exchanges");
+    else realBtn.onclick=()=>window.open(`https://www.coingecko.com/en/coins/${c.id}`,'_blank');
+    realBtn.innerText = "Buy Real";
+
+    coinDiv.append(title,priceP,buyInput,buyBtn,sellInput,sellBtn,realBtn);
+    dash.appendChild(coinDiv);
+  });
+}
+
+function buy(symbol,usdAmount){
+  usdAmount = parseFloat(usdAmount);
+  if(isNaN(usdAmount)||usdAmount<=0) return alert("Enter a valid USD amount");
+  if(usdAmount>portfolio.cash) return alert("Not enough cash!");
+  const qty = usdAmount/priceData[symbol];
+  portfolio.cash -= usdAmount;
+  portfolio[symbol] += qty;
+  updatePortfolio();
+}
+
+function sell(symbol,coinAmount){
+  coinAmount = parseFloat(coinAmount);
+  if(isNaN(coinAmount)||coinAmount<=0) return alert("Enter a valid coin amount");
+  if(coinAmount>portfolio[symbol]) return alert("Not enough coins!");
+  portfolio.cash += coinAmount * priceData[symbol];
+  portfolio[symbol]-=coinAmount;
+  updatePortfolio();
+}
+
+function updatePortfolio(){
+  const holdings = document.getElementById("holdings");
+  holdings.innerHTML = coins.map(c=>{
+    return `<li>${c.symbol}: ${portfolio[c.symbol].toFixed(c.symbol==="SHIB"?0:6)}</li>`;
+  }).join('');
+  document.getElementById("cash").innerText = `Cash: $${portfolio.cash.toFixed(2)}`;
+  const total = coins.reduce((sum,c)=>sum + portfolio[c.symbol]*priceData[c.symbol],portfolio.cash);
+  document.getElementById("totalValue").innerText = total.toFixed(2);
+  portfolioHistory.push(total);
+  renderChart();
+}
+
+function renderChart(){
+  const ctx = document.getElementById("portfolioChart").getContext("2d");
+  if(window.portfolioChart) window.portfolioChart.destroy();
+  window.portfolioChart = new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:portfolioHistory.map((v,i)=>i+1),
+      datasets:[{label:'Portfolio Value',data:portfolioHistory,borderColor:'#0f0',fill:false,tension:0.1}]
+    },
+    options:{responsive:true,plugins:{legend:{display:true}}}
+  });
+}
+
+fetchPrices();
+setInterval(fetchPrices,15000);
+</script>
+
+</body>
+</html>
