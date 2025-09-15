@@ -192,7 +192,8 @@ document.addEventListener("DOMContentLoaded", () => {
             { label: "Upload Folder", fn: () => uploadFolder(path) },
             { label: "Copy", fn: () => copy() },
             { label: "Cut", fn: () => cut() },
-            { label: "Paste", fn: () => paste(path) }
+            { label: "Paste", fn: () => paste(path) },
+            { label: "Reload", fn: () => updateSidebar() }
         ];
         actions.forEach(a => {
             const li = document.createElement("div");
@@ -639,5 +640,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.files = files;
     marked.setOptions({ breaks: true });
-    setInterval(updateSidebar, 1000);
 });
