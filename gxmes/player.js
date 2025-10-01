@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const params = new URLSearchParams(window.location.search);
 	const which = params.get("which");
 	const name = params.get("name");
+	const width = params.get("width");
+	const height = params.get("height");
 	const iframe = document.getElementById("gameFrame");
 	const saveButton = document.getElementById("saveButton");
 	const fullscreenBtn = document.getElementById("fullscreenBtn");
@@ -36,6 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.title = name + " — NullG*mes Player";
 	} else {
 		document.title = "NullG*mes Player";
+	}
+
+	// Update iframe width if 'width' is provided
+	if (width !== null) {
+		iframe.width = width;
+	}
+
+	// Update iframe height if 'height' is provided
+	if (height !== null) {
+		iframe.height = height;
 	}
 
 	// Custom save button logic for specific games
