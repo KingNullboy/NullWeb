@@ -98,8 +98,8 @@
 
             if (!newTab) return alert("Couldn't open a new tab :(");
 
-            const iframe = newTab.document.createElement('iframe');
-            iframe.src = url;
+            const iframe = newTab.document.createElement('object');
+            iframe.data = url;
             iframe.style.width = '100%';
             iframe.style.height = '100%';
             iframe.style.border = '0';
