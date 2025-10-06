@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NullASCII</title>
+<style>
+  body {
+    background:#000; color:#fff; font-family:Lato, sans-serif;
+    display:flex; flex-direction:column; align-items:center; padding:20px;
+  }
+  h1 { margin-bottom:20px; }
+  input, button { margin:5px; padding:8px; background:#111; color:#fff; border:1px solid #fff; border-radius:5px; }
+  #ascii-output { white-space: pre; font-family: monospace; margin-top:20px; line-height:1.1; overflow:auto; max-width:90vw; max-height:70vh; }
+  canvas { display:none; }
+</style>
+</head>
+<body>
+<h1>NullASCII</h1>
+<input type="file" id="img-input" accept="image/*">
+<label>Width: <input type="number" id="width-input" value="100" min="10" max="500"></label>
+<label><input type="checkbox" id="color-toggle"> Colored ASCII</label>
+<button id="convert-btn">Convert</button>
+<button id="copy-btn">Copy to Clipboard</button>
+<div id="ascii-output"></div>
+<canvas id="canvas"></canvas>
+
+<script>
+const imgInput = document.getElementById('img-input');
+const widthInput = document.getElementById('width-input');
+const convertBtn = document.getElementById('convert-btn');
+const output = document.getElementById('ascii-output');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const colorToggle = document.getElementById('color-toggle');
+const copyBtn = document.getElementById('copy-btn');
+
+// ASCII chars from dark to light
+const asciiChars = ' .:-=+*#%@';
+
+convertBtn.addEventListener('click', () => {
+    const file = imgInput.files[0];
+    if(!file) return alert('Select an image first.');
+    const reader = new FileReader();
+    reader.onload = e => {
+        const img = new Image();
+        img.onload = () => convertImage(img);
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+function convertImage(img){
+    const w = parseInt(widthInput.value);
+    const scale = w / img.width;
+    const h = Math.floor(img.height * scale);
+    canvas.width = w;
+    canvas.height = h;
+    ctx.drawImage(img,0,0,w,h);
+    const imgData = ctx.getImageData(0,0,w,h).data;
+    let ascii = '';
+    for(let y=0;y<h;y++){
+        for(let x=0;x<w;x++){
+            const idx = (y*w + x)*4;
+            const r=imgData[idx], g=imgData[idx+1], b=imgData[idx+2];
+            const brightness = (0.299*r + 0.587*g + 0.114*b)/255;
+            const char = asciiChars[Math.floor(brightness*(asciiChars.length-1))];
+            if(colorToggle.checked){
+                ascii += `<span style="color:rgb(${r},${g},${b})">${char}</span>`;
+            } else ascii += char;
+        }
+        ascii += '\n';
+    }
+    output.innerHTML = ascii;
+}
+
+// Copy to clipboard
+copyBtn.addEventListener('click', ()=>{
+    if(colorToggle.checked){
+        alert('Cannot copy colored ASCII as text. Uncheck "Colored ASCII" to copy.');
+        return;
+    }
+    navigator.clipboard.writeText(output.textContent).then(()=>alert('Copied!'));
+});
+</script>
+</body>
+</html>

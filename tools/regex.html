@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	style="
+		--bg-color: #000;
+		--text-color: #fff;
+		--border-color: #fff;
+		--font-family: Lato;
+	"
+>
+	<head>
+		<meta charset="UTF-8" />
+		<title>NullRegex Maker</title>
+		<link rel="icon" href="logo.png" />
+		<style>
+			body {
+				background: var(--bg-color);
+				color: var(--text-color);
+				font-family: var(--font-family);
+				margin: 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			h1 {
+				margin-bottom: 10px;
+			}
+			textarea,
+			input,
+			select {
+				width: 90%;
+				margin: 5px 0;
+				padding: 8px;
+				background: #111;
+				color: #fff;
+				border: 1px solid var(--border-color);
+				font-family: monospace;
+			}
+			button {
+				margin: 5px;
+				padding: 8px 16px;
+				background: #222;
+				color: #fff;
+				border: 1px solid var(--border-color);
+				cursor: pointer;
+			}
+			button:hover {
+				background: #333;
+			}
+			#patternPreview,
+			#output {
+				width: 90%;
+				background: #111;
+				color: #0f0;
+				border: 1px solid var(--border-color);
+				padding: 10px;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				margin-top: 10px;
+			}
+			label {
+				margin-top: 10px;
+				display: block;
+			}
+		</style>
+	</head>
+	<body style="background-color: var(--bg-color)">
+		<h1>NullRegex Maker</h1>
+
+		<label>Build Regex:</label>
+		<select id="builder">
+			<option value="">--Select element--</option>
+			<option value="literal">Literal Text</option>
+			<option value="digit">Digit (\d)</option>
+			<option value="word">Word (\w)</option>
+			<option value="whitespace">Whitespace (\s)</option>
+			<option value="any">Any Character (.)</option>
+			<option value="start">Start (^)</option>
+			<option value="end">End ($)</option>
+			<option value="optional">Optional (?)</option>
+			<option value="zeroOrMore">Zero or More (*)</option>
+			<option value="oneOrMore">One or More (+)</option>
+			<option value="group">Group ()</option>
+			<option value="or">Alternation (|)</option>
+		</select>
+		<input
+			type="text"
+			id="builderInput"
+			placeholder="For literal or group text"
+		/>
+
+		<div>
+			<button onclick="addElement()">Add to Pattern</button>
+			<button onclick="clearPattern()">Clear Pattern</button>
+		</div>
+
+		<label>Flags (g,i,m):</label>
+		<input type="text" id="flags" placeholder="e.g., gi" />
+
+		<label>Sample Text:</label>
+		<textarea
+			id="sample"
+			rows="6"
+			placeholder="Enter text to test regex..."
+		></textarea>
+
+		<label>Pattern Preview:</label>
+		<pre id="patternPreview"></pre>
+
+		<label>Matches Highlighted:</label>
+		<pre id="output"></pre>
+
+		<script>
+			let regexPattern = "";
+
+			function addElement() {
+				const type = document.getElementById("builder").value;
+				const input = document.getElementById("builderInput").value;
+				if (!type) return;
+
+				switch (type) {
+					case "literal":
+						regexPattern += escapeRegex(input);
+						break;
+					case "digit":
+						regexPattern += "\\d";
+						break;
+					case "word":
+						regexPattern += "\\w";
+						break;
+					case "whitespace":
+						regexPattern += "\\s";
+						break;
+					case "any":
+						regexPattern += ".";
+						break;
+					case "start":
+						regexPattern += "^";
+						break;
+					case "end":
+						regexPattern += "$";
+						break;
+					case "optional":
+						regexPattern += "?";
+						break;
+					case "zeroOrMore":
+						regexPattern += "*";
+						break;
+					case "oneOrMore":
+						regexPattern += "+";
+						break;
+					case "group":
+						regexPattern += "(" + escapeRegex(input) + ")";
+						break;
+					case "or":
+						regexPattern += "|";
+						break;
+				}
+				updatePattern();
+			}
+
+			function clearPattern() {
+				regexPattern = "";
+				updatePattern();
+			}
+
+			function escapeRegex(s) {
+				return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+			}
+
+			function updatePattern() {
+				document.getElementById("patternPreview").textContent =
+					regexPattern;
+				const sample = document.getElementById("sample").value;
+				const flags = document.getElementById("flags").value;
+				const outputEl = document.getElementById("output");
+				try {
+					const regex = new RegExp(regexPattern, flags);
+					const matches = [...sample.matchAll(regex)];
+					if (matches.length === 0) {
+						outputEl.textContent = "No matches";
+						return;
+					}
+					let highlighted = sample;
+					matches.sort((a, b) => b.index - a.index);
+					for (const m of matches) {
+						highlighted =
+							highlighted.slice(0, m.index) +
+							"[[" +
+							highlighted.slice(m.index, m.index + m[0].length) +
+							"]]" +
+							highlighted.slice(m.index + m[0].length);
+					}
+					outputEl.innerHTML =
+						highlighted + "\nMatches found: " + matches.length;
+				} catch (e) {
+					outputEl.textContent = "Error: " + e.message;
+				}
+			}
+
+			document
+				.getElementById("sample")
+				.addEventListener("input", updatePattern);
+			document
+				.getElementById("flags")
+				.addEventListener("input", updatePattern);
+		</script>
+	</body>
+</html>

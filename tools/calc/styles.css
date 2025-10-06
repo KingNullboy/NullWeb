@@ -1,91 +1,45 @@
 body {
-  background: #222;
-  color: #eee;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+    margin:0; padding:20px;
+    background:#111; color:#fff; font-family:Lato, sans-serif;
 }
+#nullmath { max-width:550px; margin:0 auto; }
+h1 { text-align:center; margin-bottom:10px; }
 
-.calculator {
-  background: #363636;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px #ffffff;
-  width: 340px;
+#tabs { display:flex; margin-bottom:10px; justify-content:space-between; }
+.tab-btn {
+    flex:1; padding:10px; margin:0 2px;
+    background:#222; border:none; border-radius:5px;
+    cursor:pointer; transition:0.1s; color:#fff;
 }
+.tab-btn.active { background:#0f0; color:#000; }
+.tab-btn:hover { background:#333; }
 
-#display {
-  width: 94%;
-  height: 40px;
-  font-size: 1.5rem;
-  text-align: right;
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: none;
-  margin-bottom: 15px;
-  background: #000;
-  color: #ffffff;
-}
+.tab-content { display:none; margin-top:10px; }
+.tab-content.active { display:block; }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
+#calc-display {
+    background:#111; color:#0f0; font-family:monospace;
+    border-radius:8px; padding:10px; min-height:50px; margin-bottom:10px;
 }
+#calc-prev { font-size:14px; color:#888; }
+#calc-current { font-size:24px; }
 
-button {
-  padding: 8px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-  background: #444;
-  color: #ffffff;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.2s ease;
-}
+#calc-buttons { display:grid; grid-template-columns:repeat(4,1fr); grid-gap:10px; }
 
-button:hover {
-  background: #ffffff;
-  color: #222;
-}
+button { background:#333; color:#fff; border:none; border-radius:5px; padding:15px; font-size:16px; cursor:pointer; transition:0.1s; }
+button:hover { background:#444; }
+.operator { background:#0f0; color:#000; }
+.operator:hover { background:#0c0; }
+.func-btn { background:#555; }
+.func-btn:hover { background:#666; }
 
-#equals {
-  background: #0ff;
-  color: #222;
-  font-weight: bold;
-  grid-column: span 1;
-}
+/* Graph */
+#graph input { width:100%; padding:8px; margin-bottom:10px; background:#222; border:1px solid #fff; color:#fff; border-radius:5px; }
+#graph-canvas { border:1px solid #555; background:#111; border-radius:5px; }
 
-#clear {
-  background: #f44336;
-  color: #fff;
-}
+/* Base Conversion Inputs */
+#base input { width:100%; padding:8px; margin:5px 0; background:#222; color:#fff; border:1px solid #fff; border-radius:5px; }
 
-#backspace {
-  background: #ffa500;
-  color: #222;
-}
-
-.top-controls {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-#toggle-mode {
-  background: #444;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-#toggle-mode:hover {
-  background: #fff;
-  color: #222;
-}
+/* Matrix/Stats */
+#matrix textarea, #stats textarea { width:100%; background:#222; color:#fff; border:1px solid #fff; border-radius:5px; padding:8px; margin-bottom:5px; }
+#matrix-output, #stats-output { background:#111; padding:10px; border:1px solid #fff; border-radius:5px; min-height:50px; }
