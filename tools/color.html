@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NullColor</title>
+<style>
+body { background:#000; color:#fff; font-family:Lato,sans-serif; display:flex; flex-direction:column; align-items:center; padding:20px;}
+h1 { margin-bottom:20px; }
+input, button, select { margin:5px; padding:8px; background:#111; color:#fff; border:1px solid #fff; border-radius:5px; }
+#palette { display:flex; margin-top:20px; }
+.color-block { width:60px; height:60px; margin:2px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:10px; text-align:center; color:#000; border:1px solid #fff; }
+#converter { display:flex; flex-direction:column; align-items:flex-start; margin-top:20px; }
+label { margin:3px 0; }
+</style>
+</head>
+<body style="background: black;">
+<h1>NullColor</h1>
+
+<!-- Palette Generator -->
+<label>Palette Type:
+<select id="palette-type">
+<option value="random">Random</option>
+<option value="monochrome">Monochrome</option>
+<option value="complementary">Complementary</option>
+<option value="triadic">Triadic</option>
+<option value="analogous">Analogous</option>
+</select>
+</label>
+<button id="gen-palette">Generate Palette</button>
+<div id="palette"></div>
+
+<!-- Color Converter -->
+<div id="converter">
+<label>Hex: <input type="text" id="hex-input" value="#ff0000"></label>
+<label>RGB: <input type="text" id="rgb-input" value="rgb(255,0,0)"></label>
+<label>HSL: <input type="text" id="hsl-input" value="hsl(0,100%,50%)"></label>
+<button id="copy-color">Copy Color</button>
+</div>
+
+<script>
+// ------------------ Helpers ------------------
+function hexToRgb(hex){
+    hex=hex.replace('#','');
+    if(hex.length===3) hex=hex.split('').map(h=>h+h).join('');
+    const r=parseInt(hex.slice(0,2),16);
+    const g=parseInt(hex.slice(2,4),16);
+    const b=parseInt(hex.slice(4,6),16);
+    return [r,g,b];
+}
+
+function rgbToHex(r,g,b){
+    return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+function rgbToHsl(r,g,b){
+    r/=255; g/=255; b/=255;
+    const max=Math.max(r,g,b), min=Math.min(r,g,b);
+    let h,s,l=(max+min)/2;
+    if(max===min) h=s=0;
+    else{
+        const d=max-min;
+        s=l>0.5?d/(2-max-min):d/(max+min);
+        switch(max){
+            case r: h=(g-b)/d+(g<b?6:0); break;
+            case g: h=(b-r)/d+2; break;
+            case b: h=(r-g)/d+4; break;
+        }
+        h/=6;
+    }
+    return [Math.round(h*360), Math.round(s*100), Math.round(l*100)];
+}
+
+function hslToRgb(h,s,l){
+    h/=360; s/=100; l/=100;
+    let r,g,b;
+    if(s===0){ r=g=b=l; }
+    else{
+        const hue2rgb=(p,q,t)=>{
+            if(t<0) t+=1;
+            if(t>1) t-=1;
+            if(t<1/6) return p+(q-p)*6*t;
+            if(t<1/2) return q;
+            if(t<2/3) return p+(q-p)*(2/3-t)*6;
+            return p;
+        };
+        const q=l<0.5? l*(1+s): l+s-l*s;
+        const p=2*l-q;
+        r=hue2rgb(p,q,h+1/3);
+        g=hue2rgb(p,q,h);
+        b=hue2rgb(p,q,h-1/3);
+    }
+    return [Math.round(r*255),Math.round(g*255),Math.round(b*255)];
+}
+
+// ------------------ Palette Generator ------------------
+const paletteDiv=document.getElementById('palette');
+document.getElementById('gen-palette').addEventListener('click', ()=>{
+    const type=document.getElementById('palette-type').value;
+    let base=Math.floor(Math.random()*360); // base hue
+    let colors=[];
+    switch(type){
+        case 'random':
+            for(let i=0;i<5;i++){
+                const h=Math.floor(Math.random()*360);
+                colors.push(hslToRgb(h,100,50));
+            } break;
+        case 'monochrome':
+            for(let i=0;i<5;i++){
+                colors.push(hslToRgb(base,50+10*i,50));
+            } break;
+        case 'complementary':
+            colors.push(hslToRgb(base,100,50));
+            colors.push(hslToRgb((base+180)%360,100,50));
+            colors.push(hslToRgb((base+30)%360,100,50));
+            colors.push(hslToRgb((base+210)%360,100,50));
+            colors.push(hslToRgb((base+330)%360,100,50));
+            break;
+        case 'triadic':
+            colors.push(hslToRgb(base,100,50));
+            colors.push(hslToRgb((base+120)%360,100,50));
+            colors.push(hslToRgb((base+240)%360,100,50));
+            colors.push(hslToRgb((base+30)%360,100,50));
+            colors.push(hslToRgb((base+150)%360,100,50));
+            break;
+        case 'analogous':
+            for(let i=-2;i<=2;i++){
+                colors.push(hslToRgb((base+i*30+360)%360,100,50));
+            } break;
+    }
+    paletteDiv.innerHTML='';
+    colors.forEach(rgb=>{
+        const hex=rgbToHex(...rgb);
+        const div=document.createElement('div');
+        div.className='color-block';
+        div.style.backgroundColor=hex;
+        div.style.color=(rgb[0]*0.299+rgb[1]*0.587+rgb[2]*0.114)>186?'#000':'#fff';
+        div.textContent=hex;
+        div.onclick=()=>{document.getElementById('hex-input').value=hex; updateConverter(hex);}
+        paletteDiv.appendChild(div);
+    });
+});
+
+// ------------------ Converter ------------------
+const hexInput=document.getElementById('hex-input');
+const rgbInput=document.getElementById('rgb-input');
+const hslInput=document.getElementById('hsl-input');
+
+function updateConverter(hex){
+    const rgb=hexToRgb(hex);
+    const hsl=rgbToHsl(...rgb);
+    rgbInput.value=`rgb(${rgb.join(',')})`;
+    hslInput.value=`hsl(${hsl.join(',')})`;
+}
+
+hexInput.addEventListener('input', ()=>updateConverter(hexInput.value));
+
+rgbInput.addEventListener('input', ()=>{
+    const m=rgbInput.value.match(/(\d+),\s*(\d+),\s*(\d+)/);
+    if(!m) return;
+    const rgb=m.slice(1,4).map(Number);
+    const hex=rgbToHex(...rgb);
+    hexInput.value=hex;
+    const hsl=rgbToHsl(...rgb);
+    hslInput.value=`hsl(${hsl.join(',')})`;
+});
+
+hslInput.addEventListener('input', ()=>{
+    const m=hslInput.value.match(/(\d+),\s*(\d+)%?,\s*(\d+)%?/);
+    if(!m) return;
+    const hsl=m.slice(1,4).map(Number);
+    const rgb=hslToRgb(...hsl);
+    const hex=rgbToHex(...rgb);
+    hexInput.value=hex;
+    rgbInput.value=`rgb(${rgb.join(',')})`;
+});
+
+// ------------------ Copy ------------------
+document.getElementById('copy-color').addEventListener('click', ()=>{
+    navigator.clipboard.writeText(hexInput.value).then(()=>alert('Copied '+hexInput.value));
+});
+</script>
+</body>
+</html>

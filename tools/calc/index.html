@@ -1,65 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Scientific Calculator</title>
-<link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<title>NullMath</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="styles.css">
 <script src="/js/main.js"></script>
 </head>
 <body>
-  <div class="calculator">
-    <input type="text" id="display" disabled />
-    <div class="top-controls">
-      <button id="toggle-mode">Mode: DEG</button>
-      <button id="mc">MC</button>
-      <button id="mr">MR</button>
-      <button id="mplus">M+</button>
-      <button id="mminus">M-</button>
-      <button id="ans">Ans</button>
+
+<div id="nullmath">
+    <h1>NullMath</h1>
+    <!-- Tabs -->
+    <div id="tabs">
+        <button class="tab-btn active" data-tab="calc">Calculator</button>
+        <button class="tab-btn" data-tab="graph">Graph</button>
+        <button class="tab-btn" data-tab="base">Base Conv</button>
+        <button class="tab-btn" data-tab="matrix">Matrices/Lists</button>
+        <button class="tab-btn" data-tab="stats">Statistics</button>
     </div>
-    <div class="buttons">
-      <!-- Row 1: scientific funcs -->
-      <button data-func="sin">sin</button>
-      <button data-func="cos">cos</button>
-      <button data-func="tan">tan</button>
-      <button data-func="log">log</button>
-      <button data-func="ln">ln</button>
-      <button data-func="sqrt">√</button>
 
-      <!-- Row 2: numbers and operators -->
-      <button data-value="7">7</button>
-      <button data-value="8">8</button>
-      <button data-value="9">9</button>
-      <button data-value="/">÷</button>
-      <button data-value="^">^</button>
-      <button id="clear">C</button>
+    <!-- Tab contents -->
+    <div id="tab-contents">
+        <!-- Calculator -->
+        <div class="tab-content active" id="calc">
+            <div id="calc-display">
+                <div id="calc-prev">ANS: 0</div>
+                <div id="calc-current">0</div>
+            </div>
+            <div id="calc-buttons"></div>
+        </div>
 
-      <!-- Row 3 -->
-      <button data-value="4">4</button>
-      <button data-value="5">5</button>
-      <button data-value="6">6</button>
-      <button data-value="*">×</button>
-      <button data-value="(">(</button>
-      <button data-value=")">)</button>
+        <!-- Graphing -->
+        <div class="tab-content" id="graph">
+            <input type="text" id="graph-func" placeholder="Enter functions e.g., sin(x), x^2">
+            <canvas id="graph-canvas" width="500" height="300"></canvas>
+        </div>
 
-      <!-- Row 4 -->
-      <button data-value="1">1</button>
-      <button data-value="2">2</button>
-      <button data-value="3">3</button>
-      <button data-value="-">−</button>
-      <button data-value=".">.</button>
-      <button id="backspace">←</button>
+        <!-- Base Conversion -->
+        <div class="tab-content" id="base">
+            <label>Decimal: <input type="number" id="base-dec"></label>
+            <label>Binary: <input type="text" id="base-bin"></label>
+            <label>Hex: <input type="text" id="base-hex"></label>
+            <label>Octal: <input type="text" id="base-oct"></label>
+        </div>
 
-      <!-- Row 5 -->
-      <button data-value="0">0</button>
-      <button data-value=",">,</button>
-      <button data-func="pi">π</button>
-      <button data-func="e">e</button>
-      <button data-value="+">+</button>
-      <button id="equals">=</button>
+        <!-- Matrices/Lists -->
+        <div class="tab-content" id="matrix">
+            <textarea id="matrix-input" rows="8" placeholder="Enter matrix or list, comma-separated"></textarea>
+            <button id="matrix-add">Add</button>
+            <button id="matrix-mul">Multiply</button>
+            <button id="matrix-det">Determinant</button>
+            <pre id="matrix-output"></pre>
+        </div>
+
+        <!-- Statistics -->
+        <div class="tab-content" id="stats">
+            <textarea id="stats-input" rows="6" placeholder="Enter list of numbers, comma-separated"></textarea>
+            <button id="stats-mean">Mean</button>
+            <button id="stats-std">Std Dev</button>
+            <pre id="stats-output"></pre>
+        </div>
     </div>
-  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

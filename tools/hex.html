@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html
+	lang="en"
+	style="
+		--bg-color: #000;
+		--text-color: #fff;
+		--border-color: #fff;
+		--font-family: Lato;
+	"
+>
+	<head>
+		<meta charset="UTF-8" />
+		<title>NullHex</title>
+		<link rel="icon" href="logo.png" />
+		<script src="/styles.js"></script>
+		<style>
+		  	@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+			body {
+				background-color: var(--bg-color);
+				color: var(--text-color);
+				font-family: var(--font-family);
+				margin: 0;
+				padding: 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			h1 {
+				margin-bottom: 10px;
+			}
+			#fileInput {
+				margin-bottom: 10px;
+			}
+			pre {
+				background: #111;
+				color: #0f0;
+				border: 1px solid var(--border-color);
+				width: 90%;
+				padding: 10px;
+				overflow-x: auto;
+				font-family: monospace;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+			}
+			button {
+				margin: 5px;
+				padding: 8px 16px;
+				background: #222;
+				color: #fff;
+				border: 1px solid var(--border-color);
+				cursor: pointer;
+			}
+			button:hover {
+				background: #333;
+			}
+			#hexEditor {
+				width: 90%;
+				height: 300px;
+				background: #111;
+				color: #0f0;
+				border: 1px solid var(--border-color);
+				font-family: monospace;
+				padding: 10px;
+				overflow: auto;
+				white-space: pre;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>NullHex</h1>
+
+		<input type="file" id="fileInput" />
+		<div>
+			<button onclick="downloadFile()">Download Edited File</button>
+		</div>
+		<pre id="hexEditor"></pre>
+
+		<script>
+			let fileData = null;
+			let fileName = "file.bin";
+
+			// Convert ArrayBuffer to hex + ASCII string
+			function arrayBufferToHex(buffer) {
+				const bytes = new Uint8Array(buffer);
+				let hexStr = "";
+				for (let i = 0; i < bytes.length; i += 16) {
+					let line = bytes.slice(i, i + 16);
+					let hexPart = Array.from(line)
+						.map((b) => b.toString(16).padStart(2, "0"))
+						.join(" ");
+					let asciiPart = Array.from(line)
+						.map((b) =>
+							b > 31 && b < 127 ? String.fromCharCode(b) : ".",
+						)
+						.join("");
+					hexStr += hexPart.padEnd(48, " ") + "  " + asciiPart + "\n";
+				}
+				return hexStr.trim();
+			}
+
+			// Convert hex string back to ArrayBuffer
+			function hexToArrayBuffer(hexString) {
+				const clean = hexString.replace(/[^0-9A-Fa-f]/g, "");
+				const buffer = new Uint8Array(clean.length / 2);
+				for (let i = 0; i < buffer.length; i++) {
+					buffer[i] = parseInt(clean.substr(i * 2, 2), 16);
+				}
+				return buffer;
+			}
+
+			// Handle file input
+			document
+				.getElementById("fileInput")
+				.addEventListener("change", async (e) => {
+					const file = e.target.files[0];
+					if (!file) return;
+					fileName = file.name;
+					fileData = await file.arrayBuffer();
+					document.getElementById("hexEditor").textContent =
+						arrayBufferToHex(fileData);
+				});
+
+			// Download edited file
+			function downloadFile() {
+				if (!fileData) return alert("No file loaded!");
+				const hexText =
+					document.getElementById("hexEditor").textContent;
+				const buffer = hexToArrayBuffer(hexText);
+				const blob = new Blob([buffer], {
+					type: "application/octet-stream",
+				});
+				const a = document.createElement("a");
+				a.href = URL.createObjectURL(blob);
+				a.download = fileName;
+				a.click();
+			}
+		</script>
+	</body>
+</html>
