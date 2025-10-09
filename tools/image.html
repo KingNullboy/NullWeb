@@ -1,112 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Universal Image Resizer & Viewer</title>
-  <link rel="stylesheet" href="styles.css">
-    <script src="/js/main.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NullUniversal Viewer & Editor</title>
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { margin:0; background:#000; color:#fff; font-family:Lato,sans-serif; display:flex; flex-direction:column; align-items:center; }
+  .container { padding:20px; max-width:1000px; width:100%; }
+  input, button { margin:4px; padding:6px; border-radius:5px; border:1px solid #fff; background:#111; color:#fff; }
+  canvas { border:1px solid #fff; margin-top:10px; }
+  #fileList { max-height:150px; overflow-y:auto; margin-top:10px; }
+  #tools { margin-top:10px; display:flex; flex-wrap:wrap; gap:5px; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.16.105/pdf.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h2>Resize and View Image Files</h2>
-    <input type="file" id="fileInput" accept="image/*,.cur,.ani,.bmp,.ico" onchange="setDefaultFormat()" multiple />
-    <label for="aspectRatio">Aspect Ratio: </label>
-    <span id="aspectRatio">(will match input file)</span>
-    <br><br>
-    <label for="size">Width: </label>
-    <input type="number" id="size" value="32" min="1" />
-    <label for="size2">Height: </label>
-    <input type="number" id="size2" value="32" min="1" />
-    <br><br>
-    <label for="outputFormat">Enter Output Format (e.g., png, jpg, gif): </label>
-    <input type="text" id="outputFormat" value="png" />
-    <br><br>
-    <button onclick="processFiles()">Process & Convert</button>
-    <br><br>
-    <div id="outputLinks"></div>
+<div class="container">
+  <h2>NullUniversal Viewer & Editor</h2>
+  <input type="file" id="fileInput" multiple />
+  <div id="fileList"></div>
+  <div id="tools">
+    <button id="drawBtn">Draw</button>
+    <button id="undoBtn">Undo</button>
+    <button id="redoBtn">Redo</button>
+    <button id="downloadBtn">Download</button>
+    <label>Zoom: <input type="number" id="zoomInput" value="1" step="0.1" min="0.1" style="width:60px;"></label>
   </div>
+  <canvas id="canvas"></canvas>
+</div>
 
-  <script>
-    const maxFiles = 100; // Set sensible limit for file uploads
-    let files = [];
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let files = [], currentFileIndex = 0;
+let drawMode=false, drawing=false, lastPos={x:0,y:0};
+let undoStack=[], redoStack=[];
+const fileInput = document.getElementById('fileInput');
 
-    function setDefaultFormat() {
-      const input = document.getElementById('fileInput');
-      const fileList = input.files;
-      
-      if (!fileList.length) return;
+fileInput.addEventListener('change', (e)=>{
+  files = Array.from(e.target.files);
+  currentFileIndex = 0;
+  displayFileList();
+  if(files.length) loadFile(files[0]);
+});
 
-      files = Array.from(fileList);
+function displayFileList(){
+  const list = document.getElementById('fileList');
+  list.innerHTML = files.map((f,i)=>`[${i+1}] ${f.name}`).join('<br>');
+}
 
-      // Limit to max number of files
-      if (files.length > maxFiles) {
-        alert(`You can only upload a maximum of ${maxFiles} files.`);
-        files = files.slice(0, maxFiles);
-        input.files = files;
-      }
+async function loadFile(file){
+  undoStack=[]; redoStack=[];
+  const ext = file.name.split('.').pop().toLowerCase();
+  if(ext==='pdf'){
+    const typedArray = new Uint8Array(await file.arrayBuffer());
+    const pdf = await pdfjsLib.getDocument({data:typedArray}).promise;
+    const page = await pdf.getPage(1);
+    const viewport = page.getViewport({scale:1});
+    canvas.width=viewport.width; canvas.height=viewport.height;
+    const renderCtx = {canvasContext:ctx, viewport};
+    page.render(renderCtx);
+  } else {
+    const img = new Image();
+    img.onload = ()=>{
+      canvas.width=img.width; canvas.height=img.height;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img,0,0);
+      pushUndo();
+    };
+    img.src = URL.createObjectURL(file);
+  }
+}
 
-      files.forEach(file => {
-        const fileExtension = file.name.split('.').pop().toLowerCase();
-        if (fileExtension === 'cur') {
-          document.getElementById('outputFormat').value = 'cur';
-        } else if (fileExtension === 'ani') {
-          document.getElementById('outputFormat').value = 'ani';
-        } else {
-          const mimeType = file.type.split('/')[1];
-          document.getElementById('outputFormat').value = mimeType || 'png';
-        }
-      });
-    }
+canvas.addEventListener('mousedown', e=>{
+  if(!drawMode) return;
+  drawing=true;
+  lastPos = {x:e.offsetX, y:e.offsetY};
+});
 
-    function processFiles() {
-      const outputLinksDiv = document.getElementById('outputLinks');
-      outputLinksDiv.innerHTML = '';
+canvas.addEventListener('mousemove', e=>{
+  if(!drawing) return;
+  ctx.strokeStyle='red';
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(lastPos.x,lastPos.y);
+  ctx.lineTo(e.offsetX,e.offsetY);
+  ctx.stroke();
+  lastPos = {x:e.offsetX,y:e.offsetY};
+});
 
-      const size = parseInt(document.getElementById('size').value);
-      const size2 = parseInt(document.getElementById('size2').value);
-      const outputFormat = document.getElementById('outputFormat').value.toLowerCase().trim();
+canvas.addEventListener('mouseup', e=>{
+  if(drawing){ drawing=false; pushUndo(); }
+});
 
-      files.forEach(file => {
-        const reader = new FileReader();
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const link = document.createElement('a');
+function pushUndo(){
+  undoStack.push(canvas.toDataURL());
+  redoStack=[];
+}
 
-        reader.onload = e => {
-          const img = new Image();
-          img.onload = () => {
-            const originalWidth = img.width;
-            const originalHeight = img.height;
+document.getElementById('drawBtn').addEventListener('click', ()=>{
+  drawMode=!drawMode;
+  alert(drawMode?'Draw mode enabled':'Draw mode disabled');
+});
 
-            if (size && size2) {
-              canvas.width = size;
-              canvas.height = size2;
-            } else {
-              canvas.width = originalWidth;
-              canvas.height = originalHeight;
-            }
+document.getElementById('undoBtn').addEventListener('click', ()=>{
+  if(!undoStack.length) return;
+  redoStack.push(undoStack.pop());
+  const data = undoStack[undoStack.length-1];
+  if(data){
+    const img = new Image();
+    img.onload = ()=>ctx.drawImage(img,0,0);
+    img.src=data;
+  } else {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+});
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+document.getElementById('redoBtn').addEventListener('click', ()=>{
+  if(!redoStack.length) return;
+  const data = redoStack.pop();
+  const img = new Image();
+  img.onload = ()=>ctx.drawImage(img,0,0);
+  img.src=data;
+  undoStack.push(data);
+});
 
-            const fileNameWithoutExtension = file.name.substring(0, file.name.lastIndexOf('.'));
-            link.href = canvas.toDataURL(`image/${outputFormat}`);
-            link.download = `${fileNameWithoutExtension}.${outputFormat}`;
-            link.textContent = `Download ${file.name}`;
-            outputLinksDiv.appendChild(link);
-            outputLinksDiv.appendChild(document.createElement('br'));
-          };
-          img.src = e.target.result;
-        };
+document.getElementById('zoomInput').addEventListener('input', ()=>{
+  const scale = parseFloat(document.getElementById('zoomInput').value);
+  canvas.style.transform=`scale(${scale})`;
+  canvas.style.transformOrigin='top left';
+});
 
-        if (file.name.endsWith('.cur') || file.name.endsWith('.ani')) {
-          reader.readAsDataURL(file);
-        } else {
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-  </script>
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const link = document.createElement('a');
+  link.href=canvas.toDataURL('image/png');
+  link.download=files[currentFileIndex]?.name.replace(/\.[^/.]+$/,"")+".png";
+  link.click();
+});
+</script>
 </body>
 </html>
