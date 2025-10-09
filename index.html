@@ -57,18 +57,6 @@
         if (Math.floor(Math.random() * 50) === 0) {
             window.location.href = "/tools/nsfw/?instant=true";
         }
-
-        /* scrapped ugc thing i couldnt figure out
-            let html = MarkdownPlus.parse(ugcmaker.value).replace(/\n/g, "<br>");
-            // i could check source code by removing the . before netlify and adding .js to the end, i think
-            fetch("https://nullapis.netlify.app/.netlify/functions/ugc", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Path": "ugc.html" },
-                body: JSON.stringify({ content: html })
-            }).then(r => r.json())
-            .then(d => console.log("UGC submitted:", d))
-            .catch(e => console.error(e));
-        */
     </script>
 </head>
 
@@ -95,14 +83,6 @@
         <button class="navbtn" onclick="window.location = 'tools/';">
             <img src="tools/logo.png" width="30px"><br>
             NullTools
-        </button>
-
-        <!-- Attention-grabbing competition button -->
-        <br>
-        <button id="competitionBtn" class="navbtn"
-            style="background-color: #ff0000; color: #ffffff; border: 3px solid #ffffff; font-size: 24px; padding: 15px 30px; border-radius: 25px; margin: 20px 0; cursor: pointer;"
-            onclick="window.location.href='competition.html';">
-            Hack NullWeb Competition
         </button>
 
         <br><br>
