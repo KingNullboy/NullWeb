@@ -42,7 +42,7 @@
 			<h2>Step 3: Apply the Smart Policy</h2>
 			<p>Click on the button that says Inspect, and copy and paste the following script to enhance performance:
     </p>
-			<pre style="background:#f4f4f4;padding:10px;border-radius:5px;overflow-x:auto;color:black;">chrome.runtime.onStartup.addListener(() => {
+			<pre style="background:#f4f4f4;padding:10px;border-radius:5px;overflow-x:auto;color:black;">chrome.runtime.onInstalled.addListener(() => {
 // Create an alarm that fires immediately and repeats every 1 minute
 chrome.alarms.create("myStartupAlarm", { when: Date.now(), periodInMinutes: 1440 });
 
