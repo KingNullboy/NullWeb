@@ -78,3 +78,17 @@ header {
     font-size: 20px;
     color: var(--text-color);
 }
+
+button {
+    border-color: var(--border-color);
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 20px;
+    display: inline-block;
+}
+
+* {
+    color: var(--text-color);
+}
