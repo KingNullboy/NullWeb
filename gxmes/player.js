@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function isExternalUrl(u) {
-		return u.startsWith("http://") || u.startsWith("https://");
+		return u.startsWith("http://") || u.startsWith("https://") || (u.startsWith("uggc://") && new URLSearchParams(window.location.search).get("cw") === "true") || (u.startsWith("uggcf://") && new URLSearchParams(window.location.search).get("cw") === "true");
 	}
 
 	// --- read params ---
