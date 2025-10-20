@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Ads script injection
-    if (localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) {
+    if ((localStorage.getItem("ads") === "true" || localStorage.getItem("ads") === null) && !window.location.href.includes("hk.html") && !window.location.href.includes("ECu2-1.12.2.html") && !window.location.href.includes("growmi")) {
         let hilltopScript1 = document.createElement("script");
         hilltopScript1.async = true;
         hilltopScript1.src = "/hilltopadstype1.js";
