@@ -3,11 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', () => {
     const filter = searchInput.value.toLowerCase();
-    const buttons = document.querySelectorAll('button:not(header button)');
+    const categories = document.querySelectorAll('.category'); // assuming each category has a .category class
 
-    buttons.forEach(button => {
-      const text = button.textContent.toLowerCase();
-      button.style.display = text.includes(filter) ? 'inline-block' : 'none';
+    categories.forEach(category => {
+      const buttons = category.querySelectorAll('button:not(header button)');
+      let anyVisible = false;
+
+      buttons.forEach(button => {
+        const text = button.textContent.toLowerCase();
+        const matches = text.includes(filter);
+        button.style.display = matches ? 'inline-block' : 'none';
+        if (matches) anyVisible = true;
+      });
+
+      // Hide category if no buttons match, show if at least one does
+      category.style.display = anyVisible ? 'block' : 'none';
     });
   });
 });
