@@ -3,21 +3,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', () => {
     const filter = searchInput.value.toLowerCase();
-    const categories = document.querySelectorAll('.category'); // assuming each category has a .category class
+    const container = document.getElementById('container'); // the parent of all h1s and buttons
+    const children = Array.from(container.children);
 
-    categories.forEach(category => {
-      const buttons = category.querySelectorAll('button:not(header button)');
-      let anyVisible = false;
+    let currentHeader = null;
 
-      buttons.forEach(button => {
-        const text = button.textContent.toLowerCase();
-        const matches = text.includes(filter);
-        button.style.display = matches ? 'inline-block' : 'none';
-        if (matches) anyVisible = true;
-      });
+    children.forEach(el => {
+      if (el.tagName === 'H1') {
+        currentHeader = el;
+        el.style.display = 'block'; // reset, will hide later if needed
+      } else if (el.tagName === 'BUTTON') {
+        const matches = el.textContent.toLowerCase().includes(filter);
+        el.style.display = matches ? 'inline-block' : 'none';
+      }
 
-      // Hide category if no buttons match, show if at least one does
-      category.style.display = anyVisible ? 'block' : 'none';
+      // After processing a header and its buttons, check if any buttons below it are visible
+      if (currentHeader) {
+        const index = children.indexOf(currentHeader);
+        const nextHeaderIndex = children.findIndex((c, i) => i > index && c.tagName === 'H1');
+        const buttonsToCheck = children.slice(index + 1, nextHeaderIndex === -1 ? undefined : nextHeaderIndex);
+        const anyVisible = buttonsToCheck.some(b => b.tagName === 'BUTTON' && b.style.display !== 'none');
+        currentHeader.style.display = anyVisible ? 'block' : 'none';
+      }
     });
   });
 });
