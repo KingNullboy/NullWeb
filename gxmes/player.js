@@ -2,53 +2,89 @@ document.addEventListener("DOMContentLoaded", () => {
 	const params = new URLSearchParams(window.location.search);
 	const which = params.get("which");
 	const name = params.get("name");
-	const width = params.get("width");
-	const height = params.get("height");
-	const iframe = document.getElementById("gameFrame");
+	const width = params.get("width") || 800;
+	const height = params.get("height") || 600;
+	const container = document.getElementById("gameFrame").parentNode;
 	const saveButton = document.getElementById("saveButton");
 	const fullscreenBtn = document.getElementById("fullscreenBtn");
 
 	// Hide save button by default
 	saveButton.style.display = "none";
 
-	// Set iframe source based on whether it's a full URL or a relative path
-	if (which && iframe) {
+	let gameElement;
+
+	if (which) {
+		// Check if it's an external URL
 		if (which.startsWith("http://") || which.startsWith("https://")) {
-			iframe.src = which;
+			// Use <object> for external links
+			gameElement = document.createElement("object");
+			gameElement.data = which;
+			gameElement.type = "text/html";
 		} else {
-			iframe.src = "/gxmes/" + which;
+			// Use <iframe> for local games
+			gameElement = document.createElement("iframe");
+			gameElement.src = "/gxmes/" + which;
 		}
+
+		gameElement.width = width;
+		gameElement.height = height;
+		gameElement.id = "gameFrame";
+		gameElement.setAttribute("frameborder", "0");
+		gameElement.setAttribute("allowfullscreen", "");
+
+		// Replace the existing iframe
+		const oldIframe = document.getElementById("gameFrame");
+		container.replaceChild(gameElement, oldIframe);
 	}
 
-	// Fullscreen functionality
+	// Fullscreen functionality with fallback
 	fullscreenBtn.addEventListener("click", () => {
-		if (iframe.requestFullscreen) {
-			iframe.requestFullscreen();
-		} else if (iframe.webkitRequestFullscreen) {
-			iframe.webkitRequestFullscreen();
-		} else if (iframe.msRequestFullscreen) {
-			iframe.msRequestFullscreen();
+		if (gameElement.requestFullscreen) {
+			gameElement.requestFullscreen();
+		} else if (gameElement.webkitRequestFullscreen) {
+			gameElement.webkitRequestFullscreen();
+		} else if (gameElement.msRequestFullscreen) {
+			gameElement.msRequestFullscreen();
 		} else {
-			alert("Fullscreen not supported by this browser.");
+			// Fallback: make element fill the window manually
+			gameElement.style.position = "fixed";
+			gameElement.style.top = 0;
+			gameElement.style.left = 0;
+			gameElement.style.width = "100vw";
+			gameElement.style.height = "100vh";
+			gameElement.style.zIndex = 9999;
+			gameElement.style.background = "#000";
+
+			// Optional: hide other page content while "fullscreen"
+			Array.from(document.body.children).forEach(el => {
+				if (el !== gameElement && el !== fullscreenBtn && el !== saveButton) {
+					el.style.display = "none";
+				}
+			});
+
+			// Exit fallback fullscreen on ESC key
+			document.addEventListener("keydown", function escListener(e) {
+				if (e.key === "Escape") {
+					gameElement.style.position = "";
+					gameElement.style.top = "";
+					gameElement.style.left = "";
+					gameElement.style.width = width + "px";
+					gameElement.style.height = height + "px";
+					gameElement.style.zIndex = "";
+					gameElement.style.background = "";
+
+					Array.from(document.body.children).forEach(el => {
+						if (el !== gameElement) el.style.display = "";
+					});
+
+					document.removeEventListener("keydown", escListener);
+				}
+			});
 		}
 	});
 
 	// Update page title if 'name' is provided
-	if (name !== null) {
-		document.title = name + " — NullG*mes Player";
-	} else {
-		document.title = "NullG*mes Player";
-	}
-
-	// Update iframe width if 'width' is provided
-	if (width !== null) {
-		iframe.width = width;
-	}
-
-	// Update iframe height if 'height' is provided
-	if (height !== null) {
-		iframe.height = height;
-	}
+	document.title = name ? `${name} — NullG*mes Player` : "NullG*mes Player";
 
 	// Custom save button logic for specific games
 	function save(game, how) {
