@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
-  const headers = document.querySelectorAll('h1'); // all category headers
+  const headers = document.getElementsByClassName('category'); // all category headers
   const buttons = document.querySelectorAll('button:not(header button)');
 
   searchInput.addEventListener('input', () => {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hide all headers while searching, show them if search is empty
     headers.forEach(h => {
-      h.style.display = filter ? 'none' : 'block';
+      h.style.display = filter === "" ? 'none' : "block";
     });
   });
 });
