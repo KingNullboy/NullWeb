@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NullMaps Enhanced</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div id="controls">
+    <button id="exportMarkers">Copy Markers JSON</button>
+    <input type="text" id="searchInput" placeholder="Search location">
+    <button id="searchBtn">Search</button>
+    <button id="locBtn">Start Live Location</button>
+    <button id="dirBtn">Set Directions</button>
+    <button id="curLocBtn">Go To Current Location</button>
+
+    <!-- Voice toggles -->
+    <label class="toggle">
+      <input type="checkbox" id="voiceToggle" checked>
+      Voice
+    </label>
+    <label class="toggle">
+      <input type="checkbox" id="screamToggle">
+      Scream Mode
+    </label>
+
+    <span id="speedDisplay">Speed Limit: N/A | Your Speed: N/A mph</span>
+    <div id="markerList"></div>
+    <div id="policeAlerts">Alerts: None</div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
