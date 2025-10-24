@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Browser-in-Browser</title>
+<style>
+body { margin:0; font-family:sans-serif; user-select:none; }
+#controls { display:flex; padding:5px; background:#eee; gap:5px; align-items:center; }
+#tabs { display:flex; background:#ddd; padding:2px; overflow-x:auto; }
+.tab { padding:5px 10px; border:1px solid #aaa; margin-right:2px; cursor:pointer; display:flex; align-items:center; transition:all 0.2s; }
+.tab.active { background:#ccc; }
+.tab:hover { background:#bbb; }
+.tab button { margin-left:5px; cursor:pointer; }
+object { width:100%; height:calc(100vh - 100px); border:none; display:block; }
+#urlBar { flex:1; padding:2px; }
+.favicon { width:16px; height:16px; margin-right:3px; }
+.tab.dragging { opacity:0.5; transform:scale(0.95); }
+#spinner { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:none; font-size:2rem; }
+#progressContainer { position:absolute; top:0; left:0; width:100%; height:4px; background:#ccc; }
+#progressBar { width:0%; height:100%; background:#2e8bff; transition: width 0.1s; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <button onclick="back()">◀</button>
+  <button onclick="forward()">▶</button>
+  <button onclick="reload()">⟳</button>
+  <button onclick="home()">?</button>
+  <input id="urlBar" type="text" placeholder="Enter URL">
+  <button onclick="go()">Go</button>
+  <button onclick="newTab()">+ Tab</button>
+</div>
+
+<div id="tabs"></div>
+<div id="spinner">⏳</div>
+<div id="progressContainer"><div id="progressBar"></div></div>
+
+<object id="browserObject" type="text/html" data=""></object>
+
+<script>
+let tabs = [];
+let currentTab = -1;
+let progressInterval = null;
+
+// --- TAB MANAGEMENT ---
+function createTab(url='home',title='New Tab'){
+    const tab={urlHistory:[url],currentIndex:0,title};
+    tabs.push(tab);
+    currentTab=tabs.length-1;
+    renderTabs();
+    loadCurrentTab();
+}
+function renderTabs(){
+    const tabsDiv=document.getElementById('tabs');
+    tabsDiv.innerHTML='';
+    tabs.forEach((tab,i)=>{
+        const tabEl=document.createElement('div');
+        tabEl.className='tab'+(i===currentTab?' active':'');
+        tabEl.title = tab.urlHistory[tab.currentIndex]; 
+        tabEl.textContent = tab.title;
+        tabEl.onclick=()=>{ currentTab=i; loadCurrentTab(); renderTabs(); };
+
+        const closeBtn=document.createElement('button'); closeBtn.textContent='x';
+        closeBtn.onclick=(e)=>{ e.stopPropagation(); closeTab(i); };
+        tabEl.appendChild(closeBtn);
+        tabsDiv.appendChild(tabEl);
+    });
+}
+function closeTab(i){ tabs.splice(i,1); if(tabs.length===0) createTab(); else if(currentTab>=i) currentTab=Math.max(0,currentTab-1); renderTabs(); loadCurrentTab(); }
+
+// --- PROGRESS/SPINNER ---
+function showSpinner(show){ document.getElementById('spinner').style.display=show?'block':'none'; }
+function startProgress(){
+    const bar=document.getElementById('progressBar'); bar.style.width='0%';
+    let percent=0;
+    if(progressInterval) clearInterval(progressInterval);
+    progressInterval=setInterval(()=>{ if(percent<90) percent+=Math.random()*5; bar.style.width=percent+'%'; },50);
+}
+function finishProgress(){ clearInterval(progressInterval); document.getElementById('progressBar').style.width='100%'; setTimeout(()=>{ document.getElementById('progressBar').style.width='0%'; },300); }
+
+// --- LOADING TABS ---
+function loadCurrentTab(){
+    const obj=document.getElementById('browserObject');
+    let url=tabs[currentTab].urlHistory[tabs[currentTab].currentIndex];
+
+    if(url==='home'){
+        obj.data = 'data:text/html,' + encodeURIComponent(`
+            <h1>Oblivium Search</h1>
+            <input id="s" placeholder="Search">
+            <script>
+                document.getElementById('s').addEventListener('keydown', e => {
+                    if(e.key==='Enter'){
+                        const url = 'https://mojeek.com/search?q='+encodeURIComponent(e.target.value);
+                        location.href = url;
+                    }
+                });
+            <\/script>
+        `);
+        tabs[currentTab].title='Home'; renderTabs(); return;
+    }
+
+    showSpinner(true); startProgress();
+    obj.data = url;
+    tabs[currentTab].title = url; renderTabs();
+    setTimeout(()=>{ showSpinner(false); finishProgress(); }, 500);
+}
+
+// --- NAVIGATION ---
+function go(){ let urlInput=document.getElementById('urlBar').value.trim(); if(!urlInput) return;
+    const fullUrl=urlInput.startsWith('http')?urlInput:'https://'+urlInput;
+    const tab=tabs[currentTab]; tab.urlHistory=tab.urlHistory.slice(0,tab.currentIndex+1);
+    tab.urlHistory.push(fullUrl); tab.currentIndex++; loadCurrentTab();
+}
+function reload(){ loadCurrentTab(); }
+function back(){ const t=tabs[currentTab]; if(t.currentIndex>0){ t.currentIndex--; loadCurrentTab(); } }
+function forward(){ const t=tabs[currentTab]; if(t.currentIndex<t.urlHistory.length-1){ t.currentIndex++; loadCurrentTab(); } }
+function home(){ const t=tabs[currentTab]; t.urlHistory=t.urlHistory.slice(0,t.currentIndex+1); t.urlHistory.push('home'); t.currentIndex++; loadCurrentTab(); }
+
+// --- TABS ---
+function newTab(url='home'){ createTab(url,url==='home'?'Home':'New Tab'); }
+
+// --- KEYBOARD SHORTCUTS ---
+document.addEventListener('keydown',(e)=>{
+    if(e.ctrlKey && e.key==='t'){ e.preventDefault(); newTab(); }
+    if(e.ctrlKey && e.key==='w'){ e.preventDefault(); closeTab(currentTab); }
+    if(e.ctrlKey && e.key==='r'){ e.preventDefault(); reload(); }
+    if(e.ctrlKey && e.key==='Tab'){ e.preventDefault(); if(e.shiftKey){ prevTab(); } else{ nextTab(); } }
+});
+function nextTab(){ currentTab=(currentTab+1)%tabs.length; loadCurrentTab(); renderTabs(); }
+function prevTab(){ currentTab=(currentTab-1+tabs.length)%tabs.length; loadCurrentTab(); renderTabs(); }
+
+// --- INIT ---
+newTab();
+</script>
+</body>
+</html>
