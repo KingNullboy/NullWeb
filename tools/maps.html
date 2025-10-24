@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NullMaps Pro</title>
+<title>NullMaps Pro+Live</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
 <style>
@@ -19,9 +19,9 @@
   <button id="exportMarkers">Copy Markers JSON</button>
   <input type="text" id="searchInput" placeholder="Search location">
   <button id="searchBtn">Search</button>
-  <button id="locBtn">Current Location</button>
+  <button id="locBtn">Start Live Location</button>
   <button id="dirBtn">Set Directions</button>
-  <span id="speedDisplay"></span>
+  <span id="speedDisplay">Speed Limit: N/A | Your Speed: N/A km/h</span>
   <div id="markerList"></div>
 </div>
 <div id="map"></div>
@@ -36,17 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'OSM' });
   const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'ESRI' });
   streets.addTo(map);
-
   L.control.layers({ "Streets": streets, "Satellite": satellite }).addTo(map);
 
   // Markers
   const markers = [];
   const markerListDiv = document.getElementById('markerList');
-
   function updateMarkerList() {
     markerListDiv.innerHTML = markers.map((m,i)=>`${i+1}. ${m.title} (${m.lat.toFixed(4)}, ${m.lng.toFixed(4)})`).join('<br>');
   }
-
   map.on('click', e => {
     const title = prompt("Enter marker title:");
     if(title===null) return;
@@ -54,36 +51,42 @@ document.addEventListener('DOMContentLoaded', () => {
     markers.push({lat:e.latlng.lat, lng:e.latlng.lng, title});
     updateMarkerList();
   });
-
   document.getElementById('exportMarkers').addEventListener('click', () => {
     navigator.clipboard.writeText(JSON.stringify(markers, null, 2)).then(()=>alert("Markers copied!"));
   });
 
-  // Location button
-  const locBtn = document.getElementById('locBtn');
-  locBtn.addEventListener('click', () => {
-    navigator.geolocation.getCurrentPosition(async pos=>{
-      const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 16);
-      L.marker([latitude, longitude]).addTo(map).bindPopup("You are here").openPopup();
-      updateSpeed(latitude, longitude);
-    }, err => alert("Location failed"));
-  });
-
-  // Speed limit display using Overpass API
+  // Speed limit & user speed
   const speedDisplay = document.getElementById('speedDisplay');
-  async function updateSpeed(lat, lng) {
+  async function updateSpeedLimit(lat, lng){
     try {
       const query = `[out:json];way(around:50,${lat},${lng})[maxspeed];out;`;
       const res = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
       const data = await res.json();
       if(data.elements.length>0 && data.elements[0].tags.maxspeed){
-        speedDisplay.textContent = "Speed Limit: " + data.elements[0].tags.maxspeed + " km/h";
-      } else {
-        speedDisplay.textContent = "Speed Limit: N/A";
+        return data.elements[0].tags.maxspeed;
       }
-    } catch(e){ speedDisplay.textContent = "Speed Limit: N/A"; }
+      return "N/A";
+    } catch(e){ return "N/A"; }
   }
+
+  // Live location tracking
+  let userMarker, watchId;
+  document.getElementById('locBtn').addEventListener('click', () => {
+    if(navigator.geolocation){
+      if(watchId) { navigator.geolocation.clearWatch(watchId); watchId=null; alert("Live location stopped."); return; }
+      watchId = navigator.geolocation.watchPosition(async pos => {
+        const { latitude, longitude, speed } = pos.coords;
+        if(!userMarker){
+          userMarker = L.marker([latitude, longitude]).addTo(map).bindPopup("You").openPopup();
+        } else userMarker.setLatLng([latitude, longitude]);
+        map.setView([latitude, longitude], 16);
+        const limit = await updateSpeedLimit(latitude, longitude);
+        const kmh = speed ? (speed*3.6).toFixed(1) : "N/A";
+        speedDisplay.textContent = `Speed Limit: ${limit} | Your Speed: ${kmh} km/h`;
+      }, err => alert("Unable to get live location"), { enableHighAccuracy:true, maximumAge:1000 });
+      alert("Live location started. Click the button again to stop.");
+    } else alert("Geolocation not supported.");
+  });
 
   // Directions
   let routingControl;
@@ -102,15 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
     map.on('click', clickHandler);
   });
 
-  // Search using LocationIQ
-  const locIQKey = "YOUR_LOCATIONIQ_KEY"; // get free key
+  // Search (LocationIQ)
+  const locIQKey = "pk.60fb9d576b3af312a1118708e66c1d62"; // get free key
   document.getElementById('searchBtn').addEventListener('click', async () => {
     const query = document.getElementById('searchInput').value;
     if(!query) return;
     try {
       const res = await fetch(`https://us1.locationiq.com/v1/search.php?key=${locIQKey}&q=${encodeURIComponent(query)}&format=json`);
       const data = await res.json();
-      if(data.length===0) { alert("Location not found"); return; }
+      if(data.length===0){ alert("Location not found"); return; }
       const loc = data[0];
       map.setView([parseFloat(loc.lat), parseFloat(loc.lon)], 16);
       L.marker([parseFloat(loc.lat), parseFloat(loc.lon)]).addTo(map).bindPopup(loc.display_name).openPopup();
