@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NullMaps</title>
+<title>NullMaps Pro</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
 <style>
   body { margin:0; height:100vh; display:flex; flex-direction:column; font-family:Lato, sans-serif; background:#000; color:#fff; }
   #map { flex:1; }
   #controls { padding:8px; background:#111; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
   input, button { padding:6px; background:#222; color:#fff; border:1px solid #fff; border-radius:4px; }
   #markerList { max-height:150px; overflow-y:auto; margin-top:4px; font-size:12px; }
+  #speedDisplay { margin-left:10px; font-weight:bold; }
 </style>
 </head>
 <body>
@@ -17,58 +19,105 @@
   <button id="exportMarkers">Copy Markers JSON</button>
   <input type="text" id="searchInput" placeholder="Search location">
   <button id="searchBtn">Search</button>
+  <button id="locBtn">Current Location</button>
+  <button id="dirBtn">Set Directions</button>
+  <span id="speedDisplay"></span>
   <div id="markerList"></div>
 </div>
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-// Initialize map
-const map = L.map('map').setView([0, 0], 2);
+document.addEventListener('DOMContentLoaded', () => {
+  const map = L.map('map').setView([0,0], 2);
 
-// Tile layer
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
+  // Tile layers
+  const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'OSM' });
+  const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'ESRI' });
+  streets.addTo(map);
 
-// Marker array
-const markers = [];
+  L.control.layers({ "Streets": streets, "Satellite": satellite }).addTo(map);
 
-// Add marker on map click
-map.on('click', e => {
-  const title = prompt("Enter marker title:");
-  if (title === null) return; // cancelled
-  const marker = L.marker(e.latlng).addTo(map).bindPopup(title);
-  markers.push({lat:e.latlng.lat, lng:e.latlng.lng, title});
-  updateMarkerList();
-});
+  // Markers
+  const markers = [];
+  const markerListDiv = document.getElementById('markerList');
 
-// Export markers JSON
-document.getElementById('exportMarkers').addEventListener('click', () => {
-  const json = JSON.stringify(markers, null, 2);
-  navigator.clipboard.writeText(json).then(()=>alert("Markers copied to clipboard!"));
-});
+  function updateMarkerList() {
+    markerListDiv.innerHTML = markers.map((m,i)=>`${i+1}. ${m.title} (${m.lat.toFixed(4)}, ${m.lng.toFixed(4)})`).join('<br>');
+  }
 
-// Marker list
-const markerListDiv = document.getElementById('markerList');
-function updateMarkerList() {
-  markerListDiv.innerHTML = markers.map((m,i)=>`${i+1}. ${m.title} (${m.lat.toFixed(4)}, ${m.lng.toFixed(4)})`).join('<br>');
-}
-
-// Simple search via Nominatim
-document.getElementById('searchBtn').addEventListener('click', async () => {
-  const query = document.getElementById('searchInput').value;
-  if(!query) return;
-  try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    if(data.length===0){ alert("Location not found"); return; }
-    const loc = data[0];
-    map.setView([parseFloat(loc.lat), parseFloat(loc.lon)], 12);
-  } catch(e){ console.error(e); alert("Search failed"); }
-});
+  map.on('click', e => {
+    const title = prompt("Enter marker title:");
+    if(title===null) return;
+    L.marker(e.latlng).addTo(map).bindPopup(title);
+    markers.push({lat:e.latlng.lat, lng:e.latlng.lng, title});
+    updateMarkerList();
   });
+
+  document.getElementById('exportMarkers').addEventListener('click', () => {
+    navigator.clipboard.writeText(JSON.stringify(markers, null, 2)).then(()=>alert("Markers copied!"));
+  });
+
+  // Location button
+  const locBtn = document.getElementById('locBtn');
+  locBtn.addEventListener('click', () => {
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      const { latitude, longitude } = pos.coords;
+      map.setView([latitude, longitude], 16);
+      L.marker([latitude, longitude]).addTo(map).bindPopup("You are here").openPopup();
+      updateSpeed(latitude, longitude);
+    }, err => alert("Location failed"));
+  });
+
+  // Speed limit display using Overpass API
+  const speedDisplay = document.getElementById('speedDisplay');
+  async function updateSpeed(lat, lng) {
+    try {
+      const query = `[out:json];way(around:50,${lat},${lng})[maxspeed];out;`;
+      const res = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      if(data.elements.length>0 && data.elements[0].tags.maxspeed){
+        speedDisplay.textContent = "Speed Limit: " + data.elements[0].tags.maxspeed + " km/h";
+      } else {
+        speedDisplay.textContent = "Speed Limit: N/A";
+      }
+    } catch(e){ speedDisplay.textContent = "Speed Limit: N/A"; }
+  }
+
+  // Directions
+  let routingControl;
+  document.getElementById('dirBtn').addEventListener('click', () => {
+    if(routingControl) map.removeControl(routingControl);
+    alert("Click start and end markers for route");
+    const points = [];
+    const clickHandler = e => {
+      points.push(e.latlng);
+      L.marker(e.latlng).addTo(map).bindPopup(points.length===1?"Start":"End").openPopup();
+      if(points.length===2){
+        routingControl = L.Routing.control({ waypoints: points, routeWhileDragging: true }).addTo(map);
+        map.off('click', clickHandler);
+      }
+    };
+    map.on('click', clickHandler);
+  });
+
+  // Search using LocationIQ
+  const locIQKey = "YOUR_LOCATIONIQ_KEY"; // get free key
+  document.getElementById('searchBtn').addEventListener('click', async () => {
+    const query = document.getElementById('searchInput').value;
+    if(!query) return;
+    try {
+      const res = await fetch(`https://us1.locationiq.com/v1/search.php?key=${locIQKey}&q=${encodeURIComponent(query)}&format=json`);
+      const data = await res.json();
+      if(data.length===0) { alert("Location not found"); return; }
+      const loc = data[0];
+      map.setView([parseFloat(loc.lat), parseFloat(loc.lon)], 16);
+      L.marker([parseFloat(loc.lat), parseFloat(loc.lon)]).addTo(map).bindPopup(loc.display_name).openPopup();
+    } catch(e){ console.error(e); alert("Search failed"); }
+  });
+
+});
 </script>
 </body>
 </html>
