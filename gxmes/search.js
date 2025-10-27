@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       button.style.display = text.includes(filter) ? 'inline-block' : 'none';
     });
     headers.forEach(element => {
-      element.style.display = searchInput.value === "" ? "block" : "none"
+      element.style.display = searchInput.value === "" ? "" : "none"
     });
   });
 });
