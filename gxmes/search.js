@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const text = button.textContent.toLowerCase();
       button.style.display = text.includes(filter) ? 'inline-block' : 'none';
     });
-    headers.array.forEach(element => {
+    headers.forEach(element => {
       element.style.display = searchInput.value === "" ? "block" : "none"
     });
   });
