@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ehko Media Player</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif;margin:0;padding:0;}
+body{background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px;}
+#player-container{position:relative;width:90%;max-width:960px;background:#222;border-radius:12px;overflow:hidden;box-shadow:0 0 25px rgba(0,0,0,0.8);}
+video,iframe{width:100%;height:500px;background:#000;border-bottom:1px solid #333;}
+#controls{position:relative;width:100%;background:rgba(0,0,0,0.7);display:flex;flex-direction:column;padding:10px;transition:opacity 0.3s;}
+#controls.hidden{opacity:0;}
+#progress-container{position:relative;height:8px;background:#444;cursor:pointer;border-radius:4px;margin-bottom:8px;}
+#progress{height:100%;width:0%;background:#0af;border-radius:4px;transition:width 0.1s;}
+#control-buttons{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.btn{background:none;border:none;color:#fff;font-size:18px;margin:0 5px;cursor:pointer;transition:0.2s;}
+.btn:hover{color:#0af;}
+input[type=range]{width:120px;}
+#playlist{margin-top:10px;max-height:200px;overflow-y:auto;border-top:1px solid #444;padding-top:5px;}
+.playlist-item{padding:6px 8px;cursor:pointer;border-radius:6px;margin-bottom:2px;display:flex;justify-content:space-between;align-items:center;background:#333;transition:0.2s;}
+.playlist-item:hover{background:#0a3;}
+.playlist-item.active{background:#0af;color:#111;}
+.drag-handle{cursor:grab;margin-left:10px;}
+#next-track{margin-top:5px;font-size:14px;color:#aaa;}
+#import-section{margin-bottom:15px;display:flex;gap:5px;flex-wrap:wrap;width:90%;max-width:960px;}
+#import-section input[type=text]{flex:1;padding:6px;border-radius:4px;border:none;}
+#import-section button{padding:6px 10px;border-radius:4px;border:none;background:#0af;color:#111;cursor:pointer;transition:0.2s;}
+#import-section button:hover{background:#08c;}
+</style>
+</head>
+<body>
+
+<div id="import-section">
+  <input type="file" id="file-input" accept="video/*,audio/*" multiple>
+  <input type="text" id="url-input" placeholder="External video/audio or YouTube link">
+  <button id="load-url">Load URL</button>
+</div>
+
+<div id="player-container">
+  <video id="video" controlsList="nodownload" crossorigin="anonymous"></video>
+  <iframe id="yt-iframe" style="display:none;" allowfullscreen></iframe>
+
+  <div id="controls">
+    <div id="progress-container"><div id="progress"></div></div>
+    <div id="control-buttons">
+      <div>
+        <button id="play" class="btn">▶️</button>
+        <button id="restart" class="btn">⏮️</button>
+        <button id="back" class="btn">⏪ 10s</button>
+        <button id="forward" class="btn">10s ⏩</button>
+        <button id="next" class="btn">⏭️</button>
+        <button id="mute" class="btn">🔊</button>
+        <input type="range" id="volume" min="0" max="1" step="0.05" value="1">
+      </div>
+      <div>
+        <button id="repeat-btn" class="btn">🔁</button>
+        <button id="shuffle-btn" class="btn">🔀</button>
+      </div>
+    </div>
+    <div id="playlist"></div>
+    <div id="next-track">Next: -</div>
+  </div>
+</div>
+
+<script>
+let playlist = [];
+let currentIndex = -1;
+let lastIndex = -1;
+let repeatMode = 0; // 0=off,1=all,2=one
+let shuffle = false;
+let shuffledOrder = []; // indices for shuffle display
+
+const video = document.getElementById('video');
+const ytIframe = document.getElementById('yt-iframe');
+const playlistDiv = document.getElementById('playlist');
+const playBtn = document.getElementById('play');
+const progress = document.getElementById('progress');
+const progressContainer = document.getElementById('progress-container');
+const repeatBtn = document.getElementById('repeat-btn');
+const shuffleBtn = document.getElementById('shuffle-btn');
+const nextTrackLabel = document.getElementById('next-track');
+const backBtn = document.getElementById('back');
+const forwardBtn = document.getElementById('forward');
+const nextBtn = document.getElementById('next');
+const restartBtn = document.getElementById('restart');
+
+// Shuffle helper
+function shuffleArray(arr){
+  let a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+// Update playlist UI
+function updatePlaylistUI(){
+  playlistDiv.innerHTML='';
+  let displayOrder = shuffle ? shuffledOrder : playlist.map((_,i)=>i);
+  displayOrder.forEach((i)=>{
+    const item=playlist[i];
+    const div=document.createElement('div');
+    div.className='playlist-item'+(i===currentIndex?' active':'');
+    div.innerHTML=`<span>${item.name}</span><span class="drag-handle">☰</span>`;
+    div.onclick=()=>playIndex(i);
+    playlistDiv.appendChild(div);
+  });
+  updateNextTrackLabel();
+}
+
+// Compute next track index
+function getNextIndex(){
+  if(playlist.length===0) return -1;
+  if(shuffle){
+    let idx = shuffledOrder.indexOf(currentIndex);
+    let nextIdx = idx+1;
+    if(nextIdx>=shuffledOrder.length) return repeatMode===1?shuffledOrder[0]:-1;
+    return shuffledOrder[nextIdx];
+  } else {
+    let next=currentIndex+1;
+    if(next>=playlist.length) return repeatMode===1?0:-1;
+    return next;
+  }
+}
+
+// Update next track label
+function updateNextTrackLabel(){
+  let nextIndex = getNextIndex();
+  nextTrackLabel.textContent = nextIndex>=0 ? `Next: ${playlist[nextIndex].name}` : 'Next: -';
+}
+
+// Play track by index
+function playIndex(i){
+  if(i<0 || i>=playlist.length) return;
+  lastIndex = currentIndex;
+  currentIndex=i;
+  const item=playlist[i];
+  if(item.type==='youtube'){
+    video.style.display='none';
+    video.pause();
+    ytIframe.style.display='block';
+    ytIframe.src='https://www.youtube.com/embed/'+item.id+'?autoplay=1';
+  }else{
+    ytIframe.style.display='none';
+    video.style.display='block';
+    video.src=item.src;
+    video.play();
+  }
+  updatePlaylistUI();
+}
+
+// Next track
+function nextTrack(){
+  let next = getNextIndex();
+  if(next>=0) playIndex(next);
+}
+
+// Previous / Restart track logic
+function restartOrPrev(){
+  if(video.currentTime>1){
+    video.currentTime=0;
+    video.play();
+  }else if(lastIndex>=0){
+    playIndex(lastIndex);
+  }
+}
+
+// File import
+document.getElementById('file-input').addEventListener('change',e=>{
+  const files=Array.from(e.target.files);
+  files.forEach(f=>{
+    const url=URL.createObjectURL(f);
+    playlist.push({name:f.name,src:url,type:'file'});
+  });
+  if(currentIndex===-1) playIndex(0);
+  updateShuffledOrder();
+  updatePlaylistUI();
+});
+
+// URL import
+document.getElementById('load-url').addEventListener('click',()=>{
+  let url=document.getElementById('url-input').value.trim();
+  if(!url) return;
+  let ytMatch=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/);
+  if(ytMatch){
+    playlist.push({name:'YouTube Video',id:ytMatch[1],type:'youtube'});
+  }else{
+    playlist.push({name:url,type:'url',src:url});
+  }
+  if(currentIndex===-1) playIndex(playlist.length-1);
+  updateShuffledOrder();
+  updatePlaylistUI();
+});
+
+// Repeat & Shuffle
+repeatBtn.onclick=()=>{
+  repeatMode=(repeatMode+1)%3;
+  repeatBtn.textContent=repeatMode===0?'🔁':repeatMode===1?'🔁 ALL':'🔂';
+  updateNextTrackLabel();
+};
+shuffleBtn.onclick=()=>{
+  shuffle=!shuffle;
+  shuffleBtn.style.color=shuffle?'#0af':'#fff';
+  updateShuffledOrder();
+  updatePlaylistUI();
+};
+
+// Update shuffled order (preserve manual drag moves)
+function updateShuffledOrder(){
+  if(!shuffle){
+    shuffledOrder = [];
+    return;
+  }
+  if(shuffledOrder.length===0){
+    shuffledOrder = shuffleArray(playlist.map((_,i)=>i));
+  } else {
+    // Keep current shuffledOrder but append new indices if added
+    const existing = new Set(shuffledOrder);
+    playlist.forEach((_,i)=>{
+      if(!existing.has(i)) shuffledOrder.push(i);
+    });
+  }
+}
+
+// Basic video controls
+playBtn.onclick=()=>{if(video.paused) video.play(); else video.pause();}
+video.addEventListener('ended',nextTrack);
+video.addEventListener('timeupdate',()=>{progress.style.width=(video.currentTime/video.duration*100)+'%';});
+progressContainer.addEventListener('click',e=>{
+  const rect=progressContainer.getBoundingClientRect();
+  video.currentTime=((e.clientX-rect.left)/rect.width)*video.duration;
+});
+
+// Skip 10s buttons
+backBtn.onclick=()=>{video.currentTime=Math.max(0,video.currentTime-10);}
+forwardBtn.onclick=()=>{video.currentTime=Math.min(video.duration,video.currentTime+10);}
+
+// Next track button
+nextBtn.onclick=nextTrack;
+
+// Restart / previous button
+restartBtn.onclick=restartOrPrev;
+
+// Big play toggle
+video.addEventListener('play',()=>{playBtn.textContent='⏸️';});
+video.addEventListener('pause',()=>{playBtn.textContent='▶️';});
+
+// Drag and drop to reorder playlist
+let dragSrcIndex = null;
+function handleDragStart(e){dragSrcIndex = [...playlistDiv.children].indexOf(e.currentTarget);}
+function handleDragOver(e){e.preventDefault();}
+function handleDrop(e){
+  e.preventDefault();
+  const destIndex = [...playlistDiv.children].indexOf(e.currentTarget);
+  if(destIndex===dragSrcIndex) return;
+  const [moved] = playlist.splice(dragSrcIndex,1);
+  playlist.splice(destIndex,0,moved);
+  // Adjust currentIndex
+  if(currentIndex===dragSrcIndex) currentIndex=destIndex;
+  else if(dragSrcIndex<currentIndex && destIndex>=currentIndex) currentIndex--;
+  else if(dragSrcIndex>currentIndex && destIndex<=currentIndex) currentIndex++;
+  // Adjust shuffledOrder without reshuffling everything
+  if(shuffle){
+    const indexInShuffle = shuffledOrder.indexOf(dragSrcIndex);
+    shuffledOrder.splice(indexInShuffle,1);
+    // Compute new position in shuffledOrder
+    const destInShuffle = shuffledOrder.indexOf(destIndex);
+    if(destInShuffle===-1) shuffledOrder.push(dragSrcIndex);
+    else shuffledOrder.splice(destInShuffle,0,dragSrcIndex);
+    // Fix indices > moved
+    shuffledOrder = shuffledOrder.map(idx=>{
+      if(idx===dragSrcIndex) return idx;
+      if(dragSrcIndex<destIndex){
+        if(idx>dragSrcIndex && idx<=destIndex) return idx-1;
+      } else if(dragSrcIndex>destIndex){
+        if(idx<dragSrcIndex && idx>=destIndex) return idx+1;
+      }
+      return idx;
+    });
+  }
+  updatePlaylistUI();
+}
+function addDragHandlers(){
+  [...playlistDiv.children].forEach(item=>{
+    item.draggable=true;
+    item.addEventListener('dragstart',handleDragStart);
+    item.addEventListener('dragover',handleDragOver);
+    item.addEventListener('drop',handleDrop);
+  });
+}
+new MutationObserver(addDragHandlers).observe(playlistDiv,{childList:true});
+</script>
+</body>
+</html>
