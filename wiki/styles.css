@@ -92,3 +92,14 @@ button {
 * {
     color: var(--text-color);
 }
+
+/* Mobile-specific styles */
+@media (max-width: 1080px) and (pointer: coarse) {
+    button {
+        font-size: 250%;
+    }
+    
+    h1 {
+        font-size: 400%;
+    }
+}
