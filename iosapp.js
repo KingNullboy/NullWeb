@@ -4,7 +4,7 @@ const profileData = {
     payloadIdentifier: "com.nullweb.pwa",
     url: "https://" + document.domain + "/iosappfix.html", // Your website URL
     icon: "iosapplogo.png", // Custom icon for the web clip
-    organization: "KingNullboy",
+    organization: "NullWeb",
     profileIdentifier: "com.nullweb.config",
 };
 
