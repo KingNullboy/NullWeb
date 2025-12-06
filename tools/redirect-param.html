@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirect Page</title>
+    <script>
+        // Wait for page to load
+        window.onload = function() {
+            // Get URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const url1 = params.get('url1');
+            const url2 = params.get('url2');
+
+            if (!url1 || !url2) {
+                alert("Missing url1 or url2 parameter!");
+                return;
+            }
+
+            // Check if this is the first visit
+            const hasVisited = localStorage.getItem('visited');
+
+            if (!hasVisited) {
+                // First visit, redirect to url1 and mark as visited
+                localStorage.setItem('visited', 'true');
+                window.location.href = url1;
+            } else {
+                // Subsequent visits, redirect to url2
+                window.location.href = url2;
+            }
+        };
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
