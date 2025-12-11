@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>NullChat</title>
-    <script src="https://iframe.chat/scripts/main.min.js"></script>
     <style>
         html, body {
             height: 100%;
@@ -24,7 +23,7 @@
             height: 100%;
             border: 0;
             opacity: 1;
-            transition: opacity 0.5s ease; /* Fade transition */
+            transition: opacity 0.5s ease;
         }
 
         #toggleBtn {
@@ -63,24 +62,18 @@
         }
 
         function fadeTo(src, callback) {
-            iframe.style.opacity = 0; // fade out
+            iframe.style.opacity = 0;
             setTimeout(() => {
                 iframe.src = src;
                 iframe.onload = () => {
                     if (callback) callback();
-                    iframe.style.opacity = 1; // fade in
+                    iframe.style.opacity = 1;
                 };
-            }, 500); // match the CSS transition duration
+            }, 500);
         }
 
         function loadTC() {
-            fadeTo("https://iframe.chat/embed?chat=NullChat", () => {
-                setTimeout(() => {
-                    chattable.initialize({
-                        stylesheet: "chattable.css"
-                    });
-                }, 0);
-            });
+            fadeTo("./NullChat.html"); 
             toggleBtn.textContent = "Switch to Voice Chat";
             toggleBtn.onclick = loadVC;
         }
@@ -91,7 +84,6 @@
             toggleBtn.onclick = loadTC;
         }
 
-        // initialize mode based on URL param
         const mode = getURLParam('mode') || 'tc';
         if (mode === 'vc') loadVC();
         else loadTC();
