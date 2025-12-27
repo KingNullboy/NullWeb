@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Can Can Madness",
+  "version": "1.1",
+  "description": "Plays Can Can if you have 4+ tabs open",
+  "permissions": ["tabs", "activeTab", "storage"],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+  "action": {
+    "default_title": "Can Can Madness",
+    "default_popup": "popup.html"
+  }
+}
