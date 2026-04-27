@@ -1,3 +1,4 @@
+console.log("styles.js loaded");
 // Function to update styles based on stored preferences
 function updateStyles() {
     // Get the stored preferences from localStorage (or use default values)
@@ -25,7 +26,9 @@ function playClickSound() {
 document.addEventListener('DOMContentLoaded', function() {
     updateStyles();
     
-    if (window.location.href === window.location.protocol + "//" + document.domain + "/styles.html") {
+    if (window.location.pathname == "/styles.html") {
+        console.log("ON STYLES PAGE");
+
         const bgColorInput = document.getElementById('bg-color');
         const textColorInput = document.getElementById('text-color');
         const borderColorInput = document.getElementById('border-color');

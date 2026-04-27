@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoxelOps: Multi-Mode 3D</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #1a1a1a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #game-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .pointer-events-auto { pointer-events: auto; }
+        #crosshair {
+            position: absolute; top: 50%; left: 50%; width: 24px; height: 24px;
+            transform: translate(-50%, -50%); pointer-events: none;
+        }
+        .chat-msg { text-shadow: 1px 1px 0 #000; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 3px; }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .pulse-text { animation: pulse-slow 2s infinite; }
+    </style>
+
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+
+    <div id="game-container"></div>
+
+    <div id="ui-layer" class="flex flex-col justify-between p-4">
+        <!-- TOP HUD -->
+        <div class="flex justify-between items-start pointer-events-none">
+            <div class="bg-black/60 p-3 rounded-lg text-white border border-white/10 backdrop-blur-md">
+                <div class="text-2xl font-black text-yellow-500 italic">VOXELOPS</div>
+                <div id="connection-status" class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Connecting...</div>
+                <div id="stats" class="text-xs text-gray-400 mt-1">
+                    <span id="fps-counter">60 FPS</span> | <span id="ping-counter">0ms</span>
+                </div>
+            </div>
+            
+            <div class="bg-black/60 p-3 rounded-lg text-white text-right border border-white/10 backdrop-blur-md">
+                <div class="text-3xl font-bold text-red-500" id="health-display">HP: 100</div>
+                <div class="text-xs uppercase tracking-widest text-blue-400 font-bold" id="mode-display">Mode: Arena</div>
+            </div>
+        </div>
+
+        <!-- CROSSHAIR -->
+        <div id="crosshair">
+            <svg viewBox="0 0 100 100" class="w-full h-full stroke-white stroke-[4] opacity-90">
+                <line x1="50" y1="30" x2="50" y2="70" />
+                <line x1="30" y1="50" x2="70" y2="50" />
+            </svg>
+        </div>
+
+        <!-- BOTTOM HUD -->
+        <div class="flex justify-between items-end w-full">
+            <div class="w-1/3 max-w-md pointer-events-auto flex flex-col gap-2">
+                <div id="chat-history" class="h-40 overflow-y-auto bg-black/40 rounded p-2 text-white text-sm font-medium flex flex-col justify-end"></div>
+                <input type="text" id="chat-input" placeholder="T key or Enter to chat..." class="bg-black/80 text-white border border-white/20 rounded p-2 w-full focus:outline-none focus:border-yellow-500 hidden backdrop-blur-sm">
+            </div>
+
+            <div class="bg-black/60 p-2 rounded-xl flex gap-3 pointer-events-auto border border-white/10 backdrop-blur-md items-center">
+                <div id="tool-1" class="p-3 bg-yellow-600 rounded-lg cursor-pointer border-2 border-white text-white font-bold transition-all">🔫 GUN</div>
+                <div id="tool-2" class="p-3 bg-gray-800 rounded-lg cursor-pointer border-2 border-transparent text-gray-400 font-bold hover:border-white/30 transition-all">🧱 BUILD</div>
+                <div class="w-[2px] h-8 bg-white/10 mx-1"></div>
+                <div id="material-info" class="hidden flex flex-col items-center">
+                    <div id="mat-preview" class="w-6 h-6 border border-white/50 mb-1"></div>
+                    <span id="mat-name" class="text-[10px] text-white uppercase font-bold tracking-tighter">STONE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENUS -->
+    <div id="menu-overlay" class="absolute inset-0 bg-slate-950 z-50 flex items-center justify-center">
+        <div id="login-screen" class="bg-slate-900 p-10 rounded-2xl shadow-2xl w-[450px] text-center border border-white/10">
+            <h1 class="text-5xl font-black text-yellow-500 mb-2 italic tracking-tighter">VOXELOPS</h1>
+            <p class="text-slate-500 text-sm mb-8 font-bold tracking-widest text-center">TACTICAL MULTI-MODE ARENA</p>
+            
+            <div class="space-y-4">
+                <input type="text" id="username-input" placeholder="OPERATOR CALLSIGN" class="w-full p-4 bg-slate-800 text-white rounded-xl border border-white/5 focus:ring-2 focus:ring-yellow-500 outline-none text-center font-bold">
+                
+                <div class="text-left bg-slate-800/50 p-4 rounded-xl">
+                    <label class="text-slate-400 text-[10px] font-bold block mb-3 uppercase tracking-widest">Select Mode</label>
+                    <select id="mode-select" class="w-full bg-slate-800 text-white p-2 rounded-lg border border-white/10 outline-none font-bold">
+                        <option value="arena">ARENA (PvP)</option>
+                        <option value="survival">SURVIVAL (PvE)</option>
+                        <option value="creative">CREATIVE (Build)</option>
+                    </select>
+                </div>
+
+                <div class="text-left bg-slate-800/50 p-4 rounded-xl">
+                    <label class="text-slate-400 text-[10px] font-bold block mb-3 uppercase tracking-widest">Combat Uniform</label>
+                    <div class="flex gap-4 justify-center">
+                        <div class="w-10 h-10 rounded-full cursor-pointer bg-red-500 ring-4 ring-white color-select" data-color="#ef4444"></div>
+                        <div class="w-10 h-10 rounded-full cursor-pointer bg-blue-500 color-select" data-color="#3b82f6"></div>
+                        <div class="w-10 h-10 rounded-full cursor-pointer bg-green-500 color-select" data-color="#22c55e"></div>
+                        <div class="w-10 h-10 rounded-full cursor-pointer bg-purple-500 color-select" data-color="#a855f7"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btn-login" class="w-full mt-8 bg-yellow-500 hover:bg-yellow-400 text-black font-black py-4 rounded-xl transition-all">INITIALIZE MISSION</button>
+        </div>
+
+        <div id="death-screen" class="bg-red-950/90 p-12 rounded-2xl shadow-2xl text-center hidden border border-red-500/50 backdrop-blur-xl">
+            <h1 class="text-7xl font-black text-white mb-2 italic tracking-tighter">WIA</h1>
+            <p class="text-red-300 font-bold mb-8 uppercase tracking-[0.3em]">Operator down. Respawning...</p>
+        </div>
+    </div>
+
+    <!-- FOCUS OVERLAY -->
+    <div id="pause-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center cursor-pointer hidden">
+        <div class="text-center pointer-events-none">
+            <h2 class="text-4xl font-black text-white italic mb-2">COMMUNICATIONS INTERRUPTED</h2>
+            <p class="text-yellow-500 font-bold tracking-[0.4em] pulse-text uppercase">Click to re-establish focus</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+        // Backend Integration - WebSocket only to avoid polling hangs
+        const socket = io({ 
+            path: '/api/voxelops/socket.io',
+            transports: ['websocket'],
+            upgrade: false,
+            reconnectionAttempts: 5
+        });
+
+        // Game Constants
+        const BLOCK_SIZE = 2;
+        const PLAYER_HEIGHT = 2;
+        const GRAVITY = 100.0;
+        const JUMP_FORCE = 30.0;
+        const SPEED_WALK = 60.0;
+        const SPEED_CROUCH = 30.0;
+        
+        // Game State
+        const gameState = {
+            mode: 'arena',
+            activeTool: 1, 
+            material: 'stone',
+            color: '#ef4444',
+            health: 100,
+            isDead: false,
+            isCrouching: false,
+            username: "Operator",
+            isInitialized: false
+        };
+
+        const worldState = { players: {}, blocks: {}, zombies: {} };
+        const materials = [
+            { id: 'stone', color: 0x888888 },
+            { id: 'brick', color: 0xaa4444 },
+            { id: 'dirt', color: 0x553311 },
+            { id: 'glass', color: 0x88ccff, transparent: true, opacity: 0.5 },
+            { id: 'neon', color: 0x00ff00, emissive: 0x00ff00 }
+        ];
+
+        let camera, scene, renderer, controls;
+        let raycaster;
+        const collisionObjects = [];
+        let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+        let canJump = false;
+        let velocity = new THREE.Vector3();
+        let direction = new THREE.Vector3();
+        let prevTime = performance.now();
+
+        const blockGeo = new THREE.BoxGeometry(BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        const playerGeo = new THREE.CapsuleGeometry(0.7, 1.8, 4, 8);
+        const visorGeo = new THREE.BoxGeometry(0.8, 0.2, 0.2); 
+        const zombieGeo = new THREE.BoxGeometry(1.5, 3, 1.5);
+
+        function init() {
+            document.querySelectorAll('.color-select').forEach(el => {
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.color-select').forEach(c => c.classList.remove('ring-4', 'ring-white'));
+                    el.classList.add('ring-4', 'ring-white');
+                    gameState.color = el.dataset.color;
+                });
+            });
+
+            document.getElementById('btn-login').addEventListener('click', () => {
+                gameState.username = document.getElementById('username-input').value.trim() || "Operator";
+                gameState.mode = document.getElementById('mode-select').value;
+                document.getElementById('mode-display').innerText = `Mode: ${gameState.mode}`;
+                document.getElementById('menu-overlay').classList.add('hidden');
+                gameState.isInitialized = true;
+                initWorld();
+            });
+
+            // Handle clicking the focus overlay
+            document.getElementById('pause-overlay').addEventListener('click', () => {
+                if (gameState.isInitialized && !gameState.isDead) {
+                    controls.lock();
+                }
+            });
+
+            const chatInput = document.getElementById('chat-input');
+            window.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'KeyT') {
+                    if (document.activeElement === chatInput && e.code === 'Enter') {
+                        const val = chatInput.value.trim();
+                        if (val) socket.emit('chatMessage', { name: gameState.username, text: val, color: gameState.color });
+                        chatInput.value = '';
+                        chatInput.classList.add('hidden');
+                        controls.lock();
+                    } else if (controls.isLocked) {
+                        controls.unlock();
+                        chatInput.classList.remove('hidden');
+                        chatInput.focus();
+                    }
+                }
+            });
+        }
+
+        function initWorld() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(gameState.mode === 'survival' ? 0x050510 : 0x87CEEB);
+            scene.fog = new THREE.Fog(scene.background, 0, 150);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            
+            const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, gameState.mode === 'survival' ? 0.3 : 1.0);
+            scene.add(hemi);
+
+            const floor = new THREE.Mesh(
+                new THREE.PlaneGeometry(1000, 1000).rotateX(-Math.PI / 2),
+                new THREE.MeshStandardMaterial({ color: 0x222222 })
+            );
+            scene.add(floor);
+            collisionObjects.push(floor);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.getElementById('game-container').appendChild(renderer.domElement);
+
+            controls = new PointerLockControls(camera, document.body);
+            scene.add(controls.getObject());
+
+            // Handle Pointer Lock Events
+            controls.addEventListener('lock', () => {
+                document.getElementById('pause-overlay').classList.add('hidden');
+            });
+            controls.addEventListener('unlock', () => {
+                // Only show overlay if we aren't chatting or dead
+                if (document.activeElement !== document.getElementById('chat-input') && !gameState.isDead) {
+                    document.getElementById('pause-overlay').classList.remove('hidden');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (document.activeElement === document.getElementById('chat-input')) return;
+                switch (e.code) {
+                    case 'KeyW': moveForward = true; break;
+                    case 'KeyA': moveLeft = true; break;
+                    case 'KeyS': moveBackward = true; break;
+                    case 'KeyD': moveRight = true; break;
+                    case 'Space': if (canJump) { velocity.y = JUMP_FORCE; canJump = false; } break;
+                    case 'Digit1': switchTool(1); break;
+                    case 'Digit2': switchTool(2); break;
+                    case 'ShiftLeft': gameState.isCrouching = true; break;
+                }
+            });
+
+            document.addEventListener('keyup', (e) => {
+                switch (e.code) {
+                    case 'KeyW': moveForward = false; break;
+                    case 'KeyA': moveLeft = false; break;
+                    case 'KeyS': moveBackward = false; break;
+                    case 'KeyD': moveRight = false; break;
+                    case 'ShiftLeft': gameState.isCrouching = false; break;
+                }
+            });
+
+            document.addEventListener('mousedown', (e) => {
+                if (!controls.isLocked || gameState.isDead) return;
+                const btn = e.button === 0 ? 'left' : (e.button === 2 ? 'right' : 'middle');
+                handleInput(btn);
+            });
+
+            raycaster = new THREE.Raycaster();
+            setupNetworking();
+            animate();
+            respawn();
+        }
+
+        function switchTool(id) {
+            gameState.activeTool = id;
+            document.getElementById('tool-1').className = id === 1 ? 'p-3 bg-yellow-600 rounded-lg cursor-pointer border-2 border-white text-white font-bold transition-all' : 'p-3 bg-gray-800 rounded-lg cursor-pointer border-2 border-transparent text-gray-400 font-bold transition-all';
+            document.getElementById('tool-2').className = id === 2 ? 'p-3 bg-yellow-600 rounded-lg cursor-pointer border-2 border-white text-white font-bold transition-all' : 'p-3 bg-gray-800 rounded-lg cursor-pointer border-2 border-transparent text-gray-400 font-bold transition-all';
+            document.getElementById('material-info').classList.toggle('hidden', id !== 2);
+            updateMaterialUI();
+        }
+
+        function updateMaterialUI() {
+            const mat = materials.find(m => m.id === gameState.material);
+            document.getElementById('mat-preview').style.backgroundColor = '#' + (mat.color.toString(16).padStart(6, '0'));
+            document.getElementById('mat-name').innerText = mat.id;
+        }
+
+        function handleInput(btn) {
+            raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+            
+            // FIX: Robustly filter the objects for raycasting to prevent "layers of undefined" crash
+            const interactables = [];
+            collisionObjects.forEach(obj => { if(obj) interactables.push(obj); });
+            Object.values(worldState.players).forEach(p => { if(p && p.group) interactables.push(p.body); });
+            Object.values(worldState.zombies).forEach(z => { if(z && z.mesh) interactables.push(z.mesh); });
+
+            const hits = raycaster.intersectObjects(interactables);
+            
+            if (gameState.activeTool === 1 && btn === 'left') {
+                if (hits.length > 0) {
+                    const obj = hits[0].object;
+                    const targetData = obj.userData.type ? obj.userData : (obj.parent ? obj.parent.userData : {});
+                    
+                    if (targetData.type === 'player') socket.emit('dealDamage', { targetId: targetData.id, amount: 20, type: 'player' });
+                    else if (targetData.type === 'zombie') socket.emit('dealDamage', { targetId: targetData.id, amount: 34, type: 'zombie' });
+                }
+                recoil();
+            } else if (gameState.activeTool === 2) {
+                if (btn === 'middle') {
+                    const idx = materials.findIndex(m => m.id === gameState.material);
+                    gameState.material = materials[(idx + 1) % materials.length].id;
+                    updateMaterialUI();
+                    return;
+                }
+                if (hits.length > 0) {
+                    const hit = hits[0];
+                    if (btn === 'left' && hit.object.userData.type === 'block') {
+                        socket.emit('breakBlock', hit.object.userData.id);
+                    } else if (btn === 'right' && hit.distance < 12) {
+                        const pos = hit.point.clone().add(hit.face.normal.multiplyScalar(0.5));
+                        socket.emit('placeBlock', {
+                            x: Math.floor(pos.x / 2) * 2 + 1,
+                            y: Math.floor(pos.y / 2) * 2 + 1,
+                            z: Math.floor(pos.z / 2) * 2 + 1,
+                            type: gameState.material
+                        });
+                    }
+                }
+            }
+        }
+
+        function recoil() {
+            camera.rotation.x += 0.05;
+            setTimeout(() => camera.rotation.x -= 0.05, 50);
+        }
+
+        function setupNetworking() {
+            // Force status check immediately
+            if (socket.connected) {
+                document.getElementById('connection-status').innerText = "ONLINE";
+                document.getElementById('connection-status').classList.replace('text-gray-400', 'text-green-400');
+            }
+
+            socket.on('connect', () => {
+                document.getElementById('connection-status').innerText = "ONLINE";
+                document.getElementById('connection-status').classList.replace('text-gray-400', 'text-green-400');
+            });
+
+            socket.on('initWorld', (data) => {
+                Object.keys(data.players).forEach(id => id !== socket.id && updatePlayer(id, data.players[id]));
+                Object.keys(data.blocks).forEach(id => spawnBlock(id, data.blocks[id]));
+                Object.keys(data.zombies).forEach(id => updateZombie(id, data.zombies[id]));
+            });
+
+            socket.on('playerUpdate', (data) => data.id !== socket.id && updatePlayer(data.id, data));
+            
+            socket.on('playerDisconnected', (id) => {
+                if (worldState.players[id]) {
+                    scene.remove(worldState.players[id].group);
+                    delete worldState.players[id];
+                }
+            });
+
+            socket.on('blockUpdate', (data) => {
+                if (data.action === 'add') spawnBlock(data.id, data.type, data);
+                else removeBlock(data.id);
+            });
+
+            socket.on('zombieUpdate', (all) => Object.keys(all).forEach(id => updateZombie(id, all[id])));
+            
+            socket.on('zombieDied', (id) => {
+                if (worldState.zombies[id]) {
+                    scene.remove(worldState.zombies[id].mesh);
+                    delete worldState.zombies[id];
+                }
+            });
+
+            socket.on('takeDamage', (amt) => {
+                if (gameState.mode === 'creative') return;
+                gameState.health -= amt;
+                document.getElementById('health-display').innerText = `HP: ${gameState.health}`;
+                if (gameState.health <= 0) die();
+            });
+
+            socket.on('chatMessage', (data) => {
+                const hist = document.getElementById('chat-history');
+                const div = document.createElement('div');
+                div.className = "chat-msg mb-1";
+                div.innerHTML = `<span style="color:${data.color}" class="font-black text-[10px] uppercase tracking-tighter">[${data.name}]</span>: <span class="text-white">${data.text}</span>`;
+                hist.appendChild(div);
+                hist.scrollTop = hist.scrollHeight;
+            });
+
+            // Heartbeat move loop
+            setInterval(() => {
+                if (!gameState.isInitialized || gameState.isDead) return;
+                const p = controls.getObject().position;
+                socket.emit('playerMove', { 
+                    x: p.x, y: p.y, z: p.z, 
+                    ry: controls.getObject().rotation.y, 
+                    color: gameState.color, 
+                    name: gameState.username,
+                    mode: gameState.mode
+                });
+            }, 100);
+        }
+
+        function updatePlayer(id, data) {
+            let p = worldState.players[id];
+            if (!p) {
+                const group = new THREE.Group();
+                group.userData = { type: 'player', id };
+                
+                // Main body
+                const body = new THREE.Mesh(playerGeo, new THREE.MeshStandardMaterial({ color: data.color }));
+                body.userData = { type: 'player', id };
+                
+                // Visor to see direction
+                const visor = new THREE.Mesh(visorGeo, new THREE.MeshStandardMaterial({ color: 0x111111 }));
+                visor.position.set(0, 0.6, 0.6); // Slightly up and forward
+                
+                group.add(body);
+                group.add(visor);
+                scene.add(group);
+                p = worldState.players[id] = { group, body };
+            }
+            p.group.position.set(data.x, data.y, data.z);
+            p.group.rotation.y = data.ry;
+        }
+
+        function updateZombie(id, data) {
+            let z = worldState.zombies[id];
+            if (!z) {
+                const mesh = new THREE.Mesh(zombieGeo, new THREE.MeshStandardMaterial({ color: 0x228822 }));
+                mesh.userData = { type: 'zombie', id };
+                scene.add(mesh);
+                z = worldState.zombies[id] = { mesh };
+            }
+            z.mesh.position.set(data.x, data.y, data.z);
+        }
+
+        function spawnBlock(id, type, manualData = null) {
+            if (worldState.blocks[id]) return;
+            const matConfig = materials.find(m => m.id === type) || materials[0];
+            const mat = new THREE.MeshStandardMaterial({ 
+                color: matConfig.color, 
+                transparent: !!matConfig.transparent, 
+                opacity: matConfig.opacity || 1,
+                emissive: matConfig.emissive || 0
+            });
+            const mesh = new THREE.Mesh(blockGeo, mat);
+            let x, y, z;
+            if (manualData) { x = manualData.x; y = manualData.y; z = manualData.z; }
+            else { [x, y, z] = id.split('_').map(Number); }
+            mesh.position.set(x, y, z);
+            mesh.userData = { type: 'block', id };
+            scene.add(mesh);
+            collisionObjects.push(mesh);
+            worldState.blocks[id] = mesh;
+        }
+
+        function removeBlock(id) {
+            const b = worldState.blocks[id];
+            if (b) {
+                scene.remove(b);
+                const idx = collisionObjects.indexOf(b);
+                if (idx > -1) collisionObjects.splice(idx, 1);
+                delete worldState.blocks[id];
+            }
+        }
+
+        function die() {
+            if (gameState.isDead) return;
+            gameState.isDead = true;
+            controls.unlock();
+            document.getElementById('death-screen').classList.remove('hidden');
+            setTimeout(respawn, 3000);
+        }
+
+        function respawn() {
+            gameState.isDead = false;
+            gameState.health = 100;
+            document.getElementById('health-display').innerText = `HP: 100`;
+            document.getElementById('death-screen').classList.add('hidden');
+            controls.getObject().position.set((Math.random()-0.5)*40, 20, (Math.random()-0.5)*40);
+            controls.lock();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = performance.now();
+            let delta = (time - prevTime) / 1000;
+            if (delta > 0.1) delta = 0.1;
+            prevTime = time;
+
+            if (controls.isLocked) {
+                velocity.x -= velocity.x * 10.0 * delta;
+                velocity.z -= velocity.z * 10.0 * delta;
+                velocity.y -= GRAVITY * delta;
+
+                direction.z = Number(moveForward) - Number(moveBackward);
+                direction.x = Number(moveRight) - Number(moveLeft);
+                direction.normalize();
+
+                const speed = gameState.isCrouching ? SPEED_CROUCH : SPEED_WALK;
+                if (moveForward || moveBackward) velocity.z -= direction.z * speed * delta;
+                if (moveLeft || moveRight) velocity.x -= direction.x * speed * delta;
+
+                controls.moveRight(-velocity.x * delta);
+                controls.moveForward(-velocity.z * delta);
+                controls.getObject().position.y += (velocity.y * delta);
+
+                const pos = controls.getObject().position;
+                const h = gameState.isCrouching ? 1.2 : PLAYER_HEIGHT;
+
+                if (pos.y < h) { velocity.y = 0; pos.y = h; canJump = true; }
+
+                const feetY = pos.y - h;
+                const bX = Math.floor(pos.x / 2) * 2 + 1;
+                const bY = Math.floor((feetY - 0.1) / 2) * 2 + 1;
+                const bZ = Math.floor(pos.z / 2) * 2 + 1;
+                const idUnder = `${bX}_${bY}_${bZ}`;
+
+                if (worldState.blocks[idUnder]) {
+                    const top = bY + 1;
+                    if (velocity.y <= 0 && feetY < top + 0.5 && feetY > top - 0.5) {
+                        velocity.y = 0;
+                        pos.y = top + h;
+                        canJump = true;
+                    }
+                }
+
+                const checkBody = [pos.y, pos.y - 1.5];
+                let hitWall = false;
+                checkBody.forEach(y => {
+                    const id = `${Math.floor(pos.x/2)*2+1}_${Math.floor(y/2)*2+1}_${Math.floor(pos.z/2)*2+1}`;
+                    if (worldState.blocks[id]) hitWall = true;
+                });
+
+                if (hitWall) {
+                    controls.moveRight(velocity.x * delta);
+                    controls.moveForward(velocity.z * delta);
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+        init();
+    </script>
+</body>
+</html>
