@@ -6,55 +6,51 @@
     <title>Home - NullMedia</title>
     <link rel="icon" href="logo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
-    <script src="/styles.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="script.js" defer></script>
-    <script src="/js/main.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
-            integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <script>
-        if (localStorage.getItem("hasSeenSubsMessage") !== "true") {
-            alert(
-                "If you click the title of the page, you will be taken to the Subs selection. Subs are my version of the subreddits from (shocker!) Reddit. Just wanted you to know that.\n\nThe maker of this website,\nKingNullboy."
-            );
-            localStorage.setItem("hasSeenSubsMessage", "true");
-        }
-    </script>
 </head>
-<body style="background-color: black;">
+<body>
     <header>
-        <a href="../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
-        <h1 id="pagetitle"><a href="subs.html">NullMedia</a></h1>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <a href="../"><img class="logo" src="logo.png" alt="logo" width="40px"></a>
+            <h1 id="pagetitle"><a href="subs.html">NullMedia</a></h1>
+        </div>
         <nav>
             <ul class="nav__links">
-                <button onclick="window.location.href='info.html';" id="headerBtn">Info</button>
+                <button onclick="window.location.href='info.html';">Info</button>
                 <button id="login">Login</button>
             </ul>
         </nav>
     </header>
-    <br>
-    <center>
-        <div id="form" name="form">
-            <div id="formatBtns">
-                <button id="boldBtn" class="formatBtn"><b>B</b></button>
-                <button id="italicBtn" class="formatBtn"><i>I</i></button>
-                <button id="underlineBtn" class="formatBtn"><u>U</u></button>
-                <button id="codeBlockBtn" class="formatBtn">Code</button>
-                <button id="linkBtn" class="formatBtn">Link</button>
-                <button id="blockquoteBtn" class="formatBtn">Quote</button>
-                <button id="insertImageBtn" class="formatBtn">Image</button>
+
+    <main>
+        <center>
+            <div id="form">
+                <div id="formatBtns">
+                    <button onclick="addTags('**', '**', 2)" class="formatBtn"><b>B</b></button>
+                    <button onclick="addTags('*', '*', 1)" class="formatBtn"><i>I</i></button>
+                    <button onclick="addTags('<u>', '</u>', 3)" class="formatBtn">U</button>
+                    <button onclick="addTags('```\n', '\n```', 4)" class="formatBtn">Code</button>
+                    <button onclick="addTags('[', '](url)', 1)" class="formatBtn">Link</button>
+                    <button onclick="addTags('> ', '', 2)" class="formatBtn">Quote</button>
+                    
+                    <input type="file" id="imageInput" style="display:none;" accept="image/*">
+                    <button onclick="document.getElementById('imageInput').click()" class="formatBtn">Image</button>
+                </div>
+
+                <input type="text" id="title" placeholder="Title*">
+                <textarea id="postContent" placeholder="Body (Markdown supported)"></textarea>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                    <button id="submit">SUBMIT POST</button>
+                    <button onclick="window.scrollTo(0, document.body.scrollHeight);" id="scrollBtn">BOTTOM</button>
+                </div>
             </div>
-            <input type="text" id="title" name="title" placeholder="Title*"><br>
-            <textarea id="postContent" name="postContent" placeholder="Body"></textarea><br>
-            <button id="submit">Submit</button>
-            <button onclick="window.scrollTo(0, document.body.scrollHeight);" id="scrollBtn">Go to bottom</button>
-        </div>
-        <br>
-        <!-- Posts will be dynamically loaded here -->
-        <div id="postsContainer"></div>
-    </center>
+
+            <div id="postsContainer"></div>
+        </center>
+    </main>
 </body>
 </html>

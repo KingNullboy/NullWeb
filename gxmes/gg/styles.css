@@ -1,0 +1,170 @@
+body {
+	background: radial-gradient(circle, #5a0000, #1a0000);
+	color: gold;
+	font-family: "Courier New", monospace;
+	text-align: center;
+	margin: 20px;
+}
+
+h2 { 
+	margin-top: 30px; 
+	text-shadow: 0 0 8px red; 
+}
+
+#slots { 
+	margin: 20px 0; 
+}
+
+.slot { 
+	display: inline-flex; 
+	justify-content: center; 
+	align-items: center;
+	width: 80px; 
+	height: 80px; 
+	margin: 8px; 
+	border: 4px solid gold;
+	font-size: 40px; 
+	background: black; 
+	box-shadow: inset 0 0 10px #ffcc00; 
+}
+
+button { 
+	background: gold; 
+	border: none; 
+	padding: 8px 18px; 
+	font-weight: bold; 
+	cursor: pointer; 
+	margin: 5px; 
+}
+
+button:disabled { 
+	background: #777; 
+	cursor: not-allowed; 
+}
+
+.panel { 
+	border: 2px solid gold; 
+	padding: 10px; 
+	margin: 10px auto; 
+	max-width: 420px; 
+	background: rgba(0,0,0,0.4); 
+}
+
+.spinning { 
+	animation: spin 0.1s infinite linear; 
+}
+
+@keyframes spin { 
+	from { transform: translateY(-3px); } 
+	to { transform: translateY(3px); } 
+}
+
+.achievement { 
+	color: lightgreen; 
+	margin: 4px 0; 
+}
+
+/* ===== NEW STYLES ===== */
+.toast {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: gold;
+	color: black;
+	padding: 10px 20px;
+	font-weight: bold;
+	border-radius: 6px;
+	box-shadow: 0 0 10px #000;
+	z-index: 9999;
+}
+
+#gameOverOverlay {
+	position: fixed;
+	top:0; left:0;
+	width:100%; height:100%;
+	background: rgba(0,0,0,0.8);
+	color: gold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2em;
+	text-align: center;
+	z-index: 9999;
+}
+
+#gameOverOverlay button {
+	margin-top: 20px;
+	font-size: 0.5em;
+	padding: 10px 20px;
+}
+
+/* ===== Popup styles ===== */
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.8);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+}
+
+.popupContent {
+	background: black;
+	color: gold;
+	padding: 20px;
+	border: 3px solid gold;
+	border-radius: 8px;
+	max-width: 400px;
+	text-align: center;
+}
+
+.popupContent button {
+	margin-top: 15px;
+	background: gold;
+	color: black;
+	font-weight: bold;
+}
+
+/* Tech Tree styles */
+.techTreeContainer {
+	width: 800px;
+	height: 600px;
+	overflow: auto; /* scrollable */
+	position: relative;
+}
+
+#techTree {
+	width: 1600px;
+	height: 1200px;
+	position: relative;
+}
+
+.techNode {
+	position: absolute;
+	width: 120px;
+	height: 60px;
+	background: black;
+	color: gold;
+	border: 3px solid gold;
+	border-radius: 8px;
+	text-align: center;
+	line-height: 60px;
+	cursor: pointer;
+	font-weight: bold;
+	user-select: none;
+}
+
+.techNode.locked {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.techLine {
+	position: absolute;
+	background: gold;
+}

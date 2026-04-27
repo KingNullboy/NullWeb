@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
       // Get the current URL
       const currentUrl = window.location.href;
-      let baseUrl = window.location.protocol + "//" + document.domain + "/gxmes/";
+      let baseUrl = window.location.protocol + "//" + document.domain + (window.location.port ? ":" + window.location.port : "") + "/gxmes/";
 
       // Get references to the elements that will be updated
       const gamenumElement = document.getElementById("gamenum");

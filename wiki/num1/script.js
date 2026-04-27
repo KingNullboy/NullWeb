@@ -5,7 +5,7 @@ async function verifyStoredPassword() {
     if (!storedPassword) return false;
 
     try {
-        const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
+        const response = await fetch("/api/auth", {
             method: "GET",
             headers: {
                 "Script-URL": scriptUrl,
@@ -29,7 +29,7 @@ async function promptPasswordUntilCorrect() {
         const userPassword = prompt("This is a password-protected site. Please enter the password.");
 
         try {
-            const response = await fetch("https://nullapis.netlify.app/.netlify/functions/auth", {
+            const response = await fetch("/api/auth", {
                 method: "GET",
                 headers: {
                     "Script-URL": scriptUrl,
