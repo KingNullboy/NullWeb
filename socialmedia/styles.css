@@ -1,208 +1,146 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-button {
-    font-family: var(--font-family, Lato);
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: var(--border-color, #000000);
-    background-color: var(--button-bg-color, #FF0000);
-    color: var(--text-color, #FFFFFF);
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --border-color: #ffffff;
+    --font-family: 'Lato', sans-serif;
+    --card-bg: #0a0a0a;
 }
 
-/* Original Styles */
-html {
-    font-family: var(--font-family, Lato);
-    color: var(--text-color, #FFFFFF);
-}
-
-blockquote {
-    font-family: Space Mono;
-}
-
+/* --- BASE STYLES --- */
 body {
-    font-family: var(--font-family, Lato);
-    color: var(--text-color, #FFFFFF);
-    background-color: var(--bg-color, #000000);
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-    font-family: var(--font-family, Lato);
-    color: var(--text-color, #FFFFFF);
-    position: relative;
-}
-
-h2 {
-    font-family: var(--font-family, Lato);
-    color: var(--text-color, #FFFFFF);
-}
-
-a {
-    font-family: var(--font-family, Lato);
-    color: var(--text-color, #FFFFFF);
-}
-
-a[id=link] {
-    color: var(--link-color, #0000FF);
-    text-decoration: underline;
-    text-decoration-color: var(--link-color, #0000FF);
-}
-
-nav {
-    background-color: var(--bg-color, #000000);
-    border-radius: 25px;
-    border-width: 4px;
-    border-color: var(--border-color, #FFFFFF);
-    height: 50px;
-    justify-content: middle;
-    color: var(--text-color, #FFFFFF);
-    outline-width: 4px;
-    outline-color: var(--border-color, #FFFFFF);
-}
-
-a[id=logo] {
-    justify-content: middle;
-    color: var(--text-color, #FFFFFF);
-}
-
-a[id=homebutton],
-a[id=infobutton] {
-    margin-left: 10px;
-}
-
-img[id=logo] {
-    vertical-align: middle;
-    margin-top: 5px;
-}
-
+/* --- HEADER & NAVIGATION --- */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10%;
-    background: var(--bg-color, #000000);
+    padding: 15px 5%;
+    background: var(--bg-color);
     border-radius: 100px;
-    border: 10px solid var(--border-color, #FFFFFF);
+    border: 5px solid var(--border-color); /* Adjusted from 10px for better fit */
+    margin: 20px auto;
+    width: 90%;
 }
 
-div[id=form] {
-    border-width: 2px;
-    border-color: var(--border-color, #000000);
-    background-color: var(--form-bg-color, #363636);
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
-    width: 405px;
-    color: var(--text-color, #FFFFFF);
-}
-
-input,
-textarea {
-    border-radius: 5px;
-    border-color: var(--border-color, #000000);
-    font-family: var(--font-family, Lato);
-    color: var(--text-color, #FFFFFF);
-    background-color: var(--input-bg-color, #363636);
-}
-
-input[id=title],
-textarea[id=postContent] {
-    width: 400px;
-    border-color: #000000;
-}
-
-#scrollBtn {
-    border-color: var(--border-color);
-    background-color: var(--bg-color);
+#pagetitle a {
     color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 900;
 }
 
-#submit {
-    border-color: var(--border-color);
+.nav__links {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+/* --- BUTTONS --- */
+button, .navbtn-styled {
     background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#login,
-#headerBtn {
-    border-color: transparent;
-    background-color: transparent;
-}
-
-textarea[id=postContent] {
-    height: 45px;
-    resize: both;
-}
-
-.reply-button {
-    background-color: transparent;
-    border-color: transparent;
-}
-
-article {
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: var(--border-color, #000000);
-    background-color: var(--form-bg-color, #363636);
-    color: var(--text-color, #FFFFFF);
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    width: 800px;
-    margin-bottom: 20px;
-}
-
-#reply {
-    border-left: 2px solid var(--reply-border-color, #888888);
-    margin-left: 20px;
-    padding-left: 10px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-article+#reply,
-#reply+#reply {
-    margin-top: 0;
-}
-
-.formatBtn {
-    border-color: var(--border-color);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.notification {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--bg-color);
+    font-family: var(--font-family);
     color: var(--text-color);
     padding: 10px 20px;
-    border-radius: 5px;
-    display: none;
-    z-index: 1000;
-    border-color: var(--border-color);
-}
-
-#reloadBtn {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border-color: var(--border-color);
-    padding: 5px 10px;
-    border-radius: 5px;
+    border: 2px solid var(--border-color);
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
+    text-transform: uppercase;
 }
 
-#postsContainer {
+button:hover, .navbtn-styled:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* --- POSTS & FORMS --- */
+#form, .post-card {
+    max-width: 800px;
+    width: 90%;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    padding: 25px;
+    margin: 20px auto;
+    border-radius: 20px;
+    text-align: left;
+}
+
+input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    background-color: #1a1a1a;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: #FFFFFF;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-family: var(--font-family);
+}
+
+/* --- SEARCH SECTION --- */
+.searchContainer {
     display: flex;
     flex-direction: column;
-    align-items: center; /* centers the posts horizontally */
+    align-items: center;
+    margin-top: 20px;
+}
+
+.searchRow {
+    display: flex;
+    justify-content: center;
+}
+
+#searchBar {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px 0 0 20px;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    width: 400px;
+    border-right: 0;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 0 20px 20px 0;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* --- FEED SPECIFICS --- */
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.post-pfp {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.nickname { font-weight: 700; color: var(--text-color); }
+.username { color: #888; font-size: 0.9rem; }
+
+/* --- MOBILE --- */
+@media (max-width: 768px) {
+    header { border-radius: 20px; flex-direction: column; gap: 10px; }
+    #searchBar { width: 200px; }
 }
