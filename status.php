@@ -17,3 +17,4 @@ $temp = str_replace(['temp=', "'C\n"], '', trim(shell_exec('sudo /usr/bin/vcgenc
 		</center>
 	</body>
 </html>
+<!-- I solemnly swear I am not going to use status.php for everything -->
