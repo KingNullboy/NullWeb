@@ -16,28 +16,28 @@ workbox.core.clientsClaim();
  */
 workbox.routing.registerRoute(
   ({ url }) => 
-    url.pathname.includes('.part') || 
-    url.pathname.endsWith('.data') || 
-    url.pathname.endsWith('.wasm'),
+	url.pathname.includes('.part') || 
+	url.pathname.endsWith('.data') || 
+	url.pathname.endsWith('.wasm'),
   new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'game-chunks-v11',
-    plugins: [
-      new workbox.rangeRequests.RangeRequestsPlugin(),
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [0, 200]
-      }),
-      {
-        // Force the service worker to handle HEAD requests as if they were GET
-        // This fixes the "getSize" error in your log
-        fetchDidSucceed: async ({ response }) => {
-          return response;
-        },
-        cacheKeyWillBeUsed: async ({ request }) => {
-          // Store HEAD and GET under the same key so HEAD finds the cached GET response
-          return request.url; 
-        }
-      }
-    ],
+	cacheName: 'game-chunks-v11',
+	plugins: [
+	  new workbox.rangeRequests.RangeRequestsPlugin(),
+	  new workbox.cacheableResponse.CacheableResponsePlugin({
+		statuses: [0, 200]
+	  }),
+	  {
+		// Force the service worker to handle HEAD requests as if they were GET
+		// This fixes the "getSize" error in your log
+		fetchDidSucceed: async ({ response }) => {
+		  return response;
+		},
+		cacheKeyWillBeUsed: async ({ request }) => {
+		  // Store HEAD and GET under the same key so HEAD finds the cached GET response
+		  return request.url; 
+		}
+	  }
+	],
   }),
   'GET'
 );
@@ -46,7 +46,7 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
   ({ url }) => url.pathname.includes('.part'),
   new workbox.strategies.CacheFirst({
-    cacheName: 'game-chunks-v11', // Same cache as GET
+	cacheName: 'game-chunks-v11', // Same cache as GET
   }),
   'HEAD'
 );
@@ -57,10 +57,10 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
   ({ request }) => true,
   new workbox.strategies.NetworkFirst({
-    cacheName: 'site-assets-v11',
-    plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({ statuses: [0, 200] })
-    ]
+	cacheName: 'site-assets-v11',
+	plugins: [
+	  new workbox.cacheableResponse.CacheableResponsePlugin({ statuses: [0, 200] })
+	]
   })
 );
 
@@ -69,15 +69,15 @@ workbox.routing.registerRoute(
  */
 workbox.routing.setCatchHandler(({ event }) => {
   if (event.request.destination === 'document') {
-    return caches.match('/offline.html');
+	return caches.match('/offline.html');
   }
   return Response.error();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(key => !key.includes('v11')).map(key => caches.delete(key))
-    ))
+	caches.keys().then(keys => Promise.all(
+	  keys.filter(key => !key.includes('v11')).map(key => caches.delete(key))
+	))
   );
 });

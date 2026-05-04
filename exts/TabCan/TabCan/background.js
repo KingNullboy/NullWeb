@@ -3,9 +3,9 @@ let audio = null;
 async function checkTabs() {
   const tabs = await browser.tabs.query({});
   if (tabs.length >= 4 && !audio) {
-    playCanCan();
+	playCanCan();
   } else if (tabs.length < 4 && audio) {
-    stopCanCan();
+	stopCanCan();
   }
 }
 
@@ -17,14 +17,14 @@ function playCanCan() {
 
 function stopCanCan() {
   if (audio) {
-    audio.pause();
-    audio = null;
+	audio.pause();
+	audio = null;
   }
 }
 
 browser.runtime.onMessage.addListener((message) => {
   if (message.action === "stopAudio") {
-    stopCanCan();
+	stopCanCan();
   }
 });
 
