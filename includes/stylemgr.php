@@ -18,9 +18,7 @@ $isIOS = preg_match('/iPhone|iPad|iPod/i', $_SERVER['HTTP_USER_AGENT'] ?? '');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 /* Reset */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -136,4 +134,29 @@ html, body {
     border: none;
     border-radius: 15px;
     margin-top: 15px;
+}
+
+.customizer-box {
+    margin-bottom: 20px; text-align: left; width: 300px;
+}
+.textbox {
+    width: 100%; padding: 8px; border-radius: 10px; border: 1px solid var(--border-color); background: #333; color: white;
+}
+input[type="color"] {
+    width: 50px; height: 30px; border: none; border-radius: 5px; cursor: pointer;
+}
+
+.settings-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.customizer-box {
+    text-align: center;
+    width: 300px;
 }

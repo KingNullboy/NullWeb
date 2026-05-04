@@ -7,7 +7,7 @@ $temp = str_replace(['temp=', "'C\n"], '', trim(shell_exec('sudo /usr/bin/vcgenc
 <html>
 	<head>
 		<title>System Status</title>
-		<link rel="stylesheet" href="styles.css">
+		<?php include "includes/meta.php"; ?>
 	</head>
 	<body>
 		<center>
@@ -17,4 +17,3 @@ $temp = str_replace(['temp=', "'C\n"], '', trim(shell_exec('sudo /usr/bin/vcgenc
 		</center>
 	</body>
 </html>
-<!-- I solemnly swear I am not going to use status.php for everything -->
