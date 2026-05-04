@@ -25,12 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
         
         let hilltopScript1 = document.createElement("script");
         hilltopScript1.async = true;
-        hilltopScript1.src = "/hilltopadstype1.js";
+        hilltopScript1.src = "/js/hilltopadstype1.js";
         document.head.appendChild(hilltopScript1);
 
         let hilltopScript2 = document.createElement("script");
         hilltopScript2.async = true;
-        hilltopScript2.src = "/hilltopadstype2.js";
+        hilltopScript2.src = "/js/hilltopadstype2.js";
         document.head.appendChild(hilltopScript2);
     }
 
