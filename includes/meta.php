@@ -1,5 +1,7 @@
 <title><?= $title ?? "NullWeb" ?></title>
 
+<script src="/js/main.js"></script>
+
 <meta name="description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 
 <meta property="og:title" content="NullWeb - Social Media, Wiki, Games & Tools">
@@ -13,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.null-web.vastserve.com/logo.png">
 
-<link rel="stylesheet" href="/includes/stylemgr.php">
+<link rel="stylesheet" href="includes/stylemgr.php">
 
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="apple-touch-icon" href="logo.png">

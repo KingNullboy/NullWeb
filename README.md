@@ -5,6 +5,6 @@ This was originally a small project made so that I can chat with my friends on m
  - [3kh0](https://3kh0.github.io/) for most of my site's games
  - [Selenite](https://selenite.cc/) for exactly 50 of the flash games
  - [Talha](https://github.com/he-is-talha) for exactly 30 of the games
- - [Phantom](https://phantom.quenq.org/) for inspiration
+ - Phantom for inspiration (I think it might be gone now though?)
  - [Seraph](https://seraph.reveriestudios.online/) for Phantom's inspiration
  - [Carlos Pedroso](https://carlospedroso.itch.io/) for Growmi

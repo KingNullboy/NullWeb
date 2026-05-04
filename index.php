@@ -11,7 +11,6 @@ $title = "NullWeb"
 <html lang="en">
 <head>
 	<?php include "includes/meta.php"; ?>
-	<script src="/js/main.js" defer></script>
 </head>
 <body>
 	<main class="main-wrapper">
