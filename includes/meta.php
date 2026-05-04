@@ -1,3 +1,5 @@
+<title><?= $title ?? "NullWeb" ?></title>
+
 <meta name="description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 
 <meta property="og:title" content="NullWeb - Social Media, Wiki, Games & Tools">
@@ -15,6 +17,8 @@
 
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="apple-touch-icon" href="logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
 <link rel="manifest" href="/manifest.json">
 <script>

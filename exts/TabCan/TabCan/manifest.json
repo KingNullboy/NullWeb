@@ -5,11 +5,11 @@
   "description": "Plays Can Can if you have 4+ tabs open",
   "permissions": ["tabs", "activeTab", "storage"],
   "background": {
-    "service_worker": "background.js",
-    "scripts": ["background.js"]
+	"service_worker": "background.js",
+	"scripts": ["background.js"]
   },
   "action": {
-    "default_title": "Can Can Madness",
-    "default_popup": "popup.html"
+	"default_title": "Can Can Madness",
+	"default_popup": "popup.html"
   }
 }

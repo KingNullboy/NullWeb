@@ -1,149 +1,139 @@
 <?php
-/**
- * NullWeb Style Manager
- * Replaces styles.css and styles.js logic
- */
+header("Content-Type: text/css; charset=utf-8");
 
-// Tell the browser this is a CSS file
-ob_start();
-header("Content-type: text/css; charset=utf-8");
-
-// 1. Fetch preferences from Cookies (or use defaults)
-// We use the null coalescing operator (??) to provide fallbacks
+// Defaults (because users will absolutely break things otherwise)
 $bg     = $_COOKIE['bg-color']     ?? '#000000';
 $text   = $_COOKIE['text-color']   ?? '#ffffff';
 $border = $_COOKIE['border-color'] ?? '#ffffff';
-$font   = $_COOKIE['font-family']   ?? 'Lato';
-$ads    = $_COOKIE['ads']           ?? 'true';
+$font   = $_COOKIE['font-family']  ?? 'Lato';
+$ads    = $_COOKIE['ads']          ?? 'true';
 
-// Sanitize the font family to prevent CSS injection
-$font_sanitized = htmlspecialchars($font, ENT_QUOTES);
+// Basic sanitizing so someone doesn't inject chaos
+$font_safe = preg_replace('/[^a-zA-Z0-9\s\-]/', '', $font);
+
+$isMobile = preg_match('/Mobile|Android|iPhone|iPod|iPad/i', $_SERVER['HTTP_USER_AGENT'] ?? '');
+$isIOS = preg_match('/iPhone|iPad|iPod/i', $_SERVER['HTTP_USER_AGENT'] ?? '');
 ?>
 
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
-/* Define CSS custom properties based on PHP/Cookie variables */
-:root {
-    --bg-color: <?php echo $bg; ?>;
-    --text-color: <?php echo $text; ?>;
-    --border-color: <?php echo $border; ?>;
-    --font-family: '<?php echo $font_sanitized; ?>', sans-serif;
-}
-
-/* Base Elements */
-body {
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
-    color: var(--text-color);
+/* Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-family);
-    color: var(--text-color);
+/* Base layout */
+body {
+    min-height: 100vh;
+    background: <?= $bg ?>;
+    color: <?= $text ?>;
+    font-family: <?= $font ?>;
 }
 
-/* Button Styling */
-button {
-    background-color: var(--bg-color);
-    font-family: var(--font-family);
-    color: var(--text-color);
-    padding: 10px;
-    border: 2px solid var(--border-color);
-    font-size: 20px;
-    border-radius: 20px;
-    transition: color 0.3s ease, background-color 0.3s ease;
+.main-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
 }
 
-button:hover {
-    cursor: pointer;
-    background-color: var(--text-color);
-    color: var(--bg-color);
+/* Navigation */
+.nav-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
 }
 
-/* Navigation Specifics */
 .navbtn {
-    height: 91px;
-    vertical-align: middle;
+    background: <?= $bg ?>;
+    color: <?= $text ?>;
+    border: 2px solid <?= $border ?>;
+    border-radius: 20px;
+    padding: 15px;
+    min-width: 130px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+    text-decoration: none;
+}
+
+.navbtn img {
+    display: block;
+    margin: 0 auto 8px;
+}
+
+.navbtn:hover {
+    background: <?= $text ?>;
+    color: <?= $bg ?>;
+}
+
+/* Footer */
+.site-footer {
+    margin-top: 40px;
+    border-top: 3px solid <?= $border ?>;
+    padding: 25px 0;
+    width: 100%;
+}
+
+.footer-buttons {
+    border: none;
+    text-align: center;
 }
 
 .botbtn {
+    background: <?= $bg ?>;
+    color: <?= $text ?>;
+    border: 2px solid <?= $border ?>;
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 5px 15px;
     font-size: 14px;
-}
-
-/* Header & Containers */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 10%;
-    background: var(--bg-color);
-    border-radius: 100px;
-    border: 10px solid var(--border-color);
-}
-
-.textbox {
-    background-color: #363636;
-    border-radius: 10px;
-    color: #FFFFFF;
-    border: 1px solid var(--border-color);
-    padding: 5px;
-}
-
-/* Search UI */
-.searchContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-
-#searchBar {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px 0 0 20px;
-    border: 2px solid var(--border-color);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    width: 500px;
-    border-right: 0;
-}
-
-#searchButton {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 0 20px 20px 0;
-    border: 2px solid var(--border-color);
-    background-color: var(--bg-color);
-    color: var(--text-color);
     cursor: pointer;
-    border-left: 0;
+    transition: background 0.25s, color 0.25s;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 5px;
 }
 
-/* Ads Logic: Hide/Show based on user preference */
-.ad-section, .ad-container {
-    display: <?php echo ($ads === 'false') ? 'none' : 'block'; ?>;
+.botbtn:hover {
+    background: <?= $text ?>;
+    color: <?= $bg ?>;
 }
 
-/* Mobile Responsiveness (Ported from styles.css) */
-@media (max-width: 1080px) and (pointer: coarse) {
-    h1 { font-size: 24px; margin: 15px 0; }
+html, body {
+    margin: 0;
+	padding: 0;
+}
 
-    .navbtn {
-        width: 100%;
-        margin: 5px 0;
-        font-size: 16px;
-        padding: 8px 0;
-    }
+.donate-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px solid <?= $border ?>;
+    border-radius: 20px;
+    text-align: center;
+}
 
-    .botbtn {
-        font-size: 14px;
-        width: 90%;
-    }
+.donate-links a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: <?= $text ?>;
+    border: 1px solid <?= $border ?>;
+}
 
-    #searchBar { width: 80%; }
+.donate-frame {
+    width: 100%;
+    height: 281px;
+    border: none;
+    border-radius: 15px;
+    margin-top: 15px;
 }
