@@ -14,6 +14,8 @@
             <a class="botbtn" href="/ios_installer.php">Download iOS App</a>
         <?php elseif ($isMobile): ?>
             <button class="botbtn" type="button" onclick="installPWA();">Install NullWeb App</button>
-        <?php endif; ?>
+        <?php endif; ?><br><br>
+
+		<p>NullWeb is a web platform created by KingNullboy that brings together tools, games, wiki pages, and utilities in one place for fun, learning, and sharing.</p>
     </div>
 </footer>
