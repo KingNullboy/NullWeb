@@ -4,18 +4,18 @@
 
 <meta name="description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 
-<meta property="og:title" content="NullWeb - Social Media, Wiki, Games & Tools">
+<meta property="og:title" content="<?= $title ?? "NullWeb - Social Media, Wiki, Games & Tools" ?>">
 <meta property="og:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.null-web.vastserve.com/">
 <meta property="og:image" content="https://www.null-web.vastserve.com/logo.png">
 
-<meta name="twitter:title" content="NullWeb - Social Media, Wiki, Games & Tools">
+<meta name="twitter:title" content="<?= $title ?? "NullWeb - Social Media, Wiki, Games & Tools" ?>">
 <meta name="twitter:description" content="Explore NullWeb, your hub for NullMedia, NullWiki, NullLinks, NullG*mes, and NullTools. Fun, facts, and useful apps all in one place.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.null-web.vastserve.com/logo.png">
 
-<link rel="stylesheet" href="includes/stylemgr.php">
+<link rel="stylesheet" href="/includes/stylemgr.php">
 
 <link rel="icon" href="logo.png" type="image/png">
 <link rel="apple-touch-icon" href="logo.png">
