@@ -160,3 +160,41 @@ input[type="color"] {
     text-align: center;
     width: 300px;
 }
+
+.lnkgxmbtn {
+    background-color: <?= $bg ?>;
+    color: <?= $text ?>;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid <?= $border ?>;
+    border-radius: 20px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+    margin: 5px;
+    display: inline-block;
+}
+
+.lnkgxmbtn:hover {
+    background-color: <?= $text ?>;
+    color: <?= $bg ?>;
+}
+
+header {
+    border: 5px solid <?= $border ?>;
+    border-radius: 100px;
+    margin: 10px;
+    padding: 35px;
+    min-height: 130px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerbtn {
+    border: 1px solid <?= $border ?>;
+    background-color: <?= $bg ?>;
+    color: <?= $text ?>;
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+}
