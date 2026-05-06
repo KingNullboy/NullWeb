@@ -1,0 +1,1859 @@
+{
+  "sections": [
+    {
+      "title": "Selenite's G*mes",
+      "items": []
+    },
+    {
+      "title": "Bloons G*mes",
+      "items": [
+        {
+          "text": "Bloons TD",
+          "name": "Bloons TD",
+          "which": null,
+          "onclick": "window.location.href='btd.html';"
+        },
+        {
+          "text": "Bloons TD 2",
+          "name": "Bloons TD 2",
+          "which": null,
+          "onclick": "window.location.href='btd2.html';"
+        },
+        {
+          "text": "Bloons",
+          "name": "Bloons",
+          "which": null,
+          "onclick": "window.location.href='bloons.html';"
+        }
+      ]
+    },
+    {
+      "title": "Duck Life G*mes",
+      "items": [
+        {
+          "text": "Duck Life 1",
+          "name": "Duck Life 1",
+          "which": null,
+          "onclick": "window.location.href='dl1.html';"
+        },
+        {
+          "text": "Duck Life 2",
+          "name": "Duck Life 2",
+          "which": null,
+          "onclick": "window.location.href='dl2.html';"
+        },
+        {
+          "text": "Duck Life 3",
+          "name": "Duck Life 3",
+          "which": null,
+          "onclick": "window.location.href='dl3.html';"
+        },
+        {
+          "text": "Duck Life 4",
+          "name": "Duck Life 4",
+          "which": null,
+          "onclick": "window.location.href='dl4.html';"
+        }
+      ]
+    },
+    {
+      "title": "Henry Stickmin G*mes",
+      "items": [
+        {
+          "text": "Henry Stickmin - Breaking the Bank",
+          "name": "Henry Stickmin - Breaking the Bank",
+          "which": null,
+          "onclick": "window.location.href='hs-btb.html';"
+        },
+        {
+          "text": "Henry Stickmin - Escaping the Prison",
+          "name": "Henry Stickmin - Escaping the Prison",
+          "which": null,
+          "onclick": "window.location.href='hs-etp.html';"
+        },
+        {
+          "text": "Henry Stickmin - Fleeing the Complex",
+          "name": "Henry Stickmin - Fleeing the Complex",
+          "which": null,
+          "onclick": "window.location.href='hs-ftc.html';"
+        },
+        {
+          "text": "Henry Stickmin - Infiltrating the Airship",
+          "name": "Henry Stickmin - Infiltrating the Airship",
+          "which": null,
+          "onclick": "window.location.href='hs-ita.html';"
+        },
+        {
+          "text": "Henry Stickmin - Stealing the Diamond",
+          "name": "Henry Stickmin - Stealing the Diamond",
+          "which": null,
+          "onclick": "window.location.href='hs-std.html';"
+        }
+      ]
+    },
+    {
+      "title": "Riddle School G*mes",
+      "items": [
+        {
+          "text": "Riddle School",
+          "name": "Riddle School",
+          "which": null,
+          "onclick": "window.location.href='rs.html';"
+        },
+        {
+          "text": "Riddle School 2",
+          "name": "Riddle School 2",
+          "which": null,
+          "onclick": "window.location.href='rs2.html';"
+        },
+        {
+          "text": "Riddle School 3",
+          "name": "Riddle School 3",
+          "which": null,
+          "onclick": "window.location.href='rs3.html';"
+        },
+        {
+          "text": "Riddle School 4",
+          "name": "Riddle School 4",
+          "which": null,
+          "onclick": "window.location.href='rs4.html';"
+        },
+        {
+          "text": "Riddle School 5",
+          "name": "Riddle School 5",
+          "which": null,
+          "onclick": "window.location.href='rs5.html';"
+        },
+        {
+          "text": "Riddle School - Transfer",
+          "name": "Riddle School - Transfer",
+          "which": null,
+          "onclick": "window.location.href='rs-t.html';"
+        },
+        {
+          "text": "Riddle School - Transfer 2",
+          "name": "Riddle School - Transfer 2",
+          "which": null,
+          "onclick": "window.location.href='rs-t2.html';"
+        }
+      ]
+    },
+    {
+      "title": "Storm the House G*mes",
+      "items": [
+        {
+          "text": "Storm the House",
+          "name": "Storm the House",
+          "which": null,
+          "onclick": "window.location.href='sth.html';"
+        },
+        {
+          "text": "Storm the House 2",
+          "name": "Storm the House 2",
+          "which": null,
+          "onclick": "window.location.href='sth2.html';"
+        }
+      ]
+    },
+    {
+      "title": "Mario and Smash G*mes",
+      "items": [
+        {
+          "text": "Super Mario 63",
+          "name": "Super Mario 63",
+          "which": null,
+          "onclick": "window.location.href='mario63.html';"
+        },
+        {
+          "text": "Super Mario Flash",
+          "name": "Super Mario Flash",
+          "which": null,
+          "onclick": "window.location.href='marioflash.html';"
+        },
+        {
+          "text": "Super Smash Flash",
+          "name": "Super Smash Flash",
+          "which": null,
+          "onclick": "window.location.href='supersmashflash.html';"
+        }
+      ]
+    },
+    {
+      "title": "\"Impossible\" G*mes",
+      "items": [
+        {
+          "text": "The Impossible Quiz",
+          "name": "The Impossible Quiz",
+          "which": null,
+          "onclick": "window.location.href='impossiblequiz.html';"
+        },
+        {
+          "text": "The World's Hardest G*me",
+          "name": "The World's Hardest G*me",
+          "which": null,
+          "onclick": "window.location.href='hardestgame.html';"
+        },
+        {
+          "text": "Unfair Mario",
+          "name": "Unfair Mario",
+          "which": null,
+          "onclick": "window.location.href='unfairmario.html';"
+        }
+      ]
+    },
+    {
+      "title": "Pandemic G*mes",
+      "items": [
+        {
+          "text": "Pandemic 1",
+          "name": "Pandemic 1",
+          "which": null,
+          "onclick": "window.location.href='pandemic1.html';"
+        },
+        {
+          "text": "Pandemic 2",
+          "name": "Pandemic 2",
+          "which": null,
+          "onclick": "window.location.href='pandemic2.html';"
+        }
+      ]
+    },
+    {
+      "title": "Portal G*mes",
+      "items": [
+        {
+          "text": "Portal 2d",
+          "name": "Portal 2d",
+          "which": null,
+          "onclick": "window.location.href='portal2d.html';"
+        },
+        {
+          "text": "Portal Flash",
+          "name": "Portal Flash",
+          "which": null,
+          "onclick": "window.location.href='portalflash.html';"
+        }
+      ]
+    },
+    {
+      "title": "Uncategorizable",
+      "items": [
+        {
+          "text": "QWOP",
+          "name": "QWOP",
+          "which": null,
+          "onclick": "window.location.href='qwop.html';"
+        },
+        {
+          "text": "Super Meat Boy",
+          "name": "Super Meat Boy",
+          "which": null,
+          "onclick": "window.location.href='meatboy.html';"
+        },
+        {
+          "text": "Tron",
+          "name": "Tron",
+          "which": null,
+          "onclick": "window.location.href='tron.html';"
+        },
+        {
+          "text": "Stick RPG",
+          "name": "Stick RPG",
+          "which": null,
+          "onclick": "window.location.href='stickrpg.html';"
+        },
+        {
+          "text": "Tetris",
+          "name": "Tetris",
+          "which": null,
+          "onclick": "window.location.href='tetris.html';"
+        },
+        {
+          "text": "Art of War",
+          "name": "Art of War",
+          "which": null,
+          "onclick": "window.location.href='artofwar.html';"
+        },
+        {
+          "text": "Avalanche",
+          "name": "Avalanche",
+          "which": null,
+          "onclick": "window.location.href='avalanche.html';"
+        },
+        {
+          "text": "Castle Hero",
+          "name": "Castle Hero",
+          "which": null,
+          "onclick": "window.location.href='castlehero.html';"
+        },
+        {
+          "text": "Doodle Jump",
+          "name": "Doodle Jump",
+          "which": null,
+          "onclick": "window.location.href='doodlejump.html';"
+        },
+        {
+          "text": "Interactive Buddy",
+          "name": "Interactive Buddy",
+          "which": null,
+          "onclick": "window.location.href='interactivebuddy.html';"
+        },
+        {
+          "text": "Mario Kart Flash",
+          "name": "Mario Kart Flash",
+          "which": null,
+          "onclick": "window.location.href='mariokart.html';"
+        },
+        {
+          "text": "Minecraft Tower Defense",
+          "name": "Minecraft Tower Defense",
+          "which": null,
+          "onclick": "window.location.href='minecrafttd.html';"
+        },
+        {
+          "text": "Rubik's Cube",
+          "name": "Rubik's Cube",
+          "which": null,
+          "onclick": "window.location.href='rubixcube.html';"
+        },
+        {
+          "text": "Shopping Cart Hero",
+          "name": "Shopping Cart Hero",
+          "which": null,
+          "onclick": "window.location.href='sch.html';"
+        },
+        {
+          "text": "Sonic",
+          "name": "Sonic",
+          "which": null,
+          "onclick": "window.location.href='sonic.html';"
+        },
+        {
+          "text": "Snake",
+          "name": "Snake",
+          "which": null,
+          "onclick": "window.location.href='snake.html';"
+        },
+        {
+          "text": "Learn to Fly",
+          "name": "Learn to Fly",
+          "which": null,
+          "onclick": "window.location.href='learntofly.html';"
+        },
+        {
+          "text": "Minesweeper",
+          "name": "Minesweeper",
+          "which": null,
+          "onclick": "window.location.href='minesweeper.html';"
+        },
+        {
+          "text": "Motherload",
+          "name": "Motherload",
+          "which": null,
+          "onclick": "window.location.href='motherload.html';"
+        },
+        {
+          "text": "N",
+          "name": "N",
+          "which": null,
+          "onclick": "window.location.href='n.html';"
+        },
+        {
+          "text": "Pacman",
+          "name": "Pacman",
+          "which": null,
+          "onclick": "window.location.href='pacman.html';"
+        },
+        {
+          "text": "PC Breakdown",
+          "name": "PC Breakdown",
+          "which": null,
+          "onclick": "window.location.href='pcbreak.html';"
+        },
+        {
+          "text": "Bloxorz",
+          "name": "Bloxorz",
+          "which": null,
+          "onclick": "window.location.href='bloxorz.html';"
+        },
+        {
+          "text": "Checkers",
+          "name": "Checkers",
+          "which": null,
+          "onclick": "window.location.href='checkers.html';"
+        },
+        {
+          "text": "Achievement Unlocked",
+          "name": "Achievement Unlocked",
+          "which": null,
+          "onclick": "window.location.href='achieveunlocked.html';"
+        },
+        {
+          "text": "Age of War",
+          "name": "Age of War",
+          "which": null,
+          "onclick": "window.location.href='aow.html';"
+        }
+      ]
+    },
+    {
+      "title": "G*mes I Made",
+      "items": [
+        {
+          "text": "Mad Libs!",
+          "name": "Mad Libs!",
+          "which": null,
+          "onclick": "window.location.href='ml/';"
+        },
+        {
+          "text": "Evil Button",
+          "name": "Evil Button",
+          "which": "eb/",
+          "onclick": "window.location.href='player.html?which=eb/&name=Evil Button';"
+        },
+        {
+          "text": "Numberdle",
+          "name": "Numberdle",
+          "which": "numberdle.html",
+          "onclick": "window.location.href='player.html?which=numberdle.html&name=Numberdle';"
+        },
+        {
+          "text": "The Gambling Game",
+          "name": "The Gambling Game — THIS IS NOT REAL",
+          "which": "gg/",
+          "onclick": "window.location.href='player.html?which=gg/&name=The Gambling Game — THIS IS NOT REAL';"
+        },
+        {
+          "text": "VoxelOps: Arena",
+          "name": "VoxelOps: Arena",
+          "which": "voxelops.html",
+          "onclick": "window.location.href='player.html?which=voxelops.html&name=VoxelOps: Arena';"
+        },
+        {
+          "text": "Find A Place",
+          "name": "Find A Place",
+          "which": "findaplace.html",
+          "onclick": "window.location.href='player.html?which=findaplace.html&name=Find A Place';"
+        }
+      ]
+    },
+    {
+      "title": "Talha's G*mes",
+      "items": []
+    },
+    {
+      "title": "Tetris G*mes",
+      "items": [
+        {
+          "text": "Tetris",
+          "name": "Tetris",
+          "which": "other%20tetris.html",
+          "onclick": "window.location.href='player.html?which=other%20tetris.html&name=Tetris';"
+        },
+        {
+          "text": "Tetris",
+          "name": "Tetris",
+          "which": "tetris/ANOTHERTETRIS.html",
+          "onclick": "window.location.href='player.html?which=tetris/ANOTHERTETRIS.html&name=Tetris';"
+        }
+      ]
+    },
+    {
+      "title": "Maze G*mes",
+      "items": [
+        {
+          "text": "Maze G*me",
+          "name": "Maze G*me",
+          "which": "maze.html",
+          "onclick": "window.location.href='player.html?which=maze.html&name=Maze%20G*me';"
+        },
+        {
+          "text": "Tilting Maze",
+          "name": "Tilting Maze",
+          "which": "tiltmaze/tiltmaze.html",
+          "onclick": "window.location.href='player.html?which=tiltmaze/tiltmaze.html&name=Tilting%20Maze';"
+        }
+      ]
+    },
+    {
+      "title": "Breakout G*mes",
+      "items": [
+        {
+          "text": "Brick Breaker",
+          "name": "Brick Breaker",
+          "which": "brick-breaker.html",
+          "onclick": "window.location.href='player.html?which=brick-breaker.html&name=Brick%20Breaker';"
+        },
+        {
+          "text": "Breakout G*me",
+          "name": "Breakout G*me",
+          "which": "breakout/breakout.html",
+          "onclick": "window.location.href='player.html?which=breakout/breakout.html&name=Breakout%20G*me';"
+        },
+        {
+          "text": "Stack",
+          "name": "Stack",
+          "which": "stack.html",
+          "onclick": "window.location.href='player.html?which=stack.html&name=Stack';"
+        },
+        {
+          "text": "Candy Crush",
+          "name": "Candy Crush",
+          "which": "candycrush/candycrush.html",
+          "onclick": "window.location.href='player.html?which=candycrush/candycrush.html&name=Candy%20Crush';"
+        },
+        {
+          "text": "Archery G*me",
+          "name": "Archery G*me",
+          "which": "archerygame/archery.html",
+          "onclick": "window.location.href='player.html?which=archerygame/archery.html&name=Archery%20G*me';"
+        }
+      ]
+    },
+    {
+      "title": "Typing G*mes",
+      "items": [
+        {
+          "text": "Speed Typing",
+          "name": "Speed Typing",
+          "which": "speedtype/speedtype.html",
+          "onclick": "window.location.href='player.html?which=speedtype/speedtype.html&name=Speed%20Typing';"
+        },
+        {
+          "text": "Typing G*me",
+          "name": "Typing G*me",
+          "which": "typegame/typegame.html",
+          "onclick": "window.location.href='player.html?which=typegame/typegame.html&name=Typing%20G*me';"
+        },
+        {
+          "text": "Typing G*me",
+          "name": "Typing G*me",
+          "which": "tg/othertypegame.html",
+          "onclick": "window.location.href='player.html?which=tg/othertypegame.html&name=Typing%20G*me';"
+        }
+      ]
+    },
+    {
+      "title": "Reflexes G*mes",
+      "items": [
+        {
+          "text": "Emoji Catcher",
+          "name": "Emoji%Catcher",
+          "which": "ec/emojicatch.html",
+          "onclick": "window.location.href='player.html?which=ec/emojicatch.html&name=Emoji%Catcher';"
+        },
+        {
+          "text": "Whack a Mole",
+          "name": "Whack a Mole",
+          "which": "wam/whackamolegame.html",
+          "onclick": "window.location.href='player.html?which=wam/whackamolegame.html&name=Whack%20a%20Mole';"
+        },
+        {
+          "text": "Insect Catch",
+          "name": "Insect Catch",
+          "which": "insectcatch/insectcatch.html",
+          "onclick": "window.location.href='player.html?which=insectcatch/insectcatch.html&name=Insect%20Catch';"
+        },
+        {
+          "text": "Shape Clicker",
+          "name": "Shape Clicker",
+          "which": "sc/shapeclicker.html",
+          "onclick": "window.location.href='player.html?which=sc/shapeclicker.html&name=Shape%20Clicker';"
+        }
+      ]
+    },
+    {
+      "title": "Uncategorizable G*mes",
+      "items": [
+        {
+          "text": "Minesweeper",
+          "name": "Minesweeper",
+          "which": "minesweeper/minesweeper.html",
+          "onclick": "window.location.href='player.html?which=minesweeper/minesweeper.html&name=Minesweeper';"
+        },
+        {
+          "text": "Tower Blocks G*me",
+          "name": "Tower Blocks G*me",
+          "which": "towerofblocks/tower%20blocks.html",
+          "onclick": "window.location.href='player.html?which=towerofblocks/tower%20blocks.html&name=Tower%20Blocks%20G*me';"
+        },
+        {
+          "text": "Ping Pong",
+          "name": "Ping Pong",
+          "which": "pingpong/pingpong.html",
+          "onclick": "window.location.href='player.html?which=pingpong/pingpong.html&name=Ping%20Pong';"
+        },
+        {
+          "text": "Number Guessing G*me",
+          "name": "Number Guessing G*me",
+          "which": "numberguess/numberguess.html",
+          "onclick": "window.location.href='player.html?which=numberguess/numberguess.html&name=Number%20Guessing%20G*me';"
+        },
+        {
+          "text": "Rock Paper Scissors",
+          "name": "Rock Paper Scissors",
+          "which": "roshambo/roshambo.html",
+          "onclick": "window.location.href='player.html?which=roshambo/roshambo.html&name=Rock%20Paper%20Scissors';"
+        },
+        {
+          "text": "Tic Tac Toe",
+          "name": "Tic Tac Toe",
+          "which": "ttt/tictactoe.html",
+          "onclick": "window.location.href='player.html?which=ttt/tictactoe.html&name=Tic%20Tac%20Toe';"
+        },
+        {
+          "text": "Snake",
+          "name": "Snake",
+          "which": "snake/othersnake.html",
+          "onclick": "window.location.href='player.html?which=snake/othersnake.html&name=Snake';"
+        },
+        {
+          "text": "Connect 4",
+          "name": "Connect 4",
+          "which": "connect4/connect4.html",
+          "onclick": "window.location.href='player.html?which=connect4/connect4.html&name=Connect%204';"
+        },
+        {
+          "text": "Hangman",
+          "name": "Hangman",
+          "which": "hangman/hangman.html",
+          "onclick": "window.location.href='player.html?which=hangman/hangman.html&name=Hangman';"
+        },
+        {
+          "text": "Flappy Bird",
+          "name": "Flappy Bird",
+          "which": "fb/flappybirb.html",
+          "onclick": "window.location.href='player.html?which=fb/flappybirb.html&name=Flappy%20Bird';"
+        },
+        {
+          "text": "Crossy Road",
+          "name": "Crossy Road",
+          "which": "cr/crossyroad.html",
+          "onclick": "window.location.href='player.html?which=cr/crossyroad.html&name=Crossy%20Road';"
+        },
+        {
+          "text": "Dice Roll Simulator",
+          "name": "Dice Roll Simulator",
+          "which": "drs/dicerollsim.html",
+          "onclick": "window.location.href='player.html?which=drs/dicerollsim.html&name=Dice%20Roll%20Simulator';"
+        },
+        {
+          "text": "2048",
+          "name": "2048",
+          "which": "2048game.html",
+          "onclick": "window.location.href='player.html?which=2048game.html&name=2048';"
+        },
+        {
+          "text": "Speak Number Guess",
+          "name": "Speak Number Guess",
+          "which": "sng/speaknumguess.html",
+          "onclick": "window.location.href='player.html?which=sng/speaknumguess.html&name=Speak%20Number%20Guess';"
+        },
+        {
+          "text": "Fruit Slicer",
+          "name": "Fruit Slicer",
+          "which": "fs/fruitslicer.html",
+          "onclick": "window.location.href='player.html?which=fs/fruitslicer.html&name=Fruit%20Slicer';"
+        },
+        {
+          "text": "Quiz G*me",
+          "name": "Quiz G*me",
+          "which": "qg/quizgame.html",
+          "onclick": "window.location.href='player.html?which=qg/quizgame.html&name=Quiz%20G*me';"
+        }
+      ]
+    },
+    {
+      "title": "G*mes From 3kh0",
+      "items": [
+        {
+          "text": "10 Minutes Till Dawn",
+          "name": "10 Minutes Till Dawn",
+          "which": "10mintilldawn/",
+          "onclick": "window.location.href='player.html?which=10mintilldawn/&name=10%20Minutes%20Till%20Dawn';"
+        },
+        {
+          "text": "99 Balls",
+          "name": "99 Balls",
+          "which": "99balls/",
+          "onclick": "window.location.href='player.html?which=99balls/&name=99%20Balls';"
+        },
+        {
+          "text": "100 Pl*yer Pong",
+          "name": "100 Pl*yer Pong",
+          "which": "100ng/",
+          "onclick": "window.location.href='player.html?which=100ng/&name=100 Pl*yer Pong';"
+        },
+        {
+          "text": "2048 Multitask",
+          "name": "2048 Multitask",
+          "which": "2048adhd/",
+          "onclick": "window.location.href='player.html?which=2048adhd/&name=2048 Multitask';"
+        },
+        {
+          "text": "A Dance of Fire and Ice",
+          "name": "A Dance of Fire and Ice",
+          "which": "fireice/",
+          "onclick": "window.location.href='player.html?which=fireice/&name=A Dance of Fire and Ice';"
+        },
+        {
+          "text": "A Dark Room",
+          "name": "A Dark Room",
+          "which": "darkroom/",
+          "onclick": "window.location.href='player.html?which=darkroom/&name=A Dark Room';"
+        },
+        {
+          "text": "Adrenaline Challenge",
+          "name": "Adrenaline Challenge",
+          "which": "adrenaline/",
+          "onclick": "window.location.href='player.html?which=adrenaline/&name=Adrenaline Challenge';"
+        },
+        {
+          "text": "Ages of Conflict",
+          "name": "Ages of Conflict",
+          "which": "aoc/",
+          "onclick": "window.location.href='player.html?which=aoc/&name=Ages of Conflict';"
+        },
+        {
+          "text": "Alien Hominid",
+          "name": "Alien Hominid",
+          "which": "ah/",
+          "onclick": "window.location.href='player.html?which=ah/&name=Alien Hominid';"
+        },
+        {
+          "text": "Amidst the Sky",
+          "name": "Amidst the Sky",
+          "which": "atc/",
+          "onclick": "window.location.href='player.html?which=atc/&name=Amidst the Sky';"
+        },
+        {
+          "text": "Angry Sharks",
+          "name": "Angry Sharks",
+          "which": "as/",
+          "onclick": "window.location.href='player.html?which=as/&name=Angry Sharks';"
+        },
+        {
+          "text": "Aquapark Slides",
+          "name": "Aquapark Slides",
+          "which": "aquaslide/",
+          "onclick": "window.location.href='player.html?which=aquaslide/&name=Aquapark Slides';"
+        },
+        {
+          "text": "Astray",
+          "name": "Astray",
+          "which": "astray/",
+          "onclick": "window.location.href='player.html?which=astray/&name=Astray';"
+        },
+        {
+          "text": "Awesome Tanks 2",
+          "name": "Awesome Tanks 2",
+          "which": "at2/",
+          "onclick": "window.location.href='player.html?which=at2/&name=Awesome Tanks 2';"
+        },
+        {
+          "text": "Backrooms",
+          "name": "Backrooms",
+          "which": "br/",
+          "onclick": "window.location.href='player.html?which=br/&name=Backrooms';"
+        },
+        {
+          "text": "Bad Ice Cream",
+          "name": "Bad Ice Cream",
+          "which": "bic/",
+          "onclick": "window.location.href='player.html?which=bic/&name=Bad Ice Cream';"
+        },
+        {
+          "text": "Bad Ice Cream 2",
+          "name": "Bad Ice Cream 2",
+          "which": "bic2/",
+          "onclick": "window.location.href='player.html?which=bic2/&name=Bad Ice Cream 2';"
+        },
+        {
+          "text": "Bad Ice Cream 3",
+          "name": "Bad Ice Cream 3",
+          "which": "bic3/",
+          "onclick": "window.location.href='player.html?which=bic3/&name=Bad Ice Cream 3';"
+        },
+        {
+          "text": "Baldi's Basics",
+          "name": "Baldi\\",
+          "which": "baldibasic/",
+          "onclick": "window.location.href='player.html?which=baldibasic/&name=Baldi\\'s Basics';"
+        },
+        {
+          "text": "Bacon May Die",
+          "name": "Bacon May Die",
+          "which": "bmd/",
+          "onclick": "window.location.href='player.html?which=bmd/&name=Bacon May Die';"
+        },
+        {
+          "text": "Ballistic Chickens",
+          "name": "Ballistic Chickens",
+          "which": "bc/",
+          "onclick": "window.location.href='player.html?which=bc/&name=Ballistic Chickens';"
+        },
+        {
+          "text": "Basket Random",
+          "name": "Basket Random",
+          "which": "basketrandom/",
+          "onclick": "window.location.href='player.html?which=basketrandom/&name=Basket Random';"
+        },
+        {
+          "text": "Basketball Stars",
+          "name": "Basketball Stars",
+          "which": "bs/",
+          "onclick": "window.location.href='player.html?which=bs/&name=Basketball Stars';"
+        },
+        {
+          "text": "Basket Bros",
+          "name": "Basket Bros",
+          "which": "basketbros/",
+          "onclick": "window.location.href='player.html?which=basketbros/&name=Basket Bros';"
+        },
+        {
+          "text": "Battle for Gondor",
+          "name": "Battle for Gondor",
+          "which": "bfg/",
+          "onclick": "window.location.href='player.html?which=bfg/&name=Battle for Gondor';"
+        },
+        {
+          "text": "Big Red Button",
+          "name": "Big Red Button",
+          "which": "brb/",
+          "onclick": "window.location.href='player.html?which=brb/&name=Big Red Button';"
+        },
+        {
+          "text": "Bitlife",
+          "name": "Bitlife",
+          "which": "bl/",
+          "onclick": "window.location.href='player.html?which=bl/&name=Bitlife';"
+        },
+        {
+          "text": "Black Hole Square",
+          "name": "Black Hole Square",
+          "which": "bhs/",
+          "onclick": "window.location.href='player.html?which=bhs/&name=Black Hole Square';"
+        },
+        {
+          "text": "Black Knight",
+          "name": "Black Knight",
+          "which": "bk/",
+          "onclick": "window.location.href='player.html?which=bk/&name=Black Knight';"
+        },
+        {
+          "text": "Block Post",
+          "name": "Block Post",
+          "which": "bp/",
+          "onclick": "window.location.href='player.html?which=bp/&name=Block Post';"
+        },
+        {
+          "text": "Bob the Robber 2",
+          "name": "Bob the Robber 2",
+          "which": "btr2/",
+          "onclick": "window.location.href='player.html?which=btr2/&name=Bob the Robber 2';"
+        },
+        {
+          "text": "Bonk.io",
+          "name": "Obax.vb&cn=true",
+          "which": "bonkio/",
+          "onclick": "window.location.href='player.html?which=bonkio/&name=Obax.vb&cn=true';"
+        },
+        {
+          "text": "Box Head 2 Pl*y",
+          "name": "Box Head 2 Pl*y",
+          "which": "bh2p/",
+          "onclick": "window.location.href='player.html?which=bh2p/&name=Box Head 2 Pl*y';"
+        },
+        {
+          "text": "Boxing Random",
+          "name": "Boxing Random",
+          "which": "boxingrandom/",
+          "onclick": "window.location.href='player.html?which=boxingrandom/&name=Boxing Random';"
+        },
+        {
+          "text": "Bloons Tower Defense 4",
+          "name": "Bloons Tower Defense 4",
+          "which": "btd4/",
+          "onclick": "window.location.href='player.html?which=btd4/&name=Bloons Tower Defense 4';"
+        },
+        {
+          "text": "Bloons Tower Defense 5",
+          "name": "Bloons Tower Defense 5",
+          "which": "btd5/",
+          "onclick": "window.location.href='player.html?which=btd5/&name=Bloons Tower Defense 5';"
+        },
+        {
+          "text": "Burgers and Frights",
+          "name": "Burgers and Frights",
+          "which": "baf/",
+          "onclick": "window.location.href='player.html?which=baf/&name=Burgers and Frights';"
+        },
+        {
+          "text": "Cannon Basketball 4",
+          "name": "Cannon Basketball 4",
+          "which": "cb4/",
+          "onclick": "window.location.href='player.html?which=cb4/&name=Cannon Basketball 4';"
+        },
+        {
+          "text": "Canyon Defense",
+          "name": "Canyon Defense",
+          "which": "cd/",
+          "onclick": "window.location.href='player.html?which=cd/&name=Canyon Defense';"
+        },
+        {
+          "text": "Cars Simulator",
+          "name": "Cars Simulator",
+          "which": "cs/",
+          "onclick": "window.location.href='player.html?which=cs/&name=Cars Simulator';"
+        },
+        {
+          "text": "Champions' Island",
+          "name": "Champions\\",
+          "which": "ci/",
+          "onclick": "window.location.href='player.html?which=ci/&name=Champions\\' Island';"
+        },
+        {
+          "text": "Cell Machine",
+          "name": "Cell Machine",
+          "which": "cm/",
+          "onclick": "window.location.href='player.html?which=cm/&name=Cell Machine';"
+        },
+        {
+          "text": "Champion Archer",
+          "name": "Champion Archer",
+          "which": "ca/",
+          "onclick": "window.location.href='player.html?which=ca/&name=Champion Archer';"
+        },
+        {
+          "text": "Chess",
+          "name": "Chess",
+          "which": "chess/",
+          "onclick": "window.location.href='player.html?which=chess/&name=Chess';"
+        },
+        {
+          "text": "Dinosaur G*me",
+          "name": "Dinosaur G*me",
+          "which": "dg/",
+          "onclick": "window.location.href='player.html?which=dg/&name=Dinosaur G*me';"
+        },
+        {
+          "text": "Circlo",
+          "name": "Circlo",
+          "which": "circlo/",
+          "onclick": "window.location.href='player.html?which=circlo/&name=Circlo';"
+        },
+        {
+          "text": "ClassiCube",
+          "name": "ClassiCube",
+          "which": "cc/",
+          "onclick": "window.location.href='player.html?which=cc/&name=ClassiCube';"
+        },
+        {
+          "text": "Cluster Rush",
+          "name": "Cluster Rush",
+          "which": "clusterrush/",
+          "onclick": "window.location.href='player.html?which=clusterrush/&name=Cluster Rush';"
+        },
+        {
+          "text": "CMM Client",
+          "name": "CMM Client",
+          "which": "cmmc/",
+          "onclick": "window.location.href='player.html?which=cmmc/&name=CMM Client';"
+        },
+        {
+          "text": "Ultimate Table Tennis",
+          "name": "Ultimate Table Tennis",
+          "which": "utt/",
+          "onclick": "window.location.href='player.html?which=utt/&name=Ultimate Table Tennis';"
+        },
+        {
+          "text": "Connect 3",
+          "name": "Connect 3",
+          "which": "cnct3/",
+          "onclick": "window.location.href='player.html?which=cnct3/&name=Connect 3';"
+        },
+        {
+          "text": "Cookie Clicker",
+          "name": "Cookie Clicker",
+          "which": "cookieclicker/",
+          "onclick": "window.location.href='player.html?which=cookieclicker/&name=Cookie Clicker';"
+        },
+        {
+          "text": "Core Ball",
+          "name": "Core Ball",
+          "which": "cb/",
+          "onclick": "window.location.href='player.html?which=cb/&name=Core Ball';"
+        },
+        {
+          "text": "CraftMine",
+          "name": "CraftMine",
+          "which": "craftmine/",
+          "onclick": "window.location.href='player.html?which=craftmine/&name=CraftMine';"
+        },
+        {
+          "text": "Creative K*ll Chamber",
+          "name": "Creative K*ll Chamber",
+          "which": "ckc/",
+          "onclick": "window.location.href='player.html?which=ckc/&name=Creative K*ll Chamber';"
+        },
+        {
+          "text": "Crossy Road",
+          "name": "Crossy Road",
+          "which": "crossyroad/",
+          "onclick": "window.location.href='player.html?which=crossyroad/&name=Crossy Road';"
+        },
+        {
+          "text": "CSGO Clicker",
+          "name": "CSGO Clicker",
+          "which": "csgoclicker/",
+          "onclick": "window.location.href='player.html?which=csgoclicker/&name=CSGO Clicker';"
+        },
+        {
+          "text": "Cut the Rope",
+          "name": "Cut the Rope",
+          "which": "ctr/",
+          "onclick": "window.location.href='player.html?which=ctr/&name=Cut the Rope';"
+        },
+        {
+          "text": "Cut the Rope: Holiday",
+          "name": "Cut the Rope%3A Holiday",
+          "which": "ctrh/",
+          "onclick": "window.location.href='player.html?which=ctrh/&name=Cut the Rope%3A Holiday';"
+        },
+        {
+          "text": "Cut the Rope: Time Travel",
+          "name": "Cut the Rope%3A Time Travel",
+          "which": "ctrtt/",
+          "onclick": "window.location.href='player.html?which=ctrtt/&name=Cut the Rope%3A Time Travel';"
+        },
+        {
+          "text": "Cubefield",
+          "name": "Cubefield",
+          "which": "cf/",
+          "onclick": "window.location.href='player.html?which=cf/&name=Cubefield';"
+        },
+        {
+          "text": "Dante",
+          "name": "Dante",
+          "which": "dante/",
+          "onclick": "window.location.href='player.html?which=dante/&name=Dante';"
+        },
+        {
+          "text": "Deal or No Deal",
+          "name": "Deal or No Deal",
+          "which": "dond/",
+          "onclick": "window.location.href='player.html?which=dond/&name=Deal or No Deal';"
+        },
+        {
+          "text": "Death Run",
+          "name": "Death Run",
+          "which": "dr/",
+          "onclick": "window.location.href='player.html?which=dr/&name=Death Run';"
+        },
+        {
+          "text": "Deepest Sword",
+          "name": "Deepest Sword",
+          "which": "ds/",
+          "onclick": "window.location.href='player.html?which=ds/&name=Deepest Sword';"
+        },
+        {
+          "text": "Defend the Tank",
+          "name": "Defend the Tank",
+          "which": "dft/",
+          "onclick": "window.location.href='player.html?which=dft/&name=Defend the Tank';"
+        },
+        {
+          "text": "Dr. Acorn",
+          "name": "Dr. Acorn",
+          "which": "da2/",
+          "onclick": "window.location.href='player.html?which=da2/&name=Dr. Acorn';"
+        },
+        {
+          "text": "Doge Miner",
+          "name": "Doge Miner",
+          "which": "dm/",
+          "onclick": "window.location.href='player.html?which=dm/&name=Doge Miner';"
+        },
+        {
+          "text": "Doom",
+          "name": "Doom",
+          "which": "doom/",
+          "onclick": "window.location.href='player.html?which=doom/&name=Doom';"
+        },
+        {
+          "text": "Double Wires",
+          "name": "Double Wires",
+          "which": "dw/",
+          "onclick": "window.location.href='player.html?which=dw/&name=Double Wires';"
+        },
+        {
+          "text": "Dragon vs. Bricks",
+          "name": "Dragon vs. Bricks",
+          "which": "dvb/",
+          "onclick": "window.location.href='player.html?which=dvb/&name=Dragon vs. Bricks';"
+        },
+        {
+          "text": "Draw the Hill",
+          "name": "Draw the Hill",
+          "which": "dth/",
+          "onclick": "window.location.href='player.html?which=dth/&name=Draw the Hill';"
+        },
+        {
+          "text": "Drift Hunters",
+          "name": "Drift Hunters",
+          "which": "dh/",
+          "onclick": "window.location.href='player.html?which=dh/&name=Drift Hunters';"
+        },
+        {
+          "text": "Drive Mad",
+          "name": "Drive Mad",
+          "which": "drivemad/",
+          "onclick": "window.location.href='player.html?which=drivemad/&name=Drive Mad';"
+        },
+        {
+          "text": "Duke Nukem 2",
+          "name": "Duke Nukem 2",
+          "which": "nd/",
+          "onclick": "window.location.href='player.html?which=nd/&name=Duke Nukem 2';"
+        },
+        {
+          "text": "EaglerFaithful",
+          "name": "EaglerFaithful",
+          "which": "ef/",
+          "onclick": "window.location.href='player.html?which=ef/&name=EaglerFaithful';"
+        },
+        {
+          "text": "EaglerJP",
+          "name": "EaglerJP",
+          "which": "ejp/",
+          "onclick": "window.location.href='player.html?which=ejp/&name=EaglerJP';"
+        },
+        {
+          "text": "Earn to Die",
+          "name": "Earn to Die",
+          "which": "eth/",
+          "onclick": "window.location.href='player.html?which=eth/&name=Earn to Die';"
+        },
+        {
+          "text": "Edge Surf",
+          "name": "Edge Surf",
+          "which": "es/",
+          "onclick": "window.location.href='player.html?which=es/&name=Edge Surf';"
+        },
+        {
+          "text": "Edge Not Found",
+          "name": "Edge Not Found",
+          "which": "enf/",
+          "onclick": "window.location.href='player.html?which=enf/&name=Edge Not Found';"
+        },
+        {
+          "text": "Eel Slap",
+          "name": "Eel Slap",
+          "which": "eelslap/",
+          "onclick": "window.location.href='player.html?which=eelslap/&name=Eel Slap';"
+        },
+        {
+          "text": "Eggy Car",
+          "name": "Eggy Car",
+          "which": "eggycar/",
+          "onclick": "window.location.href='player.html?which=eggycar/&name=Eggy Car';"
+        },
+        {
+          "text": "Evil Glitch",
+          "name": "Evil Glitch",
+          "which": "eg/",
+          "onclick": "window.location.href='player.html?which=eg/&name=Evil Glitch';"
+        },
+        {
+          "text": "Elastic Man",
+          "name": "Elastic Man",
+          "which": "em/",
+          "onclick": "window.location.href='player.html?which=em/&name=Elastic Man';"
+        },
+        {
+          "text": "Endless War 3",
+          "name": "Endless War 3",
+          "which": "ew3/",
+          "onclick": "window.location.href='player.html?which=ew3/&name=Endless War 3';"
+        },
+        {
+          "text": "Exo",
+          "name": "Exo",
+          "which": "e/",
+          "onclick": "window.location.href='player.html?which=e/&name=Exo';"
+        },
+        {
+          "text": "Factory Balls Forever",
+          "name": "Factory Balls Forever",
+          "which": "fbf/",
+          "onclick": "window.location.href='player.html?which=fbf/&name=Factory Balls Forever';"
+        },
+        {
+          "text": "Fair Squares",
+          "name": "Fair Squares",
+          "which": "fairsquares/",
+          "onclick": "window.location.href='player.html?which=fairsquares/&name=Fair Squares';"
+        },
+        {
+          "text": "Fireboy and Watergirl: Forest Temple",
+          "name": "Fireboy and Watergirl%3A Forest Temple",
+          "which": "fw/",
+          "onclick": "window.location.href='player.html?which=fw/&name=Fireboy and Watergirl%3A Forest Temple';"
+        },
+        {
+          "text": "Five Nights at Winston's",
+          "name": "Five Nights at Winston\\",
+          "which": "fnaw/",
+          "onclick": "window.location.href='player.html?which=fnaw/&name=Five Nights at Winston\\'s';"
+        },
+        {
+          "text": "Friday Night Funkin'",
+          "name": "Friday Night Funkin'",
+          "which": null,
+          "onclick": "alert('So, uh, wow. There are... a lot of folders in Friday Night Funkin\\'. Too many to import without the VSCode or GitHub desktop apps or losing my sanity, so sorry, but I\\'m not doing this yet!');"
+        },
+        {
+          "text": "Frying Nemo",
+          "name": "Frying Nemo",
+          "which": "fn/",
+          "onclick": "window.location.href='player.html?which=fn/&name=Frying Nemo';"
+        },
+        {
+          "text": "FSU Craft",
+          "name": "FSU Craft",
+          "which": "fsuc/",
+          "onclick": "window.location.href='player.html?which=fsuc/&name=FSU Craft';"
+        },
+        {
+          "text": "Fuchsiax Client",
+          "name": "Fuchsiax Client",
+          "which": "fuchsiaxclient.html",
+          "onclick": "window.location.href='player.html?which=fuchsiaxclient.html&name=Fuchsiax Client';"
+        },
+        {
+          "text": "Generic Fishing G*me",
+          "name": "Generic Fishing G*me",
+          "which": "gfg/",
+          "onclick": "window.location.href='player.html?which=gfg/&name=Generic Fishing G*me';"
+        },
+        {
+          "text": "Getaway Sh*oter",
+          "name": "Getaway Sh*oter",
+          "which": "gs/",
+          "onclick": "window.location.href='player.html?which=gs/&name=Getaway Sh*oter';"
+        },
+        {
+          "text": "Super Planet Life",
+          "name": "Super Planet Life",
+          "which": "pl/",
+          "onclick": "window.location.href='player.html?which=pl/&name=Super Planet Life';"
+        },
+        {
+          "text": "Gimme the Airpod",
+          "name": "Gimme the Airpod",
+          "which": "gta/",
+          "onclick": "window.location.href='player.html?which=gta/&name=Gimme the Airpod';"
+        },
+        {
+          "text": "Glass City",
+          "name": "Glass City",
+          "which": "gc/",
+          "onclick": "window.location.href='player.html?which=gc/&name=Glass City';"
+        },
+        {
+          "text": "Go Ball",
+          "name": "Go Ball",
+          "which": "gb/",
+          "onclick": "window.location.href='player.html?which=gb/&name=Go Ball';"
+        },
+        {
+          "text": "Good Night",
+          "name": "Good Night",
+          "which": "gn/",
+          "onclick": "window.location.href='player.html?which=gn/&name=Good Night';"
+        },
+        {
+          "text": "Google Snake",
+          "name": "Google Snake",
+          "which": "googlesnake/",
+          "onclick": "window.location.href='player.html?which=googlesnake/&name=Google Snake';"
+        },
+        {
+          "text": "Gravity Soccer",
+          "name": "Gravity Soccer",
+          "which": "gravitysoccer/",
+          "onclick": "window.location.href='player.html?which=gravitysoccer/&name=Gravity Soccer';"
+        },
+        {
+          "text": "Grindcraft",
+          "name": "Grindcraft",
+          "which": "grindcraft/",
+          "onclick": "window.location.href='player.html?which=grindcraft/&name=Grindcraft';"
+        },
+        {
+          "text": "Hacker Type",
+          "name": "Hacker Type",
+          "which": "ht/",
+          "onclick": "window.location.href='player.html?which=ht/&name=Hacker Type';"
+        },
+        {
+          "text": "Happy Hop",
+          "name": "Happy Hop",
+          "which": "hh/",
+          "onclick": "window.location.href='player.html?which=hh/&name=Happy Hop';"
+        },
+        {
+          "text": "Hardware Tycoon",
+          "name": "Hardware Tycoon",
+          "which": "hardwaretycoon/",
+          "onclick": "window.location.href='player.html?which=hardwaretycoon/&name=Hardware Tycoon';"
+        },
+        {
+          "text": "Hover Bot Arena",
+          "name": "Hover Bot Arena",
+          "which": "hba/",
+          "onclick": "window.location.href='player.html?which=hba/&name=Hover Bot Arena';"
+        },
+        {
+          "text": "Helicopter",
+          "name": "Helicopter",
+          "which": "h/",
+          "onclick": "window.location.href='player.html?which=h/&name=Helicopter';"
+        },
+        {
+          "text": "Hex Empire",
+          "name": "Hex Empire",
+          "which": "he/",
+          "onclick": "window.location.href='player.html?which=he/&name=Hex Empire';"
+        },
+        {
+          "text": "HexGL",
+          "name": "HexGL",
+          "which": null,
+          "onclick": "alert('So, uh, wow. There are... a lot of folders in HexGL. Too many to import without the VSCode or GitHub desktop apps or losing my sanity, so sorry, but I\\'m not doing this yet! And yes, this is nearly the same message as the one for Friday Night Funkin\\'.');"
+        },
+        {
+          "text": "Hextris",
+          "name": "Hextris",
+          "which": "hextris/",
+          "onclick": "window.location.href='player.html?which=hextris/&name=Hextris';"
+        },
+        {
+          "text": "High Rise Hop",
+          "name": "High Rise Hop",
+          "which": "hrh/",
+          "onclick": "window.location.href='player.html?which=hrh/&name=High Rise Hop';"
+        },
+        {
+          "text": "Hill Climb Racing 2",
+          "name": "Hill Climb Racing 2",
+          "which": "hcr.html",
+          "onclick": "window.location.href='player.html?which=hcr.html&name=Hill Climb Racing 2';"
+        },
+        {
+          "text": "Idle Breakout",
+          "name": "Idle Breakout",
+          "which": "ib/",
+          "onclick": "window.location.href='player.html?which=ib/&name=Idle Breakout';"
+        },
+        {
+          "text": "Idle Dice",
+          "name": "Idle Dice",
+          "which": "id.html",
+          "onclick": "window.location.href='player.html?which=id.html&name=Idle Dice';"
+        },
+        {
+          "text": "Just One Boss",
+          "name": "Just One Boss",
+          "which": "job/",
+          "onclick": "window.location.href='player.html?which=job/&name=Just One Boss';"
+        },
+        {
+          "text": "Kitchen G*n G*ame",
+          "name": "Kitchen G*n G*me",
+          "which": "kgg/",
+          "onclick": "window.location.href='player.html?which=kgg/&name=Kitchen G*n G*me';"
+        },
+        {
+          "text": "Kitten Cannon",
+          "name": "Kitten Cannon",
+          "which": "kc/",
+          "onclick": "window.location.href='player.html?which=kc/&name=Kitten Cannon';"
+        },
+        {
+          "text": "Kn*fe Master",
+          "name": "Kn*fe Master",
+          "which": "km/",
+          "onclick": "window.location.href='player.html?which=km/&name=Kn*fe Master';"
+        },
+        {
+          "text": "Learn to Fly 2",
+          "name": "Learn to Fly 2",
+          "which": "ltf2/",
+          "onclick": "window.location.href='player.html?which=ltf2/&name=Learn to Fly 2';"
+        },
+        {
+          "text": "Learn to Fly 3",
+          "name": "Learn to Fly 3",
+          "which": "ltf3/",
+          "onclick": "window.location.href='player.html?which=ltf3/&name=Learn to Fly 3';"
+        },
+        {
+          "text": "Line Rider",
+          "name": "Line Rider",
+          "which": "linerider.html",
+          "onclick": "window.location.href='player.html?which=linerider.html&name=Line Rider';"
+        },
+        {
+          "text": "Learn to Fly Idle",
+          "name": "Learn to Fly Idle",
+          "which": "ltfi/",
+          "onclick": "window.location.href='player.html?which=ltfi/&name=Learn to Fly Idle';"
+        },
+        {
+          "text": "Super Mario Bros.",
+          "name": "Super Mario Bros.",
+          "which": "smb/",
+          "onclick": "window.location.href='player.html?which=smb/&name=Super Mario Bros.';"
+        },
+        {
+          "text": "Marvin Spectrum",
+          "name": "Marvin Spectrum",
+          "which": "ms/",
+          "onclick": "window.location.href='player.html?which=ms/&name=Marvin Spectrum';"
+        },
+        {
+          "text": "Matrix Rampage",
+          "name": "Matrix Rampage",
+          "which": "mr/",
+          "onclick": "window.location.href='player.html?which=mr/&name=Matrix Rampage';"
+        },
+        {
+          "text": "Merge Round Racers!",
+          "name": "Merge Round Racers",
+          "which": "mrr/",
+          "onclick": "window.location.href='player.html?which=mrr/&name=Merge Round Racers';"
+        },
+        {
+          "text": "Mini Putt",
+          "name": "Mini Putt",
+          "which": "mp/",
+          "onclick": "window.location.href='player.html?which=mp/&name=Mini Putt';"
+        },
+        {
+          "text": "Monkey Mart",
+          "name": "Monkey Mart",
+          "which": "mm/",
+          "onclick": "window.location.href='player.html?which=mm/&name=Monkey Mart';"
+        },
+        {
+          "text": "Monster Tracks",
+          "name": "Monster Tracks",
+          "which": "mt/",
+          "onclick": "window.location.href='player.html?which=mt/&name=Monster Tracks';"
+        },
+        {
+          "text": "Moto X3M",
+          "name": "Moto X3M",
+          "which": "motox3m/",
+          "onclick": "window.location.href='player.html?which=motox3m/&name=Moto X3M';"
+        },
+        {
+          "text": "My Rusty Submarine",
+          "name": "My Rusty Submarine",
+          "which": "mrs/",
+          "onclick": "window.location.href='player.html?which=mrs/&name=My Rusty Submarine';"
+        },
+        {
+          "text": "N-Gon",
+          "name": "N-Gon",
+          "which": "ng/",
+          "onclick": "window.location.href='player.html?which=ng/&name=N-Gon';"
+        },
+        {
+          "text": "Ninjas Evil Corp",
+          "name": "Ninjas Evil Corp",
+          "which": "nec/",
+          "onclick": "window.location.href='player.html?which=nec/&name=Ninjas Evil Corp';"
+        },
+        {
+          "text": "Noob Steve Parkour",
+          "name": "Noob Steve Parkour",
+          "which": "nsp/",
+          "onclick": "window.location.href='player.html?which=nsp/&name=Noob Steve Parkour';"
+        },
+        {
+          "text": "NS Shaft",
+          "name": "NS Shaft",
+          "which": "nss/",
+          "onclick": "window.location.href='player.html?which=nss/&name=NS Shaft';"
+        },
+        {
+          "text": "Offline Paradise",
+          "name": "Offline Paradise",
+          "which": "op/",
+          "onclick": "window.location.href='player.html?which=op/&name=Offline Paradise';"
+        },
+        {
+          "text": "Om Nom Bounce",
+          "name": "Om Nom Bounce",
+          "which": "onb/",
+          "onclick": "window.location.href='player.html?which=onb/&name=Om Nom Bounce';"
+        },
+        {
+          "text": "Out of CTRL!",
+          "name": "Out of CTRL!",
+          "which": "ooc/",
+          "onclick": "window.location.href='player.html?which=ooc/&name=Out of CTRL!';"
+        },
+        {
+          "text": "Overwatch",
+          "name": "Overwatch",
+          "which": "ow/",
+          "onclick": "window.location.href='player.html?which=ow/&name=Overwatch';"
+        },
+        {
+          "text": "OvO",
+          "name": "OvO",
+          "which": "ovo/",
+          "onclick": "window.location.href='player.html?which=ovo/&name=OvO';"
+        },
+        {
+          "text": "Paper.io 2",
+          "name": "Cncre.vb 2&cn=true",
+          "which": "pio2/",
+          "onclick": "window.location.href='player.html?which=pio2/&name=Cncre.vb 2&cn=true';"
+        },
+        {
+          "text": "Particle Clicker",
+          "name": "Particle Clicker",
+          "which": "pc/",
+          "onclick": "window.location.href='player.html?which=pc/&name=Particle Clicker';"
+        },
+        {
+          "text": "Pigeon Ascent",
+          "name": "Pigeon Ascent",
+          "which": "pa/",
+          "onclick": "window.location.href='player.html?which=pa/&name=Pigeon Ascent';"
+        },
+        {
+          "text": "Polybranch",
+          "name": "Polybranch",
+          "which": "pb/",
+          "onclick": "window.location.href='player.html?which=pb/&name=Polybranch';"
+        },
+        {
+          "text": "Protektor",
+          "name": "Protektor",
+          "which": "p/",
+          "onclick": "window.location.href='player.html?which=p/&name=Protektor';"
+        },
+        {
+          "text": "Rabbit Samurai",
+          "name": "Rabbit Samurai",
+          "which": "rs/",
+          "onclick": "window.location.href='player.html?which=rs/&name=Rabbit Samurai';"
+        },
+        {
+          "text": "Rabbit Samurai 2",
+          "name": "Rabbit Samurai 2",
+          "which": "rs2/Rabbit Samurai 2",
+          "onclick": "window.location.href='player.html?which=rs2/Rabbit Samurai 2';"
+        },
+        {
+          "text": "Retro Bowl",
+          "name": "Retro Bowl",
+          "which": "rb/",
+          "onclick": "window.location.href='player.html?which=rb/&name=Retro Bowl';"
+        },
+        {
+          "text": "Rolling Forests",
+          "name": "Rolling Forests",
+          "which": "rf/",
+          "onclick": "window.location.href='player.html?which=rf/&name=Rolling Forests';"
+        },
+        {
+          "text": "Rolly Vortex",
+          "name": "Rolly Vortex",
+          "which": "rv/",
+          "onclick": "window.location.href='player.html?which=rv/&name=Rolly Vortex';"
+        },
+        {
+          "text": "Rooftop Sn*pers",
+          "name": "Rooftop Sn*pers",
+          "which": "rooftopsnipers/",
+          "onclick": "window.location.href='player.html?which=rooftopsnipers/&name=Rooftop Sn*pers';"
+        },
+        {
+          "text": "Sandboxels",
+          "name": "Sandboxels",
+          "which": "sb/",
+          "onclick": "window.location.href='player.html?which=sb/&name=Sandboxels';"
+        },
+        {
+          "text": "Shuttle Deck",
+          "name": "Shuttle Deck",
+          "which": "sd/",
+          "onclick": "window.location.href='player.html?which=sd/&name=Shuttle Deck';"
+        },
+        {
+          "text": "Slime Rush TD",
+          "name": "Slime Rush TD",
+          "which": "srtd/",
+          "onclick": "window.location.href='player.html?which=srtd/&name=Slime Rush TD';"
+        },
+        {
+          "text": "Slope",
+          "name": "Slope",
+          "which": "s/",
+          "onclick": "window.location.href='player.html?which=s/&name=Slope';"
+        },
+        {
+          "text": "Super Mario 64",
+          "name": "Super Mario 64",
+          "which": "sm64/",
+          "onclick": "window.location.href='player.html?which=sm64/&name=Super Mario 64';"
+        },
+        {
+          "text": "Smoking Barrels",
+          "name": "Smoking Barrels",
+          "which": "smokingbarrels/",
+          "onclick": "window.location.href='player.html?which=smokingbarrels/&name=Smoking Barrels';"
+        },
+        {
+          "text": "Soundboard",
+          "name": "Soundboard",
+          "which": "soundboard/",
+          "onclick": "window.location.href='player.html?which=soundboard/&name=Soundboard';"
+        },
+        {
+          "text": "Space Company",
+          "name": "Space Company",
+          "which": "spacecompany/",
+          "onclick": "window.location.href='player.html?which=spacecompany/&name=Space Company';"
+        },
+        {
+          "text": "Space Garden",
+          "name": "Space Garden",
+          "which": "spacegarden/",
+          "onclick": "window.location.href='player.html?which=spacegarden/&name=Space Garden';"
+        },
+        {
+          "text": "Spelunky",
+          "name": "Spelunky",
+          "which": "spelunky/",
+          "onclick": "window.location.href='player.html?which=spelunky/&name=Spelunky';"
+        },
+        {
+          "text": "Stick Duel Battle",
+          "name": "Stick Duel Battle",
+          "which": "sdb/",
+          "onclick": "window.location.href='player.html?which=sdb/&name=Stick Duel Battle';"
+        },
+        {
+          "text": "Stickman Boost",
+          "name": "Stickman Boost",
+          "which": "stickboost/",
+          "onclick": "window.location.href='player.html?which=stickboost/&name=Stickman Boost';"
+        },
+        {
+          "text": "Stickman Hook",
+          "name": "Stickman Hook",
+          "which": "sh/",
+          "onclick": "window.location.href='player.html?which=sh/&name=Stickman Hook';"
+        },
+        {
+          "text": "Super Fowlist",
+          "name": "Super Fowlist",
+          "which": "sf/",
+          "onclick": "window.location.href='player.html?which=sf/&name=Super Fowlist';"
+        },
+        {
+          "text": "Super Mario Construct",
+          "name": "Super Mario Construct",
+          "which": "smc/",
+          "onclick": "window.location.href='player.html?which=smc/&name=Super Mario Construct';"
+        },
+        {
+          "text": "Swerve",
+          "name": "Swerve",
+          "which": "swerve/",
+          "onclick": "window.location.href='player.html?which=swerve/&name=Swerve';"
+        },
+        {
+          "text": "The Final Earth",
+          "name": "The Final Earth",
+          "which": "tfe/",
+          "onclick": "window.location.href='player.html?which=tfe/&name=The Final Earth';"
+        },
+        {
+          "text": "The Hotel",
+          "name": "The Hotel",
+          "which": "th/",
+          "onclick": "window.location.href='player.html?which=th/&name=The Hotel';"
+        },
+        {
+          "text": "The Battle",
+          "name": "The Battle",
+          "which": "tb/",
+          "onclick": "window.location.href='player.html?which=tb/&name=The Battle';"
+        },
+        {
+          "text": "The Heist",
+          "name": "The Heist",
+          "which": "theheist/",
+          "onclick": "window.location.href='player.html?which=theheist/&name=The Heist';"
+        },
+        {
+          "text": "There Is No G*me",
+          "name": "There Is No G*me",
+          "which": "ting/",
+          "onclick": "window.location.href='player.html?which=ting/&name=There Is No G*me';"
+        },
+        {
+          "text": "This Is The Only Level",
+          "name": "This Is The Only Level",
+          "which": "titol/",
+          "onclick": "window.location.href='player.html?which=titol/&name=This Is The Only Level';"
+        },
+        {
+          "text": "Throw Rocks",
+          "name": "Throw Rocks",
+          "which": "tr/",
+          "onclick": "window.location.href='player.html?which=tr/&Throw Rocks';"
+        },
+        {
+          "text": "Tiny Fishing",
+          "name": "Tiny Fishing",
+          "which": "tf/",
+          "onclick": "window.location.href='player.html?which=tf/&name=Tiny Fishing';"
+        },
+        {
+          "text": "Wall Smash",
+          "name": "Wall Smash",
+          "which": "ws/",
+          "onclick": "window.location.href='player.html?which=ws/&name=Wall Smash';"
+        },
+        {
+          "text": "WebGL Fluid Simulator",
+          "name": "WebGL Fluid Simulator",
+          "which": "f/",
+          "onclick": "window.location.href='player.html?which=f/&name=WebGL Fluid Simulator';"
+        },
+        {
+          "text": "Wordle",
+          "name": "Wordle",
+          "which": "w/",
+          "onclick": "window.location.href='player.html?which=w/&name=Wordle';"
+        },
+        {
+          "text": "Clone G*me",
+          "name": "Clone G*me",
+          "which": "cg/",
+          "onclick": "window.location.href='player.html?which=cg/&name=Clone G*me';"
+        },
+        {
+          "text": "Yoshi's Fabrication Station",
+          "name": "Yoshi\\",
+          "which": "yf/",
+          "onclick": "window.location.href='player.html?which=yf/&name=Yoshi\\'s Fabrication Station';"
+        }
+      ]
+    },
+    {
+      "title": "Miscellaneous G*mes",
+      "items": [
+        {
+          "text": "EaglercraftX 1.8.8 Signed",
+          "name": "EaglercraftX 1.8.8 Signed",
+          "which": "ECu50.html",
+          "onclick": "window.location.href='player.html?which=ECu50.html&name=EaglercraftX%201.8.8%20Signed';"
+        },
+        {
+          "text": "EaglercraftX 1.12.2 Signed",
+          "name": "EaglercraftX 1.12.2 Signed",
+          "which": "ECu2-1.12.2.html",
+          "onclick": "window.location.href='player.html?which=ECu2-1.12.2.html&name=EaglercraftX%201.12.2%20Signed';"
+        },
+        {
+          "text": "Snakes and Ladders",
+          "name": "Snakes and Ladders",
+          "which": "snakesladders.html",
+          "onclick": "window.location.href='player.html?which=snakesladders.html&name=Snakes%20and%20Ladders';"
+        },
+        {
+          "text": "Sketchbook 04",
+          "name": "Sketchbook 04",
+          "which": "sketchbook/",
+          "onclick": "window.location.href='player.html?which=sketchbook/&name=Sketchbook 04';"
+        },
+        {
+          "text": "SharkG*me",
+          "name": "SharkG*me",
+          "which": "SharkGame/",
+          "onclick": "window.location.href='player.html?which=SharkGame/&name=SharkG*me';"
+        },
+        {
+          "text": "Bookmarklets",
+          "name": "Bookmarklets",
+          "which": null,
+          "onclick": "window.location.href='bookmarklets.html';"
+        },
+        {
+          "text": "G*me Files",
+          "name": "G*me Files",
+          "which": null,
+          "onclick": "GxmeFiles()"
+        },
+        {
+          "text": "Tower G*me",
+          "name": "Tower G*me",
+          "which": "tower/",
+          "onclick": "window.location.href='player.html?which=tower/&name=Tower G*me';"
+        },
+        {
+          "text": "Portal 0.5",
+          "name": "Cbegny 0.5&cw=true&cn=true",
+          "which": "uggcf://rslnat.qri/cbegny-0.5/",
+          "onclick": "window.location.href='player.html?which=uggcf://rslnat.qri/cbegny-0.5/&name=Cbegny 0.5&cw=true&cn=true';"
+        },
+        {
+          "text": "Growmi",
+          "name": "Growmi",
+          "which": "growmi/",
+          "onclick": "window.location.href='player.html?which=growmi/&name=Growmi';"
+        },
+        {
+          "text": "Capture",
+          "name": "Capture&width=600&height=600",
+          "which": "capture.html",
+          "onclick": "window.location.href='player.html?which=capture.html&name=Capture&width=600&height=600';"
+        },
+        {
+          "text": "Hollow Knight",
+          "name": "Hollow Knight",
+          "which": "hk/",
+          "onclick": "window.location.href='player.html?which=hk/&name=Hollow Knight';"
+        },
+        {
+          "text": "Deadshot.io",
+          "name": "Qrnqfubg.vb&cw=true&cn=true",
+          "which": "uggcf://qrnqfubg.vb/",
+          "onclick": "window.location.href='player.html?which=uggcf://qrnqfubg.vb/&name=Qrnqfubg.vb&cw=true&cn=true';"
+        },
+        {
+          "text": "Territorial.io",
+          "name": "Greevgbevny.vb&cw=true&cn=true",
+          "which": "uggcf://greevgbevny.vb/",
+          "onclick": "window.location.href='player.html?which=uggcf://greevgbevny.vb/&name=Greevgbevny.vb&cw=true&cn=true';"
+        },
+        {
+          "text": "Bejeweled Twist",
+          "name": "Bejeweled Twist",
+          "which": null,
+          "onclick": "window.location.href='bt.html';"
+        }
+      ]
+    }
+  ]
+}
