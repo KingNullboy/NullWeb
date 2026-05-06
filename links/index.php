@@ -16,7 +16,7 @@ $linkCount = count($linksList);
 
         <br>
         <main class="main-wrapper">
-            <p id="gamenum">There are <?php echo $linkCount; ?> game sites/games right now!</p>
+            <p>There are <?php echo $linkCount; ?> game sites/games right now!</p>
             
             <div class="links-container">
                 <?php foreach ($linksList as $link): ?>
