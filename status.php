@@ -10,10 +10,12 @@ $temp = str_replace(['temp=', "'C\n"], '', trim(shell_exec('sudo /usr/bin/vcgenc
 		<?php include "includes/meta.php"; ?>
 	</head>
 	<body>
-		<center>
+		<main class="main-wrapper">
 			<h1><a href="./" style="color: inherit;">System Status</a></h1>
 			<p>Uptime: <?= htmlspecialchars($uptime) ?></p>
 			<p>CPU Temp: <?= htmlspecialchars($temp) ?></p>
-		</center>
+		</main>
+		
+		<?php include "includes/footer.php"; ?>
 	</body>
 </html>
