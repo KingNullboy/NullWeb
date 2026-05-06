@@ -5,7 +5,7 @@
 		
 	<h1 id="pagetitle"><?= $title ?? "NullWeb" ?></h1>
 
-	<a class="headerbtn" style="margin-right: 20px;" href="index.php">Home</a>
+	<a class="headerbtn" style="margin-right: 20px;" href="./">Home</a>
 				
 	<?php
 	if (file_exists("info.php")): 
