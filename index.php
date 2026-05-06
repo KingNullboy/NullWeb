@@ -1,8 +1,4 @@
 <?php
-if (rand(1, 250) === 1) {
-	header("Location: /tools/nsfw/?instant=true");
-	exit;
-}
 $ua = $_SERVER['HTTP_USER_AGENT'];
 $title = "NullWeb"
 ?>
