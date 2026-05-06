@@ -17,5 +17,7 @@ $wikiList = json_decode($jsonData, true);
                 <?php endforeach; ?>
             </div>
 		</main>
+
+		<?php include "includes/footer.php"; ?>
 	</body>
 </html>

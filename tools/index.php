@@ -24,5 +24,7 @@ $toolsCount = count($toolsList);
                 <?php endforeach; ?>
             </div>
 		</main>
+
+		<?php include "includes/footer.php"; ?>
 	</body>
 </html>

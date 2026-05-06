@@ -75,5 +75,7 @@ $ads    = $_COOKIE['ads'] ?? 'true';
 
 			<button class="botbtn" onclick="window.location.href='/';">Back Home</button>
 		</div>
+
+		<?php include "includes/footer.php"; ?>
 	</body>
 </html>
