@@ -24,5 +24,7 @@ $linkCount = count($linksList);
                 <?php endforeach; ?>
             </div>
         </main>
+
+        <?php include "includes/footer.php"; ?>
     </body>
 </html>
