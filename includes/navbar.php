@@ -16,7 +16,7 @@
         if (str_contains($_SERVER['REQUEST_URI'], '/socialmedia/')): 
         ?>
             <a class="headerbtn" href="subs.php">Subs</a>
-            <a id="login" class="headerbtn" href="login.html">Login</a>
+            <a id="login" class="headerbtn" href="login.php">Login</a>
         <?php endif; ?>
     </div>
 </header>
