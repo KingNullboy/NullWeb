@@ -12,9 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginBtn) loginBtn.addEventListener('click', handleLogin);
     if (submitBtn) submitBtn.addEventListener('click', submitPost);
 
+    // --- YOUR ORIGINAL FORMATTING LISTENERS ---
+    // Make sure these IDs match your HTML buttons
+    document.getElementById('boldBtn')?.addEventListener('click', () => addTags('**', '**'));
+    document.getElementById('italicBtn')?.addEventListener('click', () => addTags('*', '*'));
+    document.getElementById('underlineBtn')?.addEventListener('click', () => addTags('<u>', '</u>'));
+    document.getElementById('codeBlockBtn')?.addEventListener('click', () => addTags('\n```\n', '\n```\n'));
+    document.getElementById('linkBtn')?.addEventListener('click', () => addTags('[', '](url)'));
+    document.getElementById('blockquoteBtn')?.addEventListener('click', () => addTags('> ', ''));
+    document.getElementById('insertImageBtn')?.addEventListener('click', () => imageInput?.click());
+
     // Image Upload Logic
     if (imageInput && postArea) {
-        imageInput.addEventListener('change', async function() {
+        imageInput.addEventListener('change', async function () {
             const file = this.files[0];
             if (!file) return;
 
@@ -32,8 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await res.json();
                 if (data.url) {
-                    // Properly inject Markdown
-                    addTags(`![image](${data.url})`, "", 0); 
+                    addTags(`![image](${data.url})`, "", 0);
                 } else {
                     alert(data.error || "Upload failed.");
                 }
@@ -41,25 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Server connection failed during upload.");
             } finally {
                 postArea.placeholder = originalPlaceholder;
-                imageInput.value = ""; // Reset input so same file can be re-uploaded
+                imageInput.value = "";
             }
         });
     }
 
-    // Textarea Auto-Resize
     if (postArea) {
-        postArea.addEventListener('input', function() {
+        postArea.addEventListener('input', function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
     }
 
-    // Header Auth Toggle
-    const authHeaderBtn = document.getElementById('login');
-    if (authHeaderBtn) {
+    const header = document.querySelector('header');
+    if (header) {
+        const authBtn = document.getElementById("login");
+
         if (currentUser) {
-            authHeaderBtn.innerText = "Logout";
-            authHeaderBtn.onclick = async () => {
+            authBtn.innerText = "Logout";
+            authBtn.onclick = async () => {
                 try {
                     await fetch('/api/logout', { method: 'POST', credentials: 'include' });
                 } finally {
@@ -68,9 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
         } else {
-            authHeaderBtn.innerText = "Login";
-            authHeaderBtn.onclick = () => window.location.href = 'login.html';
+            authBtn.innerText = "Login";
+            authBtn.onclick = () => window.location.href = 'login.html';
         }
+        header.appendChild(authBtn);
     }
 });
 
@@ -79,61 +89,50 @@ document.addEventListener('DOMContentLoaded', () => {
 async function handleLogin() {
     const userVal = document.getElementById('username')?.value;
     const passVal = document.getElementById('password')?.value;
-
     if (!userVal || !passVal) return alert("Credentials required.");
-
     try {
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: userVal, password: passVal }),
-            credentials: 'include' // CRITICAL: Allows the browser to save the cookie
+            credentials: 'include'
         });
-
         const data = await response.json();
-
         if (response.ok) {
             localStorage.setItem('username', data.username);
             localStorage.setItem('nickname', data.nickname);
-            window.location.href = 'index.html'; 
+            window.location.href = 'index.php';
         } else {
             alert(data.error || "Login failed.");
         }
-    } catch (err) {
-        alert("Server connection failed.");
-    }
+    } catch (err) { alert("Server connection failed."); }
 }
 
 async function loadPosts() {
     const container = document.getElementById('postsContainer');
-    const sub = window.location.pathname.split("/").pop().replace(".html", "") || "index";
+
+    // FIXED SUB DETECTION
+    const params = new URLSearchParams(window.location.search);
+    const sub = params.get('sub') || 'index';
 
     try {
         const response = await fetch(`/api/posts?sub=${sub}`, { credentials: 'include' });
-        
         if (response.status === 401) {
             container.innerHTML = `<p class="error-msg">[ ACCESS DENIED: PLEASE LOGIN ]</p>`;
             return;
         }
-
         const data = await response.json();
         if (!data.posts) throw new Error("No posts found");
-
-        container.innerHTML = ''; 
-
+        container.innerHTML = '';
         data.posts.forEach(post => {
             const postElement = document.createElement('article');
             postElement.className = 'post-card';
             postElement.id = `post-${post.id}`;
-
-            // Ensure DOMPurify and marked are loaded in your HTML
-            const cleanHtml = typeof DOMPurify !== 'undefined' 
-                ? DOMPurify.sanitize(marked.parse(post.content)) 
+            const cleanHtml = typeof DOMPurify !== 'undefined'
+                ? DOMPurify.sanitize(marked.parse(post.content))
                 : post.content;
-
             const isAuthor = currentUser === post.author_username;
-            const isAdmin = currentUser === 'knb2012'; // Consider moving this check to server-side
-
+            const isAdmin = currentUser === 'knb2012';
             postElement.innerHTML = `
                 <div class="post-header">
                     <img src="pfps/${post.pfp}" class="post-pfp" onerror="this.src='pfps/default.png'">
@@ -148,18 +147,18 @@ async function loadPosts() {
             `;
             container.appendChild(postElement);
         });
-    } catch (err) {
-        container.innerHTML = '<p>Failed to load posts. Check your connection.</p>';
-    }
+    } catch (err) { container.innerHTML = '<p>Failed to load posts.</p>'; }
 }
 
 async function submitPost() {
     const title = document.getElementById('title')?.value || "";
     const content = document.getElementById('postContent').value;
-    const sub = window.location.pathname.split("/").pop().replace(".html", "") || "index";
+
+    // FIXED SUB DETECTION
+    const params = new URLSearchParams(window.location.search);
+    const sub = params.get('sub') || 'index';
 
     if (!content.trim()) return alert("Post content required.");
-
     try {
         const response = await fetch('/api/post', {
             method: 'POST',
@@ -167,16 +166,9 @@ async function submitPost() {
             body: JSON.stringify({ title, content, sub }),
             credentials: 'include'
         });
-
-        if (response.ok) {
-            window.location.reload();
-        } else {
-            const err = await response.json();
-            alert(err.error || "Failed to post.");
-        }
-    } catch (e) {
-        alert("Network error.");
-    }
+        if (response.ok) { window.location.reload(); }
+        else { const err = await response.json(); alert(err.error || "Failed to post."); }
+    } catch (e) { alert("Network error."); }
 }
 
 async function deletePost(postId) {
@@ -187,20 +179,14 @@ async function deletePost(postId) {
             const el = document.getElementById(`post-${postId}`);
             if (el) el.remove();
         }
-    } catch (err) {
-        alert("Could not delete post.");
-    }
+    } catch (err) { alert("Could not delete post."); }
 }
-
-// --- HELPERS ---
 
 function timeAgo(timestamp) {
     const date = new Date(timestamp);
     if (isNaN(date)) return "unknown";
-    
     const seconds = Math.floor((new Date() - date) / 1000);
     if (seconds < 60) return "just now";
-    
     const intervals = { y: 31536000, mo: 2592000, d: 86400, h: 3600, m: 60 };
     for (let key in intervals) {
         const count = Math.floor(seconds / intervals[key]);
@@ -208,20 +194,16 @@ function timeAgo(timestamp) {
     }
 }
 
-window.addTags = function(start, end = "", offset = 0) {
+window.addTags = function (start, end = "", offset = 0) {
     const textarea = document.getElementById('postContent');
     if (!textarea) return;
-    
     const startPos = textarea.selectionStart;
     const endPos = textarea.selectionEnd;
     const text = textarea.value;
-    
     const replacement = start + text.substring(startPos, endPos) + end;
     textarea.value = text.substring(0, startPos) + replacement + text.substring(endPos);
-    
     textarea.focus();
-    // Set cursor to the end of the newly inserted content
     const newCursorPos = startPos + replacement.length + offset;
     textarea.setSelectionRange(newCursorPos, newCursorPos);
-    textarea.dispatchEvent(new Event('input')); 
+    textarea.dispatchEvent(new Event('input'));
 };

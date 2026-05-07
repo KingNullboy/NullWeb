@@ -4,65 +4,66 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchResults = document.getElementById('searchResults');
     const subsList = document.getElementById('subsList');
 
-    // --- 1. LOCAL FILE DIRECTORY ---
-    // Manually maintain the list of .html files present in your socialmedia folder
-    const localSubs = [
-        'index',
-        'subs',
-        'info',
-        'potatosociety',
-        'coding',
-        'gaming'
-    ];
+    let communities = [];
 
-    // --- 2. Load Subs from Local List ---
-    function loadDynamicSubs() {
-        if (!subsList) return;
-
-        subsList.innerHTML = localSubs.map(sub => {
-            const displayName = sub.toUpperCase();
-            const link = `${sub}.html`;
-            
-            return `
-                <button class="navbtn-styled" onclick="location.href='${link}'">
-                    [ ${displayName} ]
-                </button>`;
-        }).join('');
+    // --- 1. FETCH FROM JSON ---
+    async function loadSubsData() {
+        try {
+            const response = await fetch('subs.json');
+            communities = await response.json();
+            displayAllSubs(); // Show them on the page
+        } catch (err) {
+            console.error("Failed to load subs.json", err);
+            if (subsList) subsList.innerHTML = "<p>Error loading sectors.</p>";
+        }
     }
 
-    // --- 3. Local Search Logic ---
-    // This now searches the file names and your local post API (if still desired)
-    async function performSearch() {
+    // --- 2. Display the list ---
+    function displayAllSubs() {
+        if (!subsList) return;
+        subsList.innerHTML = communities.map(sub => `
+            <button class="headerbtn" onclick="location.href='index.php?sub=${sub[0]}'" style="margin: 5px;">
+                ${sub[1]}
+            </button>
+        `).join('');
+    }
+
+    // --- 3. Search Logic ---
+    function performSearch() {
         const query = searchBar.value.trim().toLowerCase();
-        if (query.length < 2) return;
+        if (query.length < 1) {
+            searchResults.innerHTML = '';
+            return;
+        }
 
-        searchResults.innerHTML = '<p>Searching sectors...</p>';
-
-        // Filter the localSubs array for matches
-        const matchedSubs = localSubs.filter(sub => sub.includes(query));
+        const matchedSubs = communities.filter(sub => 
+            sub[0].toLowerCase().includes(query) || 
+            sub[1].toLowerCase().includes(query)
+        );
 
         if (matchedSubs.length > 0) {
-            searchResults.innerHTML = '<ul class="results-list">' + 
+            searchResults.innerHTML = '<ul style="list-style: none; padding: 0; margin-top: 15px;">' + 
                 matchedSubs.map(sub => `
-                    <li>
-                        <a href="${sub}.html">
-                            <span style="border: 1px solid white; padding: 2px 5px; border-radius: 5px;">
-                                GOTO: ${sub.toUpperCase()}
+                    <li style="margin-bottom: 10px;">
+                        <a href="index.php?sub=${sub[0]}" style="text-decoration: none; color: inherit;">
+                            <span class="headerbtn" style="display: inline-block; width: 100%; text-align: left;">
+                                GOTO: ${sub[1].toUpperCase()}
                             </span>
                         </a>
                     </li>`).join('') + '</ul>';
         } else {
-            searchResults.innerHTML = `<p>No local sector found for "${query}".</p>`;
+            searchResults.innerHTML = `<p style="color: #ff4444;">No sector found.</p>`;
         }
     }
 
     // Initialize
-    loadDynamicSubs();
+    loadSubsData();
     
     if (searchButton) searchButton.addEventListener('click', performSearch);
     if (searchBar) {
-        searchBar.addEventListener('keypress', (e) => { 
-            if (e.key === 'Enter') performSearch(); 
+        searchBar.addEventListener('input', () => {
+            if (searchBar.value.length === 0) searchResults.innerHTML = '';
         });
+        searchBar.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
     }
 });
