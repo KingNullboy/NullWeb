@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['newSubSlug'])) {
 <html>
     <head>
         <?php 
-            $title = "Explore - NullMedia"; 
+            $title = "Subs - NullMedia"; 
             include $_SERVER['DOCUMENT_ROOT'] . '/includes/meta.php'; 
         ?>
         <script src="search.js" defer></script>
