@@ -10,6 +10,7 @@
         <a class="botbtn" href="https://github.com/nullmedia-social/NullWeb">Site GitHub</a>
         <a class="botbtn" href="/info.php">Info</a>
         <br>
+        <a class="botbtn" href="https://youtube.com/@KingNullboy">My YouTube Channel</a>
         <?php if ($isIOS): ?>
             <a class="botbtn" href="/ios_installer.php">Download iOS App</a>
         <?php elseif ($isMobile): ?>
