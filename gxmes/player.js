@@ -57,10 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function isFlashGame(path) {
-		return path
-			.toLowerCase()
-			.split("?")[0]
-			.endsWith(".swf");
+		const lower = path.toLowerCase();
+
+		// Direct SWF
+		if (lower.split("?")[0].endsWith(".swf")) {
+			return true;
+		}
+
+		// SWF hidden inside query params
+		if (lower.includes(".swf")) {
+			return true;
+		}
+
+		return false;
 	}
 
 	// =========================
