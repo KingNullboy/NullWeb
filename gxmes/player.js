@@ -1,194 +1,228 @@
 document.addEventListener("DOMContentLoaded", () => {
-	// --- helpers ---
+	// =========================
+	// URL Params
+	// =========================
+
+	const params = new URLSearchParams(window.location.search);
+
+	let which = params.get("which") || "";
+	let name = params.get("name") || "Unknown G*me";
+
+	const width = parseInt(params.get("width") || "800", 10);
+	const height = parseInt(params.get("height") || "600", 10);
+
+	const cw = params.get("cw") === "true";
+	const cn = params.get("cn") === "true";
+
+	// =========================
+	// DOM Elements
+	// =========================
+
+	const container = document.getElementById("playerContainer");
+	const fullscreenBtn = document.getElementById("fullscreenBtn");
+	const saveButton = document.getElementById("saveButton");
+	const titleElement = document.getElementById("gameTitle");
+
+	if (!container) {
+		console.error("Missing #playerContainer");
+		return;
+	}
+
+	// =========================
+	// Helpers
+	// =========================
+
 	function rot13(str) {
-		// only letters are rotated; punctuation stays the same
-		return str.replace(/[A-Za-z]/g, (c) => {
-			const base = c <= "Z" ? 65 : 97;
-			return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base);
+		return str.replace(/[A-Za-z]/g, char => {
+			const base = char <= "Z" ? 65 : 97;
+
+			return String.fromCharCode(
+				((char.charCodeAt(0) - base + 13) % 26) + base
+			);
 		});
 	}
 
-	function isExternalUrl(u) {
-		return u.startsWith("http://") || u.startsWith("https://") || (u.startsWith("uggc://") && new URLSearchParams(window.location.search).get("cw") === "true") || (u.startsWith("uggcf://") && new URLSearchParams(window.location.search).get("cw") === "true");
+	function isExternalUrl(url) {
+		return /^https?:\/\//i.test(url);
 	}
 
-	// --- read params ---
-	const params = new URLSearchParams(window.location.search);
-	let which = params.get("which");
-	let name = params.get("name");
-	const widthParam = params.get("width");
-	const heightParam = params.get("height");
-	const cw = params.get("cw") === "true"; // ciphered which
-	const cn = params.get("cn") === "true"; // ciphered name
-
-	const width = widthParam ? parseInt(widthParam, 10) : 800;
-	const height = heightParam ? parseInt(heightParam, 10) : 600;
-
-	const placeholder = document.getElementById("gameFrame"); // initial element in your HTML
-	const container = placeholder.parentNode;
-	const saveButton = document.getElementById("saveButton");
-	const fullscreenBtn = document.getElementById("fullscreenBtn");
-
-	saveButton.style.display = "none";
-
-	// --- decode if needed ---
-	if (cw && which) which = rot13(which);
-	if (cn && name) name = rot13(name);
-
-	// --- create game element (iframe or object) ---
-	let gameElement = null;
-	if (which) {
-		if (isExternalUrl(which)) {
-			gameElement = document.createElement("object");
-			gameElement.data = which;
-			gameElement.type = "text/html";
-		} else {
-			gameElement = document.createElement("iframe");
-			// if user supplied a leading slash or a relative path, keep it as-is; otherwise, prefix /gxmes/
-			gameElement.src = which.startsWith("/") ? which : "/gxmes/" + which;
+	function normalizePath(path) {
+		if (isExternalUrl(path)) {
+			return path;
 		}
 
+		return path.startsWith("/")
+			? path
+			: "/gxmes/" + path;
+	}
+
+	function isFlashGame(path) {
+		return path
+			.toLowerCase()
+			.split("?")[0]
+			.endsWith(".swf");
+	}
+
+	// =========================
+	// Decode Params
+	// =========================
+
+	if (cw && which) {
+		which = rot13(which);
+	}
+
+	if (cn && name) {
+		name = rot13(name);
+	}
+
+	// =========================
+	// Page Title
+	// =========================
+
+	document.title = `${name} — NullG*mes Player`;
+
+	if (titleElement) {
+		titleElement.textContent = name;
+	}
+
+	// =========================
+	// Validate
+	// =========================
+
+	if (!which) {
+		container.innerHTML = `
+			<p>No g*me specified.</p>
+		`;
+
+		return;
+	}
+
+	const finalPath = normalizePath(which);
+
+	// =========================
+	// Create Game Element
+	// =========================
+
+	let gameElement;
+
+	if (isFlashGame(finalPath)) {
+		const ruffle = window.RufflePlayer?.newest();
+
+		if (!ruffle) {
+			container.innerHTML = `
+				<p>Ruffle failed to load.</p>
+			`;
+
+			return;
+		}
+
+		gameElement = ruffle.createPlayer();
+
+		gameElement.id = "gameFrame";
+
+		gameElement.style.width = width + "px";
+		gameElement.style.height = height + "px";
+		gameElement.style.maxWidth = "100%";
+		gameElement.style.display = "block";
+		gameElement.style.margin = "auto";
+
+		container.appendChild(gameElement);
+
+		gameElement.load(finalPath);
+	}
+
+	else {
+		gameElement = document.createElement("iframe");
+
+		gameElement.id = "gameFrame";
+
+		gameElement.src = finalPath;
 		gameElement.width = width;
 		gameElement.height = height;
-		gameElement.id = "gameFrame";
-		gameElement.setAttribute("frameborder", "0");
-		gameElement.setAttribute("allowfullscreen", "");
-		gameElement.style.display = "block";
+
+		gameElement.frameBorder = "0";
+		gameElement.allowFullscreen = true;
+
 		gameElement.style.maxWidth = "100%";
-		gameElement.style.boxSizing = "border-box";
+		gameElement.style.display = "block";
+		gameElement.style.margin = "auto";
 
-		// replace placeholder (works whether placeholder is iframe or not)
-		container.replaceChild(gameElement, placeholder);
-	} else {
-		// no which param: keep existing element, but ensure size
-		gameElement = document.getElementById("gameFrame");
-		if (gameElement) {
-			gameElement.width = width;
-			gameElement.height = height;
-		}
+		container.appendChild(gameElement);
 	}
 
-	// --- fullscreen with graceful fallback ---
-	let inManualFullscreen = false;
-	let savedStyles = new Map();
+	// =========================
+	// Fullscreen
+	// =========================
 
-	function enterManualFullscreen(el) {
-		if (inManualFullscreen) return;
-		inManualFullscreen = true;
-
-		// save inline styles for restore
-		savedStyles.set(el, {
-			position: el.style.position || "",
-			top: el.style.top || "",
-			left: el.style.left || "",
-			width: el.style.width || "",
-			height: el.style.height || "",
-			zIndex: el.style.zIndex || "",
-			background: el.style.background || ""
-		});
-
-		// hide other content except the element and buttons
-		Array.from(document.body.children).forEach(child => {
-			if (child === el) return;
-			// keep fullscreen and save buttons visible
-			if (child === fullscreenBtn || child === saveButton) return;
-			child.style.display = "none";
-		});
-
-		el.style.position = "fixed";
-		el.style.top = "0";
-		el.style.left = "0";
-		el.style.width = "100vw";
-		el.style.height = "100vh";
-		el.style.zIndex = "2147483647"; // large z-index
-		el.style.background = "#000";
-	}
-
-	function exitManualFullscreen(el) {
-		if (!inManualFullscreen) return;
-		inManualFullscreen = false;
-
-		// restore hidden elements
-		Array.from(document.body.children).forEach(child => {
-			child.style.display = "";
-		});
-
-		// restore element styles
-		const saved = savedStyles.get(el) || {};
-		el.style.position = saved.position;
-		el.style.top = saved.top;
-		el.style.left = saved.left;
-		el.style.width = saved.width || (width + "px");
-		el.style.height = saved.height || (height + "px");
-		el.style.zIndex = saved.zIndex;
-		el.style.background = saved.background;
-
-		savedStyles.delete(el);
-	}
-
-	fullscreenBtn.addEventListener("click", async () => {
-		// first try the Fullscreen API on the game element itself
+	async function enterFullscreen() {
 		try {
 			if (gameElement.requestFullscreen) {
 				await gameElement.requestFullscreen();
-				return;
 			}
-			// vendor prefixes
-			if (gameElement.webkitRequestFullscreen) {
+
+			else if (gameElement.webkitRequestFullscreen) {
 				await gameElement.webkitRequestFullscreen();
-				return;
 			}
-			if (gameElement.msRequestFullscreen) {
+
+			else if (gameElement.msRequestFullscreen) {
 				await gameElement.msRequestFullscreen();
-				return;
 			}
-		} catch (e) {
-			// continue to fallback if request fails
 		}
 
-		// Some browsers prevent fullscreen for object/iframe — fallback to manual
-		enterManualFullscreen(gameElement);
-	});
-
-	// If user presses Escape or fullscreenchange indicates exit, restore manual fullscreen
-	document.addEventListener("keydown", (e) => {
-		if (e.key === "Escape") {
-			// if Fullscreen API is active, letting browser handle; also exit manual fallback
-			if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-				// full API; do nothing special (browser will exit)
-			}
-			// always try to exit manual fallback if active
-			exitManualFullscreen(gameElement);
-		}
-	});
-
-	// listen for standard fullscreenchange to clean manual state if needed
-	document.addEventListener("fullscreenchange", () => {
-		if (!document.fullscreenElement) exitManualFullscreen(gameElement);
-	});
-	document.addEventListener("webkitfullscreenchange", () => {
-		if (!document.webkitFullscreenElement) exitManualFullscreen(gameElement);
-	});
-	document.addEventListener("msfullscreenchange", () => {
-		if (!document.msFullscreenElement) exitManualFullscreen(gameElement);
-	});
-
-	// --- Update page title if 'name' is provided ---
-	if (name !== null && name !== undefined) {
-		document.title = name + " — NullG*mes Player";
-	} else {
-		document.title = "NullG*mes Player";
-	}
-
-	// --- Custom save button logic for specific games ---
-	function save(game, how) {
-		if (!which) return;
-		if (which.includes(game)) {
-			saveButton.style.display = "inline-block";
-			saveButton.setAttribute("onclick", how);
+		catch (err) {
+			console.error("Fullscreen failed:", err);
 		}
 	}
 
-	// known example
-	save("spacecompany", "document.getElementById('gameFrame').contentWindow.Game.save();");
+	if (fullscreenBtn) {
+		fullscreenBtn.addEventListener("click", enterFullscreen);
+	}
+
+	// =========================
+	// Save System
+	// =========================
+
+	const saveHandlers = {
+		spacecompany() {
+			gameElement.contentWindow.Game.save();
+		}
+	};
+
+	function enableSave(handler) {
+		if (!saveButton) {
+			return;
+		}
+
+		saveButton.style.display = "inline-block";
+
+		saveButton.addEventListener("click", () => {
+			try {
+				handler();
+			}
+
+			catch (err) {
+				console.error("Save failed:", err);
+			}
+		});
+	}
+
+	for (const game in saveHandlers) {
+		if (which.toLowerCase().includes(game.toLowerCase())) {
+			enableSave(saveHandlers[game]);
+			break;
+		}
+	}
+
+	// =========================
+	// Debug
+	// =========================
+
+	console.log("Loaded game:", {
+		name,
+		which,
+		finalPath,
+		width,
+		height,
+		flash: isFlashGame(finalPath)
+	});
 });
