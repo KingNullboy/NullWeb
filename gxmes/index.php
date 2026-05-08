@@ -48,12 +48,12 @@ $json = json_decode(file_get_contents("gxmes.json"), true);
 					<h2><?= htmlspecialchars($section["title"]) ?></h2>
 
 					<?php foreach ($section["items"] as $game): ?>
-						<button
+						<a
 							data-game="1"
 							class="lnkgxmbtn"
-							onclick="window.location.href='player.html?which=<?= htmlspecialchars($game["which"]) ?>&name=<?= urlencode($game["name"]) ?>';">
+							href="player.php?which=<?= htmlspecialchars($game["onclick"]) ?>&name=<?= urlencode($game["name"]) ?>">
 							<?= htmlspecialchars($game["text"]) ?>
-						</button>
+						</a>
 					<?php endforeach; ?>
 
 					<br><br>
