@@ -70,7 +70,7 @@
 				{
 					"text": "Henry Stickmin - Infiltrating the Airship",
 					"name": "Henry Stickmin - Infiltrating the Airship",
-					"onclick": "https://archive.org/download/Henry-Stickmin-Airship/618518_Airship.swf"
+					"onclick": "/api/cors?url=https://archive.org/download/Henry-Stickmin-Airship/618518_Airship.swf"
 				},
 				{
 					"text": "Henry Stickmin - Stealing the Diamond",
@@ -1788,7 +1788,7 @@
 				{
 					"text": "Bejeweled Twist",
 					"name": "Bejeweled Twist",
-					"onclick": "bt.html"
+					"onclick": "/api/cors?url=https://archive.org/download/bejeweled-twist_flash/BejeweledTwist.swf"
 				}
 			]
 		}
