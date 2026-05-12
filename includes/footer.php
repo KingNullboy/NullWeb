@@ -17,6 +17,10 @@
             <button class="botbtn" type="button" onclick="installPWA();">Install NullWeb App</button>
         <?php endif; ?><br><br>
 
-		<p>NullWeb is a web platform created by KingNullboy that brings together tools, games, wiki pages, and utilities in one place for fun, learning, and sharing.</p>
+		<p>NullWeb is a web platform created by KingNullboy that brings together tools, games, wiki pages, and utilities in one place for fun, learning, and sharing.</p><br>
+		<p class="footer-note">
+    		Due to unprecedented growth (three users online simultaneously), our infrastructure now requires immediate migration to next-generation NVMe technology.
+    		This investment will increase performance by approximately "a lot" and move us one step closer to becoming web scale or something.
+		</p>
     </div>
 </footer>
