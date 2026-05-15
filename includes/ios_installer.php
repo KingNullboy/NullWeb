@@ -1,10 +1,5 @@
 <?php
-/**
- * iOS Configuration Profile Generator
- * Generates a .mobileconfig file on the fly
- */
 
-// Function to generate a UUID (standard v4)
 function generateUUID() {
     return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
         mt_rand(0, 0xffff), mt_rand(0, 0xffff),
@@ -15,19 +10,24 @@ function generateUUID() {
     );
 }
 
-// Configuration
 $domain = $_SERVER['HTTP_HOST'];
 $url = "https://$domain/iosappfix.html";
+
+$iconPath = $_SERVER['DOCUMENT_ROOT'] . '/logo-fullres.png';
+
+$iconBase64 = '';
+if (file_exists($iconPath) && is_readable($iconPath)) {
+    $iconBase64 = base64_encode(file_get_contents($iconPath));
+}
+
 $uuid1 = generateUUID();
 $uuid2 = generateUUID();
 
-$iconBase64 = base64_encode(file_get_contents('/logo.png'));
-
-// Set Headers for Download
 header('Content-Type: application/x-apple-aspen-config');
 header('Content-Disposition: attachment; filename="NullWeb.mobileconfig"');
 
-// Generate the XML
+$url = htmlspecialchars($url, ENT_XML1, 'UTF-8');
+
 echo <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -58,6 +58,7 @@ echo <<<XML
             <data>$iconBase64</data>
         </dict>
     </array>
+
     <key>PayloadDisplayName</key>
     <string>NullWeb</string>
     <key>PayloadIdentifier</key>
