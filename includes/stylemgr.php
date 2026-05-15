@@ -6,9 +6,6 @@ $bg     = $_COOKIE['bg-color']     ?? '#000000';
 $text   = $_COOKIE['text-color']   ?? '#ffffff';
 $border = $_COOKIE['border-color'] ?? '#ffffff';
 $font   = $_COOKIE['font-family']  ?? 'Lato';
-
-// Sanitizing font name to prevent CSS injection
-$font_safe = preg_replace('/[^a-zA-Z0-9\s\-]/', '', $font);
 ?>
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
@@ -24,7 +21,7 @@ body {
 	min-height: 100vh;
 	background: <?= $bg ?>;
 	color: <?= $text ?>;
-	font-family: '<?= $font_safe ?>', sans-serif;
+	font-family: '<?= $font ?>', sans-serif;
 	line-height: 1.5;
 }
 
