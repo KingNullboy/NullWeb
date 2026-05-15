@@ -29,6 +29,16 @@ if (file_exists($json_path)) {
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+        <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.marked) {
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true
+                });
+            }
+        });
+        </script>
         <script src="script.js" defer></script>
     </head>
     <body>
