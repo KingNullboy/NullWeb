@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		'text-color' => '#ffffff',
 		'border-color' => '#ffffff',
 		'font-family' => 'Lato',
+		'font-url' => '',
 		'ads' => 'true'
 	];
 
@@ -19,7 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		setcookie('bg-color', $_POST['bg-color'] ?? $defaults['bg-color'], $expire, $path);
 		setcookie('text-color', $_POST['text-color'] ?? $defaults['text-color'], $expire, $path);
 		setcookie('border-color', $_POST['border-color'] ?? $defaults['border-color'], $expire, $path);
+
 		setcookie('font-family', $_POST['font-family'] ?? $defaults['font-family'], $expire, $path);
+
+		// NEW: font URL support
+		setcookie('font-url', trim($_POST['font-url'] ?? $defaults['font-url']), $expire, $path);
+
 		setcookie('ads', $_POST['ads'] ?? $defaults['ads'], $expire, $path);
 	}
 
@@ -31,6 +37,7 @@ $bg     = $_COOKIE['bg-color'] ?? '#000000';
 $text   = $_COOKIE['text-color'] ?? '#ffffff';
 $border = $_COOKIE['border-color'] ?? '#ffffff';
 $font   = $_COOKIE['font-family'] ?? 'Lato';
+$font_url = $_COOKIE['font-url'] ?? '';
 $ads    = $_COOKIE['ads'] ?? 'true';
 ?>
 
@@ -44,6 +51,7 @@ $ads    = $_COOKIE['ads'] ?? 'true';
 			<h1>Settings</h1>
 
 			<form method="POST">
+
 				<div class="customizer-box">
 					<label>Background Color:</label><br>
 					<input type="color" name="bg-color" value="<?php echo htmlspecialchars($bg); ?>">
@@ -61,16 +69,28 @@ $ads    = $_COOKIE['ads'] ?? 'true';
 
 				<div class="customizer-box">
 					<label>Font Family:</label><br>
-					<input type="text" name="font-family" class="textbox" value="<?php echo htmlspecialchars($font); ?>">
+					<input type="text" name="font-family" class="textbox"
+						value="<?php echo htmlspecialchars($font); ?>">
+				</div>
+
+				<!-- NEW: Font URL input -->
+				<div class="customizer-box">
+					<label>Font URL (Google Fonts or .woff2/.ttf):</label><br>
+					<input type="text" name="font-url" class="textbox"
+						value="<?php echo htmlspecialchars($font_url); ?>"
+						placeholder="https://fonts.googleapis.com/... or .woff2 link">
 				</div>
 
 				<div class="customizer-box">
 					<label>Ads (true/false):</label><br>
-					<input type="text" name="ads" class="textbox" value="<?php echo htmlspecialchars($ads); ?>">
+					<input type="text" name="ads" class="textbox"
+						value="<?php echo htmlspecialchars($ads); ?>">
 				</div>
 
 				<button class="botbtn" type="submit">Save Changes</button>
-				<button class="botbtn" type="submit" name="reset" style="background:#900;">Reset Defaults</button>
+				<button class="botbtn" type="submit" name="reset" style="background:#900;">
+					Reset Defaults
+				</button>
 			</form><br>
 
 			<button class="botbtn" onclick="window.location.href='/';">Back Home</button>

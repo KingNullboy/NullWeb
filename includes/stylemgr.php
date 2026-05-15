@@ -6,7 +6,12 @@ $bg     = $_COOKIE['bg-color']     ?? '#000000';
 $text   = $_COOKIE['text-color']   ?? '#ffffff';
 $border = $_COOKIE['border-color'] ?? '#ffffff';
 $font   = $_COOKIE['font-family']  ?? 'Lato';
+$font_url = $_COOKIE['font-url'] ?? '';
 ?>
+
+<?php if ($font_url): ?>
+@import url('<?= htmlspecialchars($font_url) ?>');
+<?php endif; ?>
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
