@@ -10,7 +10,8 @@
         <a class="botbtn" href="https://github.com/nullmedia-social/NullWeb">Site GitHub</a>
         <a class="botbtn" href="/info.php">Info</a>
         <br>
-        <a class="botbtn" href="https://youtube.com/@KingNullboy">My YouTube Channel</a>
+        <a class="botbtn" href="https://youtube.com/@KingNullboy">YouTube</a>
+        <a class="botbtn" href="https://www.facebook.com/profile.php?id=61590639261502">Facebook</a>
         
         <a class="botbtn" href="/includes/ios_installer.php">Download iOS App</a>
         <button class="botbtn" type="button" onclick="installPWA();">Install NullWeb App</button><br><br>
