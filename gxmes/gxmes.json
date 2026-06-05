@@ -366,12 +366,6 @@
 					"onclick": "gg/?name=The Gambling Game — THIS IS NOT REAL"
 				},
 				{
-					"text": "VoxelOps: Arena",
-					"name": "VoxelOps: Arena",
-					"which": "voxelops.html",
-					"onclick": "voxelops.html?name=VoxelOps: Arena"
-				},
-				{
 					"text": "Find A Place",
 					"name": "Find A Place",
 					"which": "findaplace.html",
