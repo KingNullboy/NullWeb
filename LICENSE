@@ -1,21 +1,75 @@
-MIT License
-
-Copyright (c) 2025 nullmedia-social
+NULL OPEN NONCOMMERCIAL LICENSE
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, and distribute the Software for personal, educational, hobby,
+research, and nonprofit purposes.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Commercial use of software built with the Software is permitted, provided that
+the Software itself is not used as a paid execution service.
+
+---
+
+PROHIBITED USES
+
+The following uses are not permitted:
+
+- Providing the Software as a hosted execution service (including web apps, APIs,
+  SaaS platforms, or cloud-based runners)
+- Charging users for access to execution of the Software (including subscriptions,
+  pay-per-run, API fees, or similar monetization models)
+- Operating any service where the primary function is executing code submitted by
+  users on infrastructure controlled by a third party using the Software
+- Misrepresenting systems built with the Software as something they are not
+  (e.g., labeling deterministic or rule-based systems as “AI” when they are not)
+
+---
+
+ALLOWED USES
+
+The following uses are explicitly permitted:
+
+- Running the Software locally on any machine under user control
+- Using VPS, cloud servers, containers, or remote environments to run the Software,
+  provided execution remains user-controlled and not sold as a service
+- Using the Software in general-purpose hosting platforms where it is only one tool
+  among many
+- Building and selling software created with the Software (games, applications,
+  tools, services), including monetization via sales, subscriptions, or ads
+- Developing IDEs, editors, debuggers, and other developer tools that improve the
+  Software experience
+- Educational content, tutorials, and videos, including monetized content on
+  third-party platforms, provided they do not form a paid execution service
+- Sponsorships and advertising within educational content, provided they are
+  reasonable and not designed as exploitative ad-extraction systems
+
+---
+
+ATTRIBUTION
+
+Redistributions of the Software or substantial portions thereof must include
+this license and appropriate attribution to the original project.
+
+Attribution is encouraged for software built using the Software where practical,
+but is not required if the software is fully open-source or attribution is
+already clearly visible in source materials.
+
+---
+
+EXECUTION PRINCIPLE
+
+The Software is intended to remain locally executable.
+
+It must always be possible for users to execute the Software without requiring
+payment, subscription, or remote authorization.
+
+The Software shall not be used as a hosted runtime product, API service, or
+cloud execution platform.
+
+---
+
+DISCLAIMER
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
