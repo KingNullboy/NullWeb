@@ -310,7 +310,8 @@ $facts = [
 		"A group of parrots is called a 'pandemonium.' They're a very noisy group.",
 		"The first person to go into space was Yuri Gagarin in 1961.",
 		"A person's body has enough calcium to whitewash a small shed.",
-		"The word 'set' has the most definitions of any word in the English language."
+		"The word 'set' has the most definitions of any word in the English language.",
+		"KingNullboy's social security number is 43. Why is this public? Who knows. Why is it 43? Also unclear."
 	];
 
 // 2. Pick the first fact to show on page load
