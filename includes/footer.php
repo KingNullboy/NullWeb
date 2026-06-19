@@ -1,7 +1,7 @@
 <footer class="site-footer">
     <div class="footer-buttons">
         <a class="botbtn" href="/settings.php">Settings</a>
-        <a class="botbtn" target="_blank" href="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=<?= urlencode((isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>&choe=UTF-8">QR Code</a>
+        <a class="botbtn" target="_blank" href="/tools/qr/gen.php?data=<?= urlencode((isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>&ec=M&size=8">QR Code</a>
         <a class="botbtn" href="/contact.php">Contact Me</a>
         <a class="botbtn" href="/donate.php">Donate</a>
         <br>
