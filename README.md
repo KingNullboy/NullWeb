@@ -8,3 +8,4 @@ This was originally a small project made so that I can chat with my friends on m
  - Phantom for inspiration (I think it might be gone now though?)
  - [Seraph](https://seraph.reveriestudios.online/) for Phantom's inspiration
  - [Carlos Pedroso](https://carlospedroso.itch.io/) for Growmi
+ - [t0k4rt](https://github.com/t0k4rt) for phpqrcode
