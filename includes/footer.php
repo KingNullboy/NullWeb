@@ -25,9 +25,9 @@ if (preg_match('#^/beta(/.*)?$#', $uri, $m)) {
 		<br>
         <a class="botbtn" href="https://github.com/nullmedia-social/NullWeb">Site GitHub</a>
         <a class="botbtn" href="https://youtube.com/@KingNullboy">YouTube</a>
-        <a class="botbtn" href="https://www.facebook.com/profile.php?id=61590639261502">Facebook</a>
-        
+        <a class="botbtn" href="https://www.facebook.com/profile.php?id=61590639261502">Facebook</a>        
         <a class="botbtn" href="/includes/ios_installer.php">Download iOS App</a>
+		<br>
         <button class="botbtn" type="button" onclick="installPWA();">Install NullWeb App</button><br><br>
 
 		<p>NullWeb is a web platform created by KingNullboy that brings together tools, games, wiki pages, and utilities in one place for fun, learning, and sharing.</p><br>
