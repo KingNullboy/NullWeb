@@ -1,3 +1,16 @@
+<?php
+$uri = $_SERVER['REQUEST_URI'];
+if (preg_match('#^/beta(/.*)?$#', $uri, $m)) {
+    // currently in beta -> strip the prefix
+    $toggleUrl = $m[1] ?? '/';
+    $toggleLabel = 'Exit Beta';
+} else {
+    // not in beta -> add the prefix
+    $toggleUrl = '/beta' . $uri;
+    $toggleLabel = 'Enter Beta';
+}
+?>
+
 <footer class="site-footer">
     <div class="footer-buttons">
         <a class="botbtn" href="/settings.php">Settings</a>
@@ -6,10 +19,11 @@
         <a class="botbtn" href="/donate.php">Donate</a>
         <br>
         <a class="botbtn" href="/status.php">Status</a>
-        <a class="botbtn" href="https://github.com/nullmedia-social">My GitHub</a>
-        <a class="botbtn" href="https://github.com/nullmedia-social/NullWeb">Site GitHub</a>
         <a class="botbtn" href="/info.php">Info</a>
-        <br>
+		<a class="botbtn" href="<?= htmlspecialchars($toggleUrl) ?>"><?= $toggleLabel ?></a>
+        <a class="botbtn" href="https://github.com/nullmedia-social">My GitHub</a>
+		<br>
+        <a class="botbtn" href="https://github.com/nullmedia-social/NullWeb">Site GitHub</a>
         <a class="botbtn" href="https://youtube.com/@KingNullboy">YouTube</a>
         <a class="botbtn" href="https://www.facebook.com/profile.php?id=61590639261502">Facebook</a>
         
