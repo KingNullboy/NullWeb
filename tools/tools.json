@@ -25,5 +25,6 @@
     { "name": "NullMaps", "path": "maps/" },
     { "name": "Oblivium", "path": "oblivium.html" },
     { "name": "Ehko Media Player", "path": "ehko.html" },
-    { "name": "NullCloud", "path": "cloud/" }
+    { "name": "NullCloud", "path": "cloud/" },
+    { "name": "NullWoL", "path": "wol.php" }
 ]
