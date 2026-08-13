@@ -45,8 +45,8 @@
 						Planet Crafter
 					</button>
 
-					<button onclick="rd('https://store.steampowered.com/app/1030300/Hollow_Knight_Silksong/')">
-						Hollow Knight: Silksong
+					<button onclick="rd('https://store.steampowered.com/app/367520/Hollow_Knight/')">
+						Hollow Knight
 					</button>
 
 					<button onclick="rd('https://store.steampowered.com/app/504230/Celeste/')">
