@@ -27,7 +27,7 @@ if (isset($_GET['ajax'])) {
 }
 ?>
 
-<div class="textbox" id="homepageFact" style="cursor: pointer; user-select: none; background-color: transparent; border: none;" title="Click for a new fact">
+<div class="textbox" id="homepageFact" style="cursor: pointer; background-color: transparent; border: none;" title="Click for a new fact">
     <strong>Did you know?</strong><br>
     <span id="factText"><?php echo nl2br(htmlspecialchars($fact, ENT_QUOTES, 'UTF-8')); ?></span>
 </div>
@@ -48,6 +48,10 @@ if (isset($_GET['ajax'])) {
     }
 
     factBox.addEventListener('click', function() {
+        // Ignore clicks if the user is highlighting/selecting text
+        const selection = window.getSelection();
+        if (selection.toString().length > 0) return;
+
         const factTextElem = document.getElementById('factText');
         factTextElem.style.opacity = '0.5';
 
