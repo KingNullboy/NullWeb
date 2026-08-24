@@ -13,7 +13,7 @@ if (isset($_GET['type']) && $_GET['type'] !== '') {
 if ($cookie_type === 'fortune') {
     $command = "$fortune_bin 2>&1";
 } else {
-    $command = "$fortune_bin " . escapeshellarg($custom_path) . " 2>&1";
+    $command = "$fortune_bin " . escapeshellarg($custom_path) . " kjv_bible 2>&1";
 }
 
 $fact = trim(shell_exec($command));
