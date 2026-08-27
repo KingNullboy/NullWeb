@@ -11,9 +11,9 @@ if (isset($_GET['type']) && $_GET['type'] !== '') {
 
 // 2. Select command based on resolved type
 if ($cookie_type === 'fortune') {
-    $command = "$fortune_bin 2>&1";
+    $command = "$fortune_bin 90% /usr/share/games/fortunes/ 10% /home/kingnullboy/.fortunes/kjv_bible 2>&1";
 } else {
-    $command = "$fortune_bin " . escapeshellarg($custom_path) . " /home/kingnullboy/.fortunes/kjv_bible 2>&1";
+    $command = "$fortune_bin 90% " . escapeshellarg($custom_path) . " 10%  /home/kingnullboy/.fortunes/kjv_bible 2>&1";
 }
 
 $fact = trim(shell_exec($command));
