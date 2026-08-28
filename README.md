@@ -9,3 +9,5 @@ This was originally a small project made so that I can chat with my friends on m
  - [Seraph](https://seraph.reveriestudios.online/) for Phantom's inspiration
  - [Carlos Pedroso](https://carlospedroso.itch.io/) for Growmi
  - [t0k4rt](https://github.com/t0k4rt) for phpqrcode
+
+NullWeb started as a repository on February 13, 2025. However, its predecessor, nullboy000.github.io (which has been archived), started November 4, 2024.
