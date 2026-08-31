@@ -21,9 +21,9 @@ if (preg_match('#^/beta(/.*)?$#', $uri, $m)) {
         <a class="botbtn" href="/status.php">Status</a>
         <a class="botbtn" href="/info.php">Info</a>
 		<a class="botbtn" href="<?= htmlspecialchars($toggleUrl) ?>"><?= $toggleLabel ?></a>
-        <a class="botbtn" href="https://github.com/nullmedia-social">My GitHub</a>
+        <a class="botbtn" href="https://github.com/KingNullboy">My GitHub</a>
 		<br>
-        <a class="botbtn" href="https://github.com/nullmedia-social/NullWeb">Site GitHub</a>
+        <a class="botbtn" href="https://github.com/KingNullboy/NullWeb">Site GitHub</a>
         <a class="botbtn" href="https://youtube.com/@KingNullboy">YouTube</a>
         <a class="botbtn" href="https://www.facebook.com/profile.php?id=61590639261502">Facebook</a>        
         <a class="botbtn" href="/includes/ios_installer.php">Download iOS App</a>
