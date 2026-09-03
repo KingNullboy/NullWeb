@@ -15,8 +15,8 @@
 				<p> Got questions, feedback, or bugs to report? Shoot me an email at: </p>
 			
 				<p style="margin: 15px 0; text-align: center;">
-					<a href="mailto:kingnullboy@proton.me" style="color: <?= $text ?>; font-weight: 700; font-size: 1.2rem; text-decoration: underline;">
-						kingnullboy@proton.me
+					<a href="mailto:kingnullboy@nullweb.org" style="color: <?= $text ?>; font-weight: 700; font-size: 1.2rem; text-decoration: underline;">
+						kingnullboy@nullweb.org
 					</a>
 				</p>
 			
