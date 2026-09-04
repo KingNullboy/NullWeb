@@ -11,7 +11,7 @@ $firstDir = $segments[0] ?? '';
 $sectionsWithLogos = ['wiki', 'gxmes', 'links', 'socialmedia', 'tools'];
 
 if (in_array($firstDir, $sectionsWithLogos)) {
-    $logoPath = "/{$firstDir}/logo.png";
+    $logoPath = "/{$firstDir}/logo-fullres.png";
 } else {
     $logoPath = "/logo.png";
 }
