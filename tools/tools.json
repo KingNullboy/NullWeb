@@ -26,5 +26,6 @@
     { "name": "Oblivium", "path": "oblivium.html" },
     { "name": "Ehko Media Player", "path": "ehko.html" },
     { "name": "NullCloud", "path": "cloud/" },
-    { "name": "NullWoL", "path": "wol.php" }
+    { "name": "NullWoL", "path": "wol.php" },
+	{ "name": "Nullv86", "path": "v86/" }
 ]
