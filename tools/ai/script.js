@@ -9,11 +9,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const selector = d.getElementById("groq_chat_selector");
 
     // --- Configuration ---
-    const NICO_ENDPOINT = "/tools/ai/nico/"; // Ensure this matches your Flask route
-    const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+    const NICO_ENDPOINT = "/tools/ai/nico/";
+    const OLLAMA_ENDPOINT = "/api/ollama/api/chat"; // Standard Ollama chat completions route
+    const OLLAMA_MODEL = "qwen2.5:1.5b";
 
     // --- State ---
-    let currentChat = selector.value;
+    let currentChat = selector ? selector.value : "1";
     let isNicoMode = false;
     let debugEnabled = false;
 
@@ -23,13 +24,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     let nicoVersion = "v1";
 
     // --- Helpers ---
-    const loadHistory = (chatNum) => JSON.parse(localStorage.getItem(`groq_history_${chatNum}`)) || [];
-    const saveHistory = (chatNum, hist) => localStorage.setItem(`groq_history_${chatNum}`, JSON.stringify(hist));
-    const getToken = (chatNum) => localStorage.getItem(`user_token_${chatNum}`);
+    const loadHistory = (chatNum) => JSON.parse(localStorage.getItem(`chat_history_${chatNum}`)) || [];
+    const saveHistory = (chatNum, hist) => localStorage.setItem(`chat_history_${chatNum}`, JSON.stringify(hist));
     const getImgToken = () => localStorage.getItem("deepai_token");
 
     let history = loadHistory(currentChat);
-    let userToken = getToken(currentChat);
     let imgToken = getImgToken();
 
     function renderMessage(role, content) {
@@ -37,9 +36,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         div.className = `msg-${role}`;
         
         let label = "System", color = "#ff0";
-        if (role === "user") { label = "You", color = "#0f0"; }
-        else if (role === "assistant") {
-            label = isNicoMode ? "Nico" : "Groq";
+        if (role === "user") { 
+            label = "You"; 
+            color = "#0f0"; 
+        } else if (role === "assistant") {
+            label = isNicoMode ? "Nico" : "Qwen";
             color = isNicoMode ? "#ff6b6b" : "#0ff";
         }
 
@@ -74,11 +75,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!val) return;
             nicoVersion = val.startsWith("v") ? val : "v" + val;
             renderMessage("system", `Corpus Version: ${nicoVersion}`);
-        },
-        "/setToken": (val) => {
-            userToken = val;
-            localStorage.setItem(`user_token_${currentChat}`, val);
-            renderMessage("system", "Token updated.");
         }
     };
 
@@ -117,25 +113,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else {
             history.push({ role: "user", content: q });
             try {
-                const res = await fetch(GROQ_ENDPOINT, {
+                const res = await fetch(OLLAMA_ENDPOINT, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${userToken || "gsk_YcgtVMTZM1oEwMneyoQ0WGdy" + "b3FYsTJj6k22oylTpy4MBA3zhhzC"}`
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        model: "llama-3.3-70b-versatile",
+                        model: OLLAMA_MODEL,
                         messages: history,
-                        temperature: 0.7
+                        stream: false
                     })
                 });
+
+                if (!res.ok) {
+                    throw new Error(`Ollama Server returned ${res.status}`);
+                }
+
                 const json = await res.json();
-                const reply = json.choices[0].message.content;
+                const reply = json.message?.content || "No response received.";
+                
                 history.push({ role: "assistant", content: reply });
                 saveHistory(currentChat, history);
                 renderMessage("assistant", reply);
             } catch (e) {
-                renderMessage("system", `Groq Error: ${e.message}`);
+                renderMessage("system", `Ollama Error: ${e.message}`);
             }
         }
     };
@@ -154,14 +155,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // --- Events ---
-    selector.onchange = () => {
-        if (isNicoMode) return;
-        saveHistory(currentChat, history);
-        currentChat = selector.value;
-        history = loadHistory(currentChat);
-        userToken = getToken(currentChat);
-        updateLog();
-    };
+    if (selector) {
+        selector.onchange = () => {
+            if (isNicoMode) return;
+            saveHistory(currentChat, history);
+            currentChat = selector.value;
+            history = loadHistory(currentChat);
+            updateLog();
+        };
+    }
 
     clear.onclick = () => {
         if (confirm("Clear history?")) {
