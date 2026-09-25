@@ -1,6 +1,5 @@
 [
     { "name": "NullAppify", "path": "iosappifier/" },
-    { "name": "NullAI", "path": "ai/" },
     { "name": "NullCalc", "path": "calc/" },
     { "name": "NullImg", "path": "image.html" },
     { "name": "NullQR", "path": "qr.html" },
