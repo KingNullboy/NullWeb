@@ -1,5 +1,28 @@
-// MarkdownPlus.js
-// Markdown but better. Usage: MarkdownPlus.parse()
+/**
+ * MarkdownPlus.js
+ * Markdown with custom inline styling.
+ *
+ * Usage:
+ *   MarkdownPlus.parse(markdown)
+ *   MarkdownPlus.preprocess(markdown)
+ *
+ * Requires marked.js.
+ *
+ * Supported directives:
+ *   %color:red%
+ *   %bgcolor:yellow%
+ *   %size:24px%
+ *   %font:Arial%
+ *   %fontImport:https://fonts.googleapis.com/css2?family=Roboto%
+ *   %clear%
+ *   %clears:off%
+ *   %clears:onclear%
+ *
+ * Underline:
+ *   +underlined text+
+ *
+ * Raw HTML in input is treated as ordinary text.
+ */
 
 const MarkdownPlus = (() => {
   const styleMap = {
@@ -9,125 +32,329 @@ const MarkdownPlus = (() => {
     bgcolor: "background-color",
   };
 
-  const loadedFonts = new Map(); // url -> fontName
+  const loadedFonts = new Map();
 
-  function escapePlaceholders(text) {
-    return text
-      .replace(/\\%/g, "__ESCAPED_PERCENT__")
-      .replace(/\\\+/g, "__ESCAPED_PLUS__");
+  // Private-use characters avoid collisions with ordinary text.
+  const ESCAPED_PLUS = "\uE000";
+  const ESCAPED_PERCENT = "\uE001";
+  const ESCAPED_BACKSLASH = "\uE002";
+
+  function escapeInput(text) {
+    return String(text)
+      .replace(/\\/g, ESCAPED_BACKSLASH)
+      .replace(/\+/g, (match, offset, original) => {
+        // Preserve escaped plus signs for the underline processor.
+        return match;
+      });
   }
 
-  function unescapePlaceholders(text) {
+  function restoreEscapes(text) {
     return text
-      .replace(/__ESCAPED_PERCENT__/g, "%")
-      .replace(/__ESCAPED_PLUS__/g, "+");
+      .replaceAll(ESCAPED_PLUS, "+")
+      .replaceAll(ESCAPED_PERCENT, "%")
+      .replaceAll(ESCAPED_BACKSLASH, "\\");
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function escapeAttribute(text) {
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function protectEscapedDelimiters(text) {
+    let output = "";
+
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === "\\" && i + 1 < text.length) {
+        const next = text[i + 1];
+
+        if (next === "+") {
+          output += ESCAPED_PLUS;
+          i++;
+          continue;
+        }
+
+        if (next === "%") {
+          output += ESCAPED_PERCENT;
+          i++;
+          continue;
+        }
+
+        if (next === "\\") {
+          output += ESCAPED_BACKSLASH;
+          i++;
+          continue;
+        }
+      }
+
+      output += text[i];
+    }
+
+    return output;
+  }
+
+  function isSafeColor(value) {
+    const v = value.trim();
+
+    // Named colors, hex colors, and common CSS color functions.
+    return (
+      /^[a-zA-Z]{1,30}$/.test(v) ||
+      /^#[0-9a-fA-F]{3,8}$/.test(v) ||
+      /^(rgb|rgba|hsl|hsla)\(\s*[\d.%+\-,\s/]+\)$/i.test(v)
+    );
+  }
+
+  function isSafeSize(value) {
+    return /^\d+(?:\.\d+)?(?:px|em|rem|%|vw|vh|pt|ch|ex)$/i.test(
+      value.trim()
+    );
+  }
+
+  function isSafeFontName(value) {
+    // Keep font names simple so they cannot inject CSS.
+    return /^[a-zA-Z0-9 _-]{1,80}$/.test(value.trim());
+  }
+
+  function isSafeFontUrl(value) {
+    try {
+      const url = new URL(value);
+
+      return (
+        url.protocol === "https:" &&
+        url.hostname === "fonts.googleapis.com" &&
+        url.pathname === "/css2" &&
+        !url.username &&
+        !url.password
+      );
+    } catch {
+      return false;
+    }
+  }
+
+  function importFont(url) {
+    if (!isSafeFontUrl(url)) return "";
+
+    const match = url.match(/[?&]family=([^&]+)/);
+    if (!match) return "";
+
+    let fontName;
+
+    try {
+      fontName = decodeURIComponent(match[1])
+        .split(":")[0]
+        .replace(/\+/g, " ")
+        .trim();
+    } catch {
+      return "";
+    }
+
+    if (!isSafeFontName(fontName)) return "";
+
+    loadedFonts.set(fontName.toLowerCase(), fontName);
+
+    // A generated link is intentional markup, unlike raw user HTML.
+    // Deduplicate links by URL.
+    if (!loadedFonts.has(`url:${url}`)) {
+      loadedFonts.set(`url:${url}`, true);
+
+      return (
+        `<link rel="stylesheet" href="${escapeAttribute(url)}">`
+      );
+    }
+
+    return "";
+  }
+
+  function parseStyleDirective(command) {
+    const styles = [];
+
+    for (const part of command.split(",")) {
+      const separator = part.indexOf(":");
+      if (separator < 0) continue;
+
+      const key = part.slice(0, separator).trim().toLowerCase();
+      let value = part.slice(separator + 1).trim();
+
+      if (!value) continue;
+
+      const property = styleMap[key];
+      if (!property) continue;
+
+      if (key === "color" || key === "bgcolor") {
+        if (!isSafeColor(value)) continue;
+      }
+
+      if (key === "size") {
+        if (!isSafeSize(value)) {
+          // Retain the original convenience of bare numeric sizes.
+          if (/^\d+(?:\.\d+)?$/.test(value)) {
+            value += "px";
+          } else {
+            continue;
+          }
+        }
+
+        if (!isSafeSize(value)) continue;
+      }
+
+      if (key === "font") {
+        if (!isSafeFontName(value)) continue;
+
+        const imported = loadedFonts.get(value.toLowerCase());
+        if (imported) {
+          value = imported;
+        }
+      }
+
+      styles.push(`${property}:${value}`);
+    }
+
+    return styles;
   }
 
   function preprocessUnderline(text) {
-    return text.replace(/(\+)(.+?)\1/g, (match, wrapper, content) => {
+    // The escape placeholders are not plus signs, so \+ won't underline.
+    return text.replace(/\+([^+\n]+)\+/g, (_, content) => {
       return `<span style="text-decoration:underline">${content}</span>`;
     });
   }
 
-  function preprocess(text) {
-    text = escapePlaceholders(text);
+  function preprocess(input) {
+    let text = protectEscapedDelimiters(String(input));
+
+    // Prevent raw input HTML from being interpreted by marked.
+    // Generated MarkdownPlus markup is inserted only after this step.
+    text = escapeHtml(text);
 
     const stack = [];
     let output = "";
     let lastIndex = 0;
     let autoClear = true;
 
-    const regex = /%([^%]+)%/g;
+    const regex = /%([^%\n]+)%/g;
     let match;
 
+    function closeAll() {
+      output += "</span>".repeat(stack.length);
+      stack.length = 0;
+    }
+
+    function reopenAll() {
+      for (const styles of stack) {
+        output += `<span style="${escapeAttribute(styles.join(";"))}">`;
+      }
+    }
+
     while ((match = regex.exec(text)) !== null) {
-      output += text.slice(lastIndex, match.index);
-      lastIndex = regex.lastIndex;
+      const preceding = text.slice(lastIndex, match.index);
 
-      const cmdText = match[1].trim();
+      // Handle line boundaries before the next directive.
+      const lines = preceding.split("\n");
 
-      // Handle clear
-      if (/^clear(:.*)?$/i.test(cmdText)) {
-        output += "</span>".repeat(stack.length);
-        stack.length = 0;
-        continue;
-      }
+      for (let i = 0; i < lines.length; i++) {
+        output += lines[i];
 
-      // Handle fontImport by replacing with <link>
-      if (/^fontImport:/i.test(cmdText)) {
-        const url = cmdText.slice(11).trim();
-        if (url && url.includes("fonts.googleapis.com")) {
-          const matchFont = url.match(/family=([^:&]+)/);
-          let fontName = matchFont ? decodeURIComponent(matchFont[1]).split(":")[0] : "CustomFont";
-          loadedFonts.set(fontName, fontName); // mark font as loaded
-          output += `<link rel="stylesheet" href="${url}">`;
-        }
-        continue;
-      }
-
-      const parts = cmdText.split(",");
-      let styles = [];
-
-      for (let part of parts) {
-        let [key, val] = part.split(":").map(s => s && s.trim());
-        if (!key) continue;
-        key = key.toLowerCase();
-
-        if (key === "clears") {
-          if (val?.toLowerCase() === "onclear") autoClear = true;
-          if (val?.toLowerCase() === "off") autoClear = false;
-          continue;
-        }
-
-        const styleProp = styleMap[key];
-        if (styleProp && val) {
-          if (key === "size" && !val.endsWith("px")) val += "px";
-
-          if (key === "font") {
-            if (loadedFonts.has(val)) {
-              val = `'${loadedFonts.get(val)}'`;
-            } else if (/^[a-zA-Z0-9\s]+$/.test(val)) {
-              val = `'${val}'`; // assume system font
-            } else {
-              console.warn(`Font "${val}" not loaded or invalid; skipping.`);
-              continue; // skip invalid font
-            }
+        if (i < lines.length - 1) {
+          if (autoClear && stack.length > 0) {
+            const active = stack.slice();
+            closeAll();
+            output += "\n";
+            stack.push(...active);
+            reopenAll();
+          } else {
+            output += "\n";
           }
-
-          styles.push(`${styleProp}:${val}`);
         }
       }
+
+      lastIndex = regex.lastIndex;
+      const command = match[1].trim();
+
+      if (/^clear(?::.*)?$/i.test(command)) {
+        closeAll();
+        continue;
+      }
+
+      if (/^clears:/i.test(command)) {
+        const setting = command.slice(command.indexOf(":") + 1)
+          .trim()
+          .toLowerCase();
+
+        if (setting === "off") autoClear = false;
+        if (setting === "onclear") autoClear = true;
+
+        continue;
+      }
+
+      if (/^fontImport:/i.test(command)) {
+        const url = command.slice("fontImport:".length).trim();
+        output += importFont(url);
+        continue;
+      }
+
+      const styles = parseStyleDirective(command);
 
       if (styles.length > 0) {
-        output += `<span style="${styles.join(";")}">`;
-        stack.push("span");
+        output += `<span style="${escapeAttribute(styles.join(";"))}">`;
+        stack.push(styles);
       } else {
+        // Unknown or invalid directives remain visible as text.
         output += match[0];
       }
     }
 
-    output += text.slice(lastIndex);
+    const remainder = text.slice(lastIndex);
+    const lines = remainder.split("\n");
 
-    if (autoClear && stack.length > 0) {
-      output = output
-        .split("\n")
-        .map(line => (stack.length > 0 ? line + "</span>".repeat(stack.length) : line))
-        .join("\n");
-    } else if (!autoClear && stack.length > 0) {
-      output += "</span>".repeat(stack.length);
+    for (let i = 0; i < lines.length; i++) {
+      output += lines[i];
+
+      if (i < lines.length - 1) {
+        if (autoClear && stack.length > 0) {
+          const active = stack.slice();
+          closeAll();
+          output += "\n";
+          stack.push(...active);
+          reopenAll();
+        } else {
+          output += "\n";
+        }
+      }
     }
 
-    return unescapePlaceholders(output);
+    // Close all generated spans so the result is balanced HTML.
+    closeAll();
+
+    return restoreEscapes(output);
   }
 
-  function parse(text) {
-    const escapedText = escapePlaceholders(text);
-    const underlined = preprocessUnderline(escapedText);
-    const htmlWithStyles = preprocess(underlined);
-    return marked.parse(htmlWithStyles);
+  function parse(input) {
+    if (typeof marked === "undefined" || typeof marked.parse !== "function") {
+      throw new Error(
+        "MarkdownPlus requires marked.js to be loaded first."
+      );
+    }
+
+    // Underline processing occurs after raw HTML has been escaped.
+    const processed = preprocess(input);
+    const underlined = preprocessUnderline(processed);
+
+    return marked.parse(underlined);
   }
 
-  return { preprocess, parse };
+  return {
+    preprocess,
+    parse,
+  };
 })();
 
 /**
