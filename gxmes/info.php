@@ -1,6 +1,4 @@
 <?php
-$ua = $_SERVER['HTTP_USER_AGENT'];
-
 $title = "Info - NullG*mes";
 
 $json = json_decode(file_get_contents("gxmes.json"), true);
@@ -16,10 +14,6 @@ foreach ($json["sections"] as $section) {
 		<head>
 				<?php include $_SERVER['DOCUMENT_ROOT']."/includes/meta.php"; ?>
 
-				<link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
-
-				<script src="checknum.js"></script>
-				<script src="/js/main.js"></script>
 		</head>
 
 		<body>
@@ -27,7 +21,7 @@ foreach ($json["sections"] as $section) {
 
 				<main class="main-wrapper">
 						<center>
-								<p id="thing">
+						<p>
 										NullG*mes is a website with some Flash G*mes available to play.
 										There are currently <b><?= $gameCount ?></b> g*mes available.
 
@@ -47,7 +41,7 @@ foreach ($json["sections"] as $section) {
 
 								&nbsp;
 
-								<p id="credit">
+						<p>
 										This g*mes website was originally based on the
 										<a href="https://github.com/selenite-cc/flasharchive">
 												flasharchive repo

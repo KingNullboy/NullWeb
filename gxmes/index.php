@@ -1,35 +1,24 @@
 <?php
-$ua = $_SERVER['HTTP_USER_AGENT'];
 $title = "NullG*mes";
 $json = json_decode(file_get_contents("gxmes.json"), true);
+$gameCount = 0;
+foreach (($json['sections'] ?? []) as $section) {
+	$gameCount += count($section['items'] ?? []);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php include $_SERVER['DOCUMENT_ROOT']."/includes/meta.php"; ?>
 
-		<link href="https://fonts.googleapis.com/css2?family=Amaranth&display=swap" rel="stylesheet">
-
-		<script src="search.js"></script>
-
-		<script>
-			document.addEventListener('DOMContentLoaded', function () {
-				document.getElementById('randomGxmeBtn').addEventListener('click', function () {
-					const buttons = Array.from(document.querySelectorAll('button[data-game]'));
-					const randomButton = buttons[Math.floor(Math.random() * buttons.length)];
-					if (randomButton) randomButton.click();
-				});
-			});
-		</script>
+		<script src="/gxmes/search.js?v=5" defer></script>
 	</head>
 
 	<body>
 		<?php include $_SERVER['DOCUMENT_ROOT']."/includes/navbar.php" ?>
 
 		<main class="main-wrapper">
-				<br>
-				<input type="text" id="searchInput" placeholder="Search for a g*me..."
-					style="margin: 10px; padding: 5px; font-size: 16px;">
+				<input type="text" id="searchInput" placeholder="Search for a g*me..." autocomplete="off">
 				<br><br>
 
 				<p>
@@ -38,25 +27,31 @@ $json = json_decode(file_get_contents("gxmes.json"), true);
 					<a href="https://github.com/selenite-cc/flasharchive/">GitHub repo</a>.
 				</p>
 
-				<p id="gamenum">There are [Loading...] g*mes of varying quality!</p>
+				<p id="gamenum" aria-live="polite">There are <?= $gameCount ?> g*mes of varying quality!</p>
 
-				<button class="lnkgxmbtn" id="randomGxmeBtn">Random G*me</button>
+				<button class="lnkgxmbtn" id="randomGxmeBtn" type="button">Random G*me</button>
 
 				<br><br>
 
-				<?php foreach ($json["sections"] as $section): ?>
-					<h2><?= htmlspecialchars($section["title"]) ?></h2>
+				<div id="noResults" hidden>No g*mes match your search.</div>
 
-					<?php foreach ($section["items"] as $game): ?>
-						<a
-							data-game="1"
-							class="lnkgxmbtn"
-							href="player.php?which=<?= htmlspecialchars($game["onclick"]) ?>&name=<?= urlencode($game["name"]) ?>">
-							<?= htmlspecialchars($game["text"]) ?>
-						</a>
-					<?php endforeach; ?>
+				<?php foreach (($json['sections'] ?? []) as $section): ?>
+					<section class="game-section">
+						<h2 class="game-section-title"><?= htmlspecialchars($section["title"], ENT_QUOTES, 'UTF-8') ?></h2>
+						<div class="nav-grid">
 
-					<br><br>
+						<?php foreach (($section['items'] ?? []) as $game): ?>
+							<a
+								data-game="1"
+								data-search="<?= htmlspecialchars($game["onclick"], ENT_QUOTES, 'UTF-8') ?>"
+								class="lnkgxmbtn game-item"
+								href="player.php?which=<?= htmlspecialchars($game["onclick"], ENT_QUOTES, 'UTF-8') ?>&amp;name=<?= urlencode($game["name"]) ?>">
+								<?= htmlspecialchars($game["text"], ENT_QUOTES, 'UTF-8') ?>
+							</a>
+						<?php endforeach; ?>
+						</div>
+					</section>
+
 				<?php endforeach; ?>
 
 				<br><br>
@@ -69,6 +64,6 @@ $json = json_decode(file_get_contents("gxmes.json"), true);
 				</p>
 		</main>
 
-		<?php include "includes/footer.php"; ?>
+		<?php include $_SERVER['DOCUMENT_ROOT']."/includes/footer.php"; ?>
 	</body>
 </html>

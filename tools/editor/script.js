@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const highlightSelect = document.getElementById("highlightLang");
     const formatSelect = document.getElementById("formatLang");
     const contextMenu = document.getElementById("contextMenu");
+    const activeFileLabel = document.getElementById("activeFile");
+    const fileCountLabel = document.getElementById("fileCount");
 
     // ===== CODEMIRROR =====
     const editor = CodeMirror.fromTextArea(editorTextarea, {
@@ -112,6 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===== SIDEBAR =====
     function updateSidebar() {
         fileTree.innerHTML = "";
+        const fileCount = Object.values(files).filter(item => item.type === "file").length;
+        fileCountLabel.textContent = `${fileCount} file${fileCount === 1 ? "" : "s"}`;
 
         function renderFolderChildren(folderPath, container) {
             files[folderPath].children.forEach(child => {
@@ -176,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else multiSelect.add(path);
         } else { multiSelect.clear(); multiSelect.add(path); }
         currentFile = path;
+        activeFileLabel.textContent = path;
         if (files[path].type === "file") setEditorContent(files[path].content);
         updateSidebar();
     }
@@ -415,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else { preview.srcdoc = `<html><body style="background:white;"><pre>${content.replace(/</g, "&lt;")}</pre></body></html>`; }
     }
 
-    togglePreviewBtn.addEventListener("click", () => { livePreviewEnabled = !livePreviewEnabled; preview.style.display = livePreviewEnabled ? "block" : "none"; if (livePreviewEnabled) updatePreview(); });
+    togglePreviewBtn.addEventListener("click", () => { livePreviewEnabled = !livePreviewEnabled; preview.style.display = livePreviewEnabled ? "block" : "none"; togglePreviewBtn.querySelector("span").textContent = livePreviewEnabled ? "ON" : "OFF"; if (livePreviewEnabled) updatePreview(); });
     editor.on("change", () => { saveFiles(); updatePreview(); });
 
     // ===== HIGHLIGHT =====
@@ -451,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===== INITIALIZE =====
     loadFiles();
     updateSidebar();
-    togglePreviewBtn.click();
+    updatePreview();
 
     // ===== EXTENSIONS SYSTEM =====
     const extensionsBtn = document.getElementById("extensionsBtn");

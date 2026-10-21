@@ -1,6 +1,4 @@
 <?php
-$ua = $_SERVER['HTTP_USER_AGENT'];
-
 $which = $_GET['which'] ?? '';
 $name = $_GET['name'] ?? 'Unknown G*me';
 
