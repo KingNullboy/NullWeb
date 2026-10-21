@@ -7,10 +7,10 @@
     <loc>https://nullweb.org/socialmedia/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/links/</loc>
+    <loc>https://nullweb.org/wiki/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/wiki/</loc>
+    <loc>https://nullweb.org/links/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/gxmes/</loc>
@@ -37,37 +37,76 @@
     <loc>https://nullweb.org/info.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/beta/</loc>
+    <loc>https://nullweb.org/includes/ios_installer.php</loc>
   </url>
   <url>
     <loc>https://nullweb.org/socialmedia/subs.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/includes/ios_installer.php</loc>
+    <loc>https://nullweb.org/socialmedia/login.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/regex/</loc>
+    <loc>https://nullweb.org/gxmes/info.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/ascii.html</loc>
+    <loc>https://nullweb.org/gxmes/player.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/webuild/</loc>
+    <loc>https://nullweb.org/tools/iosappifier/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/crypto.html</loc>
+    <loc>https://nullweb.org/tools/calc/</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/image.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/qr.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/rng.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/2fa.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/b64endecode.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/nspire/</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/portal.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/clock.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/editor/</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/piskel/</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/webuild.html</loc>
   </url>
   <url>
     <loc>https://nullweb.org/tools/crypt.html</loc>
   </url>
   <url>
+    <loc>https://nullweb.org/tools/crypto.html</loc>
+  </url>
+  <url>
     <loc>https://nullweb.org/tools/hex.html</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/color.html</loc>
+    <loc>https://nullweb.org/tools/regex.html</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/maps/</loc>
+    <loc>https://nullweb.org/tools/ascii.html</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/color.html</loc>
   </url>
   <url>
     <loc>https://nullweb.org/tools/oblivium.html</loc>
@@ -76,25 +115,7 @@
     <loc>https://nullweb.org/tools/ehko.html</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/wol/</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/tools/</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/settings.php</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/contact.php</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/donate.php</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/status.php</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/info.php</loc>
+    <loc>https://nullweb.org/tools/wol.php</loc>
   </url>
   <url>
     <loc>https://nullweb.org/socialmedia/index.php</loc>
@@ -106,24 +127,18 @@
     <loc>https://nullweb.org/wiki/num1/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/beta/socialmedia/subs.php</loc>
+    <loc>https://nullweb.org/wiki/num2/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/cloud/index.php/login</loc>
+    <loc>https://nullweb.org/wiki/num3/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/beta/tools/wol.php</loc>
+    <loc>https://nullweb.org/wiki/num4/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/beta/socialmedia/index.php</loc>
+    <loc>https://nullweb.org/wiki/num5/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/beta/wiki/num1/</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/beta/index.php</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/index.php</loc>
+    <loc>https://nullweb.org/wiki/num6/</loc>
   </url>
 </urlset>
