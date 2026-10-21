@@ -53,6 +53,7 @@ $fortunetype = $_COOKIE['fortunetype'] ?? $defaults['fortunetype'];
 <body>
     <div class="settings-wrapper">
         <h1>Settings</h1>
+        <p class="settings-intro">Personalize the shared NullWeb experience. These settings apply across the site and its tools.</p>
 
         <form method="POST">
             <div class="customizer-box">
@@ -97,7 +98,7 @@ $fortunetype = $_COOKIE['fortunetype'] ?? $defaults['fortunetype'];
             </div>
 
             <button class="botbtn" type="submit">Save Changes</button>
-            <button class="botbtn" type="submit" name="reset" style="background:#900;">Reset Defaults</button>
+            <button class="botbtn reset-button" type="submit" name="reset">Reset Defaults</button>
         </form><br>
 
         <button class="botbtn" onclick="window.location.href='/';">Back Home</button>

@@ -13,9 +13,9 @@ https://nullweb.org/info.php
 https://nullweb.org/beta/
 https://nullweb.org/socialmedia/subs.php
 https://nullweb.org/includes/ios_installer.php
-https://nullweb.org/tools/regex.html
+https://nullweb.org/tools/regex/
 https://nullweb.org/tools/ascii.html
-https://nullweb.org/tools/webuild.html
+https://nullweb.org/tools/webuild/
 https://nullweb.org/tools/crypto.html
 https://nullweb.org/tools/crypt.html
 https://nullweb.org/tools/hex.html
@@ -23,7 +23,7 @@ https://nullweb.org/tools/color.html
 https://nullweb.org/tools/maps/
 https://nullweb.org/tools/oblivium.html
 https://nullweb.org/tools/ehko.html
-https://nullweb.org/tools/wol.php
+https://nullweb.org/tools/wol/
 https://nullweb.org/beta/tools/
 https://nullweb.org/beta/settings.php
 https://nullweb.org/beta/contact.php

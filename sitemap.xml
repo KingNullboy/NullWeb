@@ -46,13 +46,13 @@
     <loc>https://nullweb.org/includes/ios_installer.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/regex.html</loc>
+    <loc>https://nullweb.org/tools/regex/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/tools/ascii.html</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/webuild.html</loc>
+    <loc>https://nullweb.org/tools/webuild/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/tools/crypto.html</loc>
@@ -76,7 +76,7 @@
     <loc>https://nullweb.org/tools/ehko.html</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/wol.php</loc>
+    <loc>https://nullweb.org/tools/wol/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/beta/tools/</loc>

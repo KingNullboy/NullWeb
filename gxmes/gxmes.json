@@ -1733,11 +1733,6 @@
 					"onclick": "bookmarklets.html"
 				},
 				{
-					"text": "G*me Files",
-					"name": "G*me Files",
-					"onclick": "GxmeFiles()"
-				},
-				{
 					"text": "Tower G*me",
 					"name": "Tower G*me",
 					"which": "tower/",
