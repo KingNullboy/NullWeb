@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+repo_root=$(git rev-parse --show-toplevel)
+(cd "$repo_root" && npm exec --yes --package=sitemap-generator-cli@7.5.0 -- sitemap-generator https://nullweb.org -f sitemap.xml)
+git -C "$repo_root" add -- sitemap.xml
