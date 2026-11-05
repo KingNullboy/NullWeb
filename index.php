@@ -14,19 +14,19 @@ $title = "NullWeb"
 
 			<nav class="nav-grid">
 				<a class="navbtn" href="socialmedia/">
-					<img src="socialmedia/logo.png" width="40" alt=""><br>NullMedia
+					<img src="socialmedia/logo.svg" width="40" alt=""><br>NullMedia
 				</a>
 				<a class="navbtn" href="wiki/">
-					<img src="wiki/logo.png" width="40" alt=""><br>NullWiki
+					<img src="wiki/logo.svg" width="40" alt=""><br>NullWiki
 				</a>
 				<a class="navbtn" href="links/">
-					<img src="links/logo.png" width="40" alt=""><br>NullLinks
+					<img src="links/logo.svg" width="40" alt=""><br>NullLinks
 				</a>
 				<a class="navbtn" href="gxmes/">
-					<img src="gxmes/logo.png" width="40" alt=""><br>NullG*mes
+					<img src="gxmes/logo.svg" width="40" alt=""><br>NullG*mes
 				</a>
 				<a class="navbtn" href="tools/">
-					<img src="tools/logo.png" width="30" alt=""><br>NullTools
+					<img src="tools/logo.svg" width="30" alt=""><br>NullTools
 				</a>
 			</nav>
 

@@ -13,7 +13,7 @@ function generateUUID() {
 $domain = $_SERVER['HTTP_HOST'];
 $url = "https://$domain/iosappfix.html";
 
-$iconPath = $_SERVER['DOCUMENT_ROOT'] . '/logo-fullres.png';
+$iconPath = $_SERVER['DOCUMENT_ROOT'] . '/logo.svg';
 
 $iconBase64 = '';
 if (file_exists($iconPath) && is_readable($iconPath)) {

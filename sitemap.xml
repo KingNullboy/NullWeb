@@ -58,28 +58,25 @@
     <loc>https://nullweb.org/tools/calc/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/image.html</loc>
+    <loc>https://nullweb.org/tools/image/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/qr.html</loc>
+    <loc>https://nullweb.org/tools/rng/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/rng.html</loc>
+    <loc>https://nullweb.org/tools/2fa/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/2fa.html</loc>
+    <loc>https://nullweb.org/tools/b64endecode/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/b64endecode.html</loc>
+    <loc>https://nullweb.org/tools/portal/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/nspire/</loc>
+    <loc>https://nullweb.org/tools/redirect-param/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/portal.html</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/tools/clock.html</loc>
+    <loc>https://nullweb.org/tools/clock/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/tools/editor/</loc>
@@ -88,34 +85,31 @@
     <loc>https://nullweb.org/tools/piskel/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/webuild.html</loc>
+    <loc>https://nullweb.org/tools/webuild/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/crypt.html</loc>
+    <loc>https://nullweb.org/tools/crypt/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/crypto.html</loc>
+    <loc>https://nullweb.org/tools/crypto/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/hex.html</loc>
+    <loc>https://nullweb.org/tools/hex/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/regex.html</loc>
+    <loc>https://nullweb.org/tools/regex/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/ascii.html</loc>
+    <loc>https://nullweb.org/tools/ascii/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/color.html</loc>
+    <loc>https://nullweb.org/tools/color/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/oblivium.html</loc>
+    <loc>https://nullweb.org/tools/ehko/</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/tools/ehko.html</loc>
-  </url>
-  <url>
-    <loc>https://nullweb.org/tools/wol.php</loc>
+    <loc>https://nullweb.org/tools/wol/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/socialmedia/index.php</loc>
@@ -140,5 +134,8 @@
   </url>
   <url>
     <loc>https://nullweb.org/wiki/num6/</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/qr/</loc>
   </url>
 </urlset>
