@@ -1778,7 +1778,13 @@
 					"text": "Bejeweled Twist",
 					"name": "Bejeweled Twist",
 					"onclick": "/api/cors?url=https://archive.org/download/bejeweled-twist_flash/BejeweledTwist.swf"
-				}
+				},
+                {
+                    "text": "Terminal Point and Click by [name redacted until their preferences are determined]",
+                    "name": "Terminal Point and Click",
+                    "onclick": "pointnclick.html",
+                    "which": "pointnclick.html"
+                }
 			]
 		}
 	]

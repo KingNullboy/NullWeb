@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<?php $title = "KingNullboy's 2025 Christmas List - NullWiki"; include $_SERVER['DOCUMENT_ROOT']."/includes/meta.php"; ?>
+		<?php $title = "KingNullboy's 2026 Christmas List - NullWiki"; include $_SERVER['DOCUMENT_ROOT']."/includes/meta.php"; ?>
 		<style>
 			.wish-grid button {
 				display: block;
