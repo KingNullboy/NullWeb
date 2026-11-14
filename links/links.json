@@ -126,5 +126,17 @@
 	{
 	  "name": "OverCloaked",
 	  "url": "https://noguardian.rkimport.com/"
-	}
+	},
+	{
+	  "name": "Happy Wheels Gama",
+	  "url": "https://happywheelsgama.com"
+	},
+    {
+      "name": "Veterans4Education",
+      "url": "https://veterans4education.org"
+    },
+    {
+      "name": "Gamalod",
+      "url": "https://gamalod.com"
+    } 
 ]
