@@ -31,10 +31,10 @@
     <loc>https://nullweb.org/donate.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/status.php</loc>
+    <loc>https://nullweb.org/info.php</loc>
   </url>
   <url>
-    <loc>https://nullweb.org/info.php</loc>
+    <loc>https://nullweb.org/status.php</loc>
   </url>
   <url>
     <loc>https://nullweb.org/includes/ios_installer.php</loc>
@@ -110,6 +110,9 @@
   </url>
   <url>
     <loc>https://nullweb.org/tools/wol/</loc>
+  </url>
+  <url>
+    <loc>https://nullweb.org/tools/cookie/</loc>
   </url>
   <url>
     <loc>https://nullweb.org/socialmedia/index.php</loc>

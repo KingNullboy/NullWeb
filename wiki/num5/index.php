@@ -58,6 +58,9 @@
                     <button onclick="rd('https://store.steampowered.com/app/374320/DARK_SOULS_III/')>
                         Dark Souls 3
                     </button>
+                    <button onclick="rd('https://www.fangamer.com/collections/cookie-clicker/products/cookie-clicker-clicker-cookie-keychain')>
+                        Cookie Clicker Clicker Cookie
+                    </button>
 				</div>
 			</div>
 		</main>
