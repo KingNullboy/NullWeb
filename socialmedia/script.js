@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         } else {
             authBtn.innerText = "Login";
-            authBtn.onclick = () => window.location.href = 'login.html';
+            authBtn.onclick = () => window.location.href = 'login.php';
         }
         header.appendChild(authBtn);
     }

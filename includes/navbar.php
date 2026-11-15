@@ -1,7 +1,7 @@
 <header>
     <div class="header-left">
         <a href="/">
-            <img class="logo" src="<?= $navbarLogoRelPath ?? "" ?>logo.png" alt="logo" width="40px">
+            <img class="logo" src="<?= $navbarLogoRelPath ?? "" ?>logo.svg" alt="logo" width="40px">
         </a>
     </div>
         
