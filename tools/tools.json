@@ -21,5 +21,6 @@
     { "name": "Ehko Media Player", "path": "ehko/" },
     { "name": "NullCloud", "path": "https://cloud.nullweb.org" },
     { "name": "NullWoL", "path": "wol/" },
-	{ "name": "Jellyfin", "path": "https://jellyfin.nullweb.org/Moonfin/Web/" }
+	{ "name": "Jellyfin", "path": "https://jellyfin.nullweb.org/Moonfin/Web/" },
+	{ "name": "Cookie Cloud", "path": "cookie/" }
 ]
