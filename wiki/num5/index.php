@@ -52,10 +52,10 @@
 					<button onclick="rd('https://store.steampowered.com/app/504230/Celeste/')">
 						Celeste
 					</button>
-					<button onclick="rd('https://store.steampowered.com/app/1245620/ELDEN_RING/')>
+					<button onclick="rd('https://store.steampowered.com/app/1245620/ELDEN_RING/')">
 						Elden Ring
 					</button>
-                    <button onclick="rd('https://store.steampowered.com/app/374320/DARK_SOULS_III/')>
+                    <button onclick="rd('https://store.steampowered.com/app/374320/DARK_SOULS_III/')">
                         Dark Souls 3
                     </button>
                     <button onclick="rd('https://www.fangamer.com/collections/cookie-clicker/products/cookie-clicker-clicker-cookie-keychain')">
