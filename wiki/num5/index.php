@@ -8,6 +8,11 @@
 				margin: 6px 0;
 			}
 		</style>
+		<script>
+			function rd(link) {
+				window.location.href = link;
+			}
+		</script>
 	</head>
 
 	<body>
