@@ -16,7 +16,7 @@
 		<main class="main-wrapper">
 			<div class="wiki-container">
 
-				<h1>KingNullboy's 2025 Christmas List</h1>
+				<h1>KingNullboy's 2026 Christmas List</h1>
 
 				<p>
 					A highly optimized collection of desired items, mostly games and hardware,
@@ -58,13 +58,13 @@
                     <button onclick="rd('https://store.steampowered.com/app/374320/DARK_SOULS_III/')>
                         Dark Souls 3
                     </button>
-                    <button onclick="rd('https://www.fangamer.com/collections/cookie-clicker/products/cookie-clicker-clicker-cookie-keychain')>
+                    <button onclick="rd('https://www.fangamer.com/collections/cookie-clicker/products/cookie-clicker-clicker-cookie-keychain')">
                         Cookie Clicker Clicker Cookie
                     </button>
 				</div>
 			</div>
 		</main>
 
-		<?php include "includes/footer.php"; ?>
+		<?php include "../../includes/footer.php"; ?>
 	</body>
 </html>
